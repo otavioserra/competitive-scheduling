@@ -1,2 +1,2 @@
 <h3>Competitive Scheduling</h3>
-<div class="teste">Teste de conteúdo. Novo.</div>
+<div class="teste">Teste de conteúdo. Novo. 2</div>
