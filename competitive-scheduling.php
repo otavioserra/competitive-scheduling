@@ -111,6 +111,8 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
             wp_enqueue_style( 'competitive-scheduling-admin', COMP_SCHEDULE_URL . 'assets/css/admin.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/admin.css' ) : COMP_SCHEDULE_VERSION ) );
 
+            
+            wp_enqueue_script( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), COMP_SCHEDULE_VERSION );
             wp_enqueue_script( 'competitive-scheduling-admin', COMP_SCHEDULE_URL . 'assets/js/admin.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/admin.js' ) : COMP_SCHEDULE_VERSION ) );
 
             require( COMP_SCHEDULE_PATH . 'views/competitive-scheduling-page.php' );
