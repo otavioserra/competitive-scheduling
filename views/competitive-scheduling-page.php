@@ -4,7 +4,7 @@
         var gestor = {};
 
         gestor.calendario = {
-            datas_disponiveis: [05-10-2023, 06-10-2023, 07-10-2023],
+            datas_disponiveis: [2023-10-05, 2023-10-09, 2023-10-17],
             ano_inicio: 2023,
             ano_fim: 2024
         };
