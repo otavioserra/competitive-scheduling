@@ -1,3 +1,18 @@
+<?php
+
+    $data = "
+        var gestor = {};
+
+        gestor.calendario = {
+            datas_disponiveis: [05-10-2023, 06-10-2023, 07-10-2023],
+            ano_inicio: 2023,
+            ano_fim: 2024
+        };
+    ";
+
+    wp_add_inline_script( 'gestor-global-var', $data, $position = 'after' );
+?>
+
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php echo esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ); ?></h1>
     <div id="_gestor-interface-simples"><div class="ui attached icon message">
