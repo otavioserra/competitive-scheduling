@@ -33,11 +33,23 @@
             </div>
             <div class="field">
                 <label>Estado dos Agendamentos</label>
-                <div class="ui vertical buttons schedule-states">
-                    <div class="ui button brown" data-value="pre">Pré-Agendamentos</div>
-                    <div class="ui button grey" data-value="aguardando">Aguardando Confirmação</div>
-                    <div class="ui button teal" data-value="confirmados">Confirmados</div>
-                    <div class="ui button blue" data-value="finalizados">Finalizados</div>
+                <div class="ui vertical labeled icon buttons schedule-states">
+                    <div class="ui button brown" data-value="pre">
+                        <i class="square outline icon"></i>
+                        Pré-Agendamentos
+                    </div>
+                    <div class="ui button grey" data-value="aguardando">
+                        <i class="square outline icon"></i>
+                        Aguardando Confirmação
+                    </div>
+                    <div class="ui button teal" data-value="confirmados">
+                        <i class="square outline icon"></i>
+                        Confirmados
+                    </div>
+                    <div class="ui button blue" data-value="finalizados">
+                        <i class="square outline icon"></i>
+                        Finalizados
+                    </div>
                 </div>
             </div>
         </div>
