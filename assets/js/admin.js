@@ -224,7 +224,7 @@ jQuery(document).ready(function(){
                 jQuery(this).find('i').remove();
             });
 
-            jQuery(this).addClass('active').append('<i class="dropdown icon"></i>');
+            jQuery(this).addClass('active').prepend('<i class="dropdown icon"></i>');
         });
         
         jQuery('.ui.dropdown').dropdown({
