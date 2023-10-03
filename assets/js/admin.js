@@ -218,13 +218,20 @@ jQuery(document).ready(function(){
 
         jQuery('.schedule-states .button').on('mouseup tap',function(e){
             if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+
+            var obj = this;
             
             jQuery(this).parent().find('.button').each(function(){
                 jQuery(this).removeClass('active');
                 jQuery(this).find('i').removeClass('check');
+                jQuery(this).find('i').removeClass('square outline icon');
+                
+                if(this !== obj){
+                    jQuery(this).find('i').addClass('square outline icon');
+                }
             });
 
-            jQuery(this).addClass('check');
+            jQuery(this).find('i').addClass('check square outline icon');
             jQuery(this).addClass('active');
         });
         
