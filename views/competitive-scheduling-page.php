@@ -33,13 +33,12 @@
             </div>
             <div class="field">
                 <label>Estado dos Agendamentos</label>
-                <div class="ui dropdown selection" tabindex="0"><select name="estado" class="noselection">
-                    <option value="">Selecione um estado...</option>
-                    <option value="pre">Pré-Agendamentos</option>
-                    <option value="aguardando">Aguardando Confirmação</option>
-                    <option value="confirmados">Confirmados</option>
-                    <option value="finalizados">Finalizados</option>
-                </select><i class="dropdown icon"></i><div class="default text">Selecione um estado...</div><div class="menu transition hidden" tabindex="-1"><div class="item" data-value="pre" data-text="Pré-Agendamentos" style="">Pré-Agendamentos</div><div class="item" data-value="aguardando" data-text="Aguardando Confirmação">Aguardando Confirmação</div><div class="item" data-value="confirmados" data-text="Confirmados">Confirmados</div><div class="item" data-value="finalizados" data-text="Finalizados">Finalizados</div></div></div>
+                <div class="ui vertical buttons">
+                    <button class="ui button" data-value="pre">Pré-Agendamentos</button>
+                    <button class="ui button" data-value="aguardando">Aguardando Confirmação</button>
+                    <button class="ui button" data-value="confirmados">Confirmados</button>
+                    <button class="ui button" data-value="finalizados">Finalizados</button>
+                </div>
             </div>
         </div>
         <div class="escondido resultados">
