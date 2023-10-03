@@ -40,6 +40,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
             require_once( COMP_SCHEDULE_PATH . 'post-types/class.competitive-scheduling-priority-coupon-cpt.php' );
             $Competitive_Scheduling_Priority_Coupon_Post_Type = new Competitive_Scheduling_Priority_Coupon_Post_Type();
+
+            require_once( COMP_SCHEDULE_PATH . 'shortcodes/class.competitive-scheduling-shortcode.php' );
+            $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
         }
 
         public function define_constants(){
