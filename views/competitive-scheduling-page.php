@@ -13,7 +13,7 @@
     wp_add_inline_script( 'competitive-scheduling-admin', $data, $position = 'after' );
 ?>
 
-<div class="wrap">
+<div class="wrap limit-max-width">
     <h1 class="wp-heading-inline"><?php echo esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ); ?></h1>
     <div id="_gestor-interface-simples"><div class="ui attached icon message">
         <i class="calendar alternate icon"></i>
