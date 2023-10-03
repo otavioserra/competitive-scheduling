@@ -215,6 +215,16 @@ jQuery(document).ready(function(){
         jQuery('.ui.calendar').calendar(calendarDatasOpt);
         
         // ===== Acompanhantes dropdown.
+
+        jQuery('.schedule-states button').on('mouseup tap',function(e){
+            if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+            
+            jQuery(this).parent().find('button').each(function(){
+                jQuery(this).removeClass('active');
+            });
+
+            jQuery(this).addClass('active');
+        });
         
         jQuery('.ui.dropdown').dropdown({
             onChange: function(value){
