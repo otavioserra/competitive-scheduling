@@ -10,7 +10,7 @@
         };
     ";
 
-    wp_add_inline_script( 'gestor-global-var', $data, $position = 'after' );
+    wp_add_inline_script( 'competitive-scheduling-admin', $data, $position = 'after' );
 ?>
 
 <div class="wrap">
