@@ -221,9 +221,10 @@ jQuery(document).ready(function(){
             
             jQuery(this).parent().find('.button').each(function(){
                 jQuery(this).removeClass('active');
+                jQuery(this).find('i').remove();
             });
 
-            jQuery(this).addClass('active');
+            jQuery(this).addClass('active').append('<i class="dropdown icon"></i>');
         });
         
         jQuery('.ui.dropdown').dropdown({
