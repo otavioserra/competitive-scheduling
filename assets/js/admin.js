@@ -216,10 +216,10 @@ jQuery(document).ready(function(){
         
         // ===== Acompanhantes dropdown.
 
-        jQuery('.schedule-states button').on('mouseup tap',function(e){
+        jQuery('.schedule-states .button').on('mouseup tap',function(e){
             if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
             
-            jQuery(this).parent().find('button').each(function(){
+            jQuery(this).parent().find('.button').each(function(){
                 jQuery(this).removeClass('active');
             });
 
