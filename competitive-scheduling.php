@@ -43,6 +43,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
             require_once( COMP_SCHEDULE_PATH . 'shortcodes/class.competitive-scheduling-shortcode.php' );
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
+
+            require_once( COMP_SCHEDULE_PATH . 'settings/class.competitive-scheduling-settings.php' );
+            $Competitive_Scheduling_Settings = new Competitive_Scheduling_Settings();
         }
 
         public function define_constants(){
@@ -95,7 +98,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 null
             );
 
-            /*add_submenu_page(
+            add_submenu_page(
                 'competitive_scheduling_admin',
                 esc_html__( 'Competitive Scheduling Options', 'competitive-scheduling' ),
                 esc_html__( 'Competitive Scheduling Options', 'competitive-scheduling' ),
@@ -103,7 +106,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 array( $this, 'competitive_scheduling_settings_page' ),
                 null,
                 null
-            );*/
+            );
 
         }
 

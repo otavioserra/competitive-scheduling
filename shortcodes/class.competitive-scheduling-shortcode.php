@@ -23,6 +23,12 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                 $id = array_map( 'absint', explode( ',', $id ) );
             }
 
+            wp_enqueue_style( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), COMP_SCHEDULE_VERSION );
+            wp_enqueue_script( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), COMP_SCHEDULE_VERSION );
+            
+            wp_enqueue_style( 'competitive-scheduling', COMP_SCHEDULE_URL . 'assets/css/shortecode.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/shortecode.css' ) : COMP_SCHEDULE_VERSION ) );
+            wp_enqueue_script( 'competitive-scheduling', COMP_SCHEDULE_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/shortecode.js' ) : COMP_SCHEDULE_VERSION ) );
+
             ob_start();
             require( COMP_SCHEDULE_PATH . 'views/competitive-scheduling_shortecode.php' );
             return ob_get_clean();
