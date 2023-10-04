@@ -83,7 +83,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 esc_html__( 'Priority Coupons', 'competitive-scheduling' ),
                 esc_html__( 'Priority Coupons', 'competitive-scheduling' ),
                 'manage_options',
-                'competitive_scheduling_priority-coupon',
                 'edit.php?post_type=priority-coupon',
                 null,
                 null
@@ -94,7 +93,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 esc_html__( 'Add Priority Coupon', 'competitive-scheduling' ),
                 esc_html__( 'Add Priority Coupon', 'competitive-scheduling' ),
                 'manage_options',
-                'competitive_scheduling_add-priority-coupon',
                 'post-new.php?post_type=priority-coupon',
                 null,
                 null
