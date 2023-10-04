@@ -71,7 +71,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         public function add_menu(){
             add_menu_page(
                 esc_html__( 'Competitive Scheduling Management', 'competitive-scheduling' ),
-                esc_html__( 'Management', 'competitive-scheduling' ),
+                esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ),
                 'manage_options',
                 'competitive_scheduling_admin',
                 array( $this, 'competitive_scheduling_page' ),
