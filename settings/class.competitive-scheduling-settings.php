@@ -24,7 +24,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             add_settings_field(
                 'activation',
-                esc_html__( 'Shortcode', 'competitive-scheduling' ),
+                esc_html__( 'Activation', 'competitive-scheduling' ),
                 array( $this, 'activation_callback' ),
                 'competitive_scheduling_page1',
                 'competitive_scheduling_main_section'
@@ -57,8 +57,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         }    
                     ?>
                 />
-                <label for="activation">Whether to display bullets or not</label>
-            
+                <label for="activation"><?php echo esc_html__( 'Activate/Deactivate the scheduling system.', 'competitive-scheduling' ); ?></label>
             <?php
         }
 
