@@ -6,7 +6,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public static $options;
         
         public function __construct(){
-            self::get_option('competitive_scheduling_options');
+            self::$options = get_option('competitive_scheduling_options');
 
             add_action( 'admin_init', array( $this, 'admin_init' ) );
         }
