@@ -25,6 +25,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public function admin_init(){
+            self::register_settings();
+
             add_settings_section(
                 'competitive_scheduling_main_section',
                 esc_html__( 'How does it work?', 'competitive-scheduling' ),
