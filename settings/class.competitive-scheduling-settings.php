@@ -15,6 +15,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options', array(
                 'default' => array(
                     'activation' => "1",
+                    'subject' => esc_html__( 'Scheduling made - number #code#', 'competitive-scheduling' ),
                 ),
             ) );
         }
@@ -46,6 +47,17 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_page1',
                 'competitive_scheduling_main_section'
             );
+
+            add_settings_field(
+                'subject',
+                esc_html__( 'Subject', 'competitive-scheduling' ),
+                array( $this, 'subject_callback' ),
+                'competitive_scheduling_page1',
+                'competitive_scheduling_main_section',
+                array(
+                    'label_for' => 'subject'
+                )
+            );
         }
 
         function main_section_callback() {
@@ -73,6 +85,18 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function shortcode_callback(){
             ?>
             <span><?php echo esc_html__( 'Use the shortcode [competitive_scheduling] to display the controler in any page/post/widget. IMPORTANT: is necessary to be logged-in to see it.', 'competitive-scheduling' ); ?></span>
+            <?php
+        }
+
+        public function subject_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_options[subject]" 
+                id="subject"
+                value="<?php echo isset( self::$options['subject'] ) ? esc_attr( self::$options['subject'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p>
             <?php
         }
     }
