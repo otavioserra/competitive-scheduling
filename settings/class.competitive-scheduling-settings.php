@@ -103,6 +103,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 type="text" 
                 name="competitive_scheduling_options[subject]" 
                 id="subject"
+                class="input-titles" 
                 value="<?php echo isset( self::$options['subject'] ) ? esc_attr( self::$options['subject'] ) : ''; ?>"
                 >
                 <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
