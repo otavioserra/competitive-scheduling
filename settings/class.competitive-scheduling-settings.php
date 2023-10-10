@@ -12,11 +12,17 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public static function register_settings(){
-            register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options', array(
-                'default' => array(
-                    'activation' => "1",
-                ),
-            ) );
+            register_setting( 
+                'competitive_scheduling_group', 
+                'competitive_scheduling_options', 
+                array(
+                    'type'          => 'object',
+                    'default'       => array(
+                        'activation' => "1",
+                        'subject' => "2",
+                    ),
+                )
+            );
         }
 
         public static function unregister_settings(){
