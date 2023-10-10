@@ -11,10 +11,19 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             add_action( 'admin_init', array( $this, 'admin_init' ) );
         }
 
-        public function admin_init(){
-            
-            register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options' );
+        public function register_settings(){
+            register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options', array(
+                'default' => array(
+                    'activation' => "1",
+                ),
+            ) );
+        }
 
+        public function unregister_settings(){
+            delete_option('competitive_scheduling_options');
+        }
+
+        public function admin_init(){
             add_settings_section(
                 'competitive_scheduling_main_section',
                 esc_html__( 'How does it work?', 'competitive-scheduling' ),
