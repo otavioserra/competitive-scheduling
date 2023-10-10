@@ -50,6 +50,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         }
 
         public function define_constants(){
+            define( 'COMP_SCHEDULE_ID', 'Competitive_Scheduling' );
             define( 'COMP_SCHEDULE_PATH', plugin_dir_path( __FILE__ ) );
             define( 'COMP_SCHEDULE_URL', plugin_dir_url( __FILE__ ) );
             define( 'COMP_SCHEDULE_VERSION', '1.0.0' );
@@ -59,11 +60,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         public static function activate(){
             update_option( 'rewrite_rules', '' );
 
-            add_action('admin_notices', function() {
-                echo '<div class="notice notice-error">
-                  <p>pluging: activate</p>
-                </div>';
-              });
+            error_log( COMP_SCHEDULE_ID . ': ' . 'activate' );
 
             Competitive_Scheduling_Settings::register_settings();
         }
@@ -71,9 +68,13 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         public static function deactivate(){
             flush_rewrite_rules();
             unregister_post_type( 'competitive-scheduling' );
+
+            error_log( COMP_SCHEDULE_ID . ': ' . 'deactivate' );
         }
 
         public static function uninstall(){
+            error_log( COMP_SCHEDULE_ID . ': ' . 'uninstall' );
+
             Competitive_Scheduling_Settings::unregister_settings();
         }
 
