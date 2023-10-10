@@ -34,8 +34,6 @@ if( ! defined( 'ABSPATH') ){
 if( ! class_exists( 'Competitive_Scheduling' ) ){
     class Competitive_Scheduling{
 
-        public $objects = array();
-
         function __construct(){
             $this->define_constants();
 
@@ -48,7 +46,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
 
             require_once( COMP_SCHEDULE_PATH . 'settings/class.competitive-scheduling-settings.php' );
-            $this->$objects['Settings'] = new Competitive_Scheduling_Settings();
+            $Competitive_Scheduling_Settings = new Competitive_Scheduling_Settings();
         }
 
         public function define_constants(){
@@ -58,19 +56,19 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'COMP_SCHEDULE_DEBUG', true );
         }
 
-        public function activate(){
+        public static function activate(){
             update_option( 'rewrite_rules', '' );
 
-            $this->$objects['Settings']->register_settings();
+            Competitive_Scheduling_Settings::register_settings();
         }
 
-        public function deactivate(){
+        public static function deactivate(){
             flush_rewrite_rules();
             unregister_post_type( 'competitive-scheduling' );
         }
 
-        public function uninstall(){
-            $this->$objects['Settings']->unregister_settings();
+        public static function uninstall(){
+            Competitive_Scheduling_Settings::unregister_settings();
         }
 
         public function add_menu(){
@@ -147,9 +145,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 }
 
 if( class_exists( 'Competitive_Scheduling' ) ){
-    $Competitive_Scheduling = new Competitive_Scheduling();
+    register_activation_hook( __FILE__, array( 'Competitive_Scheduling', 'activate' ) );
+    register_deactivation_hook( __FILE__, array( 'Competitive_Scheduling', 'deactivate' ) );
+    register_uninstall_hook( __FILE__, array( 'Competitive_Scheduling', 'uninstall' ) );
 
-    register_activation_hook( __FILE__, array( $Competitive_Scheduling, 'activate' ) );
-    register_deactivation_hook( __FILE__, array( $Competitive_Scheduling, 'deactivate' ) );
-    register_uninstall_hook( __FILE__, array( $Competitive_Scheduling, 'uninstall' ) );
+    $Competitive_Scheduling = new Competitive_Scheduling();
 } 

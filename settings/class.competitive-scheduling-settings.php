@@ -11,7 +11,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             add_action( 'admin_init', array( $this, 'admin_init' ) );
         }
 
-        public function register_settings(){
+        public static function register_settings(){
             register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options', array(
                 'default' => array(
                     'activation' => "1",
@@ -19,7 +19,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ) );
         }
 
-        public function unregister_settings(){
+        public static function unregister_settings(){
             delete_option('competitive_scheduling_options');
         }
 
