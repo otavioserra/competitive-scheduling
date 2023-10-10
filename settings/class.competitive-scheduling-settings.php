@@ -45,7 +45,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             add_settings_section(
                 'competitive_scheduling_email_section',
-                esc_html__( 'Main', 'competitive-scheduling' ),
+                esc_html__( 'Email', 'competitive-scheduling' ),
                 array( $this, 'section_callback_email' ),
                 'competitive_scheduling_email'
             );
