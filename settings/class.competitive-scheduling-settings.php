@@ -12,19 +12,18 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public static function register_settings(){
-            $retorno = register_setting( 
+            register_setting( 
                 'competitive_scheduling_group', 
-                'competitive_scheduling_options', 
-                array(
-                    'type'          => 'object',
-                    'default'       => array(
-                        'activation' => "1",
-                        'subject' => "2",
-                    ),
-                )
+                'competitive_scheduling_options'
             );
 
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ' - Competitive_Scheduling_Settings: ' . 'register_settings' .  $retorno);
+            add_option(
+                'competitive_scheduling_options',
+                array(
+                    'activation' => "1",
+                    'subject' => "2",
+                )
+            );
         }
 
         public static function unregister_settings(){
