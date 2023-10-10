@@ -96,7 +96,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 id="subject"
                 value="<?php echo isset( self::$options['subject'] ) ? esc_attr( self::$options['subject'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p>
+                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
     }
