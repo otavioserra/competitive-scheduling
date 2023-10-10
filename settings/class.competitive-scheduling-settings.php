@@ -12,11 +12,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public static function register_settings(){
-            register_setting( 
-                'competitive_scheduling_group', 
-                'competitive_scheduling_options'
-            ); 
-
             add_option(
                 'competitive_scheduling_options',
                 array(
@@ -31,6 +26,11 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public function admin_init(){
+            register_setting( 
+                'competitive_scheduling_group', 
+                'competitive_scheduling_options'
+            );
+
             add_settings_section(
                 'competitive_scheduling_main_section',
                 esc_html__( 'How does it work?', 'competitive-scheduling' ),
