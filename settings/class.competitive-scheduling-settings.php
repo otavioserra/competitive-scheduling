@@ -21,7 +21,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_options',
                 array(
                     'activation' => "1",
-                    'subject' => "2",
+                    'subject' => _e( 'Scheduling made - number #code#', 'competitive-scheduling' ),
                 )
             );
         }
