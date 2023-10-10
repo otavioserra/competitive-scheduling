@@ -15,7 +15,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             register_setting( 
                 'competitive_scheduling_group', 
                 'competitive_scheduling_options'
-            );
+            ); 
 
             add_option(
                 'competitive_scheduling_options',
