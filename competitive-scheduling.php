@@ -60,21 +60,15 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         public static function activate(){
             update_option( 'rewrite_rules', '' );
 
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ': ' . 'activate' );
-
             Competitive_Scheduling_Settings::register_settings();
         }
 
         public static function deactivate(){
             flush_rewrite_rules();
             unregister_post_type( 'competitive-scheduling' );
-
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ': ' . 'deactivate' );
         }
 
         public static function uninstall(){
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ': ' . 'uninstall' );
-
             Competitive_Scheduling_Settings::unregister_settings();
         }
 

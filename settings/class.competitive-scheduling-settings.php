@@ -12,24 +12,15 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public static function register_settings(){
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ' - Competitive_Scheduling_Settings: ' . 'register_settings antes' );
-            
             register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options', array(
                 'default' => array(
                     'activation' => "1",
-                    'subject' => "2",
                 ),
             ) );
-                
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ' - Competitive_Scheduling_Settings: ' . 'register_settings depois' );
         }
 
         public static function unregister_settings(){
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ' - Competitive_Scheduling_Settings: ' . 'unregister_settings antes' );
-
             delete_option('competitive_scheduling_options');
-
-            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ' - Competitive_Scheduling_Settings: ' . 'unregister_settings depois' );
         }
 
         public function admin_init(){
