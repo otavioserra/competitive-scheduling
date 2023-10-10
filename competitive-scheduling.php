@@ -58,7 +58,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
         public static function activate(){
             update_option( 'rewrite_rules', '' );
-
+            
             Competitive_Scheduling_Settings::register_settings();
         }
 
