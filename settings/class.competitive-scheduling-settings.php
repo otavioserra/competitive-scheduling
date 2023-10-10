@@ -18,6 +18,12 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     'subject' => "2",
                 ),
             ) );
+
+            add_action('admin_notices', function() {
+                echo '<div class="notice notice-error">
+                  <p>Registro de settings</p>
+                </div>';
+              });
         }
 
         public static function unregister_settings(){
@@ -25,8 +31,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public function admin_init(){
-            self::register_settings();
-
             add_settings_section(
                 'competitive_scheduling_main_section',
                 esc_html__( 'How does it work?', 'competitive-scheduling' ),
