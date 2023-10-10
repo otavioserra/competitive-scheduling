@@ -12,6 +12,12 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public static function register_settings(){
+            add_action('admin_notices', function() {
+                echo '<div class="notice notice-error">
+                  <p>Antes Registro de settings</p>
+                </div>';
+              });
+
             register_setting( 'competitive_scheduling_group', 'competitive_scheduling_options', array(
                 'default' => array(
                     'activation' => "1",
