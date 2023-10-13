@@ -9,7 +9,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             self::$options = get_option('competitive_scheduling_options');
 
             add_action( 'admin_init', array( $this, 'admin_init' ) );
-        }
+        } 
 
         public static function register_settings(){
             add_option(
