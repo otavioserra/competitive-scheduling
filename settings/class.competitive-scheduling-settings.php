@@ -197,15 +197,16 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public function field_schedule_message_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$html_options['schedule-message'] ) ? esc_html( self::$html_options['schedule-message'] ) : '', 'schedule-message', [
+                'textarea_name' => 'competitive_scheduling_html_options[schedule-message]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+            ]);
+
             ?>
-                <input 
-                type="text" 
-                name="competitive_scheduling_html_options[schedule-message]" 
-                id="subject"
-                class="input-titles" 
-                value="<?php echo isset( self::$html_options['schedule-message'] ) ? esc_attr( self::$html_options['schedule-message'] ) : ''; ?>"
-                >
-                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Message of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
     }
