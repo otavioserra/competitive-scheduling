@@ -198,7 +198,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
         public function field_schedule_message_callback(){
             // Renders custom TinyMCE editor
-            wp_editor(isset( self::$html_options['schedule-message'] ) ? esc_html( self::$html_options['schedule-message'] ) : '', 'schedule-message', [
+            wp_editor(isset( self::$html_options['schedule-message'] ) ? self::$html_options['schedule-message'] : '', 'schedule-message', [
                 'textarea_name' => 'competitive_scheduling_html_options[schedule-message]',
                 'mode' => 'text/html',
                 'theme' => 'monokai',
