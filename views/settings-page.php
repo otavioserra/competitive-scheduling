@@ -9,16 +9,18 @@
     </h2>
     <form action="options.php" method="post">
     <?php 
-        settings_fields( 'competitive_scheduling_group' );
 
-        switch($active_tab) {
+switch($active_tab) {
             case 'main':
+                settings_fields( 'competitive_scheduling_group_options' );
                 do_settings_sections( 'competitive_scheduling_main' );
             break;
             case 'email':
+                settings_fields( 'competitive_scheduling_group_html_options' );
                 do_settings_sections( 'competitive_scheduling_email' );
             break;
             default:
+                settings_fields( 'competitive_scheduling_group_options' );
                 do_settings_sections( 'competitive_scheduling_main' );
         }
 

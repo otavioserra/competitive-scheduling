@@ -84,12 +84,12 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             wp_enqueue_script( 'cs-settings', COMP_SCHEDULE_URL . 'assets/js/settings.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/settings.js' ) : COMP_SCHEDULE_VERSION ) );
 
             register_setting( 
-                'competitive_scheduling_group', 
+                'competitive_scheduling_group_options', 
                 'competitive_scheduling_options'
             );
 
             register_setting( 
-                'competitive_scheduling_group', 
+                'competitive_scheduling_group_html_options', 
                 'competitive_scheduling_html_options'
             );
 
