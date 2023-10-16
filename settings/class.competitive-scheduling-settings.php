@@ -24,8 +24,10 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             add_option(
                 'competitive_scheduling_html_options',
                 array(
-                    'schedule-subject' => esc_html__( 'Scheduling made - number #code#', 'competitive-scheduling' ),
+                    'schedule-subject' => esc_html__( 'Scheduling made - nº #code#', 'competitive-scheduling' ),
                     'schedule-message' => self::template_html( 'schedule-message' ),
+                    'unschedule-subject' => esc_html__( 'Appointment Cancellation - nº #code#', 'competitive-scheduling' ),
+                    'unschedule-message' => self::template_html( 'unschedule-message' ),
                 )
             );
         }
@@ -52,7 +54,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 case 'schedule-message':
                     $change_variables = array(
                         'title' => esc_html__( 'Your appointment was successful!', 'competitive-scheduling' ),
-                        'protocol' => esc_html__( 'Protocol n&ordm; #code#', 'competitive-scheduling' ),
+                        'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
                         'description' => esc_html__( 'You have just made an appointment within the #title# booking system:', 'competitive-scheduling' ),
                         'day' => esc_html__( 'Day', 'competitive-scheduling' ),
                         'password' => esc_html__( 'Password', 'competitive-scheduling' ),
@@ -60,6 +62,15 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'your-name' => esc_html__( 'Your name', 'competitive-scheduling' ),
                         'escort' => esc_html__( 'Escort', 'competitive-scheduling' ),
                         'cancel-appointment' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'unschedule-message':
+                    $change_variables = array(
+                        'title' => esc_html__( 'Your appointment has been successfully cancelled!', 'competitive-scheduling' ),
+                        'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
+                        'description' => esc_html__( 'You just deleted a schedule within the #title# scheduling system:', 'competitive-scheduling' ),
+                        'day' => esc_html__( 'Day', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -73,10 +84,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             }
 
             return $template;
-        }
-
-        private static function template_html_variables( $id_template, $variables ) {
-            return preg_replace('/'.preg_quote($var).'/i',$valor,$modelo);
         }
 
         public function admin_init(){
@@ -106,7 +113,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_email_section',
                 esc_html__( 'Email', 'competitive-scheduling' ),
                 array( $this, 'section_callback_email' ),
-                'competitive_scheduling_email' 
+                'competitive_scheduling_email'
             );
 
             $this->section_fields_email();
@@ -146,7 +153,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_email',
                 'competitive_scheduling_email_section',
                 array(
-                    'label_for' => 'subject'
+                    'label_for' => 'schedule-subject'
                 )
             );
 
@@ -154,6 +161,25 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'schedule-message',
                 esc_html__( 'Schedule Message', 'competitive-scheduling' ),
                 array( $this, 'field_schedule_message_callback' ),
+                'competitive_scheduling_email',
+                'competitive_scheduling_email_section'
+            );
+
+            add_settings_field(
+                'unschedule-subject',
+                esc_html__( 'Unschedule Subject', 'competitive-scheduling' ),
+                array( $this, 'field_unschedule_subject_callback' ),
+                'competitive_scheduling_email',
+                'competitive_scheduling_email_section',
+                array(
+                    'label_for' => 'unschedule-subject'
+                )
+            );
+
+            add_settings_field(
+                'unschedule-message',
+                esc_html__( 'Unschedule Message', 'competitive-scheduling' ),
+                array( $this, 'field_unschedule_message_callback' ),
                 'competitive_scheduling_email',
                 'competitive_scheduling_email_section'
             );
@@ -209,6 +235,35 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             ?>
                 <p><?php echo esc_html__( 'Message of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_unschedule_subject_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_html_options[unschedule-subject]" 
+                id="subject"
+                class="input-titles" 
+                value="<?php echo isset( self::$html_options['unschedule-subject'] ) ? esc_attr( self::$html_options['unschedule-subject'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' unschedule made on your website.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_unschedule_message_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$html_options['unschedule-message'] ) ? self::$html_options['unschedule-message'] : '', 'unschedule-message', [
+                'textarea_name' => 'competitive_scheduling_html_options[unschedule-message]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Message of emails that will be sent to users\' unschedule made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
     }
