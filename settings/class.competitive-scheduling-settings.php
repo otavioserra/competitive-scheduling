@@ -106,7 +106,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_email_section',
                 esc_html__( 'Email', 'competitive-scheduling' ),
                 array( $this, 'section_callback_email' ),
-                'competitive_scheduling_email'
+                'competitive_scheduling_email' 
             );
 
             $this->section_fields_email();
