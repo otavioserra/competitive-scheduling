@@ -70,7 +70,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'title' => esc_html__( 'Your appointment has been successfully cancelled!', 'competitive-scheduling' ),
                         'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
                         'description' => esc_html__( 'You just deleted a schedule within the #title# scheduling system:', 'competitive-scheduling' ),
-                        'day' => esc_html__( 'Day', 'competitive-scheduling' ),
+                        'day' => esc_html__( 'Day', 'competitive-scheduling' ), 
                     );
                     
                 break;
