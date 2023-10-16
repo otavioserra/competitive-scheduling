@@ -59,7 +59,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'scheduled-people' => esc_html__( 'Scheduled People', 'competitive-scheduling' ),
                         'your-name' => esc_html__( 'Your name', 'competitive-scheduling' ),
                         'escort' => esc_html__( 'Escort', 'competitive-scheduling' ),
-                        'cancel-appointment' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'cancel-appointment' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ), 
                     );
                     
                 break;
@@ -79,7 +79,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             return preg_replace('/'.preg_quote($var).'/i',$valor,$modelo);
         }
 
-        private function admin_init(){
+        public function admin_init(){
             wp_enqueue_style( 'cs-settings', COMP_SCHEDULE_URL . 'assets/css/settings.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/settings.css' ) : COMP_SCHEDULE_VERSION ) );
             wp_enqueue_script( 'cs-settings', COMP_SCHEDULE_URL . 'assets/js/settings.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/settings.js' ) : COMP_SCHEDULE_VERSION ) );
 
