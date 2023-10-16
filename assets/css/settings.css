@@ -1,3 +1,6 @@
 .input-titles{
     width: 400px;
 }
+.wp-editor-wrap {
+    max-width: 1250px;
+}
