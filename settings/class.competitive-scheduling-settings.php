@@ -59,7 +59,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'scheduled-people' => esc_html__( 'Scheduled People', 'competitive-scheduling' ),
                         'your-name' => esc_html__( 'Your name', 'competitive-scheduling' ),
                         'escort' => esc_html__( 'Escort', 'competitive-scheduling' ),
-                        'cancel-appointment' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ), 
+                        'cancel-appointment' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
                     );
                     
                 break;
