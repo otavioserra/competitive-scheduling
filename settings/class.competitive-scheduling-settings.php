@@ -200,10 +200,11 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             // Renders custom TinyMCE editor
             wp_editor(isset( self::$html_options['schedule-message'] ) ? self::$html_options['schedule-message'] : '', 'schedule-message', [
                 'textarea_name' => 'competitive_scheduling_html_options[schedule-message]',
-                'width' => 1250,
                 'mode' => 'text/html',
                 'theme' => 'monokai',
                 'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
             ]);
 
             ?>
