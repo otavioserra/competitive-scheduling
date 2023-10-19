@@ -10,3 +10,6 @@
 .contDates{
     max-width: 500px;
 }
+.contDates .ui.calendar-dates{
+    margin-top: 10px;
+}
