@@ -123,6 +123,41 @@ jQuery(document).ready(function(){
     });
     jQuery('.ui.calendar.multiplo').calendar(calendarDatasMultiplasOpt);
 
+    jQuery(document.body).on('mouseup tap','.date-value',function(e){
+        if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+        
+        var parentCont = jQuery(this).parents('.calendar-dates');
+        var thisDate = this;
+        
+        if(e.ctrlKey || e.shiftKey){
+            if(e.shiftKey){
+                var makeActive = false;
+                parentCont.find('.date-value').each(function(){
+                    if(thisDate === this || jQuery(this).hasClass('last-active')){
+                        if(!makeActive){
+                            makeActive = true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        if(makeActive){
+                            jQuery(this).addClass('active');
+                        }
+                    }
+                });
+            }
+        } else {
+            parentCont.find('.date-value').each(function(){
+                jQuery(this).removeClass('active');
+            });
+        }
+        
+        parentCont.find('.date-value').removeClass('last-active');
+        
+        jQuery(thisDate).addClass('active');
+        jQuery(thisDate).addClass('last-active');
+    });
+
     jQuery(document.body).on('mouseup tap','.date-delete',function(e){
         if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
         
