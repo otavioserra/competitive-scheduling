@@ -29,3 +29,7 @@
     background-color: #671111;
     border-color: #671111;
 }
+.ui.ui.ui.red.label.active:hover {
+    background-color: #911717;
+    border-color: #911717;
+}
