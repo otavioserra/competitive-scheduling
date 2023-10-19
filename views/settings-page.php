@@ -23,7 +23,7 @@
             break;
             case 'message':
                 settings_fields( 'competitive_scheduling_group_msg_options' );
-                do_settings_sections( 'competitive_scheduling_msg_options' );
+                do_settings_sections( 'competitive_scheduling_messages' );
             break;
             case 'tools':
                 settings_fields( 'competitive_scheduling_group_options' );
