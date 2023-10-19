@@ -5,6 +5,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         
         public static $options;
         public static $html_options;
+        public static $msg_options;
         
         public function __construct(){
             self::$options = get_option('competitive_scheduling_options');
@@ -130,6 +131,11 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             register_setting( 
                 'competitive_scheduling_group_html_options', 
                 'competitive_scheduling_html_options'
+            );
+
+            register_setting( 
+                'competitive_scheduling_group_msg_options', 
+                'competitive_scheduling_msg_options'
             );
 
             add_settings_section(

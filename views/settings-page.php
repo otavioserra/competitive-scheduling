@@ -12,7 +12,7 @@
     <form action="options.php" method="post">
     <?php 
 
-switch($active_tab) {
+        switch($active_tab) {
             case 'main':
                 settings_fields( 'competitive_scheduling_group_options' );
                 do_settings_sections( 'competitive_scheduling_main' );
@@ -22,8 +22,8 @@ switch($active_tab) {
                 do_settings_sections( 'competitive_scheduling_email' );
             break;
             case 'message':
-                settings_fields( 'competitive_scheduling_group_html_options' );
-                do_settings_sections( 'competitive_scheduling_messages' );
+                settings_fields( 'competitive_scheduling_group_msg_options' );
+                do_settings_sections( 'competitive_scheduling_msg_options' );
             break;
             case 'tools':
                 settings_fields( 'competitive_scheduling_group_options' );
