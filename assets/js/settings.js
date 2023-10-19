@@ -13,7 +13,6 @@ jQuery(document).ready(function(){
     };
 
     var calendarDatasMultiplasOpt = {
-        text: calendarPtBR,
         type: 'date',
         closable: false,
         inline: true,
@@ -84,6 +83,10 @@ jQuery(document).ready(function(){
             calendarDatasMultiplasOpt.eventDates = eventDates[id];
             jQuery(this).calendar('destroy').html('').calendar(calendarDatasMultiplasOpt);
         }
+    }
+
+    if(jQuery('.ui.datas-multiplas').attr('data-locale') === "pt_BR") {
+        calendarDatasMultiplasOpt.text = calendarPtBR;
     }
 
     jQuery('.ui.datas-multiplas').each(function(){
