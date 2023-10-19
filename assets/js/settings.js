@@ -62,9 +62,8 @@ jQuery(document).ready(function(){
 
                 eventDates[id].push({
                     date,
-                    message: 'Data selecionada',
-                    class: 'green',
-                    variation: 'green',
+                    class: 'red',
+                    variation: 'red',
                     dateFormatedID
                 });
             } else {
@@ -108,9 +107,8 @@ jQuery(document).ready(function(){
 
                     dates.push({
                         date,
-                        message: 'Data selecionada',
-                        class: 'green',
-                        variation: 'green',
+                        class: 'red',
+                        variation: 'red',
                         dateFormatedID
                     });
                 });
