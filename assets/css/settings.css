@@ -7,3 +7,6 @@
 .calendar-dates{
 	margin-bottom: 0.14285714rem;
 }
+.contDates{
+    max-width: 500px;
+}

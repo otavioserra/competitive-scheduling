@@ -455,11 +455,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function field_unavailable_dates_values_callback(){
             ?>
 
+            <div class="contDates">
                 <div class="ui existing segment calendar-multiple campo datas-multiplas">
                     <div class="ui calendar multiplo"></div>
                     <div class="ui calendar-dates"></div>
                     <input type="hidden" name="competitive_scheduling_options[unavailable-dates-values]"  value="<?php echo isset( self::$html_options['pre-scheduling-subject'] ) ? esc_attr( self::$html_options['pre-scheduling-subject'] ) : ''; ?>" class="calendar-dates-input">
                 </div>
+            </div>
 
                 <p><?php echo esc_html__( 'Specific dates unavailable to choose when scheduling.', 'competitive-scheduling' ); ?></p>
             <?php
