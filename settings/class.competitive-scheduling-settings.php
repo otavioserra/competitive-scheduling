@@ -181,6 +181,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_main',
                 'competitive_scheduling_main_section'
             );
+
+            add_settings_field(
+                'unavailable-dates-values',
+                esc_html__( 'Unavailable Dates Values', 'competitive-scheduling' ),
+                array( $this, 'field_unavailable_dates_values_callback' ),
+                'competitive_scheduling_tools',
+                'competitive_scheduling_tools_section'
+            );
         }
 
         function section_callback_email() {
@@ -302,14 +310,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_tools',
                 'competitive_scheduling_tools_section'
             );
-
-            add_settings_field(
-                'unavailable-dates-values',
-                esc_html__( 'Unavailable Dates Values', 'competitive-scheduling' ),
-                array( $this, 'field_unavailable_dates_values_callback' ),
-                'competitive_scheduling_tools',
-                'competitive_scheduling_tools_section'
-            );
         }
 
         public function field_activation_callback(){
@@ -327,6 +327,21 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     ?>
                 />
                 <label for="activation"><?php echo esc_html__( 'Activate/Deactivate the scheduling system.', 'competitive-scheduling' ); ?></label>
+            <?php
+        }
+
+        public function field_unavailable_dates_values_callback(){
+            ?>
+
+            <div class="contDates">
+                <div class="ui existing segment calendar-multiple campo datas-multiplas" data-locale="<?php echo get_locale(); ?>">
+                    <div class="ui calendar multiplo"></div>
+                    <div class="ui calendar-dates"></div>
+                    <input type="hidden" name="competitive_scheduling_options[unavailable-dates-values]"  value="<?php echo isset( self::$options['unavailable-dates-values'] ) ? esc_attr( self::$options['unavailable-dates-values'] ) : ''; ?>" class="calendar-dates-input">
+                </div>
+            </div>
+
+                <p><?php echo esc_html__( 'Specific dates unavailable to choose when scheduling.', 'competitive-scheduling' ); ?></p>
             <?php
         }
 
@@ -449,21 +464,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function field_shortcode_callback(){
             ?>
             <span><?php echo esc_html__( 'Use the shortcode [competitive_scheduling] to display the controler in any page/post/widget. IMPORTANT: is necessary to be logged-in to see it.', 'competitive-scheduling' ); ?></span>
-            <?php
-        }
-
-        public function field_unavailable_dates_values_callback(){
-            ?>
-
-            <div class="contDates">
-                <div class="ui existing segment calendar-multiple campo datas-multiplas" data-locale="<?php echo get_locale(); ?>">
-                    <div class="ui calendar multiplo"></div>
-                    <div class="ui calendar-dates"></div>
-                    <input type="hidden" name="competitive_scheduling_options[unavailable-dates-values]"  value="<?php echo isset( self::$options['unavailable-dates-values'] ) ? esc_attr( self::$options['unavailable-dates-values'] ) : ''; ?>" class="calendar-dates-input">
-                </div>
-            </div>
-
-                <p><?php echo esc_html__( 'Specific dates unavailable to choose when scheduling.', 'competitive-scheduling' ); ?></p>
             <?php
         }
     }
