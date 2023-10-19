@@ -20,8 +20,8 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 .contDates{
-    max-width: 502px;
+    max-width: 506px;
 }
 .contDates .ui.calendar-dates{
-    margin-top: 10px;
+    margin-top: 15px;
 }
