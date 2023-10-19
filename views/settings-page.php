@@ -6,6 +6,8 @@
     <h2 class="nav-tab-wrapper">
         <a href="?page=competitive_scheduling_settings&tab=main" class="nav-tab <?php echo $active_tab == 'main' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Main', 'competitive-scheduling' ); ?></a>
         <a href="?page=competitive_scheduling_settings&tab=email" class="nav-tab <?php echo $active_tab == 'email' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Email', 'competitive-scheduling' ); ?></a>
+        <a href="?page=competitive_scheduling_settings&tab=message" class="nav-tab <?php echo $active_tab == 'message' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Message', 'competitive-scheduling' ); ?></a>
+        <a href="?page=competitive_scheduling_settings&tab=tools" class="nav-tab <?php echo $active_tab == 'tools' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Tools', 'competitive-scheduling' ); ?></a>
     </h2>
     <form action="options.php" method="post">
     <?php 
@@ -18,6 +20,14 @@ switch($active_tab) {
             case 'email':
                 settings_fields( 'competitive_scheduling_group_html_options' );
                 do_settings_sections( 'competitive_scheduling_email' );
+            break;
+            case 'message':
+                settings_fields( 'competitive_scheduling_group_html_options' );
+                do_settings_sections( 'competitive_scheduling_messages' );
+            break;
+            case 'tools':
+                settings_fields( 'competitive_scheduling_group_options' );
+                do_settings_sections( 'competitive_scheduling_tools' );
             break;
             default:
                 settings_fields( 'competitive_scheduling_group_options' );

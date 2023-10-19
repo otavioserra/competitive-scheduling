@@ -1,6 +1,9 @@
 .input-titles{
-    width: 400px;
+    width: 600px;
 }
 .wp-editor-wrap {
     max-width: 1250px;
+}
+.calendar-dates{
+	margin-bottom: 0.14285714rem;
 }
