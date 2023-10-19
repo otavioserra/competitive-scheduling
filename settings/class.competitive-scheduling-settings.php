@@ -11,7 +11,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             self::$options = get_option('competitive_scheduling_options');
             self::$html_options = get_option('competitive_scheduling_html_options');
 
-            add_action( 'admin_init', array( $this, 'admin_init' ) );
+            add_action( 'admin_init', array( $this, 'sections_init' ) );
         } 
 
         public static function register_settings(){
@@ -116,7 +116,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             return $template;
         }
 
-        public function admin_init(){
+        public function sections_init(){
             wp_enqueue_style( 'cs-settings', COMP_SCHEDULE_URL . 'assets/css/settings.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/settings.css' ) : COMP_SCHEDULE_VERSION ) );
             wp_enqueue_script( 'cs-settings', COMP_SCHEDULE_URL . 'assets/js/settings.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/settings.js' ) : COMP_SCHEDULE_VERSION ) );
 
@@ -288,8 +288,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'pre-scheduling-subject',
                 esc_html__( 'Pre-scheduling Subject', 'competitive-scheduling' ),
                 array( $this, 'field_preschedule_subject_callback' ),
-                'competitive_scheduling_email',
-                'competitive_scheduling_email_section',
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section',
                 array(
                     'label_for' => 'pre-scheduling-subject'
                 )
@@ -299,8 +299,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'pre-scheduling-message',
                 esc_html__( 'Pre-scheduling Message', 'competitive-scheduling' ),
                 array( $this, 'field_preschedule_message_callback' ),
-                'competitive_scheduling_email',
-                'competitive_scheduling_email_section'
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
             );
         }
 
