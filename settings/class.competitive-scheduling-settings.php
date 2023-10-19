@@ -121,9 +121,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             wp_enqueue_style( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), COMP_SCHEDULE_VERSION );
             wp_enqueue_script( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), COMP_SCHEDULE_VERSION );
-            
-            wp_enqueue_style( 'competitive-scheduling-admin', COMP_SCHEDULE_URL . 'assets/css/admin.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/admin.css' ) : COMP_SCHEDULE_VERSION ) );
-            wp_enqueue_script( 'competitive-scheduling-admin', COMP_SCHEDULE_URL . 'assets/js/admin.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/admin.js' ) : COMP_SCHEDULE_VERSION ) );
 
             register_setting( 
                 'competitive_scheduling_group_options', 
@@ -461,7 +458,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 <div class="ui existing segment calendar-multiple campo datas-multiplas">
                     <div class="ui calendar multiplo"></div>
                     <div class="ui calendar-dates"></div>
-                    <input type="hidden" name="competitive_scheduling_options[activation]"  value="<?php echo isset( self::$html_options['pre-scheduling-subject'] ) ? esc_attr( self::$html_options['pre-scheduling-subject'] ) : ''; ?>" class="calendar-dates-input">
+                    <input type="hidden" name="competitive_scheduling_options[unavailable-dates-values]"  value="<?php echo isset( self::$html_options['pre-scheduling-subject'] ) ? esc_attr( self::$html_options['pre-scheduling-subject'] ) : ''; ?>" class="calendar-dates-input">
                 </div>
 
                 <p><?php echo esc_html__( 'Specific dates unavailable to choose when scheduling.', 'competitive-scheduling' ); ?></p>
