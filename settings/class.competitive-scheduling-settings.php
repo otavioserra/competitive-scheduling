@@ -456,7 +456,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ?>
 
             <div class="contDates">
-                <div class="ui existing segment calendar-multiple campo datas-multiplas">
+                <div class="ui existing segment calendar-multiple campo datas-multiplas" data-locale="<?php echo get_locale(); ?>">
                     <div class="ui calendar multiplo"></div>
                     <div class="ui calendar-dates"></div>
                     <input type="hidden" name="competitive_scheduling_options[unavailable-dates-values]"  value="<?php echo isset( self::$options['unavailable-dates-values'] ) ? esc_attr( self::$options['unavailable-dates-values'] ) : ''; ?>" class="calendar-dates-input">
