@@ -53,7 +53,7 @@ jQuery(document).ready(function(){
             }
             
             if(!dateFound){
-                var dateBtn = jQuery('<a class="ui label transition noselect date-value" data-value="'+dateFormated+'">'+dateFormated+'<i class="delete icon date-delete"></i></a>');
+                var dateBtn = jQuery('<a class="ui label transition noselect date-value red" data-value="'+dateFormated+'">'+dateFormated+'<i class="delete icon date-delete"></i></a>');
                 
                 parentCont.find('.calendar-dates').append(dateBtn);
                 
