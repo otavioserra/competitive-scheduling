@@ -87,7 +87,7 @@ jQuery(document).ready(function(){
         }
     }
 
-    jQuery('.variavelCont').find('.ui.datas-multiplas').each(function(){
+    jQuery('.ui.datas-multiplas').each(function(){
         var parentCont = jQuery(this);
         var datesStr = parentCont.find('.calendar-dates-input').val();
         var dates = new Array();
@@ -120,7 +120,7 @@ jQuery(document).ready(function(){
         eventDates[id] = dates;
         calendarDatasMultiplasOpt.eventDates = dates;
     });
-    jQuery('.variavelCont').find('.ui.calendar.multiplo').calendar(calendarDatasMultiplasOpt);
+    jQuery('.ui.calendar.multiplo').calendar(calendarDatasMultiplasOpt);
 
     jQuery(document.body).on('mouseup tap','.date-delete',function(e){
         if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
