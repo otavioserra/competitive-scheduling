@@ -1,13 +1,13 @@
-.input-titles{
+.input-titles {
     width: 600px;
 }
 .wp-editor-wrap {
     max-width: 1250px;
 }
-.calendar-dates{
+.calendar-dates {
 	margin-bottom: 0.14285714rem;
 }
-.calendar-dates .label{
+.calendar-dates .label {
 	margin: 0.14285714rem 0.28571429rem 0.14285714rem 0 !important;
 }
 .noselect {
@@ -19,9 +19,13 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
-.contDates{
+.contDates {
     max-width: 506px;
 }
-.contDates .ui.calendar-dates{
+.contDates .ui.calendar-dates {
     margin-top: 15px;
+}
+.ui.ui.ui.red.label.active {
+    background-color: #9b1b1b;
+    border-color: #9b1b1b;
 }
