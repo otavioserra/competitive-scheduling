@@ -8,7 +8,7 @@
 	margin-bottom: 0.14285714rem;
 }
 .calendar-dates .label{
-	margin: 0.14285714rem 0.28571429rem 0.14285714rem 0;
+	margin: 0.14285714rem 0.28571429rem 0.14285714rem 0 !important;
 }
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -20,7 +20,7 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 .contDates{
-    max-width: 500px;
+    max-width: 502px;
 }
 .contDates .ui.calendar-dates{
     margin-top: 10px;
