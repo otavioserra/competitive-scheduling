@@ -186,8 +186,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'unavailable-dates-values',
                 esc_html__( 'Unavailable Dates Values', 'competitive-scheduling' ),
                 array( $this, 'field_unavailable_dates_values_callback' ),
-                'competitive_scheduling_tools',
-                'competitive_scheduling_tools_section'
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
             );
         }
 
