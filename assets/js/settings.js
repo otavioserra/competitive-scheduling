@@ -166,8 +166,6 @@ jQuery(document).ready(function(){
             datesInput.val(datesUpdated);
         }
         
-        var calendarDatasMultiplasOpt = window.calendarDatasMultiplasOpt;
-
         calendarDatasMultiplasOpt.eventDates = eventDates[id];
 
         parentCont.parents('.datas-multiplas').find('.ui.calendar.multiplo').calendar('destroy').html('').calendar(calendarDatasMultiplasOpt);
