@@ -290,6 +290,62 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_main',
                 'competitive_scheduling_main_section'
             );
+
+            add_settings_field(
+                'calendar-limit-month-ahead',
+                esc_html__( 'Calendar Limit Month Ahead', 'competitive-scheduling' ),
+                array( $this, 'field_calendar_limit_month_ahead_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'days-week',
+                esc_html__( 'Days Week', 'competitive-scheduling' ),
+                array( $this, 'field_days_week_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'days-week-maximum-vacancies',
+                esc_html__( 'Days Week Maximum Vacancies', 'competitive-scheduling' ),
+                array( $this, 'field_days_week_maximum_vacancies_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'free-choice-phase',
+                esc_html__( 'Free Choice Phase', 'competitive-scheduling' ),
+                array( $this, 'field_free_choice_phase_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'residual-phase',
+                esc_html__( 'Residual Phase', 'competitive-scheduling' ),
+                array( $this, 'field_residual_phase_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'draw-phase',
+                esc_html__( 'Draw Phase', 'competitive-scheduling' ),
+                array( $this, 'field_draw_phase_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'max-companions',
+                esc_html__( 'Max Companions', 'competitive-scheduling' ),
+                array( $this, 'field_max_companions_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
         }
 
         function section_callback_email() {
@@ -518,6 +574,107 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 value="<?php echo isset( self::$options['calendar-holidays-end'] ) ? esc_attr( self::$options['calendar-holidays-end'] ) : ''; ?>"
                 >
                 <p><?php echo esc_html__( 'End date of the vacation period with the number of the day followed by the month in English. For example, the end of the period on January 20th must be filled in: 20 January.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_calendar_limit_month_ahead_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[calendar-limit-month-ahead]" 
+                id="calendar-limit-month-ahead"
+                class="input-numbers"
+                min="1"
+                max="24"
+                value="<?php echo isset( self::$options['calendar-limit-month-ahead'] ) ? esc_attr( self::$options['calendar-limit-month-ahead'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Limit the number of months ahead of the current day to show dates available for scheduling. For example, if you put 2 in this field, it means that only the current month and the next month will appear to schedule in the calendar.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_days_week_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_options[days-week]" 
+                id="days-week"
+                class="input-small-text"
+                value="<?php echo isset( self::$options['days-week'] ) ? esc_attr( self::$options['days-week'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Define the days of the week that have a schedule separated by the comma character ',' . The days must be described with 3 characters in English. For example, monday should be written \'mon\'. Template for every day of the week: sun,mon,tue,wed,thu,fri,sat.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_days_week_maximum_vacancies_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[days-week-maximum-vacancies]" 
+                id="days-week-maximum-vacancies"
+                class="input-numbers"
+                min="1"
+                max="999"
+                value="<?php echo isset( self::$options['days-week-maximum-vacancies'] ) ? esc_attr( self::$options['days-week-maximum-vacancies'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Maximum number of appointment slots for days of the week. If you want to define different amounts per day of the week, use ',' to separate. For example, 40.60.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_free_choice_phase_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[free-choice-phase]" 
+                id="free-choice-phase"
+                class="input-numbers"
+                min="1"
+                max="60"
+                value="<?php echo isset( self::$options['free-choice-phase'] ) ? esc_attr( self::$options['free-choice-phase'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Quantity in days before the day of a service that the system allows the free choice of this service to pre-schedule.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_residual_phase_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[residual-phase]" 
+                id="residual-phase"
+                class="input-numbers"
+                min="1"
+                max="60"
+                value="<?php echo isset( self::$options['residual-phase'] ) ? esc_attr( self::$options['residual-phase'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Quantity in days before the day of a service that the system allows the free choice of this service to schedule residual vacancies.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_draw_phase_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_options[draw-phase]" 
+                id="draw-phase"
+                class="input-small-text"
+                value="<?php echo isset( self::$options['draw-phase'] ) ? esc_attr( self::$options['draw-phase'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Period in days before the day of a service in which the system blocks the free choice of service to allow time for appointments to be confirmed.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_max_companions_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[max-companions]" 
+                id="max-companions"
+                class="input-numbers"
+                min="1"
+                max="10"
+                value="<?php echo isset( self::$options['max-companions'] ) ? esc_attr( self::$options['max-companions'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Maximum number of companions in one appointment', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
