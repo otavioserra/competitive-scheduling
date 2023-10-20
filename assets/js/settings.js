@@ -209,5 +209,11 @@ jQuery(document).ready(function(){
         e.stopPropagation();
     });
 
+    var codeMirrorTextArea = $('#codemirror_editor');
 
+    var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
+        mode: 'javascript',  // Defina o modo de edição (por exemplo, 'javascript')
+        lineNumbers: true,    // Habilita números de linha
+        theme: 'default',     // Escolha um tema (você pode personalizá-lo)
+    });
 });
