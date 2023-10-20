@@ -6,11 +6,19 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public static $options;
         public static $html_options;
         public static $msg_options;
+        public static $tools_options;
         
         public function __construct(){
             self::$options = get_option('competitive_scheduling_options');
             self::$html_options = get_option('competitive_scheduling_html_options');
             self::$msg_options = get_option('competitive_scheduling_msg_options');
+            self::$tools_options = get_option('competitive_scheduling_tools_options');
+
+            if(isset(self::$tools_options['reset-to-defaults'])){
+                self::reset_options();
+                unset(self::$tools_options['reset-to-defaults']);
+                update_option('competitive_scheduling_tools_options', self::$tools_options);
+            }
 
             add_action( 'admin_init', array( $this, 'sections_init' ) );
         } 
@@ -147,6 +155,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public function sections_init(){
+            
             wp_enqueue_style( 'cs-settings', COMP_SCHEDULE_URL . 'assets/css/settings.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/settings.css' ) : COMP_SCHEDULE_VERSION ) );
             wp_enqueue_script( 'cs-settings', COMP_SCHEDULE_URL . 'assets/js/settings.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/settings.js' ) : COMP_SCHEDULE_VERSION ) );
 
