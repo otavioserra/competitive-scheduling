@@ -219,7 +219,6 @@ jQuery(document).ready(function(){
             lineWrapping: true,
             styleActiveLine: true,
             matchBrackets: true,
-            htmlMode: true,
             indentUnit: 4,
             extraKeys: {
                 "F11": function(cm) {
