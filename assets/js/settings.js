@@ -213,12 +213,13 @@ jQuery(document).ready(function(){
 
     if(codeMirrorTextArea.length > 0){
         var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
-            mode: 'htmlmixed',
+            mode: 'xml',
             lineNumbers: true,
             theme: 'default',
             lineWrapping: true,
             styleActiveLine: true,
             matchBrackets: true,
+            htmlMode: true,
             indentUnit: 4,
             extraKeys: {
                 "F11": function(cm) {
