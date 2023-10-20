@@ -213,21 +213,13 @@ jQuery(document).ready(function(){
 
     if(codeMirrorTextArea.length > 0){
         var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
-            mode: 'text/html',
-            lineNumbers: true,
+            mode: 'htmlmixed',
             theme: 'monokai',
+            lineNumbers: true,
             lineWrapping: true,
             styleActiveLine: true,
             matchBrackets: true,
-            indentUnit: 4,
-            extraKeys: {
-                "F11": function(cm) {
-                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                },
-                "Esc": function(cm) {
-                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-                }
-            }
+            indentUnit: 4
         });
 
         codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
