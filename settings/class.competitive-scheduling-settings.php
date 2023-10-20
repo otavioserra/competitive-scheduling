@@ -43,12 +43,20 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     'print-schedules' => self::template_html( 'print-schedules' ),
                 )
             );
+
+            add_option(
+                'competitive_scheduling_tools_options',
+                array(
+                    'print-schedules' => self::template_html( 'print-schedules' ),
+                )
+            );
         }
 
         public static function unregister_settings(){
             delete_option('competitive_scheduling_options');
             delete_option('competitive_scheduling_html_options');
             delete_option('competitive_scheduling_msg_options');
+            delete_option('competitive_scheduling_tools_options');
         }
 
         public static function reset_settings(){
@@ -158,6 +166,11 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             register_setting( 
                 'competitive_scheduling_group_msg_options', 
                 'competitive_scheduling_msg_options'
+            );
+
+            register_setting( 
+                'competitive_scheduling_group_tools', 
+                'competitive_scheduling_tools_options'
             );
 
             add_settings_section(
@@ -508,7 +521,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
                 <input 
                     type="checkbox"
-                    name="reset-to-defaults"
+                    name="competitive_scheduling_tools_options[reset-to-defaults]"
                     id="reset-to-defaults"
                     value="1"
                 />

@@ -1,5 +1,5 @@
 <?php 
-    if( isset( $_POST['reset-to-defaults'] ) ){
+    if( isset( $_POST['competitive_scheduling_tools_options[reset-to-defaults]'] ) ){
         echo 'sss';
         exit;
     }
@@ -33,7 +33,7 @@
                 do_settings_sections( 'competitive_scheduling_messages' );
             break;
             case 'tools':
-                settings_fields( 'competitive_scheduling_group_options' );
+                settings_fields( 'competitive_scheduling_group_tools' );
                 do_settings_sections( 'competitive_scheduling_tools' );
             break;
             default:
