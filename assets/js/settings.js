@@ -216,4 +216,6 @@ jQuery(document).ready(function(){
         lineNumbers: true,    // Habilita números de linha
         theme: 'default',     // Escolha um tema (você pode personalizá-lo)
     });
+
+    codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
 });
