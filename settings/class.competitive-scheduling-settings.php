@@ -15,7 +15,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             self::$tools_options = get_option('competitive_scheduling_tools_options');
 
             if(isset(self::$tools_options['reset-to-defaults'])){
-                self::reset_options();
+                self::reset_settings();
                 unset(self::$tools_options['reset-to-defaults']);
                 update_option('competitive_scheduling_tools_options', self::$tools_options);
             }
