@@ -28,6 +28,17 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_options',
                 array(
                     'activation' => "1",
+                    'title-establishment' => __( 'My Establishment', 'competitive-scheduling' ),
+                    'calendar-years' => 3,
+                    'calendar-holidays-end' => "20 January",
+                    'calendar-holidays-start' => "20 December",
+                    'calendar-limit-month-ahead' => 2,
+                    'days-week' => "tue,thu",
+                    'days-week-maximum-vacancies' => 70,
+                    'free-choice-phase' => 7,
+                    'residual-phase' => 5,
+                    'draw-phase' => "7,5",
+                    'max-companions' => 3,
                 )
             );
 
@@ -233,9 +244,17 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             add_settings_field(
-                'calendar-years',
-                esc_html__( 'Calendar Years', 'competitive-scheduling' ),
-                array( $this, 'field_calendar_years_values_callback' ),
+                'title-establishment',
+                esc_html__( 'Title Establishment', 'competitive-scheduling' ),
+                array( $this, 'field_title_establishment_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'unavailable-dates',
+                esc_html__( 'Unavailable Dates', 'competitive-scheduling' ),
+                array( $this, 'field_unavailable_dates_callback' ),
                 'competitive_scheduling_main',
                 'competitive_scheduling_main_section'
             );
@@ -244,6 +263,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'unavailable-dates-values',
                 esc_html__( 'Unavailable Dates Values', 'competitive-scheduling' ),
                 array( $this, 'field_unavailable_dates_values_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'calendar-years',
+                esc_html__( 'Calendar Years', 'competitive-scheduling' ),
+                array( $this, 'field_calendar_years_values_callback' ),
                 'competitive_scheduling_main',
                 'competitive_scheduling_main_section'
             );
@@ -391,15 +418,33 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             <?php
         }
 
-        public function field_calendar_years_values_callback(){
+        public function field_title_establishment_callback(){
             ?>
                 <input 
-                type="number" 
-                name="competitive_scheduling_options[calendar-years]" 
-                id="calendar-years"
-                value="<?php echo isset( self::$options['calendar-years'] ) ? esc_attr( self::$options['calendar-years'] ) : ''; ?>"
+                type="text" 
+                name="competitive_scheduling_options[title-establishment]" 
+                id="title-establishment"
+                value="<?php echo isset( self::$options['title-establishment'] ) ? esc_attr( self::$options['title-establishment'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Maximum number of years that appears on the calendar.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Title of your establishment. Example: my company, my institution, etc.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_unavailable_dates_callback(){
+            ?>
+
+                <input 
+                    type="checkbox"
+                    name="competitive_scheduling_options[unavailable-dates]"
+                    id="unavailable-dates"
+                    value="1"
+                    <?php 
+                        if( isset( self::$options['unavailable-dates'] ) ){
+                            checked( "1", self::$options['unavailable-dates'], true );
+                        }    
+                    ?>
+                />
+                <label for="unavailable-dates"><?php echo esc_html__( 'Activate/Deactivate definition of unavailable dates for scheduling.', 'competitive-scheduling' ); ?></label>
             <?php
         }
 
@@ -415,6 +460,18 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             </div>
 
                 <p><?php echo esc_html__( 'Specific dates unavailable to choose when scheduling.', 'competitive-scheduling' ); ?></p>
+            <?php
+        }
+
+        public function field_calendar_years_values_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[calendar-years]" 
+                id="calendar-years"
+                value="<?php echo isset( self::$options['calendar-years'] ) ? esc_attr( self::$options['calendar-years'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Maximum number of years that appears on the calendar.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
