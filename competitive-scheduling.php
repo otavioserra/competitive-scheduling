@@ -134,6 +134,10 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 return;
             }
 
+            if( isset( $_GET['reset-to-defaults'] ) ){
+                Competitive_Scheduling_Settings::reset_settings();
+            }
+
             if( isset( $_GET['settings-updated'] ) ){
                 add_settings_error( 'competitive_scheduling_options', 'competitive_scheduling_message', esc_html__( 'Settings Saved', 'competitive-scheduling' ), 'success' );
             }

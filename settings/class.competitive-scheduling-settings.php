@@ -35,11 +35,24 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     'pre-scheduling-message' => self::template_html( 'pre-scheduling-message' ),
                 )
             );
+
+            add_option(
+                'competitive_scheduling_msg_options',
+                array(
+                    'print-schedules' => self::template_html( 'print-schedules' ),
+                )
+            );
         }
 
         public static function unregister_settings(){
             delete_option('competitive_scheduling_options');
             delete_option('competitive_scheduling_html_options');
+            delete_option('competitive_scheduling_msg_options');
+        }
+
+        public static function reset_settings(){
+            self::unregister_settings();
+            self::register_settings();
         }
 
         private static function template_html( $id_template ){
@@ -58,49 +71,57 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             switch($id_template) {
                 case 'schedule-message':
                     $change_variables = array(
-                        'title' => esc_html__( 'Your appointment was successful!', 'competitive-scheduling' ),
-                        'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
-                        'description' => esc_html__( 'You have just made an appointment within the #title# booking system:', 'competitive-scheduling' ),
-                        'day' => esc_html__( 'Day', 'competitive-scheduling' ),
-                        'password' => esc_html__( 'Password', 'competitive-scheduling' ),
-                        'scheduled-people' => esc_html__( 'Scheduled People', 'competitive-scheduling' ),
-                        'your-name' => esc_html__( 'Your name', 'competitive-scheduling' ),
-                        'escort' => esc_html__( 'Escort', 'competitive-scheduling' ),
-                        'cancel-appointment' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'title' => __( 'Your appointment was successful!', 'competitive-scheduling' ),
+                        'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
+                        'description' => __( 'You have just made an appointment within the #title# booking system:', 'competitive-scheduling' ),
+                        'day' => __( 'Day', 'competitive-scheduling' ),
+                        'password' => __( 'Password', 'competitive-scheduling' ),
+                        'scheduled-people' => __( 'Scheduled People', 'competitive-scheduling' ),
+                        'your-name' => __( 'Your name', 'competitive-scheduling' ),
+                        'escort' => __( 'Escort', 'competitive-scheduling' ),
+                        'cancel-appointment' => __( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'unschedule-message':
                     $change_variables = array(
-                        'title' => esc_html__( 'Your appointment has been successfully cancelled!', 'competitive-scheduling' ),
-                        'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
-                        'description' => esc_html__( 'You just deleted a schedule within the #title# scheduling system:', 'competitive-scheduling' ),
-                        'day' => esc_html__( 'Day', 'competitive-scheduling' ),
+                        'title' => __( 'Your appointment has been successfully cancelled!', 'competitive-scheduling' ),
+                        'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
+                        'description' => __( 'You just deleted a schedule within the #title# scheduling system:', 'competitive-scheduling' ),
+                        'day' => __( 'Day', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'confirmation-message':
                     $change_variables = array(
-                        'title' => esc_html__( 'Confirm or cancel your appointment!', 'competitive-scheduling' ),
-                        'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
-                        'description' => esc_html__( 'The system qualified your pre-scheduling for scheduling of #title#:', 'competitive-scheduling' ),
-                        'day' => esc_html__( 'Day', 'competitive-scheduling' ),
-                        'confirm' => esc_html__( 'To <b>CONFIRM</b> your appointment and receive your service password, go to', 'competitive-scheduling' ),
-                        'cancel' => esc_html__( 'To <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'title' => __( 'Confirm or cancel your appointment!', 'competitive-scheduling' ),
+                        'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
+                        'description' => __( 'The system qualified your pre-scheduling for scheduling of #title#:', 'competitive-scheduling' ),
+                        'day' => __( 'Day', 'competitive-scheduling' ),
+                        'confirm' => __( 'To <b>CONFIRM</b> your appointment and receive your service password, go to', 'competitive-scheduling' ),
+                        'cancel' => __( 'To <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'pre-scheduling-message':
                     $change_variables = array(
-                        'title' => esc_html__( 'Your pre-scheduling was successful!', 'competitive-scheduling' ),
-                        'protocol' => esc_html__( 'Protocol nº #code#', 'competitive-scheduling' ),
-                        'description' => esc_html__( 'You have just made a pre-booking within the #title# booking system:', 'competitive-scheduling' ),
-                        'day' => esc_html__( 'Day', 'competitive-scheduling' ),
-                        'info' => esc_html__( 'IMPORTANT INFORMATION', 'competitive-scheduling' ),
-                        'important_1' => esc_html__( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-appointments ARE NOT confirmed appointments. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your appointment via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the appointment. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your appointment. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your appointment within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
-                        'important_2' => esc_html__( '<br /><span class="txt-1"><b>IMPORTANT 2</b>:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to everyone. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ),
-                        'important_3' => esc_html__( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an appointment. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
-                        'cancel' => esc_html__( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'title' => __( 'Your pre-scheduling was successful!', 'competitive-scheduling' ),
+                        'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
+                        'description' => __( 'You have just made a pre-booking within the #title# booking system:', 'competitive-scheduling' ),
+                        'day' => __( 'Day', 'competitive-scheduling' ),
+                        'info' => __( 'IMPORTANT INFORMATION', 'competitive-scheduling' ),
+                        'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-appointments ARE NOT confirmed appointments. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your appointment via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the appointment. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your appointment. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your appointment within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
+                        'important_2' => __( '<br /><span class="txt-1"><b>IMPORTANT 2</b>:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to everyone. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ),
+                        'important_3' => __( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an appointment. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
+                        'cancel' => __( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'print-schedules':
+                    $change_variables = array(
+                        'name' => __( 'Name', 'competitive-scheduling' ),
+                        'password' => __( 'Password', 'competitive-scheduling' ),
+                        'viewed' => __( 'Viewed', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -149,7 +170,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             add_settings_section(
                 'competitive_scheduling_email_section',
-                esc_html__( 'Email', 'competitive-scheduling' ),
+                esc_html__( 'Emails', 'competitive-scheduling' ),
                 array( $this, 'section_callback_email' ),
                 'competitive_scheduling_email'
             );
@@ -316,6 +337,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_tools',
                 'competitive_scheduling_tools_section'
             );
+
+            add_settings_field(
+                'reset-to-defaults',
+                esc_html__( 'Reset To Defaults', 'competitive-scheduling' ), 
+                array( $this, 'field_reset_to_defaults_callback' ),
+                'competitive_scheduling_tools',
+                'competitive_scheduling_tools_section'
+            );
         }
 
         public function field_activation_callback(){
@@ -470,6 +499,19 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function field_shortcode_callback(){
             ?>
             <span><?php echo esc_html__( 'Use the shortcode [competitive_scheduling] to display the controler in any page/post/widget. IMPORTANT: is necessary to be logged-in to see it.', 'competitive-scheduling' ); ?></span>
+            <?php
+        }
+
+        public function field_reset_to_defaults_callback(){
+            ?>
+
+                <input 
+                    type="checkbox"
+                    name="reset-to-defaults"
+                    id="reset-to-defaults"
+                    value="1"
+                />
+                <label for="reset-to-defaults"><?php echo esc_html__( 'Select this option and then click <b>Save Settings</b> below so that all settings are reset to default values. Important: all previous values will be deleted.', 'competitive-scheduling' ); ?></label>
             <?php
         }
     }
