@@ -211,24 +211,26 @@ jQuery(document).ready(function(){
 
     var codeMirrorTextArea = jQuery('#codemirror_editor');
 
-    var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
-        mode: 'htmlmixed',
-        lineNumbers: true,
-        theme: 'default',
-        lineWrapping: true,
-        styleActiveLine: true,
-        matchBrackets: true,
-        htmlMode: true,
-        indentUnit: 4,
-        extraKeys: {
-            "F11": function(cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function(cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+    if(codeMirrorTextArea.length > 0){
+        var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
+            mode: 'htmlmixed',
+            lineNumbers: true,
+            theme: 'default',
+            lineWrapping: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            htmlMode: true,
+            indentUnit: 4,
+            extraKeys: {
+                "F11": function(cm) {
+                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                },
+                "Esc": function(cm) {
+                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                }
             }
-        }
-    });
+        });
 
-    codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
+        codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
+    }
 });
