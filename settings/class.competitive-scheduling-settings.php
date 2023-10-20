@@ -306,9 +306,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         function section_fields_messages(){
-            wp_enqueue_script('codemirror', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.js', array('jquery'), '5.63.0', false);
-            wp_enqueue_style('codemirror-css', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.css', array(), '5.63.0');
-            wp_enqueue_script('codemirror-mode', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/javascript/javascript.js', array('codemirror'), '5.63.0', false);
+            wp_enqueue_script('codemirror', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.4.0/codemirror.min.js', array('jquery'), '6.4.0', false);
+            wp_enqueue_style('codemirror-css', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.4.0/codemirror.min.css', array(), '6.4.0');
             
             add_settings_field(
                 'print-schedules',
