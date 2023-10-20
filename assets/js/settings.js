@@ -215,11 +215,10 @@ jQuery(document).ready(function(){
         var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
             mode: 'text/html',
             lineNumbers: true,
-            theme: 'default',
+            theme: 'monokai',
             lineWrapping: true,
             styleActiveLine: true,
             matchBrackets: true,
-            htmlMode: true,
             indentUnit: 4,
             extraKeys: {
                 "F11": function(cm) {
