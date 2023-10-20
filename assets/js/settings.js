@@ -213,7 +213,7 @@ jQuery(document).ready(function(){
 
     if(codeMirrorTextArea.length > 0){
         var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea[0], {
-            mode: 'htmlmixed',
+            mode: 'text/html',
             lineNumbers: true,
             theme: 'default',
             lineWrapping: true,
