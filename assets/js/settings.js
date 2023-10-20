@@ -224,6 +224,7 @@ jQuery(document).ready(function(){
             extraKeys: {
                 "F11": function(cm) {
                     cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    console.log('F11');
                 },
                 "Esc": function(cm) {
                     if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
