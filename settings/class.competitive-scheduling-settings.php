@@ -10,6 +10,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function __construct(){
             self::$options = get_option('competitive_scheduling_options');
             self::$html_options = get_option('competitive_scheduling_html_options');
+            self::$msg_options = get_option('competitive_scheduling_msg_options');
 
             add_action( 'admin_init', array( $this, 'sections_init' ) );
         } 
@@ -305,23 +306,16 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         function section_fields_messages(){
+            wp_enqueue_script('codemirror', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.js', array('jquery'), '5.63.0', false);
+            wp_enqueue_style('codemirror-css', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.css', array(), '5.63.0');
+            wp_enqueue_script('codemirror-mode', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/javascript/javascript.js', array('codemirror'), '5.63.0', false);
+            
             add_settings_field(
-                'pre-scheduling-subject',
-                esc_html__( 'Pre-scheduling Subject', 'competitive-scheduling' ),
-                array( $this, 'field_preschedule_subject_callback' ),
+                'print-schedules',
+                esc_html__( 'Print Schedules', 'competitive-scheduling' ),
+                array( $this, 'field_print_schedules_callback' ),
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section',
-                array(
-                    'label_for' => 'pre-scheduling-subject'
-                )
-            );
-
-            add_settings_field(
-                'pre-scheduling-message',
-                esc_html__( 'Pre-scheduling Message', 'competitive-scheduling' ),
-                array( $this, 'field_preschedule_message_callback' ),
-                'competitive_scheduling_messages',
-                'competitive_scheduling_messages_section'
             );
         }
 
@@ -493,6 +487,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             ?>
                 <p><?php echo esc_html__( 'Email message that will be sent to confirm user appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_print_schedules_callback(){
+            ?>
+                <textarea id="codemirror_editor" name="competitive_scheduling_msg_options[print-schedules]" rows="10" cols="50"><?php echo isset( self::$msg_options['print-schedules'] ) ? self::$msg_options['print-schedules'] : '';  ?></textarea>
+                <p><?php echo esc_html__( 'HTML layout for printing confirmed appointments.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
