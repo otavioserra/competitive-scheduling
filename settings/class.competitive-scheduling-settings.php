@@ -30,8 +30,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     'activation' => "1",
                     'title-establishment' => __( 'My Establishment', 'competitive-scheduling' ),
                     'calendar-years' => 3,
-                    'calendar-holidays-end' => "20 January",
                     'calendar-holidays-start' => "20 December",
+                    'calendar-holidays-end' => "20 January",
                     'calendar-limit-month-ahead' => 2,
                     'days-week' => "tue,thu",
                     'days-week-maximum-vacancies' => 70,
@@ -274,6 +274,22 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_main',
                 'competitive_scheduling_main_section'
             );
+
+            add_settings_field(
+                'calendar-holidays-start',
+                esc_html__( 'Calendar Holidays Start', 'competitive-scheduling' ),
+                array( $this, 'field_calendar_holidays_start_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
+                'calendar-holidays-end',
+                esc_html__( 'Calendar Holidays End', 'competitive-scheduling' ),
+                array( $this, 'field_calendar_holidays_end_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
         }
 
         function section_callback_email() {
@@ -424,6 +440,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 type="text" 
                 name="competitive_scheduling_options[title-establishment]" 
                 id="title-establishment"
+                class="input-titles"
                 value="<?php echo isset( self::$options['title-establishment'] ) ? esc_attr( self::$options['title-establishment'] ) : ''; ?>"
                 >
                 <p><?php echo esc_html__( 'Title of your establishment. Example: my company, my institution, etc.', 'competitive-scheduling' ); ?></p> 
@@ -469,9 +486,38 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 type="number" 
                 name="competitive_scheduling_options[calendar-years]" 
                 id="calendar-years"
+                class="input-numbers"
+                min="1"
+                max="10"
                 value="<?php echo isset( self::$options['calendar-years'] ) ? esc_attr( self::$options['calendar-years'] ) : ''; ?>"
                 >
                 <p><?php echo esc_html__( 'Maximum number of years that appears on the calendar.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_calendar_holidays_start_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_options[calendar-holidays-start]" 
+                id="calendar-holidays-start"
+                class="input-small-text"
+                value="<?php echo isset( self::$options['calendar-holidays-start'] ) ? esc_attr( self::$options['calendar-holidays-start'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Start date of the vacation period with the number of the day followed by the month in English. For example, the beginning of the period on December 20th must be filled in: 20 December.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_calendar_holidays_end_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_options[calendar-holidays-end]" 
+                id="calendar-holidays-end"
+                class="input-small-text"
+                value="<?php echo isset( self::$options['calendar-holidays-end'] ) ? esc_attr( self::$options['calendar-holidays-end'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'End date of the vacation period with the number of the day followed by the month in English. For example, the end of the period on January 20th must be filled in: 20 January.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 

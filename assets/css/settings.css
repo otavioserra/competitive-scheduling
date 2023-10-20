@@ -1,6 +1,12 @@
 .input-titles {
     width: 600px;
 }
+.input-small-text {
+    width: 100px;
+}
+.input-numbers {
+    width: 60px;
+}
 .wp-editor-wrap {
     max-width: 1250px;
 }
