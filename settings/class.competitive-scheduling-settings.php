@@ -233,6 +233,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             add_settings_field(
+                'calendar-years',
+                esc_html__( 'Calendar Years', 'competitive-scheduling' ),
+                array( $this, 'field_calendar_years_values_callback' ),
+                'competitive_scheduling_main',
+                'competitive_scheduling_main_section'
+            );
+
+            add_settings_field(
                 'unavailable-dates-values',
                 esc_html__( 'Unavailable Dates Values', 'competitive-scheduling' ),
                 array( $this, 'field_unavailable_dates_values_callback' ),
@@ -380,6 +388,18 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     ?>
                 />
                 <label for="activation"><?php echo esc_html__( 'Activate/Deactivate the scheduling system.', 'competitive-scheduling' ); ?></label>
+            <?php
+        }
+
+        public function field_calendar_years_values_callback(){
+            ?>
+                <input 
+                type="number" 
+                name="competitive_scheduling_options[calendar-years]" 
+                id="calendar-years"
+                value="<?php echo isset( self::$options['calendar-years'] ) ? esc_attr( self::$options['calendar-years'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Maximum number of years that appears on the calendar.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
