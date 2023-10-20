@@ -136,6 +136,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
             if( isset( $_GET['reset-to-defaults'] ) ){
                 Competitive_Scheduling_Settings::reset_settings();
+
+                echo 'sim';
+                exit;
             }
 
             if( isset( $_GET['settings-updated'] ) ){
