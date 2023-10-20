@@ -138,8 +138,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 Competitive_Scheduling_Settings::reset_settings();
             }
 
-            echo print_r($_POST,true);exit;
-
             if( isset( $_GET['settings-updated'] ) ){
                 add_settings_error( 'competitive_scheduling_options', 'competitive_scheduling_message', esc_html__( 'Settings Saved', 'competitive-scheduling' ), 'success' );
             }
