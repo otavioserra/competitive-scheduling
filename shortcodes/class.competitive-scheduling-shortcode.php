@@ -7,6 +7,19 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
         }
 
         public function add_shortcode( $atts = array(), $content = null, $tag = '' ){
+            // Check if the user is logged in
+            if ( ! is_user_logged_in() ) {
+                // Redirect to the login page
+                wp_redirect( wp_login_url() );
+                exit;
+            }
+
+            // Check if the user has the correct user level
+            if ( ! current_user_can( 'subscriber' ) ) {
+                // Redirect to the registration page
+                wp_redirect( wp_registration_url() );
+                exit;
+            }
 
             $atts = array_change_key_case( (array) $atts, CASE_LOWER );
 
