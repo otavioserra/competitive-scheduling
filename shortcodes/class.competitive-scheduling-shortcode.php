@@ -14,13 +14,6 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                 exit;
             }
 
-            // Check if the user has the correct user level
-            if ( ! user_can( get_current_user_id(), 'subscriber' ) ) {
-                // Redirect to the registration page
-                wp_redirect( wp_registration_url() );
-                exit;
-            }
-
             $atts = array_change_key_case( (array) $atts, CASE_LOWER );
 
             extract( shortcode_atts(
