@@ -46,9 +46,24 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
             wp_enqueue_style( 'competitive-scheduling', COMP_SCHEDULE_URL . 'assets/css/shortecode.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/shortecode.css' ) : COMP_SCHEDULE_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling', COMP_SCHEDULE_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/shortecode.js' ) : COMP_SCHEDULE_VERSION ) );
 
+            // ===== Handle the status of the schedule.
+
+            $options = get_option('competitive_scheduling_options');
+            $msg_options = get_option('competitive_scheduling_msg_options');
+
+            $activation = (isset($options['activation']) ? true : false);
+            $msgAgendamentoSuspenso = (existe($config['msg-agendamento-suspenso']) ? $config['msg-agendamento-suspenso'] : '');
+
             ob_start();
             require( COMP_SCHEDULE_PATH . 'views/competitive-scheduling_shortecode.php' );
-            return ob_get_clean();
+            $page = ob_get_clean();
+
+            // Require templates class.
+            require_once( COMP_SCHEDULE_PATH . 'includes/class.templates.php' );
+
+            $page = Templates::change_variable($page, '#teste-var#', '<h1>Hello World!</h1>');
+
+            return $page;
         }
     }
 }
