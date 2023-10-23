@@ -60,6 +60,24 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_msg_options',
                 array(
                     'print-schedules' => self::template_html( 'print-schedules' ),
+                    'coupon-priority-description' => __( 'When making a new appointment, fill in the code below in the <b>Priority Coupon</b> field', 'competitive-scheduling' ),
+                    'msg-scheduling-cancelled' => self::template_html( 'msg-scheduling-cancelled' ),
+                    'msg-scheduling-confirmed' => self::template_html( 'msg-scheduling-confirmed' ),
+                    'msg-scheduling-date-not-allowed' => self::template_html( 'msg-scheduling-date-not-allowed' ),
+                    'msg-schedule-expired' => self::template_html( 'msg-schedule-expired' ),
+                    'msg-scheduling-already-confirmed' => self::template_html( 'msg-scheduling-already-confirmed' ),
+                    'msg-scheduling-already-exists' => self::template_html( 'msg-scheduling-already-exists' ),
+                    'msg-scheduling-not-found' => self::template_html( 'msg-scheduling-not-found' ),
+                    'msg-scheduling-without-vacancies' => self::template_html( 'msg-scheduling-without-vacancies' ),
+                    'msg-scheduling-suspended' => self::template_html( 'msg-scheduling-suspended' ),
+                    'msg-conclusion-scheduling' => self::template_html( 'msg-conclusion-scheduling' ),
+                    'msg-conclusion-pre-scheduling' => self::template_html( 'msg-conclusion-pre-scheduling' ),
+                    'msg-confirmation-status-not-permitted' => self::template_html( 'msg-confirmation-status-not-permitted' ),
+                    'msg-coupon-priority-inactive' => self::template_html( 'msg-coupon-priority-inactive' ),
+                    'msg-priority-coupon-already-used' => self::template_html( 'msg-priority-coupon-already-used' ),
+                    'msg-coupon-priority-not-found' => self::template_html( 'msg-coupon-priority-not-found' ),
+                    'msg-expired-priority-coupon' => self::template_html( 'msg-expired-priority-coupon' ),
+                    'msg-residual-vacancies-unavailable' => self::template_html( 'msg-residual-vacancies-unavailable' ),
                 )
             );
 
@@ -150,6 +168,133 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'name' => __( 'Name', 'competitive-scheduling' ),
                         'password' => __( 'Password', 'competitive-scheduling' ),
                         'viewed' => __( 'Viewed', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-cancelled':
+                    $change_variables = array(
+                        'title' => __( 'Cancellation Success', 'competitive-scheduling' ),
+                        'description' => __( 'Appointment <b>CANCELLED</b> successfully!', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-confirmed':
+                    $change_variables = array(
+                        'title' => __( 'Confirmation Success', 'competitive-scheduling' ),
+                        'description' => __( 'Scheduling <b>CONFIRMED</b> Successfully!', 'competitive-scheduling' ),
+                        'scheduled-people' => __( 'Scheduled People', 'competitive-scheduling' ),
+                        'your-name' => __( 'Your name', 'competitive-scheduling' ),
+                        'companion' => __( 'Companion', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-date-not-allowed':
+                    $change_variables = array(
+                        'title' => __( 'Date Not Allowed', 'competitive-scheduling' ),
+                        'description' => __( 'This date is not valid. allowed, choose another.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-schedule-expired':
+                    $change_variables = array(
+                        'title' => __( 'Confirmation Period Expired', 'competitive-scheduling' ),
+                        'description1' => __( 'It is not It is possible to confirm your appointment once it is ready. outside the confirmation period!', 'competitive-scheduling' ),
+                        'description2' => __( 'The confirmation period comprises the day <b>#date_confirmation_1#</b> until the end of the month. the day <b>#date_confirmation_2#</b> .', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-already-confirmed':
+                    $change_variables = array(
+                        'title' => __( 'This appointment is already available. was confirmed in another confirmation attempt and therefore is not confirmed. You can confirm the same again.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-already-exists':
+                    $change_variables = array(
+                        'title' => __( 'Schedule Now Exist', 'competitive-scheduling' ),
+                        'description' => __( 'This date is already over. You have an appointment registered in your name. It is not Allowed to schedule twice on the same date. If you want to modify a schedule, just click here. is This is possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new appointments.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-not-found':
+                    $change_variables = array(
+                        'title' => __( 'Appointment Not Found', 'competitive-scheduling' ),
+                        'description1' => __( 'We were unable to find your appointment or the verification code provided has expired.', 'competitive-scheduling' ),
+                        'description2' => __( 'It is possible that your appointment has already been completed. has been confirmed or canceled and the appointment verification code has been removed from the system after use. Therefore, access the system <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and make the changes there.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-without-vacancies':
+                    $change_variables = array(
+                        'title' => __( 'No Vacancy Scheduling', 'competitive-scheduling' ),
+                        'description' => __( 'It is not It is possible to schedule you and/or their companions on the day <b>#date#</b> as it exceeds the capacity of appointment slots on the day in question!', 'competitive-scheduling' ),
+                        'vacancies' => __( 'Total number of available places: <b>#vacancies#</b>.', 'competitive-scheduling' ),
+                        'observations' => __( 'Observations:', 'competitive-scheduling' ),
+                        'info1' => __( 'Choose another day and try again.', 'competitive-scheduling' ),
+                        'info2' => __( 'Or, reduce the number of companions and try again.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-scheduling-suspended':
+                    $change_variables = array(
+                        'title' => __( 'Scheduling is suspended!', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-conclusion-scheduling':
+                    $change_variables = array(
+                        'title' => __( 'Scheduling Completed Successfully!', 'competitive-scheduling' ),
+                        'day' => __( 'Day', 'competitive-scheduling' ),
+                        'password' => __( 'Password', 'competitive-scheduling' ),
+                        'scheduled-people' => __( 'Scheduled People', 'competitive-scheduling' ),
+                        'your-name' => __( 'Your Name', 'competitive-scheduling' ),
+                        'companion' => __( 'Companion', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-conclusion-pre-scheduling':
+                    $change_variables = array(
+                        'title' => __( 'Pre-Schedule Completed Successfully!', 'competitive-scheduling' ),
+                        'day' => __( 'Day', 'competitive-scheduling' ),
+                        'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-appointments ARE NOT confirmed appointments. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your appointment via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the appointment. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your appointment. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your appointment within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
+                        'important_2' => __( '<br /><span class="txt-1"><b>IMPORTANT 2</b>:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to everyone. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ),
+                        'important_3' => __( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an appointment. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-confirmation-status-not-permitted':
+                    $change_variables = array(
+                        'title' => __( 'It is not possible to confirm this appointment as the system has not allowed it to do so.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-coupon-priority-inactive':
+                    $change_variables = array(
+                        'title' => __( 'The priority coupon number <b>#coupon#</b> is inactive in the system and cannot be used.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-priority-coupon-already-used':
+                    $change_variables = array(
+                        'title' => __( 'Priority coupon number <b>#coupon#</b> HAS ALREADY BEEN USED and cannot be used again.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-coupon-priority-not-found':
+                    $change_variables = array(
+                        'title' => __( 'Priority coupon number <b>#coupon#</b> was not found!', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-coupon-priority-not-found':
+                    $change_variables = array(
+                        'title' => __( 'Priority coupon number <b>#coupon#</b> is out of validity period! It is only possible to use it between the days <b>#valid_from#</b> to <b>#valid_until#</b>.', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-residual-vacancies-unavailable':
+                    $change_variables = array(
+                        'title' => __( 'It was not possible to confirm due to residual vacancies. Either because it is beyond the deadline for confirmation or because the remaining vacancies have been exhausted.', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -447,6 +592,150 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 array( $this, 'field_print_schedules_callback' ),
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section',
+            );
+
+            add_settings_field(
+                'coupon-priority-description',
+                esc_html__( 'Coupon Priority Description', 'competitive-scheduling' ),
+                array( $this, 'field_coupon_priority_description_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-cancelled',
+                esc_html__( 'Scheduling Cancelled', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_cancelled_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-confirmed',
+                esc_html__( 'Scheduling Confirmed', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_confirmed_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-date-not-allowed',
+                esc_html__( 'Scheduling Date Not Allowed', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_date_not_allowed_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-schedule-expired',
+                esc_html__( 'Schedule Expired', 'competitive-scheduling' ),
+                array( $this, 'field_msg_schedule_expired_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-already-confirmed',
+                esc_html__( 'Scheduling Already Confirmed', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_already_confirmed_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-already-exists',
+                esc_html__( 'Scheduling Already Exists', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_already_exists_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-not-found',
+                esc_html__( 'Scheduling Not Found', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_not_found_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-without-vacancies',
+                esc_html__( 'Scheduling Without Vacancies', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_without_vacancies_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-scheduling-suspended',
+                esc_html__( 'Scheduling Suspended', 'competitive-scheduling' ),
+                array( $this, 'field_msg_scheduling_suspended_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-conclusion-scheduling',
+                esc_html__( 'Conclusion Scheduling', 'competitive-scheduling' ),
+                array( $this, 'field_msg_conclusion_scheduling_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-conclusion-pre-scheduling',
+                esc_html__( 'Conclusion Pre-Scheduling', 'competitive-scheduling' ),
+                array( $this, 'field_msg_conclusion_pre_scheduling_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-confirmation-status-not-permitted',
+                esc_html__( 'Confirmation Status Not Permitted', 'competitive-scheduling' ),
+                array( $this, 'field_msg_confirmation_status_not_permitted_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-coupon-priority-inactive',
+                esc_html__( 'Coupon Priority Inactive', 'competitive-scheduling' ),
+                array( $this, 'field_msg_coupon_priority_inactive_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-priority-coupon-already-used',
+                esc_html__( 'Priority Coupon Already Used', 'competitive-scheduling' ),
+                array( $this, 'field_msg_priority_coupon_already_used_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-coupon-priority-not-found',
+                esc_html__( 'Coupon Priority Not Found', 'competitive-scheduling' ),
+                array( $this, 'field_msg_coupon_priority_not_found_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-expired-priority-coupon',
+                esc_html__( 'Expired Priority Coupon', 'competitive-scheduling' ),
+                array( $this, 'field_msg_expired_priority_coupon_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'msg-residual-vacancies-unavailable',
+                esc_html__( 'Residual Vacancies Unavailable', 'competitive-scheduling' ),
+                array( $this, 'field_msg_residual_vacancies_unavailable_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
             );
         }
 
@@ -798,6 +1087,294 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ?>
                 <textarea id="codemirror_editor" name="competitive_scheduling_msg_options[print-schedules]" rows="10" cols="50"><?php echo isset( self::$msg_options['print-schedules'] ) ? self::$msg_options['print-schedules'] : '';  ?></textarea>
                 <p><?php echo esc_html__( 'HTML layout for printing confirmed appointments.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_coupon_priority_description_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['coupon-priority-description'] ) ? self::$msg_options['coupon-priority-description'] : '', 'coupon-priority-description', [
+                'textarea_name' => 'competitive_scheduling_msg_options[coupon-priority-description]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Brief description that will appear on all priority coupons.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_cancelled_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-cancelled'] ) ? self::$msg_options['msg-scheduling-cancelled'] : '', 'msg-scheduling-cancelled', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-cancelled]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when canceling a schedule has been completed successfully.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_confirmed_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-confirmed'] ) ? self::$msg_options['msg-scheduling-confirmed'] : '', 'msg-scheduling-confirmed', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-confirmed]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when confirmation of a booking has been completed successfully.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_date_not_allowed_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-date-not-allowed'] ) ? self::$msg_options['msg-scheduling-date-not-allowed'] : '', 'msg-scheduling-date-not-allowed', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-date-not-allowed]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when a date is not available.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_schedule_expired_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-schedule-expired'] ) ? self::$msg_options['msg-schedule-expired'] : '', 'msg-schedule-expired', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-schedule-expired]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when confirmation of a schedule was not possible because the confirmation period has passed.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_already_confirmed_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-already-confirmed'] ) ? self::$msg_options['msg-scheduling-already-confirmed'] : '', 'msg-scheduling-already-confirmed', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-already-confirmed]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Message that will be shown to the user when trying to confirm an already confirmed appointment again.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_already_exists_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-already-exists'] ) ? self::$msg_options['msg-scheduling-already-exists'] : '', 'msg-scheduling-already-exists', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-already-exists]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when they try to schedule twice on the same date.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_not_found_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-not-found'] ) ? self::$msg_options['msg-scheduling-not-found'] : '', 'msg-scheduling-not-found', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-not-found]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when a schedule was not found.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_without_vacancies_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-without-vacancies'] ) ? self::$msg_options['msg-scheduling-without-vacancies'] : '', 'msg-scheduling-without-vacancies', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-without-vacancies]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when there are no spaces for an appointment.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_scheduling_suspended_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-scheduling-suspended'] ) ? self::$msg_options['msg-scheduling-suspended'] : '', 'msg-scheduling-suspended', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-scheduling-suspended]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Message shown to users when the system is suspended.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_conclusion_scheduling_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-conclusion-scheduling'] ) ? self::$msg_options['msg-conclusion-scheduling'] : '', 'msg-conclusion-scheduling', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-conclusion-scheduling]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when completing a schedule.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_conclusion_pre_scheduling_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-conclusion-pre-scheduling'] ) ? self::$msg_options['msg-conclusion-pre-scheduling'] : '', 'msg-conclusion-pre-scheduling', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-conclusion-pre-scheduling]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Alert message shown to users when completing a pre-booking.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_confirmation_status_not_permitted_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-confirmation-status-not-permitted'] ) ? self::$msg_options['msg-confirmation-status-not-permitted'] : '', 'msg-confirmation-status-not-permitted', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-confirmation-status-not-permitted]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Message that will be shown to the user when trying to confirm an appointment with a not allowed status.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_coupon_priority_inactive_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-coupon-priority-inactive'] ) ? self::$msg_options['msg-coupon-priority-inactive'] : '', 'msg-coupon-priority-inactive', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-coupon-priority-inactive]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Priority Coupon Inactivity Alert Message.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_priority_coupon_already_used_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-priority-coupon-already-used'] ) ? self::$msg_options['msg-priority-coupon-already-used'] : '', 'msg-priority-coupon-already-used', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-priority-coupon-already-used]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Priority coupon alert message already used.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_coupon_priority_not_found_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-coupon-priority-not-found'] ) ? self::$msg_options['msg-coupon-priority-not-found'] : '', 'msg-coupon-priority-not-found', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-coupon-priority-not-found]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Priority Coupon Not Found Alert Message.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_expired_priority_coupon_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-expired-priority-coupon'] ) ? self::$msg_options['msg-expired-priority-coupon'] : '', 'msg-expired-priority-coupon', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-expired-priority-coupon]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'Expired priority coupon alert message.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_msg_residual_vacancies_unavailable_callback(){
+            // Renders custom TinyMCE editor
+            wp_editor(isset( self::$msg_options['msg-residual-vacancies-unavailable'] ) ? self::$msg_options['msg-residual-vacancies-unavailable'] : '', 'msg-residual-vacancies-unavailable', [
+                'textarea_name' => 'competitive_scheduling_msg_options[msg-residual-vacancies-unavailable]',
+                'mode' => 'text/html',
+                'theme' => 'monokai',
+                'plugins' => ['advlist', 'autolink', 'link', 'media', 'paste', 'table', 'textcolor'],
+                'width' => 1250,
+                'min_width' => 500,
+            ]);
+
+            ?>
+                <p><?php echo esc_html__( 'When it is not possible to confirm residual vacancies due to the deadline or because there are no vacancies.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
