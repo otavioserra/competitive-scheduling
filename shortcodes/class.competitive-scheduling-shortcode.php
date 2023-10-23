@@ -14,7 +14,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                     // The plugin is active
                     
                     // Redirects to the Ultimate Member login page
-                    wp_redirect( get_um_login_url() );
+                    wp_redirect( home_url( '/login' ) );
                 } else {
                     // The plugin is not active
                 
