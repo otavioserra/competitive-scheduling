@@ -9,8 +9,19 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
         public function add_shortcode( $atts = array(), $content = null, $tag = '' ){
             // Check if the user is logged in
             if ( ! is_user_logged_in() ) {
-                // Redirect to the login page
-                wp_redirect( wp_login_url() );
+                // Checks if the Ultimate Member plugin is active
+                if ( is_plugin_active( 'ultimate-member/ultimate-member.php' ) ) {
+                    // The plugin is active
+                
+                    // Redirects to the Ultimate Member login page
+                    wp_redirect( um_login_url() );
+                } else {
+                    // The plugin is not active
+                
+                    // Redirects to the default WordPress login page
+                    wp_redirect( wp_login_url() );
+                }
+                
                 exit;
             }
 
