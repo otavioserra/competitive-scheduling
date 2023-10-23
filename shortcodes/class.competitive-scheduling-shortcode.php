@@ -52,7 +52,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
             $msg_options = get_option('competitive_scheduling_msg_options');
 
             $activation = (isset($options['activation']) ? true : false);
-            $msgAgendamentoSuspenso = (existe($config['msg-agendamento-suspenso']) ? $config['msg-agendamento-suspenso'] : '');
+            $msgAgendamentoSuspenso = (isset($config['msg-agendamento-suspenso']) ? $config['msg-agendamento-suspenso'] : '');
 
             ob_start();
             require( COMP_SCHEDULE_PATH . 'views/competitive-scheduling_shortecode.php' );
