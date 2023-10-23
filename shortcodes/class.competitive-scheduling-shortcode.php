@@ -12,7 +12,10 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                 // Checks if the Ultimate Member plugin is active
                 if ( is_plugin_active( 'ultimate-member/ultimate-member.php' ) ) {
                     // The plugin is active
-                
+                    
+                    // Include the Ultimate Member functions file
+                    require_once( ABSPATH . 'wp-content/plugins/ultimate-member/includes/um-functions.php' );
+
                     // Redirects to the Ultimate Member login page
                     wp_redirect( um_login_url() );
                 } else {
@@ -21,7 +24,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                     // Redirects to the default WordPress login page
                     wp_redirect( wp_login_url() );
                 }
-                
+
                 exit;
             }
 
