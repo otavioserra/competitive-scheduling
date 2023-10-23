@@ -45,13 +45,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             add_option(
                 'competitive_scheduling_html_options',
                 array(
-                    'schedule-subject' => esc_html__( 'Scheduling made - nº #code#', 'competitive-scheduling' ),
+                    'schedule-subject' => __( 'Scheduling made - nº #code#', 'competitive-scheduling' ),
                     'schedule-message' => self::template_html( 'schedule-message' ),
-                    'unschedule-subject' => esc_html__( 'Schedule Cancellation - nº #code#', 'competitive-scheduling' ),
+                    'unschedule-subject' => __( 'Schedule Cancellation - nº #code#', 'competitive-scheduling' ),
                     'unschedule-message' => self::template_html( 'unschedule-message' ),
-                    'confirmation-subject' => esc_html__( 'Schedule Confirmation - nº #code#', 'competitive-scheduling' ),
+                    'confirmation-subject' => __( 'Schedule Confirmation - nº #code#', 'competitive-scheduling' ),
                     'confirmation-message' => self::template_html( 'confirmation-message' ),
-                    'pre-scheduling-subject' => esc_html__( 'Pre-Scheduling Made - nº #code#', 'competitive-scheduling' ),
+                    'pre-scheduling-subject' => __( 'Pre-Scheduling Made - nº #code#', 'competitive-scheduling' ),
                     'pre-scheduling-message' => self::template_html( 'pre-scheduling-message' ),
                 )
             );
