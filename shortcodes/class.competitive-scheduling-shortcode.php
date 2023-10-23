@@ -15,7 +15,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
             }
 
             // Check if the user has the correct user level
-            if ( ! current_user_can( 'subscriber' ) ) {
+            if ( ! user_can( get_current_user_id(), 'subscriber' ) ) {
                 // Redirect to the registration page
                 wp_redirect( wp_registration_url() );
                 exit;
