@@ -48,13 +48,13 @@ if( !class_exists( 'Database' ) ){
                             PRIMARY KEY (`id_schedules_companions`))
                         ENGINE = InnoDB'
                     ,
-                    'coupons_priority' => 
-                    'CREATE TABLE IF NOT EXISTS `#prefix#coupons_priority` (
-                            `id_coupons_priority` INT NOT NULL AUTO_INCREMENT,
+                    'schedules_coupons_priority' => 
+                    'CREATE TABLE IF NOT EXISTS `#prefix#schedules_coupons_priority` (
+                            `id_schedules_coupons_priority` INT NOT NULL AUTO_INCREMENT,
                             `post_id` INT NULL,
                             `id_schedules` INT NULL,
                             `coupon` VARCHAR(255) NULL,
-                            PRIMARY KEY (`id_coupons_priority`))
+                            PRIMARY KEY (`id_schedules_coupons_priority`))
                         ENGINE = InnoDB'
                     ,
                     'schedules_weights' => 
