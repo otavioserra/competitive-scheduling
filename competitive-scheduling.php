@@ -57,6 +57,8 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_DEBUG', true );
             define( 'CS_FORCE_DATE_TODAY', false );
             define( 'CS_DATE_TODAY_FORCED_VALUE', '2023-01-18' );
+            define( 'CS_NOUNCE_SCHEDULES', 'cs-nouce-schedules' );
+            define( 'CS_NOUNCE_SCHEDULES_EXPIRES', 86400*45 );
         }
 
         public static function activate(){

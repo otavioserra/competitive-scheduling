@@ -5,6 +5,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
         function __construct(){
             add_action( 'init', array( $this, 'create_post_type' ) );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+            add_action( 'save_post_' . 'priority-coupon', array( $this, 'change_coupons' ), 10, 1 );
         }
 
         public function create_post_type(){
@@ -48,6 +49,26 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         public function add_inner_meta_boxes( $post ){
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
+        }
+
+        public function change_coupons( $post_id ) {
+            // Obter o valor do action
+            $action = current_action();
+            
+            switch ($action) {
+                case 'save_post_' . 'priority-coupon':
+                case 'edit_post_' . 'priority-coupon':
+                    $quantity = get_post_meta( $post_id, 'cs_quantity', true );
+                        
+                    break;
+                case 'delete_post_' . 'priority-coupon':
+                    
+                    
+                    break;
+            }
+
+            echo 'Ação: '.$action;
+
         }
 
     }
