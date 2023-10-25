@@ -67,7 +67,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             update_option( 'rewrite_rules', '' );
 
             Competitive_Scheduling_Settings::register_settings();
-            Database::create_tables();
+            Database::update_database();
         }
 
         public static function deactivate(){

@@ -5,7 +5,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
         function __construct(){
             add_action( 'init', array( $this, 'create_post_type' ) );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-            add_action( 'save_post_' . 'priority-coupon', array( $this, 'change_coupons' ), 10, 3 );
+            add_action( 'save_post_' . 'priority-coupon', array( $this, 'change_coupons' ), 10, 2 );
         }
 
         public function create_post_type(){
@@ -51,11 +51,32 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
-        public function change_coupons( $post_id, $post, $update ) {
+        public function change_coupons( $post_id, $post ) {
+            // Flag to identify whether this is a new post or an update or trash
+            $action = '';
+
+            // Find out which operation is being done by the save_post hook: add, update, delete.
             $is_new = $post->post_date === $post->post_modified;
+            if ( $is_new && $post->post_status === 'publish' ) {
+                $action = 'add';
+            } else if ( $post->post_status === 'publish' ){
+                $action = 'update';
+            } else if ( $post->post_status === 'trash' ){
+                $action = 'delete';
+            }
             
-            $acao = 'Status: ' . $post->post_status . ' - New: ' . ($is_new ? 'true' : 'false') . ' - Update: ' . ($update ? 'true' : 'false');
-            if(WP_DEBUG_LOG) error_log( CS_ID . ': ' . $acao );
+            // Do coupon changes based on the action.
+            switch($action){
+                case 'add':
+
+                    break;
+                case 'update':
+
+                    break;
+                case 'delete':
+
+                    break;
+            }
         }
 
     }
