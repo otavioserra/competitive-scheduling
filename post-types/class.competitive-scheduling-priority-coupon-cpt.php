@@ -67,6 +67,9 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     break;
             }
 
+            // Obter os dados do post
+            $post = get_post($post_id);
+
             $acao = 'Ação: '.$action. ' - Status: ' . $post->post_status;
             if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ': ' . $acao );
         }
