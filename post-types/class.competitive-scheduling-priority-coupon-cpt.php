@@ -5,7 +5,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
         function __construct(){
             add_action( 'init', array( $this, 'create_post_type' ) );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-            add_action( 'save_post_' . 'priority-coupon', array( $this, 'change_coupons' ), 10, 1 );
+            add_action( 'save_post_' . 'priority-coupon', array( $this, 'change_coupons' ), 10, 3 );
         }
 
         public function create_post_type(){
@@ -51,26 +51,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
-        public function change_coupons( $post_id ) {
-            // Obter o valor do action
-            $action = current_action();
-            
-            switch ($action) {
-                case 'save_post_' . 'priority-coupon':
-                case 'edit_post_' . 'priority-coupon':
-                    $quantity = get_post_meta( $post_id, 'cs_quantity', true );
-                        
-                    break;
-                case 'delete_post_' . 'priority-coupon':
-                    
-                    
-                    break;
-            }
-
-            // Obter os dados do post
-            $post = get_post($post_id);
-
-            $acao = 'Ação: '.$action. ' - Status: ' . $post->post_status;
+        public function change_coupons( $post_id, $post, $update ) {
+            $acao = 'Status: ' . $post->post_status . ' - Update: ' . ($update ? 'true' : 'false');
             if(WP_DEBUG_LOG) error_log( CS_ID . ': ' . $acao );
         }
 
