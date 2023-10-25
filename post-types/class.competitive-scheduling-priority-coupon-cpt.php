@@ -53,11 +53,6 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         public function change_coupons( $post_id, $post, $update ) {
             $is_new = $post->post_date === $post->post_modified;
-            if ( $is_new ) {
-                // first publish
-            } else {
-                // an update
-            }
             
             $acao = 'Status: ' . $post->post_status . ' - New: ' . ($is_new ? 'true' : 'false') . ' - Update: ' . ($update ? 'true' : 'false');
             if(WP_DEBUG_LOG) error_log( CS_ID . ': ' . $acao );
