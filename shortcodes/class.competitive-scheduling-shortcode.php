@@ -40,30 +40,57 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                 $id = array_map( 'absint', explode( ',', $id ) );
             }
 
-            wp_enqueue_style( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), COMP_SCHEDULE_VERSION );
-            wp_enqueue_script( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), COMP_SCHEDULE_VERSION );
+            wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
+            wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
             
-            wp_enqueue_style( 'competitive-scheduling', COMP_SCHEDULE_URL . 'assets/css/shortecode.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/shortecode.css' ) : COMP_SCHEDULE_VERSION ) );
-            wp_enqueue_script( 'competitive-scheduling', COMP_SCHEDULE_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/shortecode.js' ) : COMP_SCHEDULE_VERSION ) );
+            wp_enqueue_style( 'competitive-scheduling', CS_URL . 'assets/css/shortecode.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/shortecode.css' ) : CS_VERSION ) );
+            wp_enqueue_script( 'competitive-scheduling', CS_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/shortecode.js' ) : CS_VERSION ) );
 
-            // ===== Handle the status of the schedule.
+            // Get page view and return processed page
 
-            $options = get_option('competitive_scheduling_options');
-            $msg_options = get_option('competitive_scheduling_msg_options');
+            ob_start();
+            require( CS_PATH . 'views/competitive-scheduling_shortecode.php' );
+
+            return $this->shortcode_page(ob_get_clean());
+        }
+
+        private function shortcode_page( $page ){
+            // Verify if page is defined
+            if( empty($page) ){
+                return '';
+            }
+
+            // Get the configuration data.
+            $options = get_option( 'competitive_scheduling_options' );
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
 
             $activation = (isset($options['activation']) ? true : false);
             $msgAgendamentoSuspenso = (isset($config['msg-agendamento-suspenso']) ? $config['msg-agendamento-suspenso'] : '');
 
-            ob_start();
-            require( COMP_SCHEDULE_PATH . 'views/competitive-scheduling_shortecode.php' );
-            $page = ob_get_clean();
-
-            // Require templates class.
-            require_once( COMP_SCHEDULE_PATH . 'includes/class.templates.php' );
+            // Require templates class to manipulate page.
+            require_once( CS_PATH . 'includes/class.templates.php' );
 
             $page = Templates::change_variable($page, '#teste-var#', '<h1>Hello World!</h1>');
+        }
 
-            return $page;
+        private function nonce_verify( $nonce ){
+            // Verifiying nonce
+            if( isset( $_POST[$nonce] ) ){
+                if( ! wp_verify_nonce( $_POST[$nonce], $nonce ) ){
+                    $noNonce = true;
+                }
+            } else {
+                $noNonce = true;
+            }
+            
+            // If nonce is invalid, redirect to home
+            if( isset( $noNonce ) ){
+                wp_redirect( home_url( '/' ) );
+            }
+        }
+
+        private function action_schedule( $params = false ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
         }
     }
 }

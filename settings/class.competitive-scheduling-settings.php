@@ -103,10 +103,10 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
         private static function template_html( $id_template ){
             // Require templates class.
-            require_once( COMP_SCHEDULE_PATH . 'includes/class.templates.php' );
+            require_once( CS_PATH . 'includes/class.templates.php' );
 
             // Read template content.
-            $template = file_get_contents( COMP_SCHEDULE_PATH . 'settings/templates/template-' . $id_template . '.html' );
+            $template = file_get_contents( CS_PATH . 'settings/templates/template-' . $id_template . '.html' );
 
             // Check if template exists
             if ( $template === null ) {
@@ -312,11 +312,11 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
         public function sections_init(){
             
-            wp_enqueue_style( 'cs-settings', COMP_SCHEDULE_URL . 'assets/css/settings.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/settings.css' ) : COMP_SCHEDULE_VERSION ) );
-            wp_enqueue_script( 'cs-settings', COMP_SCHEDULE_URL . 'assets/js/settings.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/settings.js' ) : COMP_SCHEDULE_VERSION ) );
+            wp_enqueue_style( 'cs-settings', CS_URL . 'assets/css/settings.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/settings.css' ) : CS_VERSION ) );
+            wp_enqueue_script( 'cs-settings', CS_URL . 'assets/js/settings.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/settings.js' ) : CS_VERSION ) );
 
-            wp_enqueue_style( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), COMP_SCHEDULE_VERSION );
-            wp_enqueue_script( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), COMP_SCHEDULE_VERSION );
+            wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
+            wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
 
             register_setting( 
                 'competitive_scheduling_group_options', 

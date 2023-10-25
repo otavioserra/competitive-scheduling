@@ -47,7 +47,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
         }
 
         public function add_inner_meta_boxes( $post ){
-            require_once( COMP_SCHEDULE_PATH . 'views/competitive-scheduling_metabox.php' );
+            require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
     }

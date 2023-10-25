@@ -39,28 +39,33 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
             add_action( 'admin_menu', array( $this, 'add_menu' ) );
 
-            require_once( COMP_SCHEDULE_PATH . 'post-types/class.competitive-scheduling-priority-coupon-cpt.php' );
+            require_once( CS_PATH . 'post-types/class.competitive-scheduling-priority-coupon-cpt.php' );
             $Competitive_Scheduling_Priority_Coupon_Post_Type = new Competitive_Scheduling_Priority_Coupon_Post_Type();
 
-            require_once( COMP_SCHEDULE_PATH . 'shortcodes/class.competitive-scheduling-shortcode.php' );
+            require_once( CS_PATH . 'shortcodes/class.competitive-scheduling-shortcode.php' );
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
 
-            require_once( COMP_SCHEDULE_PATH . 'settings/class.competitive-scheduling-settings.php' );
+            require_once( CS_PATH . 'settings/class.competitive-scheduling-settings.php' );
             $Competitive_Scheduling_Settings = new Competitive_Scheduling_Settings();
         }
 
         public function define_constants(){
-            define( 'COMP_SCHEDULE_ID', 'Competitive_Scheduling' );
-            define( 'COMP_SCHEDULE_PATH', plugin_dir_path( __FILE__ ) );
-            define( 'COMP_SCHEDULE_URL', plugin_dir_url( __FILE__ ) );
-            define( 'COMP_SCHEDULE_VERSION', '1.0.0' );
-            define( 'COMP_SCHEDULE_DEBUG', true );
+            define( 'CS_ID', 'Competitive_Scheduling' );
+            define( 'CS_PATH', plugin_dir_path( __FILE__ ) );
+            define( 'CS_URL', plugin_dir_url( __FILE__ ) );
+            define( 'CS_VERSION', '1.0.0' );
+            define( 'CS_DEBUG', true );
+            define( 'CS_FORCE_DATE_TODAY', false );
+            define( 'CS_DATE_TODAY_FORCED_VALUE', '2023-01-18' );
         }
 
         public static function activate(){
+            require_once( CS_PATH . 'includes/class.database.php' );
+
             update_option( 'rewrite_rules', '' );
 
             Competitive_Scheduling_Settings::register_settings();
+            Database::create_tables();
         }
 
         public static function deactivate(){
@@ -120,13 +125,13 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 return;
             }
 
-            wp_enqueue_style( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), COMP_SCHEDULE_VERSION );
-            wp_enqueue_script( 'fomantic-ui', COMP_SCHEDULE_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), COMP_SCHEDULE_VERSION );
+            wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
+            wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
             
-            wp_enqueue_style( 'competitive-scheduling-admin', COMP_SCHEDULE_URL . 'assets/css/admin.css', array(  ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/css/admin.css' ) : COMP_SCHEDULE_VERSION ) );
-            wp_enqueue_script( 'competitive-scheduling-admin', COMP_SCHEDULE_URL . 'assets/js/admin.js', array( 'jquery' ), ( COMP_SCHEDULE_DEBUG ? filemtime( COMP_SCHEDULE_PATH . 'assets/js/admin.js' ) : COMP_SCHEDULE_VERSION ) );
+            wp_enqueue_style( 'competitive-scheduling-admin', CS_URL . 'assets/css/admin.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/admin.css' ) : CS_VERSION ) );
+            wp_enqueue_script( 'competitive-scheduling-admin', CS_URL . 'assets/js/admin.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/admin.js' ) : CS_VERSION ) );
 
-            require( COMP_SCHEDULE_PATH . 'views/competitive-scheduling-page.php' );
+            require( CS_PATH . 'views/competitive-scheduling-page.php' );
         }
 
         public function competitive_scheduling_settings_page(){
@@ -144,7 +149,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             
             settings_errors( 'competitive_scheduling_options' );
 
-            require( COMP_SCHEDULE_PATH . 'views/settings-page.php' );
+            require( CS_PATH . 'views/settings-page.php' );
         }
     }
 }
