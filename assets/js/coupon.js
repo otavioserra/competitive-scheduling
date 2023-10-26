@@ -43,7 +43,7 @@ jQuery( document ).ready( function() {
         }
     };
 
-    if( jQuery('.form-table').attr('data-locale') === "pt_BR" ) {
+    if( jQuery( '.form-table' ).attr( 'data-locale' ) === "pt_BR" ) {
         calendarConfigStart.text = calendarPtBR;
         calendarConfigEnd.text = calendarPtBR;
     }

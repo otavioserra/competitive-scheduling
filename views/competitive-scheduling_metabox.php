@@ -3,7 +3,7 @@
     $cs_valid_from = get_post_meta( $post->ID, 'cs_valid_from', true );
     $cs_valid_until = get_post_meta( $post->ID, 'cs_valid_until', true );
 ?>
-<table class="form-table priority-coupon-metabox"> 
+<table class="form-table priority-coupon-metabox" data-locale="<?php echo get_locale(); ?>"> 
 <input type="hidden" name="<?php echo self::$nounce; ?>" value="<?php echo wp_create_nonce( self::$nounce ); ?>">
     <tr>
         <th>
