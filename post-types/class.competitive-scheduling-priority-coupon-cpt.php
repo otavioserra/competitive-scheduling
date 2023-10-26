@@ -113,7 +113,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             }
 
             // Check if it is an edit of a post.
-            if( isset( $_POST['action'] ) && $_POST['action'] == 'editpost' ){
+            if( isset( $_POST['action'] ) && ( $_POST['action'] == 'editpost' || $_POST['action'] == 'trash' ) ){
                 // Save all metabox fields.
                 $fields_ids = array(
                     'cs_quantity', 
