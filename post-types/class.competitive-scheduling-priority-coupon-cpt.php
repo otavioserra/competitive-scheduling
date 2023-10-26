@@ -87,6 +87,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
 
             wp_enqueue_style( 'coupon-css', CS_URL . 'assets/css/coupon.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/coupon.css' ) : CS_VERSION ) );
+            wp_enqueue_script( 'coupon-js', CS_URL . 'assets/js/coupon.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/coupon.js' ) : CS_VERSION ) );
 
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
