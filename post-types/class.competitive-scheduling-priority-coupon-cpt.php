@@ -191,7 +191,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                                 $query = $wpdb->prepare(
                                     "SELECT id_schedules_coupons_priority 
                                     FROM {$wpdb->prefix}schedules_coupons_priority 
-                                    WHERE post_id = '%s'",
+                                    WHERE post_id = '%s' 
+                                    ORDER BY id_schedules_coupons_priority DESC",
                                     $post_id
                                 );
                                 $coupons_priority = $wpdb->get_results( $query );
