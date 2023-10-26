@@ -10,6 +10,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             add_action( 'init', array( $this, 'create_post_type' ) );
             add_filter( 'manage_' . self::$cpt_id . '_posts_columns', array( $this, 'posts_columns' ) );
             add_action( 'manage_' . self::$cpt_id . '_posts_custom_column', array( $this, 'posts_custom_column'), 10, 2 );
+            add_filter( 'manage_edit-' . self::$cpt_id . '_sortable_columns', array( $this, 'sortable_columns' ) );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
             add_action( 'save_post_' . self::$cpt_id, array( $this, 'save_post' ), 10, 2 );
         }
@@ -61,6 +62,13 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     echo esc_url( get_post_meta( $post_id, 'cs_valid_until', true ) );
                 break;                
             }
+        }
+
+        public function sortable_columns( $columns ){
+            $columns['cs_quantity'] = 'cs_quantity';
+            $columns['cs_valid_from'] = 'cs_valid_from';
+            $columns['cs_valid_until'] = 'cs_valid_until';
+            return $columns;
         }
 
         public function add_meta_boxes(){
@@ -127,7 +135,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
                 // Get the quantity value to create or update coupons. But only do this if the values are modified.
                 if( $new['cs_quantity'] != $old['cs_quantity'] ){
-                    $quantity = $new['cs_quantity'];
+                    $quantityNew = (int)$new['cs_quantity'];
+                    $quantityOld = (int)$old['cs_quantity'];
                 
                     // Flag to identify whether this is a new post or an update or trash
                     $action = '';
@@ -141,17 +150,70 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     } else if ( $post->post_status === 'trash' ){
                         $action = 'delete';
                     }
+
+                    // Require formats class to manipulate coupon.
+                    require_once( CS_PATH . 'includes/class.formats.php' );
     
                     // Do coupon changes based on the action.
                     switch($action){
                         case 'add':
-
+                            for($i=0;$i<$quantityNew;$i++){
+                                // Generate the unique code for the coupon.
+                                $better_token = strtoupper( substr( md5( uniqid( rand(), true ) ), 0,8 ) );
+                                $coupon = Formats::format_put_char_half_number( $better_token );
+                                
+                                // Create the coupon in the database.
+                                global $wpdb;
+                                $wpdb->insert( $wpdb->prefix.'schedules_coupons_priority', array(
+                                    'post_id' => $post_id,
+                                    'coupon' => $coupon,
+                                ) );
+                            }
                             break;
                         case 'update':
-    
+                            // If the quantity after is greater than before, create new coupons. Otherwise, remove excess coupons.
+                            if( $quantityNew > $quantityOld ){
+                                for($i=0;$i<($quantityNew - $quantityOld);$i++){
+                                    // Generate the unique code for the coupon.
+                                    $better_token = strtoupper( substr( md5( uniqid( rand(), true ) ), 0,8 ) );
+                                    $coupon = Formats::format_put_char_half_number( $better_token );
+                                    
+                                    // Create the coupon in the database.
+                                    global $wpdb;
+                                    $wpdb->insert( $wpdb->prefix.'schedules_coupons_priority', array(
+                                        'post_id' => $post_id,
+                                        'coupon' => $coupon,
+                                    ) );
+                                }
+                            } else {
+                                // Select coupons from the database.
+                                global $wpdb;
+                                $query = $wpdb->prepare(
+                                    "SELECT id_schedules_coupons_priority 
+                                    FROM {$wpdb->prefix}schedules_coupons_priority 
+                                    WHERE post_id = '%s'",
+                                    $post_id
+                                );
+                                $coupons_priority = $wpdb->get_results( $query );
+
+                                // Remove excess coupons from the database.
+                                $count = 0;
+                                if( $coupons_priority )
+                                foreach( $coupons_priority as $coupon ){
+                                    if( $count >= ( $quantityOld - $quantityNew ) ){
+                                        break;
+                                    }
+
+                                    global $wpdb;
+                                    $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['id_schedules_coupons_priority' => $coupon['id_schedules_coupons_priority']] );
+                                    
+                                    $count++;
+                                }
+                            }
                             break;
                         case 'delete':
-    
+                            global $wpdb;
+                            $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['post_id' => $post_id] );
                             break;
                     }
                 }
