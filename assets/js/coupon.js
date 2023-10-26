@@ -13,7 +13,7 @@ jQuery( document ).ready( function() {
     // Calendar configs.
     var calendarConfigStart = {
         type: 'date',
-        endCalendar: jQuery( '#cs_valid_until'),
+        endCalendar: jQuery( '#rangeend' ),
         formatter: {
             date: function (date) {
                 if (!date) return '';
@@ -29,7 +29,7 @@ jQuery( document ).ready( function() {
 
     var calendarConfigEnd = {
         type: 'date',
-        startCalendar: jQuery( '#cs_valid_from' ),
+        startCalendar: jQuery( '#rangestart' ),
         formatter: {
             date: function (date) {
                 if (!date) return '';
@@ -49,6 +49,6 @@ jQuery( document ).ready( function() {
     }
 
     // Options calendar widget.
-    jQuery( '#cs_valid_from' ).calendar(calendarConfigStart);
-    jQuery( '#cs_valid_until' ).calendar(calendarConfigEnd);
+    jQuery( '#rangestart' ).calendar( calendarConfigStart );
+    jQuery( '#rangeend' ).calendar( calendarConfigEnd );
 } );

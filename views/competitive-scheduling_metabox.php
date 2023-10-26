@@ -27,14 +27,19 @@
             <label for="cs_valid_from"><?php echo esc_html__( 'Valid From', 'competitive-scheduling' ); ?></label>
         </th>
         <td>
-            <input 
-                type="text" 
-                name="cs_valid_from" 
-                id="cs_valid_from" 
-                class="input-small-text date-handle"
-                value="<?php echo ( isset( $cs_valid_from ) ) ? esc_html( $cs_valid_from ) : ''; ?>"
-                required
-            >
+            <div class="ui calendar" id="rangestart">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input 
+                        type="text" 
+                        name="cs_valid_from" 
+                        id="cs_valid_from" 
+                        class="input-small-text"
+                        value="<?php echo ( isset( $cs_valid_from ) ) ? esc_html( $cs_valid_from ) : ''; ?>"
+                    >
+                </div>
+            </div>
+            
         </td>
     </tr>
     <tr>
@@ -42,14 +47,19 @@
             <label for="cs_valid_until"><?php echo esc_html__( 'Valid Until', 'competitive-scheduling' ); ?></label>
         </th>
         <td>
-            <input 
-                type="text" 
-                name="cs_valid_until" 
-                id="cs_valid_until" 
-                class="input-small-text date-handle"
-                value="<?php echo ( isset( $cs_valid_until ) ) ? esc_html( $cs_valid_until ) : ''; ?>"
-                required
-            >
+            <div class="ui calendar" id="rangeend">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input 
+                        type="text" 
+                        name="cs_valid_until" 
+                        id="cs_valid_until" 
+                        class="input-small-text"
+                        value="<?php echo ( isset( $cs_valid_until ) ) ? esc_html( $cs_valid_until ) : ''; ?>"
+                    >
+                </div>
+            </div>
+            
         </td>
     </tr>               
 </table>
