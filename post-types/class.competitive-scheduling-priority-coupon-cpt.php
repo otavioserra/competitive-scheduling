@@ -134,46 +134,45 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     }
                 }
 
-                // Get the quantity value to create or update coupons. But only do this if the values are modified.
-                if( $new['cs_quantity'] != $old['cs_quantity'] ){
-                    $quantityNew = (int)$new['cs_quantity'];
-                    $quantityOld = (int)$old['cs_quantity'];
-                
-                    // Flag to identify whether this is a new post or an update or trash
-                    $action = '';
-    
-                    // Find out which operation is being done by the save_post hook: add, update, delete.
-                    $is_new = $post->post_date === $post->post_modified;
-                    if ( $is_new && $post->post_status === 'publish' ) {
-                        $action = 'add';
-                    } else if ( $post->post_status === 'publish' ){
-                        $action = 'update';
-                    } else if ( $post->post_status === 'trash' ){
-                        $action = 'delete';
-                    }
+                // Get the quantity value to create or update coupons.
+                $quantityNew = (int)$new['cs_quantity'];
+                $quantityOld = (int)$old['cs_quantity'];
+            
+                // Flag to identify whether this is a new post or an update or trash
+                $action = '';
 
-                    if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ': ' . $post->post_status );
+                // Find out which operation is being done by the save_post hook: add, update, delete.
+                $is_new = $post->post_date === $post->post_modified;
+                if ( $is_new && $post->post_status === 'publish' ) {
+                    $action = 'add';
+                } else if ( $post->post_status === 'publish' ){
+                    $action = 'update';
+                } else if ( $post->post_status === 'trash' ){
+                    $action = 'delete';
+                }
 
-                    // Require formats class to manipulate coupon.
-                    require_once( CS_PATH . 'includes/class.formats.php' );
-    
-                    // Do coupon changes based on the action.
-                    switch($action){
-                        case 'add':
-                            for($i=0;$i<$quantityNew;$i++){
-                                // Generate the unique code for the coupon.
-                                $better_token = strtoupper( substr( md5( uniqid( rand(), true ) ), 0,8 ) );
-                                $coupon = Formats::format_put_char_half_number( $better_token );
-                                
-                                // Create the coupon in the database.
-                                global $wpdb;
-                                $wpdb->insert( $wpdb->prefix.'schedules_coupons_priority', array(
-                                    'post_id' => $post_id,
-                                    'coupon' => $coupon,
-                                ) );
-                            }
-                            break;
-                        case 'update':
+                // Require formats class to manipulate coupon.
+                require_once( CS_PATH . 'includes/class.formats.php' );
+
+                // Do coupon changes based on the action.
+                switch($action){
+                    case 'add':
+                        for($i=0;$i<$quantityNew;$i++){
+                            // Generate the unique code for the coupon.
+                            $better_token = strtoupper( substr( md5( uniqid( rand(), true ) ), 0,8 ) );
+                            $coupon = Formats::format_put_char_half_number( $better_token );
+                            
+                            // Create the coupon in the database.
+                            global $wpdb;
+                            $wpdb->insert( $wpdb->prefix.'schedules_coupons_priority', array(
+                                'post_id' => $post_id,
+                                'coupon' => $coupon,
+                            ) );
+                        }
+                        break;
+                    case 'update':
+                        // Compare old and new coupon values. But only do this if the values are modified.
+                        if( $new['cs_quantity'] != $old['cs_quantity'] ){
                             // If the quantity after is greater than before, create new coupons. Otherwise, remove excess coupons.
                             if( $quantityNew > $quantityOld ){
                                 for($i=0;$i<($quantityNew - $quantityOld);$i++){
@@ -214,12 +213,12 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                                     $count++;
                                 }
                             }
-                            break;
-                        case 'delete':
-                            global $wpdb;
-                            $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['post_id' => $post_id] );
-                            break;
-                    }
+                        }
+                        break;
+                    case 'delete':
+                        global $wpdb;
+                        $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['post_id' => $post_id] );
+                        break;
                 }
             }
         }
