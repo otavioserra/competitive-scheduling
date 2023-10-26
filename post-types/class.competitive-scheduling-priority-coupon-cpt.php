@@ -112,8 +112,6 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 }
             }
 
-            if(WP_DEBUG_LOG) error_log( CS_ID . ' - action: ' . $_REQUEST['action'] . ' - post_status:' . $post->post_status );
-
             // Check if it is an edit of a post.
             if( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'editpost' || $_REQUEST['action'] == 'trash' ) ){
                 // Save all metabox fields.
