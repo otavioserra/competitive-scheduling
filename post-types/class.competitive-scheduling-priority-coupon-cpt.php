@@ -56,10 +56,10 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     echo esc_html( get_post_meta( $post_id, 'cs_quantity', true ) );
                 break;
                 case 'cs_valid_from':
-                    echo esc_url( get_post_meta( $post_id, 'cs_valid_from', true ) );
+                    echo esc_html( get_post_meta( $post_id, 'cs_valid_from', true ) );
                 break; 
                 case 'cs_valid_until':
-                    echo esc_url( get_post_meta( $post_id, 'cs_valid_until', true ) );
+                    echo esc_html( get_post_meta( $post_id, 'cs_valid_until', true ) );
                 break;                
             }
         }
@@ -207,7 +207,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                                     }
 
                                     global $wpdb;
-                                    $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['id_schedules_coupons_priority' => $coupon['id_schedules_coupons_priority']] );
+                                    $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['id_schedules_coupons_priority' => $coupon->id_schedules_coupons_priority ] );
                                     
                                     $count++;
                                 }
