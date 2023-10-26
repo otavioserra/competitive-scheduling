@@ -8,10 +8,10 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         function __construct(){
             add_action( 'init', array( $this, 'create_post_type' ) );
-            add_filter( 'manage_' . $this->$cpt_id . '_posts_columns', array( $this, 'posts_columns' ) );
-            add_action( 'manage_' . $this->$cpt_id . '_posts_custom_column', array( $this, 'posts_custom_column'), 10, 2 );
+            add_filter( 'manage_' . self::$cpt_id . '_posts_columns', array( $this, 'posts_columns' ) );
+            add_action( 'manage_' . self::$cpt_id . '_posts_custom_column', array( $this, 'posts_custom_column'), 10, 2 );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-            add_action( 'save_post_' . $this->$cpt_id, array( $this, 'save_post' ), 10, 2 );
+            add_action( 'save_post_' . self::$cpt_id, array( $this, 'save_post' ), 10, 2 );
         }
 
         public function create_post_type(){
@@ -145,7 +145,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     // Do coupon changes based on the action.
                     switch($action){
                         case 'add':
-                                
+
                             break;
                         case 'update':
     
