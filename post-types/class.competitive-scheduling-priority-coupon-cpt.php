@@ -3,8 +3,8 @@
 if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
     class Competitive_Scheduling_Priority_Coupon_Post_Type{
         
-        var $cpt_id = 'priority-coupon';
-        var $nounce = 'cs_nonce_coupon';
+        public static $cpt_id = 'priority-coupon';
+        public static $nounce = 'cs_nonce_coupon';
 
         function __construct(){
             add_action( 'init', array( $this, 'create_post_type' ) );
@@ -16,7 +16,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         public function create_post_type(){
             register_post_type(
-                $this->$cpt_id,
+                self::$cpt_id,
                 array(
                     'label' => esc_html__( 'Priority Coupon', 'competitive-scheduling' ),
                     'description'   => esc_html__( 'Priority Coupons', 'competitive-scheduling' ),
@@ -65,10 +65,10 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         public function add_meta_boxes(){
             add_meta_box(
-                $this->$cpt_id . '-metabox',
+                self::$cpt_id . '-metabox',
                 esc_html__( 'Priority Coupon Fields', 'competitive-scheduling' ),
                 array( $this, 'add_inner_meta_boxes' ),
-                $this->$cpt_id,
+                self::$cpt_id,
                 'normal',
                 'high'
             );
@@ -85,8 +85,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         public function save_post( $post_id, $post ) {
             // Check the nounce, if it is not auto-save and if it is a save_post of the required cpt.
-            if( isset( $_POST[$this->$nounce] ) ){
-                if( ! wp_verify_nonce( $_POST[$this->$nounce], $this->$nounce ) ){
+            if( isset( $_POST[self::$nounce] ) ){
+                if( ! wp_verify_nonce( $_POST[self::$nounce], self::$nounce ) ){
                     return;
                 }
             }
@@ -95,7 +95,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 return;
             }
 
-            if( isset( $_POST['post_type'] ) && $_POST['post_type'] === $this->$cpt_id ){
+            if( isset( $_POST['post_type'] ) && $_POST['post_type'] === self::$cpt_id ){
                 if( ! current_user_can( 'edit_page', $post_id ) ){
                     return;
                 }elseif( ! current_user_can( 'edit_post', $post_id ) ){
