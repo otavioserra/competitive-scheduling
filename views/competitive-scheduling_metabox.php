@@ -4,7 +4,7 @@
     $cs_valid_until = get_post_meta( $post->ID, 'cs_valid_until', true );
 ?>
 <table class="form-table priority-coupon-metabox"> 
-<input type="hidden" name="cs_nonce_coupon" value="<?php echo wp_create_nonce( "cs_nonce_coupon" ); ?>">
+<input type="hidden" name="<?php echo $this->$nounce; ?>" value="<?php echo wp_create_nonce( $this->$nounce ); ?>">
     <tr>
         <th>
             <label for="cs_quantity"><?php echo esc_html__( 'Quantity', 'competitive-scheduling' ); ?></label>
