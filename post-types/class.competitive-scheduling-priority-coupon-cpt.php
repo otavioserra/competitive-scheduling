@@ -94,8 +94,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
         public function save_post( $post_id, $post ) {
             // Check the nounce, if it is not auto-save and if it is a save_post of the required cpt.
-            if( isset( $_POST[self::$nounce] ) ){
-                if( ! wp_verify_nonce( $_POST[self::$nounce], self::$nounce ) ){
+            if( isset( $_REQUEST[self::$nounce] ) ){
+                if( ! wp_verify_nonce( $_REQUEST[self::$nounce], self::$nounce ) ){
                     return;
                 }
             }
@@ -104,7 +104,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 return;
             }
 
-            if( isset( $_POST['post_type'] ) && $_POST['post_type'] === self::$cpt_id ){
+            if( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] === self::$cpt_id ){
                 if( ! current_user_can( 'edit_page', $post_id ) ){
                     return;
                 } elseif ( ! current_user_can( 'edit_post', $post_id ) ){
@@ -112,10 +112,10 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 }
             }
 
-            if(WP_DEBUG_LOG) error_log( CS_ID . ' - action: ' . $_POST['action'] . ' - post_status:' . $post->post_status );
+            if(WP_DEBUG_LOG) error_log( CS_ID . ' - action: ' . $_REQUEST['action'] . ' - post_status:' . $post->post_status );
 
             // Check if it is an edit of a post.
-            if( isset( $_POST['action'] ) && ( $_POST['action'] == 'editpost' || $_POST['action'] == 'trash' ) ){
+            if( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'editpost' || $_REQUEST['action'] == 'trash' ) ){
                 // Save all metabox fields.
                 $fields_ids = array(
                     'cs_quantity', 
@@ -125,7 +125,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
                 foreach ($fields_ids as $id) {
                     $old[$id] = get_post_meta( $post_id, $id, true );
-                    $new[$id] = $_POST[$id];
+                    $new[$id] = $_REQUEST[$id];
                 }
 
                 foreach ($new as $key => $value) {
