@@ -152,6 +152,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                         $action = 'delete';
                     }
 
+                    if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ': ' . $post->post_status );
+
                     // Require formats class to manipulate coupon.
                     require_once( CS_PATH . 'includes/class.formats.php' );
     
