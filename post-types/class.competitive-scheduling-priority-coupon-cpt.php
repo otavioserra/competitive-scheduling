@@ -197,8 +197,6 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                                 );
                                 $coupons_priority = $wpdb->get_results( $query );
 
-                                var_dump($coupons_priority);
-
                                 // Remove excess coupons from the database.
                                 $count = 0;
                                 if( $coupons_priority )
