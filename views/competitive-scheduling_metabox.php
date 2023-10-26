@@ -32,7 +32,7 @@
                 name="cs_valid_from" 
                 id="cs_valid_from" 
                 class="input-small-text date-handle"
-                value="<?php echo ( isset( $cs_valid_from ) ) ? esc_url( $cs_valid_from ) : ''; ?>"
+                value="<?php echo ( isset( $cs_valid_from ) ) ? esc_html( $cs_valid_from ) : ''; ?>"
                 required
             >
         </td>
@@ -47,7 +47,7 @@
                 name="cs_valid_until" 
                 id="cs_valid_until" 
                 class="input-small-text date-handle"
-                value="<?php echo ( isset( $cs_valid_until ) ) ? esc_url( $cs_valid_until ) : ''; ?>"
+                value="<?php echo ( isset( $cs_valid_until ) ) ? esc_html( $cs_valid_until ) : ''; ?>"
                 required
             >
         </td>
