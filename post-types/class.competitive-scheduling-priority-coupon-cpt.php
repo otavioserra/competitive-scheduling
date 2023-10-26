@@ -107,10 +107,12 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             if( isset( $_POST['post_type'] ) && $_POST['post_type'] === self::$cpt_id ){
                 if( ! current_user_can( 'edit_page', $post_id ) ){
                     return;
-                }elseif( ! current_user_can( 'edit_post', $post_id ) ){
+                } elseif ( ! current_user_can( 'edit_post', $post_id ) ){
                     return;
                 }
             }
+
+            if(WP_DEBUG_LOG) error_log( COMP_SCHEDULE_ID . ' - action: ' . $_POST['action'] . ' - post_status:' . $post->post_status );
 
             // Check if it is an edit of a post.
             if( isset( $_POST['action'] ) && ( $_POST['action'] == 'editpost' || $_POST['action'] == 'trash' ) ){
