@@ -68,12 +68,12 @@ if( !class_exists( 'Database' ) ){
                 )
             );
 
-            // Require templates class to manipulate page.
+            // Require templates class to manipulate table prefix.
             require_once( CS_PATH . 'includes/class.templates.php' );
 
-            global $wpdb;
-            
             // Scan all tables.
+            global $wpdb;
+
             if( isset( $dataBase ) )
             foreach( $dataBase['tables'] as $table => $sql){
                 // Create table if it does not exist, otherwise update fields.
