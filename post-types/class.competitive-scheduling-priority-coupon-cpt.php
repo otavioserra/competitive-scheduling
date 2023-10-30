@@ -13,6 +13,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             add_filter( 'manage_edit-' . self::$cpt_id . '_sortable_columns', array( $this, 'sortable_columns' ) );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
             add_action( 'save_post_' . self::$cpt_id, array( $this, 'save_post' ), 10, 2 );
+            add_action( 'delete_post', array( $this, 'delete_post' ), 10, 1 );
         }
 
         public function create_post_type(){
@@ -138,17 +139,15 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 $quantityNew = (int)$new['cs_quantity'];
                 $quantityOld = (int)$old['cs_quantity'];
             
-                // Flag to identify whether this is a new post or an update or trash
+                // Flag to identify whether this is a new post or an update.
                 $action = '';
 
-                // Find out which operation is being done by the save_post hook: add, update, delete.
+                // Find out which operation is being done by the save_post hook: add or update.
                 $is_new = $post->post_date === $post->post_modified;
                 if ( $is_new && $post->post_status === 'publish' ) {
                     $action = 'add';
                 } else if ( $post->post_status === 'publish' ){
                     $action = 'update';
-                } else if ( $post->post_status === 'trash' ){
-                    $action = 'delete';
                 }
 
                 // Require formats class to manipulate coupon.
@@ -215,11 +214,14 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                             }
                         }
                         break;
-                    case 'delete':
-                        global $wpdb;
-                        $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['post_id' => $post_id] );
-                        break;
                 }
+            }
+        }
+
+        public function delete_post( $post_id ){
+            if ( get_post_type( $post_id ) == self::$cpt_id ) {
+                global $wpdb;
+                $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['post_id' => $post_id] );
             }
         }
     }
