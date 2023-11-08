@@ -84,7 +84,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
             require_once( CS_PATH . 'includes/class.formats.php' );
 
             // Require interface class to alert user and get modal template.
-            require_once( CS_PATH . 'includes/class.interface.php' );
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
 
             // Request to create appointment.
             if( isset( $_REQUEST['schedule'] ) ){
