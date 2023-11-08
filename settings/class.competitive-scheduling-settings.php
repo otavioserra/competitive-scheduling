@@ -61,6 +61,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 array(
                     'print-schedules' => self::template_html( 'print-schedules' ),
                     'coupon-priority-description' => __( 'When making a new appointment, fill in the code below in the <b>Priority Coupon</b> field', 'competitive-scheduling' ),
+                    'msg-alert' => self::template_html( 'msg-alert' ),
                     'msg-scheduling-cancelled' => self::template_html( 'msg-scheduling-cancelled' ),
                     'msg-scheduling-confirmed' => self::template_html( 'msg-scheduling-confirmed' ),
                     'msg-scheduling-date-not-allowed' => self::template_html( 'msg-scheduling-date-not-allowed' ),
@@ -124,7 +125,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'password' => __( 'Password', 'competitive-scheduling' ),
                         'scheduled-people' => __( 'Scheduled People', 'competitive-scheduling' ),
                         'your-name' => __( 'Your name', 'competitive-scheduling' ),
-                        'escort' => __( 'Escort', 'competitive-scheduling' ),
+                        'companion' => __( 'Companion', 'competitive-scheduling' ),
                         'cancel-appointment' => __( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
                     );
                     
@@ -168,6 +169,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'name' => __( 'Name', 'competitive-scheduling' ),
                         'password' => __( 'Password', 'competitive-scheduling' ),
                         'viewed' => __( 'Viewed', 'competitive-scheduling' ),
+                    );
+                    
+                break;
+                case 'msg-alert':
+                    $change_variables = array(
+                        'title' => __( 'Alert', 'competitive-scheduling' ),
+                        'message' => __( 'An error occurred in the last operation #error-msg#!', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -286,7 +294,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     );
                     
                 break;
-                case 'msg-coupon-priority-not-found':
+                case 'msg-expired-priority-coupon':
                     $change_variables = array(
                         'title' => __( 'Priority coupon number <b>#coupon#</b> is out of validity period! It is only possible to use it between the days <b>#valid_from#</b> to <b>#valid_until#</b>.', 'competitive-scheduling' ),
                     );

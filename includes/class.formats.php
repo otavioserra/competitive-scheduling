@@ -179,7 +179,7 @@ if( !class_exists( 'Formats' ) ){
             return str_replace(".", "", $text);
         }
         
-        public static function format_zero_a_left($num,$dig){
+        public static function format_zero_to_the_left($num,$dig){
             $len = strlen((string)$num);
             
             if($len < $dig){
