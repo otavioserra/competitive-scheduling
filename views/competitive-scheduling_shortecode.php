@@ -314,8 +314,8 @@
                     </a>
                 </div>
             </div>
-            <input type="hidden" name="efetuar_confirmacao" value="1">
-            <input type="hidden" name="escolha" value="cancelar">
+            <input type="hidden" name="make_confirmation" value="1">
+            <input type="hidden" name="choice" value="cancelar">
             <input type="hidden" name="action" value="confirmar">
             <input type="hidden" name="schedule_id" value="[[confirmation-scheduling-id]]">
         </form>
@@ -350,7 +350,7 @@
                     </a>
                 </div>
             </div>
-            <input type="hidden" name="efetuar_cancelamento" value="1">
+            <input type="hidden" name="make_cancel" value="1">
             <input type="hidden" name="action" value="cancelar">
             <input type="hidden" name="schedule_id" value="[[cancellation-scheduling-id]]">
         </form>

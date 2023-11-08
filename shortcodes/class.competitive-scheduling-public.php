@@ -1232,28 +1232,20 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( isset( $_REQUEST['make_confirmation'] ) ){
                     // Pick up the change choice.
                     $choice = ( $_REQUEST['choice'] == 'confirm' ? 'confirm' : 'cancel' );
-
-                    // Treat each choice: 'confirm' or 'cancel'.
-                    switch( $choice ){
-                        case 'confirm':
-                            // If it has not been confirmed previously, confirm the schedule.
-                            $return = $this->schedule_confirm( array(
-                                'id_schedules' => $id_schedules,
-                                'user_id' => $user_id,
-                                'date' => $date,
-                            ) );
-                        break;
-                        default:
-                            // Make the cancellation.
-                            $return = $this->schedule_cancel( array(
-                                'id_schedules' => $id_schedules,
-                                'user_id' => $user_id,
-                                'date' => $date,
-                            ) );
-                    }
+                    
+                    // Make confirmation.
+                    $return = $this->change( array(
+                        'opcao' => 'confirm',
+                        'choice' => $choice,
+                        'id_schedules' => $id_schedules,
+                        'user_id' => $user_id,
+                        'date' => $date,
+                    ) );
                     
                     if( ! $return['completed'] ){
                         switch( $return['status'] ){
+                            case 'SCHEDULE_NOT_FOUND':
+                            case 'SCHEDULE_CONFIRMATION_EXPIRED':
                             case 'SCHEDULE_WITHOUT_VACANCIES':
                                 $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
                         break;
@@ -1349,15 +1341,17 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             } else {
                 // Request for confirmation of cancellation.
                 if( isset( $_REQUEST['make_cancel'] ) ){
-                    // Make the cancellation.
-                    $return = $this->schedule_cancel( array(
+                    // Make confirmation.
+                    $return = $this->change( array(
+                        'opcao' => 'cancel',
                         'id_schedules' => $id_schedules,
                         'user_id' => $user_id,
-                        'date' => $date,
                     ) );
                     
                     if( ! $return['completed'] ){
                         switch( $return['status'] ){
+                            case 'SCHEDULE_NOT_FOUND':
+                            case 'SCHEDULE_CONFIRMATION_EXPIRED':
                             case 'SCHEDULE_WITHOUT_VACANCIES':
                                 $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
                         break;
@@ -1415,6 +1409,431 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return $page;
         }
         
+        private function change( $params = false ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
+            global $_MANAGER;
+
+            // Get the configuration data.
+            $options = get_option( 'competitive_scheduling_options' );
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+            
+            switch($opcao){
+                case 'confirmPublic':
+                    // Decodificar os dados em formato Array
+                    
+                    $dados = Array();
+                    if(isset($_REQUEST['dados'])){
+                        $dados = json_decode($_REQUEST['dados'],true);
+                    }
+                    
+                    // Verificar se os campos obrigatórios foram enviados: pubId.
+                    
+                    if(isset($dados['pubId'])){
+                        // Pegar os dados de configuração.
+                        
+                        gestor_incluir_biblioteca('configuracao');
+                        
+                        $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
+                        
+                        $msgAgendamentoNaoEncontrado = (existe($config['msg-agendamento-nao-encontrado']) ? $config['msg-agendamento-nao-encontrado'] : '');
+                        
+                        // Tratar os dados enviados.
+                        
+                        $pubId = banco_escape_field($dados['pubId']);
+                        $choice = $dados['escolha'];
+                        
+                        // Pegar o agendamento no banco de dados.
+                        
+                        $hosts_agendamentos = banco_select(Array(
+                            'unico' => true,
+                            'tabela' => 'hosts_agendamentos',
+                            'campos' => Array(
+                                'id_hosts_agendamentos',
+                                'id_hosts_usuarios',
+                                'status',
+                                'data',
+                            ),
+                            'extra' => 
+                                "WHERE pubId='".$pubId."'"
+                                ." AND id_hosts='".$id_hosts."'"
+                        ));
+                        
+                        // Caso não exista, retorar erro.
+                        
+                        if(!$hosts_agendamentos){
+                            return Array(
+                                'status' => 'SCHEDULE_NOT_FOUND',
+                                'error-msg' => $msgAgendamentoNaoEncontrado,
+                            );
+                        }
+                        
+                        $id_schedules = $schedules->id_hosts_agendamentos;
+                        $user_id = $schedules->id_hosts_usuarios;
+                        $date = $schedules->date;
+                        
+                        // Tratar cada escolha: 'confirmar' ou 'cancelar'.
+                        
+                        switch($choice){
+                            case 'confirm':
+                                // Dados do agendamento.
+                                
+                                if($modulo['forcarDataHoje']){ $today = $modulo['dataHojeForcada']; } else { $today = date('Y-m-d'); }
+                                
+                                // Configuração de fase de sorteio.
+                            
+                                $draw_phase = (existe($config['fase-sorteio']) ? explode(',',$config['fase-sorteio']) : Array(7,5));
+                                
+                                // Verificar se o status atual do agendamento permite confirmação.
+                                
+                                if(
+                                    $schedules->status == 'confirmado' ||
+                                    $schedules->status == 'qualificado' ||
+                                    $schedules->status == 'email-enviado' ||
+                                    $schedules->status == 'email-nao-enviado'
+                                ){
+                                    // Verificar se está na fase de confirmação.
+                                    
+                                    if(
+                                        strtotime($date) >= strtotime($today.' + '.($draw_phase[1]+1).' day') &&
+                                        strtotime($date) < strtotime($today.' + '.($draw_phase[0]+1).' day')
+                                    ){
+                                        // Caso não tenha sido confirmado anteriormente, confirmar o agendamento.
+                                        
+                                        $return = $this->schedule_confirm( array(
+                                            'id_hosts' => $id_hosts,
+                                            'id_hosts_agendamentos' => $id_schedules,
+                                            'id_hosts_usuarios' => $user_id,
+                                            'data' => $date,
+                                        ) );
+                                        
+                                        // Verificar se a confirmação ocorreu corretamente.
+                                        
+                                        if(!$return['confirmado']){
+                                            return Array(
+                                                'status' => $return['status'],
+                                                'error-msg' => $return['alert'],
+                                            );
+                                        } else {
+                                            // Alerta de confirmação do agendamento.
+                                            
+                                            $returnData['alert'] = $return['alert'];
+                                        }
+                                    } else {
+                                        // Datas do período de confirmação.
+                                        
+                                        gestor_incluir_biblioteca('formato');
+                                        
+                                        $data_confirmacao_1 = formato_dado_para('data',date('Y-m-d',strtotime($schedules->date.' - '.($draw_phase[0]).' day')));
+                                        $data_confirmacao_2 = formato_dado_para('data',date('Y-m-d',strtotime($schedules->date.' - '.($draw_phase[1]).' day') - 1));
+                                        
+                                        // Retornar a mensagem de agendamento expirado.
+                                        
+                                        $msgAgendamentoExpirado = (existe($config['msg-agendamento-expirado']) ? $config['msg-agendamento-expirado'] : '');
+                                        
+                                        $msgAgendamentoExpirado = modelo_var_troca_tudo($msgAgendamentoExpirado,"#data_confirmacao_1#",$data_confirmacao_1);
+                                        $msgAgendamentoExpirado = modelo_var_troca_tudo($msgAgendamentoExpirado,"#data_confirmacao_2#",$data_confirmacao_2);
+                                        
+                                        return Array(
+                                            'status' => 'SCHEDULE_CONFIRMATION_EXPIRED',
+                                            'error-msg' => $msgAgendamentoExpirado,
+                                        );
+                                    }
+                                } else {
+                                    return Array(
+                                        'status' => 'AGENDAMENTO_STATUS_NAO_PERMITIDO_CONFIRMACAO',
+                                    );
+                                }
+                            break;
+                            default:
+                                // Efetuar o cancelamento.
+                                
+                                $return = $this->schedule_cancel( array(
+                                    'id_hosts' => $id_hosts,
+                                    'id_hosts_agendamentos' => $id_schedules,
+                                    'id_hosts_usuarios' => $user_id,
+                                    'data' => $date,
+                                ) );
+                                
+                                // Verificar se o cancelamento ocorreu corretamente.
+                                
+                                if(!$return['cancelado']){
+                                    return Array(
+                                        'status' => $return['status'],
+                                        'error-msg' => $return['alert'],
+                                    );
+                                } else {
+                                    // Alerta do cancelamento do agendamento.
+                                    
+                                    $returnData['alert'] = $return['alert'];
+                                }
+                        }
+                        
+                        // Formatar dados de retorno.
+                        
+                        $hosts_agendamentos_datas = banco_select(Array(
+                            'unico' => true,
+                            'tabela' => 'hosts_agendamentos_datas',
+                            'campos' => '*',
+                            'extra' => 
+                                "WHERE id_hosts='".$id_hosts."'"
+                                ." AND data='".$date."'"
+                        ));
+                        
+                        if($hosts_agendamentos_datas){
+                            unset($hosts_agendamentos_datas['id_hosts']);
+                            
+                            $returnData['agendamentos_datas'] = $hosts_agendamentos_datas;
+                        }
+                        
+                        $hosts_agendamentos = banco_select(Array(
+                            'unico' => true,
+                            'tabela' => 'hosts_agendamentos',
+                            'campos' => '*',
+                            'extra' => 
+                                "WHERE id_hosts='".$id_hosts."'"
+                                ." AND id_hosts_agendamentos='".$id_schedules."'"
+                                ." AND id_hosts_usuarios='".$user_id."'"
+                        ));
+                        
+                        unset($schedules->id_hosts);
+                        
+                        $returnData['agendamentos'] = $hosts_agendamentos;
+                        
+                        // Retornar dados.
+                        
+                        return Array(
+                            'status' => 'OK',
+                            'data' => $returnData,
+                        );
+                    } else {
+                        return Array(
+                            'status' => 'MANDATORY_FIELDS_NOT_INFORMED',
+                        );
+                    }
+                break;
+                case 'cancelPublic':
+                    // Decodificar os dados em formato Array
+                    
+                    $dados = Array();
+                    if(isset($_REQUEST['dados'])){
+                        $dados = json_decode($_REQUEST['dados'],true);
+                    }
+                    
+                    // Verificar se os campos obrigatórios foram enviados: pubId.
+                    
+                    if(isset($dados['pubId'])){
+                        // Pegar os dados de configuração.
+                        
+                        gestor_incluir_biblioteca('configuracao');
+                        
+                        $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
+                        
+                        $msgAgendamentoNaoEncontrado = (existe($config['msg-agendamento-nao-encontrado']) ? $config['msg-agendamento-nao-encontrado'] : '');
+                        
+                        // Tratar os dados enviados.
+                        
+                        $pubId = banco_escape_field($dados['pubId']);
+                        
+                        // Pegar o agendamento no banco de dados.
+                        
+                        $hosts_agendamentos = banco_select(Array(
+                            'unico' => true,
+                            'tabela' => 'hosts_agendamentos',
+                            'campos' => Array(
+                                'id_hosts_agendamentos',
+                                'id_hosts_usuarios',
+                                'status',
+                                'data',
+                            ),
+                            'extra' => 
+                                "WHERE pubId='".$pubId."'"
+                                ." AND id_hosts='".$id_hosts."'"
+                        ));
+                        
+                        // Caso não exista, retorar erro.
+                        
+                        if(!$hosts_agendamentos){
+                            return Array(
+                                'status' => 'SCHEDULE_NOT_FOUND',
+                                'error-msg' => $msgAgendamentoNaoEncontrado,
+                            );
+                        }
+                        
+                        $id_schedules = $schedules->id_hosts_agendamentos;
+                        $user_id = $schedules->id_hosts_usuarios;
+                        $date = $schedules->date;
+                        
+                        // Efetuar o cancelamento.
+                        
+                        $return = $this->schedule_cancel(Array(
+                            'id_hosts' => $id_hosts,
+                            'id_hosts_agendamentos' => $id_schedules,
+                            'id_hosts_usuarios' => $user_id,
+                            'data' => $date,
+                        ));
+                        
+                        // Verificar se o cancelamento ocorreu corretamente.
+                        
+                        if(!$return['cancelado']){
+                            return Array(
+                                'status' => $return['status'],
+                                'error-msg' => $return['alert'],
+                            );
+                        } else {
+                            // Alerta do cancelamento do agendamento.
+                            
+                            $returnData['alert'] = $return['alert'];
+                        }
+                        
+                        // Formatar dados de retorno.
+                        
+                        $hosts_agendamentos_datas = banco_select(Array(
+                            'unico' => true,
+                            'tabela' => 'hosts_agendamentos_datas',
+                            'campos' => '*',
+                            'extra' => 
+                                "WHERE id_hosts='".$id_hosts."'"
+                                ." AND data='".$date."'"
+                        ));
+                        
+                        if($hosts_agendamentos_datas){
+                            unset($hosts_agendamentos_datas['id_hosts']);
+                            
+                            $returnData['agendamentos_datas'] = $hosts_agendamentos_datas;
+                        }
+                        
+                        $hosts_agendamentos = banco_select(Array(
+                            'unico' => true,
+                            'tabela' => 'hosts_agendamentos',
+                            'campos' => '*',
+                            'extra' => 
+                                "WHERE id_hosts='".$id_hosts."'"
+                                ." AND id_hosts_agendamentos='".$id_schedules."'"
+                                ." AND id_hosts_usuarios='".$user_id."'"
+                        ));
+                        
+                        unset($schedules->id_hosts);
+                        
+                        $returnData['agendamentos'] = $hosts_agendamentos;
+                        
+                        // Retornar dados.
+                        
+                        return Array(
+                            'status' => 'OK',
+                            'data' => $returnData,
+                        );
+                    } else {
+                        return Array(
+                            'status' => 'MANDATORY_FIELDS_NOT_INFORMED',
+                        );
+                    }
+                break;
+                case 'confirm':
+                    // Check that the required fields were sent: id_schedules, user_id and date.
+                    if( isset( $id_schedules ) && isset( $user_id ) && isset( $date ) ){
+                        // Treat each choice: 'confirm' or 'cancel'.
+                        switch( $choice ){
+                            case 'confirm':
+                                // If it has not been confirmed previously, confirm the schedule.
+                                $return = $this->schedule_confirm( array(
+                                    'id_hosts' => $id_hosts,
+                                    'id_hosts_agendamentos' => $id_schedules,
+                                    'id_hosts_usuarios' => $user_id,
+                                    'data' => $date,
+                                ) );
+                                
+                                // Verificar se a confirmação ocorreu corretamente.
+                                
+                                if(!$return['confirmado']){
+                                    return Array(
+                                        'status' => $return['status'],
+                                        'error-msg' => $return['alert'],
+                                    );
+                                } else {
+                                    // Alerta de confirmação do agendamento.
+                                    
+                                    $returnData['alert'] = $return['alert'];
+                                }
+                            break;
+                            default:
+                                // Efetuar o cancelamento.
+                                
+                                $return = $this->schedule_cancel( array(
+                                    'id_hosts' => $id_hosts,
+                                    'id_hosts_agendamentos' => $id_schedules,
+                                    'id_hosts_usuarios' => $user_id,
+                                    'data' => $date,
+                                ) );
+                                
+                                // Verificar se o cancelamento ocorreu corretamente.
+                                
+                                if(!$return['cancelado']){
+                                    return Array(
+                                        'status' => $return['status'],
+                                        'error-msg' => $return['alert'],
+                                    );
+                                } else {
+                                    // Alerta do cancelamento do agendamento.
+                                    
+                                    $returnData['alert'] = $return['alert'];
+                                }
+                        }
+                        
+                        // Return data.
+                        return Array(
+                            'status' => 'OK',
+                            'data' => $returnData,
+                        );
+                    } else {
+                        return Array(
+                            'status' => 'MANDATORY_FIELDS_NOT_INFORMED',
+                        );
+                    }
+                break;
+                case 'cancel':
+                    // Verificar se os campos obrigatórios foram enviados: id_hosts_agendamentos e id_hosts_usuarios.
+                    if(isset($id_schedules) && isset($user_id) && isset( $date )){
+                        // Efetuar o cancelamento.
+                        
+                        $return = $this->schedule_cancel( array(
+                            'id_hosts' => $id_hosts,
+                            'id_hosts_agendamentos' => $id_schedules,
+                            'id_hosts_usuarios' => $user_id,
+                            'data' => $date,
+                        ) );
+                        
+                        // Verificar se o cancelamento ocorreu corretamente.
+                        
+                        if(!$return['cancelado']){
+                            return Array(
+                                'status' => $return['status'],
+                                'error-msg' => $return['alert'],
+                            );
+                        } else {
+                            // Alerta do cancelamento do agendamento.
+                            
+                            $returnData['alert'] = $return['alert'];
+                        }
+                        
+                        // Return data.
+                        return Array(
+                            'status' => 'OK',
+                            'data' => $returnData,
+                        );
+                    } else {
+                        return Array(
+                            'status' => 'MANDATORY_FIELDS_NOT_INFORMED',
+                        );
+                    }
+                break;
+                default:
+                    return Array(
+                        'status' => 'OPTION_NOT_DEFINED',
+                    );
+            }
+        }
+                
         private function schedule_confirm($params = false){
             global $_GESTOR;
             
@@ -1527,10 +1946,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $msgAgendamentoSemVagas = (existe($config['msg-agendamento-sem-vagas']) ? $config['msg-agendamento-sem-vagas'] : '');
                     
                     return Array(
-                        'completed' => false,
                         'confirmado' => false,
-                        'status' => 'SCHEDULE_WITHOUT_VACANCIES',
-                        'alert' => $msgAgendamentoSemVagas,
+                        'status' => 'AGENDAMENTO_SEM_VAGAS',
+                        'alerta' => $msgAgendamentoSemVagas,
                     );
                 }
                 
@@ -1660,9 +2078,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
             
             return Array(
-                'completed' => true,
                 'confirmado' => true,
-                'alert' => $msgAlerta,
+                'alerta' => $msgAlerta,
             );
         }
 
@@ -1808,9 +2225,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
             
             return Array(
-                'completed' => true,
                 'cancelado' => true,
-                'alert' => $msgAlerta,
+                'alerta' => $msgAlerta,
             );
         }
 
