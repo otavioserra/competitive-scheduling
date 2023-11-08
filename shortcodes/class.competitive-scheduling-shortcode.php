@@ -135,7 +135,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                     }
                     
                     // Alert the user if a problem occurs with the problem description message.
-                    Interface::alert( array(
+                    Interfaces::alert( array(
                         'redirect' => true,
                         'msg' => $msgAlert
                     ));
@@ -147,7 +147,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                     }
                     
                     // Alert the user of scheduling success.
-                    Interface::alert( array(
+                    Interfaces::alert( array(
                         'redirect' => true,
                         'msg' => $data['alert']
                     ));
@@ -459,7 +459,7 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
                 }
                 
                 // Modal to show scheduling data.
-                $modal = Interface::get_component( 'modal-info' );
+                $modal = Interfaces::get_component( 'modal-info' );
                 
                 $modal = Templates::change_variable( $modal, '#title#', __( 'Scheduling Data', 'competitive-scheduling' ) );
 
@@ -538,14 +538,14 @@ if( ! class_exists('Competitive_Scheduling_Shortcode')){
             }
             
             // Finalize interface.
-            Interface::components_include( array(
+            Interfaces::components_include( array(
                 'component' => Array(
                     'modal-loading',
                     'modal-alert',
                 )
             ) );
             
-            $page = Interface::finish( $page );
+            $page = Interfaces::finish( $page );
 
             return $page;
         }

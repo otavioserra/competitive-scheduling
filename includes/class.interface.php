@@ -1,8 +1,8 @@
 <?php
 
-if( ! class_exists( 'Interface' ) ){
-    class Interface {
-
+if( ! class_exists( 'Interfaces' ) ){
+    class Interfaces {
+        
         /**
          * Alert the user of any system message on the screen.
          *
@@ -238,12 +238,12 @@ if( ! class_exists( 'Interface' ) ){
             global $_MANAGER;
 
             // Print alert on user screen.
-            Interface::alert( array( 'print' => true ) );
+            Interfaces::alert( array( 'print' => true ) );
             
             // Add components to the page.
-            $page = Interface::components( $page );
+            $page = Interfaces::components( $page );
             
-            // Interface javascript vars.
+            // Interfaces javascript vars.
             if( ! isset( $_MANAGER['javascript-vars']['interface'] ) ){
                 $_MANAGER['javascript-vars']['interface'] = Array();
             }
