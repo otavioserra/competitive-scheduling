@@ -555,7 +555,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $user_id = get_current_user_id();
 
             // Check if the mandatory fields were sent: user_id and scheduleDate.
-            if( isset( $user_id ) && isset( $scheduleDate )){
+            if( isset( $user_id ) && isset( $scheduleDate ) ){
                 // Get the configuration data.
                 $options = get_option( 'competitive_scheduling_options' );
                 $msg_options = get_option( 'competitive_scheduling_msg_options' );
@@ -1416,79 +1416,59 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
         
         private function schedule_confirm($params = false){
-            global $_GESTOR;
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
             
-            if($params)foreach($params as $var => $val)$$var = $val;
+            // Get the configuration data.
+            $options = get_option( 'competitive_scheduling_options' );
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
             
-            // ===== Parâmetros
+            // Get scheduling data.
+            global $wpdb;
+            $query = $wpdb->prepare(
+                "SELECT companions, pubID, status, password  
+                FROM {$wpdb->prefix}schedules 
+                WHERE id_schedules = '%s' 
+                AND user_id = '%s'",
+                array( $id_schedules, $user_id )
+            );
+            $schedules = $wpdb->get_results( $query );
             
-            // id_hosts - Int - Obrigatório - Identificador do host.
-            // id_hosts_agendamentos - Int - Obrigatório - Identificador do agendamento.
-            // id_hosts_usuarios - Int - Obrigatório - Identificador do usuário.
-            // data - String - Obrigatório - Data do agendamento.
+            $companions = (int)$schedules->companions;
+            $status = $schedules->status;
+            $password = $schedules->password;
             
-            // ===== 
-            
-            // ===== Pegar os dados de configuração.
-            
-            gestor_incluir_biblioteca('configuracao');
-            
-            $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
-            
-            // ===== Pegar dados do agendamento.
-            
-            $hosts_agendamentos = banco_select(Array(
-                'unico' => true,
-                'tabela' => 'hosts_agendamentos',
-                'campos' => Array(
-                    'acompanhantes',
-                    'pubID',
-                    'status',
-                    'senha',
-                ),
-                'extra' => 
-                    "WHERE id_hosts_agendamentos='".$id_hosts_agendamentos."'"
-                    ." AND id_hosts='".$id_hosts."'"
-            ));
-            
-            $acompanhantes = (int)$hosts_agendamentos['acompanhantes'];
-            $status = $hosts_agendamentos['status'];
-            $senha = $hosts_agendamentos['senha'];
-            
-            // ===== Pegar os dados dos acompanhantes.
-            
-            $hosts_agendamentos_acompanhantes = banco_select(Array(
-                'tabela' => 'hosts_agendamentos_acompanhantes',
-                'campos' => Array(
-                    'nome',
-                ),
-                'extra' => 
-                    "WHERE id_hosts_usuarios='".$id_hosts_usuarios."'"
-                    ." AND id_hosts='".$id_hosts."'"
-                    ." AND id_hosts_agendamentos='".$id_hosts_agendamentos."'"
-                    ." ORDER BY nome ASC"
-            ));
-            
-            if($hosts_agendamentos_acompanhantes)
-            foreach($hosts_agendamentos_acompanhantes as $acompanhante){
-                $acompanhantesNomes[] = $acompanhante['nome'];
+            // Get the companions’ details.
+            global $wpdb;
+            $query = $wpdb->prepare(
+                "SELECT name  
+                FROM {$wpdb->prefix}schedules_companions 
+                WHERE id_schedules = '%s' 
+                AND user_id = '%s' 
+                ORDER BY name ASC",
+                array( $id_schedules, $user_id )
+            );
+            $schedules_companions = $wpdb->get_results( $query );
+
+            if($schedules_companions)
+            foreach($schedules_companions as $companion){
+                $companionsNames[] = $companion['name'];
             }
             
-            // ===== Gerar o token de validação.
+            // Gerar o token de validação.
             
             gestor_incluir_biblioteca('autenticacao');
             
             $validacao = autenticacao_cliente_gerar_token_validacao(Array(
                 'id_hosts' => $id_hosts,
-                'pubID' => ($hosts_agendamentos['pubID'] ? $hosts_agendamentos['pubID'] : null),
+                'pubID' => ($schedules->pubID ? $schedules->pubID : null),
             ));
             
             $token = $validacao['token'];
             
-            // ===== Verificar se já foi confirmado. Caso tenha sido confirmado, só alertar e enviar email ao usuário. Senão, fazer o procedimento de confirmação.
+            // Verificar se já foi confirmado. Caso tenha sido confirmado, só alertar e enviar email ao usuário. Senão, fazer o procedimento de confirmação.
             
             if($status != 'confirmado'){
-                // ===== Pegar a quantidade de vagas máxima.
+                // Pegar a quantidade de vagas máxima.
                 
                 $dias_semana = (existe($config['dias-semana']) ? explode(',',$config['dias-semana']) : Array());
                 $dias_semana_maximo_vagas_arr = (existe($config['dias-semana-maximo-vagas']) ? explode(',',$config['dias-semana-maximo-vagas']) : Array());
@@ -1508,7 +1488,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $dias_semana_maximo_vagas = $dias_semana_maximo_vagas_arr[0];
                 }
                 
-                // ===== Verificar se há vagas suficientes para a data requerida. Caso não tenha, retornar mensagem de erro.
+                // Verificar se há vagas suficientes para a data requerida. Caso não tenha, retornar mensagem de erro.
                 
                 $hosts_agendamentos_datas = banco_select(Array(
                     'unico' => true,
@@ -1520,7 +1500,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'extra' => 
                         "WHERE id_hosts='".$id_hosts."'"
                         ." AND data='".$data."'"
-                        ." AND total + ".($acompanhantes+1)." <= ".$dias_semana_maximo_vagas
+                        ." AND total + ".($companions+1)." <= ".$dias_semana_maximo_vagas
                 ));
                 
                 if(!$hosts_agendamentos_datas){
@@ -1534,43 +1514,43 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     );
                 }
                 
-                // ===== Atualizar a quantidade total de vagas utilizadas em agendamentos para a data em questão.
+                // Atualizar a quantidade total de vagas utilizadas em agendamentos para a data em questão.
                 
-                banco_update_campo('total','total+'.($acompanhantes+1),true);
+                banco_update_campo('total','total+'.($companions+1),true);
                 
                 banco_update_executar('hosts_agendamentos_datas',"WHERE id_hosts_agendamentos_datas='".$hosts_agendamentos_datas['id_hosts_agendamentos_datas']."'");
                 
-                // ===== Gerar senha do agendamento.
+                // Gerar senha do agendamento.
                 
                 gestor_incluir_biblioteca('formato');
                 
-                $senha = formato_colocar_char_meio_numero(formato_zero_a_esquerda(rand(1,99999),6));
+                $password = formato_colocar_char_meio_numero(formato_zero_a_esquerda(rand(1,99999),6));
                 
-                // ===== Atualizar agendamento.
+                // Atualizar agendamento.
                 
-                banco_update_campo('senha',$senha);
+                banco_update_campo('password',$password);
                 banco_update_campo('status','confirmado');
                 banco_update_campo('versao','versao+1',true);
                 banco_update_campo('data_modificacao','NOW()',true);
                 
-                banco_update_executar('hosts_agendamentos',"WHERE id_hosts='".$id_hosts."' AND id_hosts_agendamentos='".$id_hosts_agendamentos."' AND id_hosts_usuarios='".$id_hosts_usuarios."'");
+                banco_update_executar('schedules',"WHERE id_hosts='".$id_hosts."' AND id_schedules='".$id_schedules."' AND user_id='".$user_id."'");
             }
             
-            // ===== Pegar dados do usuário.
+            // Pegar dados do usuário.
             
             $hosts_usuarios = banco_select(Array(
                 'unico' => true,
                 'tabela' => 'hosts_usuarios',
                 'campos' => Array(
-                    'nome',
+                    'name',
                     'email',
                 ),
                 'extra' => 
-                    "WHERE id_hosts_usuarios='".$id_hosts_usuarios."'"
+                    "WHERE user_id='".$user_id."'"
                     ." AND id_hosts='".$id_hosts."'"
             ));
             
-            // ===== Formatar dados do email.
+            // Formatar dados do email.
             
             $agendamentoAssunto = (existe($config['agendamento-assunto']) ? $config['agendamento-assunto'] : '');
             $agendamentoMensagem = (existe($config['agendamento-mensagem']) ? $config['agendamento-mensagem'] : '');
@@ -1579,13 +1559,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $tituloEstabelecimento = (existe($config['titulo-estabelecimento']) ? $config['titulo-estabelecimento'] : '');
             
             $email = $hosts_usuarios['email'];
-            $nome = $hosts_usuarios['nome'];
+            $name = $hosts_usuarios['name'];
             
             gestor_incluir_biblioteca('formato');
             
-            $codigo = date('dmY').formato_zero_a_esquerda($id_hosts_agendamentos,6);
+            $codigo = date('dmY').formato_zero_a_esquerda($id_schedules,6);
             
-            // ===== Formatar mensagem do email.
+            // Formatar mensagem do email.
             
             gestor_incluir_biblioteca('host');
             
@@ -1594,37 +1574,37 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#codigo#",$codigo);
             $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#titulo#",$tituloEstabelecimento);
             $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#data#",formato_dado_para('data',$data));
-            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#senha#",$senha);
+            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#password#",$password);
             $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#url-cancelamento#",'<a target="agendamento" href="'.host_url(Array('opcao'=>'full')).'agendamentos-publico/?acao=cancelar&token='.$token.'" style="overflow-wrap: break-word;">'.host_url(Array('opcao'=>'full')).'agendamentos-publico/?acao=cancelar&token='.$token.'</a>');
             
             $cel_nome = 'cel'; $cel[$cel_nome] = modelo_tag_val($agendamentoMensagem,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->'); $agendamentoMensagem = modelo_tag_in($agendamentoMensagem,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->','<!-- '.$cel_nome.' -->');
             
-            $agendamentoMensagem = modelo_var_troca($agendamentoMensagem,"#seu-nome#",$nome);
+            $agendamentoMensagem = modelo_var_troca($agendamentoMensagem,"#seu-name#",$name);
             
-            for($i=0;$i<(int)$acompanhantes;$i++){
+            for($i=0;$i<(int)$companions;$i++){
                 $cel_aux = $cel[$cel_nome];
                 
                 $cel_aux = modelo_var_troca($cel_aux,"#num#",($i+1));
-                $cel_aux = modelo_var_troca($cel_aux,"#acompanhante#",$acompanhantesNomes[$i]);
+                $cel_aux = modelo_var_troca($cel_aux,"#companion#",$companionsNames[$i]);
                 
                 $agendamentoMensagem = modelo_var_in($agendamentoMensagem,'<!-- '.$cel_nome.' -->',$cel_aux);
             }
             $agendamentoMensagem = modelo_var_troca($agendamentoMensagem,'<!-- '.$cel_nome.' -->','');
             
-            // ===== Formatar mensagem do alerta.
+            // Formatar mensagem do alerta.
             
             $msgConclusaoAgendamento = modelo_var_troca_tudo($msgConclusaoAgendamento,"#data#",formato_dado_para('data',$data));
-            $msgConclusaoAgendamento = modelo_var_troca_tudo($msgConclusaoAgendamento,"#senha#",$senha);
+            $msgConclusaoAgendamento = modelo_var_troca_tudo($msgConclusaoAgendamento,"#password#",$password);
             
             $cel_nome = 'cel'; $cel[$cel_nome] = modelo_tag_val($msgConclusaoAgendamento,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->'); $msgConclusaoAgendamento = modelo_tag_in($msgConclusaoAgendamento,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->','<!-- '.$cel_nome.' -->');
             
-            $msgConclusaoAgendamento = modelo_var_troca($msgConclusaoAgendamento,"#seu-nome#",$nome);
+            $msgConclusaoAgendamento = modelo_var_troca($msgConclusaoAgendamento,"#seu-name#",$name);
             
-            for($i=0;$i<(int)$acompanhantes;$i++){
+            for($i=0;$i<(int)$companions;$i++){
                 $cel_aux = $cel[$cel_nome];
                 
                 $cel_aux = modelo_var_troca($cel_aux,"#num#",($i+1));
-                $cel_aux = modelo_var_troca($cel_aux,"#acompanhante#",$acompanhantesNomes[$i]);
+                $cel_aux = modelo_var_troca($cel_aux,"#companion#",$companionsNames[$i]);
                 
                 $msgConclusaoAgendamento = modelo_var_in($msgConclusaoAgendamento,'<!-- '.$cel_nome.' -->',$cel_aux);
             }
@@ -1632,7 +1612,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             $msgAlerta = $msgConclusaoAgendamento;
             
-            // ===== Enviar email com informações do agendamento.
+            // Enviar email com informações do agendamento.
             
             gestor_incluir_biblioteca(Array('comunicacao','host'));
             
@@ -1641,7 +1621,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 'destinatarios' => Array(
                     Array(
                         'email' => $email,
-                        'nome' => $nome,
+                        'name' => $name,
                     ),
                 ),
                 'mensagem' => Array(
@@ -1671,42 +1651,42 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             if($params)foreach($params as $var => $val)$$var = $val;
             
-            // ===== Parâmetros
+            // Parâmetros
             
             // id_hosts - Int - Obrigatório - Identificador do host.
-            // id_hosts_agendamentos - Int - Obrigatório - Identificador do agendamento.
-            // id_hosts_usuarios - Int - Obrigatório - Identificador do usuário.
+            // id_schedules - Int - Obrigatório - Identificador do agendamento.
+            // user_id - Int - Obrigatório - Identificador do usuário.
             // data - String - Obrigatório - Data do agendamento.
             
-            // ===== 
+            // 
             
-            // ===== Pegar os dados de configuração.
+            // Pegar os dados de configuração.
             
             gestor_incluir_biblioteca('configuracao');
             
             $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
             
-            // ===== Pegar dados do agendamento.
+            // Pegar dados do agendamento.
             
-            $hosts_agendamentos = banco_select(Array(
+            $schedules = banco_select(Array(
                 'unico' => true,
-                'tabela' => 'hosts_agendamentos',
+                'tabela' => 'schedules',
                 'campos' => Array(
-                    'acompanhantes',
+                    'companions',
                     'status',
                 ),
                 'extra' => 
-                    "WHERE id_hosts_agendamentos='".$id_hosts_agendamentos."'"
+                    "WHERE id_schedules='".$id_schedules."'"
                     ." AND id_hosts='".$id_hosts."'"
             ));
             
-            $acompanhantes = (int)$hosts_agendamentos['acompanhantes'];
-            $status = $hosts_agendamentos['status'];
+            $companions = (int)$schedules->companions;
+            $status = $schedules->status;
             
-            // ===== Verificar se já foi confirmado. Caso tenha sido confirmado, atualizar a quantidade total de vagas.
+            // Verificar se já foi confirmado. Caso tenha sido confirmado, atualizar a quantidade total de vagas.
             
             if($status == 'confirmado'){
-                // ===== Pegar o identificador do 'hosts_agendamentos_datas'.
+                // Pegar o identificador do 'hosts_agendamentos_datas'.
                 
                 $hosts_agendamentos_datas = banco_select(Array(
                     'unico' => true,
@@ -1719,39 +1699,39 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ." AND data='".$data."'"
                 ));
                 
-                // ===== Atualizar a quantidade total de vagas utilizadas em agendamentos para a data em questão.
+                // Atualizar a quantidade total de vagas utilizadas em agendamentos para a data em questão.
                 
                 if($hosts_agendamentos_datas){
                     
-                    banco_update_campo('total','total-'.($acompanhantes+1),true);
+                    banco_update_campo('total','total-'.($companions+1),true);
                     
                     banco_update_executar('hosts_agendamentos_datas',"WHERE id_hosts_agendamentos_datas='".$hosts_agendamentos_datas['id_hosts_agendamentos_datas']."'");
                 }
             }
             
-            // ===== Atualizar agendamento.
+            // Atualizar agendamento.
             
             banco_update_campo('status','finalizado');
             banco_update_campo('versao','versao+1',true);
             banco_update_campo('data_modificacao','NOW()',true);
             
-            banco_update_executar('hosts_agendamentos',"WHERE id_hosts='".$id_hosts."' AND id_hosts_agendamentos='".$id_hosts_agendamentos."' AND id_hosts_usuarios='".$id_hosts_usuarios."'");
+            banco_update_executar('schedules',"WHERE id_hosts='".$id_hosts."' AND id_schedules='".$id_schedules."' AND user_id='".$user_id."'");
             
-            // ===== Pegar dados do usuário.
+            // Pegar dados do usuário.
             
             $hosts_usuarios = banco_select(Array(
                 'unico' => true,
                 'tabela' => 'hosts_usuarios',
                 'campos' => Array(
-                    'nome',
+                    'name',
                     'email',
                 ),
                 'extra' => 
-                    "WHERE id_hosts_usuarios='".$id_hosts_usuarios."'"
+                    "WHERE user_id='".$user_id."'"
                     ." AND id_hosts='".$id_hosts."'"
             ));
             
-            // ===== Formatar dados do email.
+            // Formatar dados do email.
             
             $desagendamentoAssunto = (existe($config['desagendamento-assunto']) ? $config['desagendamento-assunto'] : '');
             $desagendamentoMensagem = (existe($config['desagendamento-mensagem']) ? $config['desagendamento-mensagem'] : '');
@@ -1760,13 +1740,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $tituloEstabelecimento = (existe($config['titulo-estabelecimento']) ? $config['titulo-estabelecimento'] : '');
             
             $email = $hosts_usuarios['email'];
-            $nome = $hosts_usuarios['nome'];
+            $name = $hosts_usuarios['name'];
             
             gestor_incluir_biblioteca('formato');
             
-            $codigo = date('dmY').formato_zero_a_esquerda($id_hosts_agendamentos,6);
+            $codigo = date('dmY').formato_zero_a_esquerda($id_schedules,6);
             
-            // ===== Formatar mensagem do email.
+            // Formatar mensagem do email.
             
             gestor_incluir_biblioteca('host');
             
@@ -1776,11 +1756,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $desagendamentoMensagem = modelo_var_troca_tudo($desagendamentoMensagem,"#titulo#",$tituloEstabelecimento);
             $desagendamentoMensagem = modelo_var_troca_tudo($desagendamentoMensagem,"#data#",formato_dado_para('data',$data));
             
-            // ===== Formatar mensagem do alerta.
+            // Formatar mensagem do alerta.
             
             $msgAlerta = $msgAgendamentoCancelado;
             
-            // ===== Enviar email com informações do agendamento.
+            // Enviar email com informações do agendamento.
             
             gestor_incluir_biblioteca(Array('comunicacao','host'));
             
@@ -1789,7 +1769,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 'destinatarios' => Array(
                     Array(
                         'email' => $email,
-                        'nome' => $nome,
+                        'name' => $name,
                     ),
                 ),
                 'mensagem' => Array(
