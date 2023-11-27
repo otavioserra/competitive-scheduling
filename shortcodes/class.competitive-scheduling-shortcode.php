@@ -73,6 +73,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 return '';
             }
 
+            echo $page;exit;
+
             // Action fired.
             if( isset( $_REQUEST['action'] ) )
             switch( $_REQUEST['action'] ){
