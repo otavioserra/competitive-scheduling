@@ -1952,6 +1952,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $start_year = date('Y');
             $year_end = (int)$start_year + $years;
             
+            $flag = false;
             if( $days_week )
             foreach( $days_week as $day_week ){
                 if(!$flag){
