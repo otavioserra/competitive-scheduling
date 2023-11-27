@@ -474,9 +474,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $page = Templates::change_variable( $page, '#pre_appointments#', ( isset( $pre_bookings_flag ) ? $pre_appointments : $cell['unregistered'] ) );
                 $page = Templates::change_variable( $page, '#old_schedules#', ( isset( $old_schedules_flag) ? $old_appointments : $cell['unregistered'] ) );
                 
-                $page = Templates::change_variable( $page, '#draw_date#', $free_choice_phase );
+                $page = Templates::change_variable_all( $page, '#draw_date#', $free_choice_phase );
                 $page = Templates::change_variable( $page, '#date_confirmation_1#', $draw_phase[0] );
-                $page = Templates::change_variable( $page, '#date_confirmation_2#', $draw_phase[1] );
+                $page = Templates::change_variable_all( $page, '#date_confirmation_2#', $draw_phase[1] );
 
                 // Require form class to validation fields.
                 require_once( CS_PATH . 'includes/class.form.php' );
