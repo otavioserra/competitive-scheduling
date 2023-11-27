@@ -22,6 +22,29 @@
                 </div>
                 <p><?php echo esc_html__( 'Choose an available date below. As well as if you have any companion(s), choose the number and fill in the name of each one. Additionally, optionally, if you have a priority coupon, enter it below. Finally, click the SUBMIT button to create a new schedule.', 'competitive-scheduling' ); ?></p>
             </div>
+            <div class="ui three top attached steps">
+                <div class="step">
+                    <i class="truck icon"></i>
+                    <div class="content">
+                        <div class="title">Shipping</div>
+                        <div class="description">Choose your shipping options</div>
+                    </div>
+                </div>
+                <div class="active step">
+                    <i class="payment icon"></i>
+                    <div class="content">
+                        <div class="title">Billing</div>
+                        <div class="description">Enter billing information</div>
+                    </div>
+                </div>
+                <div class="disabled step">
+                    <i class="info icon"></i>
+                    <div class="content">
+                        <div class="title">Confirm Order</div>
+                        <div class="description">Verify order details</div>
+                    </div>
+                </div>
+            </div>
             <form class="ui form attached fluid segment" method="post" id="formSchedules">
                 <div class="two fields">
                     <div class="field">
