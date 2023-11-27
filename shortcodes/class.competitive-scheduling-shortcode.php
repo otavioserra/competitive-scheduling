@@ -334,7 +334,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             }
                             
                             // Include the cell in its type.
-                            $pre_appointments = Formats::variable_in( $pre_appointments, '<!-- cell-pre -->', $cell_aux );
+                            $pre_appointments = Templates::variable_in( $pre_appointments, '<!-- cell-pre -->', $cell_aux );
                             
                             // Break the loop when you reach the page limit.
                             $counter++;
@@ -349,7 +349,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                             $cell_aux = Templates::change_variable( $cell_aux, '[[numPages]]', ceil( ( $numRecords / CS_NUM_RECORDS_PER_PAGE ) ) );
                             
-                            $pre_appointments = Formats::variable_in( $pre_appointments, '<!-- load-more-pre -->', $cell_aux );
+                            $pre_appointments = Templates::variable_in( $pre_appointments, '<!-- load-more-pre -->', $cell_aux );
                         }
                     }
                     
@@ -388,7 +388,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             }
                             
                             // Include the cell in its type.
-                            $confirmed_appointments = Formats::variable_in( $confirmed_appointments, '<!-- cell-appointments -->', $cell_aux );
+                            $confirmed_appointments = Templates::variable_in( $confirmed_appointments, '<!-- cell-appointments -->', $cell_aux );
                             
                             // Break the loop when you reach the page limit.
                             $counter++;
@@ -403,7 +403,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                             $cell_aux = Templates::change_variable( $cell_aux, '[[numPages]]', ceil( ( $numRecords / CS_NUM_RECORDS_PER_PAGE ) ) );
                             
-                            $confirmed_appointments = Formats::variable_in( $confirmed_appointments, '<!-- load-more-schedules -->', $cell_aux );
+                            $confirmed_appointments = Templates::variable_in( $confirmed_appointments, '<!-- load-more-schedules -->', $cell_aux );
                         }
                     }
                     
@@ -436,7 +436,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $cell_aux = Templates::change_variable( $cell_aux, '[[modification_date]]', Formats::data_format_to( 'datetime-to-text', $scheduling->modification_date ) );
 
                             // Include the cell in its type.
-                            $old_appointments = Formats::variable_in( $old_appointments, '<!-- cell-olds -->', $cell_aux );
+                            $old_appointments = Templates::variable_in( $old_appointments, '<!-- cell-olds -->', $cell_aux );
                             
                             // Break the loop when you reach the page limit.
                             $counter++;
@@ -451,7 +451,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                             $cell_aux = Templates::change_variable( $cell_aux, '[[numPages]]', ceil( ( $numRecords / CS_NUM_RECORDS_PER_PAGE ) ) );
                             
-                            $old_appointments = Formats::variable_in( $old_appointments, '<!-- load-oldest -->', $cell_aux );
+                            $old_appointments = Templates::variable_in( $old_appointments, '<!-- load-oldest -->', $cell_aux );
                         }
                     }
                 }
@@ -508,13 +508,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                     $cell_aux = Templates::change_variable( $cell_aux, '#num#', $i );
                     
-                    $page = Formats::variable_in( $page, '<!-- companions -->', $cell_aux );
+                    $page = Templates::variable_in( $page, '<!-- companions -->', $cell_aux );
                 }
                 
-                $page = Formats::change_variable( $page, '<!-- companions -->', '' );
+                $page = Templates::change_variable( $page, '<!-- companions -->', '' );
                 
                 // 'schedule-data' cell remover.
-                $page = Formats::change_variable( $page, '<!-- schedule-data -->', '' );
+                $page = Templates::change_variable( $page, '<!-- schedule-data -->', '' );
 
                 // Validation form assemble.
                 
@@ -527,7 +527,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-                $page = Formats::change_variable( $page, '[[msg-scheduling-suspended]]', $msgScheduleSuspended );
+                $page = Templates::change_variable( $page, '[[msg-scheduling-suspended]]', $msgScheduleSuspended );
             }
             
             // Screen treatment.
