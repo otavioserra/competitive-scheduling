@@ -86,6 +86,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Require interface class to alert user and get modal template.
             require_once( CS_PATH . 'includes/class.interfaces.php' );
 
+            // Require templates class to manipulate page.
+            require_once( CS_PATH . 'includes/class.templates.php' );
+
             // Request to create appointment.
             if( isset( $_REQUEST['schedule'] ) ){
                 // Verifiying nonce
@@ -109,9 +112,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 ) );
                 
                 if( ! $return['completed'] ){
-                    // Require templates class to prepare data.
-                    require_once( CS_PATH . 'includes/class.templates.php' );
-                    
                     // Get the configuration data.
                     $msg_options = get_option( 'competitive_scheduling_msg_options' );
                     
@@ -178,21 +178,21 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $residual_phase = ( ! empty( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
                 
                 // Remove inactive cell and changes.
-                $cell_name = 'inactive'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'changes'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'inactive'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 // Get cells from schedules.
-                $cell_name = 'cell-pre'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'cell-appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'cell-olds'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'cell-pre'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'cell-appointments'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'cell-olds'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-                $cell_name = 'load-more-pre'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'load-more-schedules'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'load-oldest'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'load-more-pre'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'load-more-schedules'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'load-oldest'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-                $cell_name = 'pre-appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'old-appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'pre-appointments'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'appointments'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'old-appointments'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 // Calendar assembly.
                 $this->calendar();
@@ -324,13 +324,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             
                             // Keep or remove the confirmation button for each case.
                             if( ! $confirm ){
-                                $cell_name = 'confirm-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
+                                $cell_name = 'confirm-btn'; $cell_aux = Templates::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                             }
                             
                             // Remove change buttons if the appointment date is today.
                             if( $today == $scheduling->date ){
-                                $cell_name = 'cancel-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
-                                $cell_name = 'confirm-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
+                                $cell_name = 'cancel-btn'; $cell_aux = Templates::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
+                                $cell_name = 'confirm-btn'; $cell_aux = Templates::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                             }
                             
                             // Include the cell in its type.
@@ -384,7 +384,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             
                             // Remove change buttons if the appointment date is today.
                             if( $today == $scheduling->date ){
-                                $cell_name = 'cancel-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
+                                $cell_name = 'cancel-btn'; $cell_aux = Templates::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                             }
                             
                             // Include the cell in its type.
@@ -464,7 +464,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $page .= $modal;
                 
                 // Create appointments on the page.
-                $cell_name = 'unregistered'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'unregistered'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 $page = Templates::change_variable( $page, '#confirmed_appointments#', ( isset( $appointments_confirmed_flag) ? $confirmed_appointments : $cell['unregistered'] ) );
                 $page = Templates::change_variable( $page, '#pre_appointments#', ( isset( $pre_bookings_flag ) ? $pre_appointments : $cell['unregistered'] ) );
@@ -493,7 +493,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 
                 // Companions assemble.
                 $maxCompanions = ( ! empty( $options['max-companions'] ) ? $options['max-companions'] : 0 );
-                $cell_name = 'companions'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'companions'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 for( $i=0; $i<=(int)$maxCompanions; $i++ ){
                     if( $i>0 ){
@@ -524,8 +524,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 ));
             } else {
                 // Remove the active cell and changes.
-                $cell_name = 'active'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'changes'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 $page = Formats::change_variable( $page, '[[msg-scheduling-suspended]]', $msgScheduleSuspended );
             }
@@ -936,7 +936,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $scheduleMessage = Templates::change_variable( $scheduleMessage, '#password#', $password );
                     $scheduleMessage = Templates::change_variable( $scheduleMessage, '#url-cancellation#', '<a target="schedule" href="'.$urlCancellation.'" style="overflow-wrap: break-word;">'.$urlCancellation.'</a>' );
                     
-                    $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $scheduleMessage, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $scheduleMessage = Formats::tag_in( $scheduleMessage,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                    $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $scheduleMessage, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $scheduleMessage = Templates::tag_in( $scheduleMessage,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                     
                     $scheduleMessage = Templates::change_variable( $scheduleMessage, '#your-name#', $name );
                     
@@ -954,7 +954,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#password#', $password );
                     
-                    $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Formats::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                    $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Templates::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                     
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#your-name#', $name );
                     
@@ -1320,8 +1320,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
 
             // Remove the active cell and changes.
-            $cell_name = 'active'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            $cell_name = 'changes'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
             // Incluir o token no formulário.
             $page = Templates::change_variable( $page, '[[confirmation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
@@ -1424,8 +1424,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
 
             // Remove the active cell and changes.
-            $cell_name = 'active'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            $cell_name = 'changes'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
             // Incluir o token no formulário.
             $page = Templates::change_variable( $page, '[[cancellation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
@@ -1611,7 +1611,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $scheduleMessage = Templates::change_variable( $scheduleMessage, '#password#', $password );
             $scheduleMessage = Templates::change_variable( $scheduleMessage, '#url-cancellation#', '<a target="schedule" href="'.$urlCancellation.'" style="overflow-wrap: break-word;">'.$urlCancellation.'</a>' );
             
-            $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $scheduleMessage, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $scheduleMessage = Formats::tag_in( $scheduleMessage,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $scheduleMessage, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $scheduleMessage = Templates::tag_in( $scheduleMessage,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
             $scheduleMessage = Templates::change_variable( $scheduleMessage, '#your-name#', $name );
             
@@ -1629,7 +1629,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#date#', Formats::data_format_to( 'date-to-text', $date ) );
             $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#password#', $password );
 
-            $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Formats::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Templates::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
             $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#your-name#', $name );
             
