@@ -549,8 +549,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             $page = Interfaces::finish( $page );
 
-            echo $page; exit;
-            
             return $page;
         }
 
