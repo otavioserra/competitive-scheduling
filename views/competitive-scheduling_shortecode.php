@@ -72,7 +72,7 @@
                         <div class="ui calendar"></div>
                     </div>
                     <div class="field">
-                        <label><?php echo esc_html__( 'Companion', 'competitive-scheduling' ); ?></label>
+                        <label><?php echo esc_html__( 'Companions', 'competitive-scheduling' ); ?></label>
                         <select class="ui dropdown" name="companions">
                             <!-- companions < --><option value="#num#">#num#</option><!-- companions > -->
                         </select>

@@ -155,7 +155,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 }
                 
                 // Reread the page.
-                wp_refresh();
+                wp_redirect( get_permalink() );
             }
             
             // Get user ID
