@@ -510,7 +510,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     
                     $cell_aux = $cell[$cell_name];
 
-                    $cell_aux = Templates::change_variable( $cell_aux, '#num#', $i );
+                    $cell_aux = Templates::change_variable_all( $cell_aux, '#num#', $i );
                     
                     $page = Templates::variable_in( $page, '<!-- companions -->', $cell_aux );
                 }
