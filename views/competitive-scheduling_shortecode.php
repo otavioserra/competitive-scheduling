@@ -16,34 +16,47 @@
     	</a>
         <div class="ui hidden divider"></div>
         <div class="schedule hidden scheduleWindow">
+            <div class="ui info message">
+                <div class="header">
+                    <?php echo esc_html__( 'Scheduling Phases', 'competitive-scheduling' ); ?>
+                </div>
+                <p><?php echo esc_html__( 'The scheduling process is divided into 4 phases:', 'competitive-scheduling' ); ?></p>
+            </div>
+            <div class="ui four steps">
+                <div class="active step">
+                    <i class="calendar plus icon"></i>
+                    <div class="content">
+                        <div class="title"><?php echo esc_html__( 'Registration', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'Registration period for scheduling', 'competitive-scheduling' ); ?></div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="sync icon"></i>
+                    <div class="content">
+                        <div class="title"><?php echo esc_html__( 'Draw', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'Waiting for scheduling slot draw', 'competitive-scheduling' ); ?></div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="calendar check outline icon"></i>
+                    <div class="content">
+                        <div class="title"><?php echo esc_html__( 'Confirmation', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'Confirmation email will be sent and you will have a short period of time to confirm', 'competitive-scheduling' ); ?></div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="route icon"></i>
+                    <div class="content">
+                        <div class="title"><?php echo esc_html__( 'Utilization', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'On the day of booking, use your password and go to the establishment', 'competitive-scheduling' ); ?></div>
+                    </div>
+                </div>
+            </div>
             <div class="ui attached info message">
                 <div class="header">
-                    <?php echo esc_html__( 'Schedule Service', 'competitive-scheduling' ); ?>
+                    <?php echo esc_html__( 'Schedule Registration Service', 'competitive-scheduling' ); ?>
                 </div>
                 <p><?php echo esc_html__( 'Choose an available date below. As well as if you have any companion(s), choose the number and fill in the name of each one. Additionally, optionally, if you have a priority coupon, enter it below. Finally, click the SUBMIT button to create a new schedule.', 'competitive-scheduling' ); ?></p>
-            </div>
-            <div class="ui three top attached steps">
-                <div class="step">
-                    <i class="truck icon"></i>
-                    <div class="content">
-                        <div class="title">Shipping</div>
-                        <div class="description">Choose your shipping options</div>
-                    </div>
-                </div>
-                <div class="active step">
-                    <i class="payment icon"></i>
-                    <div class="content">
-                        <div class="title">Billing</div>
-                        <div class="description">Enter billing information</div>
-                    </div>
-                </div>
-                <div class="disabled step">
-                    <i class="info icon"></i>
-                    <div class="content">
-                        <div class="title">Confirm Order</div>
-                        <div class="description">Verify order details</div>
-                    </div>
-                </div>
             </div>
             <form class="ui form attached fluid segment" method="post" id="formSchedules">
                 <div class="two fields">
