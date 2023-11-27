@@ -433,7 +433,8 @@ jQuery( document ).ready( function(){
 	
 	function start(){
 		// Active scheduling.
-		
+		console.log('Scheduling active!');
+        
 		if( jQuery('.active-scheduling').length > 0 ){ schedulingActive(); }
 		
 		// Handle scheduling changes.
