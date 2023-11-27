@@ -1825,8 +1825,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
             }
             
-            $first_day = strtotime( date( "Y-m-d", mktime() ) . " + 1 day" );
-            $last_day = strtotime( date( "Y-m-d", mktime() ) . " + ".$years." year" );
+            $first_day = strtotime( date( "Y-m-d", time() ) . " + 1 day" );
+            $last_day = strtotime( date( "Y-m-d", time() ) . " + ".$years." year" );
             
             if( $calendar_limit_month_ahead ){
                 $limit_calendar = strtotime( date( "Y-m", strtotime( $today . " + ".$calendar_limit_month_ahead." month") ).'-01' );
@@ -1963,8 +1963,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
             }
             
-            $first_day = strtotime( date( "Y-m-d", mktime() ) . " + 1 day" );
-            $last_day = strtotime( date( "Y-m-d", mktime() ) . " + ".$years." year" );
+            $first_day = strtotime( date( "Y-m-d", time() ) . " + 1 day" );
+            $last_day = strtotime( date( "Y-m-d", time() ) . " + ".$years." year" );
             
             if( $calendar_limit_month_ahead ){
                 $limit_calendar = strtotime( date( "Y-m", strtotime( $today . " + ".$calendar_limit_month_ahead." month") ).'-01' );
