@@ -20,7 +20,7 @@
                 <div class="header">
                     <?php echo esc_html__( 'Scheduling Process', 'competitive-scheduling' ); ?>
                 </div>
-                <p><?php echo esc_html__( 'Below you will find general information on the 4 phases of the scheduling process. After that, just below, there is the calendar with all the dates available for scheduling, as well as the number of companions you wish to take with you, along with the priority coupon if you have one, enter it in the designated field.', 'competitive-scheduling' ); ?></p>
+                <p><?php echo esc_html__( 'Below you will find general information about the 4 phases of the scheduling process. After that, just below, is the calendar with all the dates available for scheduling, as well as choosing the number of companions you want to take, with the definition of each one\'s name. Likewise, if you have a priority coupon, enter it in the designated field as well.', 'competitive-scheduling' ); ?></p>
             </div>
             <div class="ui four steps">
                 <div class="active step">
