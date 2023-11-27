@@ -71,7 +71,7 @@ jQuery( document ).ready( function(){
 	function schedulingActive(){
 		// Configurações do calendário.
 		
-		var calendario = gestor.calendario;
+		var calendario = manager.calendario;
 		
 		// Datas disponíveis para agendamento.
 		
@@ -90,7 +90,7 @@ jQuery( document ).ready( function(){
 		
 		jQuery(formSelector)
 			.form({
-				fields : (gestor.formulario[formId].regrasValidacao ? gestor.formulario[formId].regrasValidacao : {}),
+				fields : (manager.formulario[formId].regrasValidacao ? manager.formulario[formId].regrasValidacao : {}),
 				onSuccess(event, fields){
 					
 				}
@@ -176,7 +176,7 @@ jQuery( document ).ready( function(){
 						
 						acompanhantesCont.append(field);
 						
-						jQuery(formSelector).form('add rule', ('acompanhante'+num),{ rules : gestor.formulario[formId].regrasValidacao[('acompanhante'+num)].rules });
+						jQuery(formSelector).form('add rule', ('acompanhante'+num),{ rules : manager.formulario[formId].regrasValidacao[('acompanhante'+num)].rules });
 					}
 				} else {
 					var num = 0;
@@ -190,7 +190,7 @@ jQuery( document ).ready( function(){
 							jQuery(this).hide();
 						} else {
 							jQuery(this).show();
-							jQuery(formSelector).form('add rule', ('acompanhante'+num),{ rules : gestor.formulario[formId].regrasValidacao[('acompanhante'+num)].rules });
+							jQuery(formSelector).form('add rule', ('acompanhante'+num),{ rules : manager.formulario[formId].regrasValidacao[('acompanhante'+num)].rules });
 						}
 					});
 				}
@@ -213,8 +213,8 @@ jQuery( document ).ready( function(){
 			jQuery('.agendamentos').show();
 		});
 		
-		if('tela' in gestor){
-			switch(gestor.tela){
+		if('tela' in manager){
+			switch(manager.tela){
 				case 'agendamentos-anteriores':
 					jQuery('.agendamentos').show();
 				break;
@@ -268,7 +268,7 @@ jQuery( document ).ready( function(){
 			
 			$.ajax({
 				type: 'POST',
-				url: gestor.raiz + 'agendamentos/',
+				url: manager.raiz + 'agendamentos/',
 				data: {
 					opcao : opcao,
 					ajax : 'sim',
@@ -297,7 +297,7 @@ jQuery( document ).ready( function(){
 				},
 				error: function(txt){
 					switch(txt.status){
-						case 401: window.open(gestor.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
+						case 401: window.open(manager.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
 						default:
 							console.log('ERROR AJAX - '+opcao+' - Dados:');
 							console.log(txt);
@@ -344,7 +344,7 @@ jQuery( document ).ready( function(){
 			
 			$.ajax({
 				type: 'POST',
-				url: gestor.raiz + 'agendamentos/',
+				url: manager.raiz + 'agendamentos/',
 				data: { 
 					opcao,
 					ajax : 'sim',
@@ -387,7 +387,7 @@ jQuery( document ).ready( function(){
 				},
 				error: function(txt){
 					switch(txt.status){
-						case 401: window.open(gestor.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
+						case 401: window.open(manager.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
 						default:
 							console.log('ERROR AJAX - '+opcao+' - Dados:');
 							console.log(txt);
@@ -400,12 +400,12 @@ jQuery( document ).ready( function(){
 		function carregando(opcao){
 			switch(opcao){
 				case 'abrir':
-					if(!('carregando' in gestor)){
+					if(!('carregando' in manager)){
 						jQuery('.paginaCarregando').dimmer({
 							closable: false
 						});
 						
-						gestor.carregando = true;
+						manager.carregando = true;
 					}
 					
 					jQuery('.paginaCarregando').dimmer('show');
@@ -437,9 +437,9 @@ jQuery( document ).ready( function(){
 		if( jQuery('.active-scheduling').length > 0 ){ schedulingActive(); }
 		
 		// Handle scheduling changes.
-		if('confirm' in gestor){ confirm(); }
-		if('cancel' in gestor){ cancel(); }
-		if('ExpiredOrNotFound' in gestor){ ExpiredOrNotFound(); }
+		if('confirm' in manager){ confirm(); }
+		if('cancel' in manager){ cancel(); }
+		if('ExpiredOrNotFound' in manager){ ExpiredOrNotFound(); }
 	}
 	
 	start();
