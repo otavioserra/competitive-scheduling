@@ -295,7 +295,7 @@
                 <p><?php echo esc_html__( 'Are you sure you want to confirm this appointment? If yes, click on the <b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
-        <form class="ui form attached fluid segment confirmacaoForm" method="post" action="<?php echo wp_parse_url(wp_get_current_url(), PHP_URL_PATH); ?>">
+        <form class="ui form attached fluid segment confirmacaoForm" method="post" action="<?php echo get_permalink(); ?>">
             <div class="ui primary large label">
                 <i class="calendar check icon"></i>
                 <?php echo esc_html__( 'Schedule Date:', 'competitive-scheduling' ); ?> [[confirmation-date]]
@@ -335,7 +335,7 @@
                 <p><?php echo esc_html__( 'Are you sure you want to cancel this appointment? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
-        <form class="ui form attached fluid segment cancelamentoForm" method="post" action="<?php echo wp_parse_url(wp_get_current_url(), PHP_URL_PATH); ?>">
+        <form class="ui form attached fluid segment cancelamentoForm" method="post" action="<?php echo get_permalink(); ?>">
             <div class="ui primary large label">
                 <i class="calendar check icon"></i>
                 <?php echo esc_html__( 'Schedule Date:', 'competitive-scheduling' ); ?> [[cancellation-date]]
@@ -374,7 +374,7 @@
                     <li><?php echo esc_html__( 'The deadline for changing the schedule has been reached.', 'competitive-scheduling' ); ?></li>
                     <li><?php echo esc_html__( 'The code sent is invalid.', 'competitive-scheduling' ); ?></li>
                 </ol>
-                <p><?php echo esc_html__( 'Access your appointments by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo wp_parse_url(wp_get_current_url(), PHP_URL_PATH); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+                <p><?php echo esc_html__( 'Access your appointments by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
             </div>
         </div>
     </div><!-- changes > -->
