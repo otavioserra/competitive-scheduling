@@ -248,7 +248,8 @@ if( ! class_exists( 'Interfaces' ) ){
                 $_MANAGER['javascript-vars']['interface'] = Array();
             }
 
-            wp_add_inline_script('cs-manager', '
+            wp_enqueue_script( 'cs-manager' );
+            wp_add_inline_script( 'cs-manager', '
                 var manager = '.json_encode( $_MANAGER['javascript-vars'] ).';
             ');
 
