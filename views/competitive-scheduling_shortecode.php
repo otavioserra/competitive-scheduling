@@ -27,28 +27,28 @@
                     <i class="calendar plus icon"></i>
                     <div class="content">
                         <div class="title"><?php echo esc_html__( 'Registration', 'competitive-scheduling' ); ?></div>
-                        <div class="description"><?php echo esc_html__( 'Registration period for scheduling', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'Registration period to participate in a schedule.', 'competitive-scheduling' ); ?></div>
                     </div>
                 </div>
                 <div class="step">
-                    <i class="sync icon"></i>
+                    <i class="clock outline icon"></i>
                     <div class="content">
-                        <div class="title"><?php echo esc_html__( 'Draw', 'competitive-scheduling' ); ?></div>
-                        <div class="description"><?php echo esc_html__( 'Waiting for scheduling slot draw', 'competitive-scheduling' ); ?></div>
+                        <div class="title"><?php echo esc_html__( 'Waiting Draw', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'Waiting for scheduling slot draw.', 'competitive-scheduling' ); ?></div>
                     </div>
                 </div>
                 <div class="step">
                     <i class="calendar check outline icon"></i>
                     <div class="content">
-                        <div class="title"><?php echo esc_html__( 'Confirmation', 'competitive-scheduling' ); ?></div>
-                        <div class="description"><?php echo esc_html__( 'Confirmation email will be sent and you will have a short period of time to confirm', 'competitive-scheduling' ); ?></div>
+                        <div class="title"><?php echo esc_html__( 'Draw and Confirmation', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'A confirmation email will be sent if you are drawn.', 'competitive-scheduling' ); ?></div>
                     </div>
                 </div>
                 <div class="step">
                     <i class="route icon"></i>
                     <div class="content">
                         <div class="title"><?php echo esc_html__( 'Utilization', 'competitive-scheduling' ); ?></div>
-                        <div class="description"><?php echo esc_html__( 'On the day of booking, use your password and go to the establishment', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'On the day of booking, use your password sent after confirmation and go to the establishment.', 'competitive-scheduling' ); ?></div>
                     </div>
                 </div>
             </div>
