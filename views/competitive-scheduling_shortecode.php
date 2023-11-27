@@ -1,11 +1,11 @@
-<div class="ui container botoesMargem">
+<div class="ui container buttonsMargin">
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>
     <!-- inactive < --><div class="agendamento-inativo">
         <div class="ui header"><?php echo esc_html__( 'Inactive Schedule', 'competitive-scheduling' ); ?></div>
         [[msg-scheduling-suspended]]
     </div><!-- inactive > -->
-    <!-- active < --><div class="active-scheduling botoesMargem">
+    <!-- active < --><div class="active-scheduling buttonsMargin">
         <a class="ui positive button scheduleBtn" data-content="<?php echo esc_attr__( 'Click to create a new schedule', 'competitive-scheduling' ); ?>" data-position="bottom left" data-variation="inverted">
             <i class="calendar plus icon"></i>
             <?php echo esc_html__( 'Schedule Service', 'competitive-scheduling' ); ?>
