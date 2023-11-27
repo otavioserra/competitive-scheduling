@@ -115,8 +115,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'coupon' => $coupon,
                 ) );
 
-                echo "this->schedule"; exit;
-                
                 if( ! $return['completed'] ){
                     // Get the configuration data.
                     $msg_options = get_option( 'competitive_scheduling_msg_options' );

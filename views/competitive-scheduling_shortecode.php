@@ -62,7 +62,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label><?php echo esc_html__( 'Choose the Date', 'competitive-scheduling' ); ?></label>
-                        <input type="hidden" name="data" class="scheduleDate">
+                        <input type="hidden" name="date" class="scheduleDate">
                         <div class="dateSelected hidden">
                             <div class="ui primary large label">
                                 <i class="calendar check icon"></i>
