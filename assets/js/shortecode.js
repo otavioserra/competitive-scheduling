@@ -400,6 +400,14 @@ jQuery( document ).ready( function(){
 			}).modal('show');
 		}
 	}
+
+    function alert(p={}){
+		if(p.msg){
+			$('.ui.modal.alert .content p').html(p.msg);
+		}
+		
+		$('.ui.modal.alert').modal('show');
+	}
 	
 	function start(){
 		// Active scheduling.
@@ -409,6 +417,13 @@ jQuery( document ).ready( function(){
 		if('confirm' in manager){ confirm(); }
 		if('cancel' in manager){ cancel(); }
 		if('ExpiredOrNotFound' in manager){ expiredOrNotFound(); }
+
+        // Alert
+        if('interface' in manager){
+            if('alert' in manager.interface){
+				alert(manager.interface.alert);
+			}
+		}
 	}
 	
 	start();
