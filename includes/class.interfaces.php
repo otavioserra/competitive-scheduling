@@ -248,6 +248,14 @@ if( ! class_exists( 'Interfaces' ) ){
                 $_MANAGER['javascript-vars']['interface'] = Array();
             }
 
+            wp_add_inline_script('my-script', '
+                console.log("A URL da página atual é: " + $current_url);
+            ');
+
+            $js_global_vars = '<script>
+                var manager = '.json_encode( $_MANAGER['javascript-vars'] ).';
+            </script>'."\n";
+
             return $page;
         }
     }

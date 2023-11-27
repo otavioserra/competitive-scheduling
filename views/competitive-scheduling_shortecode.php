@@ -5,7 +5,7 @@
         <div class="ui header"><?php echo esc_html__( 'Inactive Schedule', 'competitive-scheduling' ); ?></div>
         [[msg-scheduling-suspended]]
     </div><!-- inactive > -->
-    <!-- active < --><div class="agendamento-ativo botoesMargem">
+    <!-- active < --><div class="active-scheduling botoesMargem">
         <a class="ui positive button agendarBtn" data-content="<?php echo esc_attr__( 'Click to create a new schedule', 'competitive-scheduling' ); ?>" data-position="bottom left" data-variation="inverted">
             <i class="calendar plus icon"></i>
             <?php echo esc_html__( 'Schedule Service', 'competitive-scheduling' ); ?>
@@ -118,11 +118,11 @@
                                 <td><?php echo esc_html__( 'Options', 'competitive-scheduling' ); ?></td>
                                 <td>
                                 	<div class="ui icon buttons">
-                                        <!-- cancel-btn < --><a class="ui tiny button basic red cancelarAgendamentoBtn preAgendamento" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
+                                        <!-- cancel-btn < --><a class="ui tiny button basic red cancelSchedulingBtn preAgendamento" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
                                             <i class="calendar minus outline icon"></i>
                                             <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                                         </a><!-- cancel-btn > -->
-                                        <!-- confirm-btn < --><a class="ui tiny button basic green confirmarAgendamentoBtn preAgendamento" data-content="<?php echo esc_attr__( 'Click to Confirm Appointment', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
+                                        <!-- confirm-btn < --><a class="ui tiny button basic green confirmScheduleBtn preAgendamento" data-content="<?php echo esc_attr__( 'Click to Confirm Appointment', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
                                             <i class="calendar check outline icon"></i>
                                             <?php echo esc_html__( 'Confirm', 'competitive-scheduling' ); ?>
                                         </a><!-- confirm-btn > -->
@@ -192,7 +192,7 @@
                                 <td><?php echo esc_html__( 'Options', 'competitive-scheduling' ); ?></td>
                                 <td>
                                 	<div class="ui icon buttons">
-                                        <!-- cancel-btn < --><a class="ui tiny button basic red cancelarAgendamentoBtn agendamento" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
+                                        <!-- cancel-btn < --><a class="ui tiny button basic red cancelSchedulingBtn agendamento" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
                                             <i class="calendar minus outline icon"></i>
                                             <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                                         </a><!-- cancel-btn > -->
@@ -304,11 +304,11 @@
             <br>
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
-                    <a class="ui button red cancelarAgendamentoBtn" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button red cancelSchedulingBtn" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
                         <i class="calendar minus outline icon"></i>
                         <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                     </a>
-                    <a class="ui button green confirmarAgendamentoBtn" data-content="<?php echo esc_attr__( 'Click to Confirm Appointment', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button green confirmScheduleBtn" data-content="<?php echo esc_attr__( 'Click to Confirm Appointment', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
                         <i class="calendar check outline icon"></i>
                         <?php echo esc_html__( 'Confirm', 'competitive-scheduling' ); ?>
                     </a>
@@ -344,7 +344,7 @@
             <br>
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
-                    <a class="ui button red cancelarAgendamentoBtn" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button red cancelSchedulingBtn" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
                         <i class="calendar minus outline icon"></i>
                         <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                     </a>
@@ -359,7 +359,7 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this appointment!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <div class="expiradoOuNaoEncontrado escondido agendamentosTela">
+    <div class="ExpiredOrNotFound escondido agendamentosTela">
         <div class="ui header"><?php echo esc_html__( 'Schedule Change', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="exclamation triangle icon"></i>

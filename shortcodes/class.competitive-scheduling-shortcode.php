@@ -71,6 +71,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
 
             // Action fired.
+            if( isset( $_REQUEST['action'] ) )
             switch( $_REQUEST['action'] ){
                 case 'confirm':
                     return $this->confirmation( $page );
