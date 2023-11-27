@@ -111,10 +111,8 @@ if( ! class_exists( 'Interfaces' ) ){
          * @return string
          */
 
-        public static function components( $params = false ){
+        public static function components( $page = '' ){
             global $_MANAGER;
-
-            if( $params ) foreach( $params as $var => $val ) $$var = $val;
 
             if( isset( $_MANAGER['interface'] ) ){
                 if( isset( $_MANAGER['interface']['components'] ) ){
