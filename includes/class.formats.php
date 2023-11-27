@@ -14,7 +14,7 @@ if( !class_exists( 'Formats' ) ){
 
         public static function data_format_to( $type, $value ){
             if( isset( $value ) && isset( $type ) ){
-                $value = data_format( array(
+                $value = self::data_format( array(
                     'value' => $value,
                     'type' => $type,
                 ) );
