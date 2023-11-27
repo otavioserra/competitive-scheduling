@@ -803,7 +803,18 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     
                     // Update the total number of spaces used in appointments for the date in question.
                     global $wpdb;
-                    $result = $wpdb->update( $wpdb->prefix.'schedules_dates', array('total' => 'total + '.( $companions + 1 ) ), array('id_schedules_dates' => $schedules_dates->id_schedules_dates ) );
+                    $result = $wpdb->update( 
+                        $wpdb->prefix.'schedules_dates',
+                        array(
+                            'total' => 'total + '.( $companions + 1 ) 
+                        ),
+                        array(
+                            'id_schedules_dates' => $schedules_dates->id_schedules_dates 
+                        ),
+                        array(
+                            '%d',
+                        ),
+                    );
 
                     // Generate appointment password.
                     $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
@@ -839,7 +850,16 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             array(
                                 'id_schedules' => $id_schedules,
                                 'user_id' => $user_id,
-                            )
+                            ),
+                            array(
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%d',
+                                '%s',
+                            ),
                         );
                     } else {
                         // Create new schedule.
@@ -1014,7 +1034,16 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             array(
                                 'id_schedules' => $id_schedules,
                                 'user_id' => $user_id,
-                            )
+                            ),
+                            array(
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%d',
+                                '%s',
+                            ),
                         );
                     } else {
                         // Create new schedule.
@@ -1418,9 +1447,16 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         private function schedule_confirm($params = false){
             if( $params ) foreach( $params as $var => $val ) $$var = $val;
             
+            // Require formats class to prepare data.
+            require_once( CS_PATH . 'includes/class.formats.php' );
+
+            // Require templates class to manipulate data.
+            require_once( CS_PATH . 'includes/class.templates.php' );
+
             // Get the configuration data.
             $options = get_option( 'competitive_scheduling_options' );
             $msg_options = get_option( 'competitive_scheduling_msg_options' );
+            $html_options = get_option( 'competitive_scheduling_html_options' );
             
             // Get scheduling data.
             global $wpdb;
@@ -1454,343 +1490,298 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $companionsNames[] = $companion['name'];
             }
             
-            // Gerar o token de validação.
+            // Generate the validation token.
+            $token = wp_create_nonce(CS_NOUNCE_SCHEDULES);
+            $pubID = md5(uniqid(rand(), true));
             
-            gestor_incluir_biblioteca('autenticacao');
-            
-            $validacao = autenticacao_cliente_gerar_token_validacao(Array(
-                'id_hosts' => $id_hosts,
-                'pubID' => ($schedules->pubID ? $schedules->pubID : null),
-            ));
-            
-            $token = $validacao['token'];
-            
-            // Verificar se já foi confirmado. Caso tenha sido confirmado, só alertar e enviar email ao usuário. Senão, fazer o procedimento de confirmação.
-            
-            if($status != 'confirmado'){
-                // Pegar a quantidade de vagas máxima.
-                
-                $dias_semana = (existe($config['dias-semana']) ? explode(',',$config['dias-semana']) : Array());
-                $dias_semana_maximo_vagas_arr = (existe($config['dias-semana-maximo-vagas']) ? explode(',',$config['dias-semana-maximo-vagas']) : Array());
-                
-                $count_dias = 0;
-                if($dias_semana)
-                foreach($dias_semana as $dia_semana){
-                    if($dia_semana == strtolower(date('D',strtotime($data)))){
+            // Check if it has already been confirmed. If it has been confirmed, just alert and send an email to the user. Otherwise, carry out the confirmation procedure.
+            if( $status != 'confirmed' ){
+                // Take the maximum number of places.
+                $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : Array());
+                $days_week_maximum_vacancies_arr = ( isset( $options['days-week-maximum-vacancies'] ) ? explode(',',$options['days-week-maximum-vacancies'] ) : Array() );
+
+                $count_days = 0;
+                if( $day_week )
+                foreach( $days_week as $day_week ){
+                    if( $day_week == strtolower( date( 'D', strtotime($date) ) ) ){
                         break;
                     }
-                    $count_dias++;
+                    $count_days++;
                 }
                 
-                if(count($dias_semana_maximo_vagas_arr) > 1){
-                    $dias_semana_maximo_vagas = $dias_semana_maximo_vagas_arr[$count_dias];
+                if( count( $days_week_maximum_vacancies_arr ) > 1 ){
+                    $days_week_maximum_vacancies = $days_week_maximum_vacancies_arr[$count_days];
                 } else {
-                    $dias_semana_maximo_vagas = $dias_semana_maximo_vagas_arr[0];
+                    $days_week_maximum_vacancies = $days_week_maximum_vacancies_arr[0];
                 }
                 
-                // Verificar se há vagas suficientes para a data requerida. Caso não tenha, retornar mensagem de erro.
-                
-                $hosts_agendamentos_datas = banco_select(Array(
-                    'unico' => true,
-                    'tabela' => 'hosts_agendamentos_datas',
-                    'campos' => Array(
-                        'id_hosts_agendamentos_datas',
-                        'total',
-                    ),
-                    'extra' => 
-                        "WHERE id_hosts='".$id_hosts."'"
-                        ." AND data='".$data."'"
-                        ." AND total + ".($companions+1)." <= ".$dias_semana_maximo_vagas
-                ));
-                
-                if(!$hosts_agendamentos_datas){
-                    $msgAgendamentoSemVagas = (existe($config['msg-agendamento-sem-vagas']) ? $config['msg-agendamento-sem-vagas'] : '');
+                // Check if there are enough vacancies for the required date. If not, return an error message.
+                global $wpdb;
+                $query = $wpdb->prepare(
+                    "SELECT id_schedules_dates, total 
+                    FROM {$wpdb->prefix}schedules_dates 
+                    WHERE date = '%s' AND total + %d <= %d 
+                    ORDER BY date ASC",
+                    array( $date, ( (int) $companions+1 ), $days_week_maximum_vacancies )
+                );
+                $schedules_dates = $wpdb->get_results( $query );
+
+                if( ! $schedules_dates ){
+                    $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
                     
                     return Array(
                         'completed' => false,
-                        'confirmado' => false,
+                        'confirmed' => false,
                         'status' => 'SCHEDULE_WITHOUT_VACANCIES',
-                        'alert' => $msgAgendamentoSemVagas,
+                        'alert' => $msgSchedulingWithoutVacancies,
                     );
                 }
                 
-                // Atualizar a quantidade total de vagas utilizadas em agendamentos para a data em questão.
-                
-                banco_update_campo('total','total+'.($companions+1),true);
-                
-                banco_update_executar('hosts_agendamentos_datas',"WHERE id_hosts_agendamentos_datas='".$hosts_agendamentos_datas['id_hosts_agendamentos_datas']."'");
-                
-                // Gerar senha do agendamento.
-                
-                gestor_incluir_biblioteca('formato');
-                
-                $password = formato_colocar_char_meio_numero(formato_zero_a_esquerda(rand(1,99999),6));
-                
-                // Atualizar agendamento.
-                
-                banco_update_campo('password',$password);
-                banco_update_campo('status','confirmado');
-                banco_update_campo('versao','versao+1',true);
-                banco_update_campo('data_modificacao','NOW()',true);
-                
-                banco_update_executar('schedules',"WHERE id_hosts='".$id_hosts."' AND id_schedules='".$id_schedules."' AND user_id='".$user_id."'");
-            }
-            
-            // Pegar dados do usuário.
-            
-            $hosts_usuarios = banco_select(Array(
-                'unico' => true,
-                'tabela' => 'hosts_usuarios',
-                'campos' => Array(
-                    'name',
-                    'email',
-                ),
-                'extra' => 
-                    "WHERE user_id='".$user_id."'"
-                    ." AND id_hosts='".$id_hosts."'"
-            ));
-            
-            // Formatar dados do email.
-            
-            $agendamentoAssunto = (existe($config['agendamento-assunto']) ? $config['agendamento-assunto'] : '');
-            $agendamentoMensagem = (existe($config['agendamento-mensagem']) ? $config['agendamento-mensagem'] : '');
-            $msgConclusaoAgendamento = (existe($config['msg-conclusao-agendamento']) ? $config['msg-conclusao-agendamento'] : '');
-            
-            $tituloEstabelecimento = (existe($config['titulo-estabelecimento']) ? $config['titulo-estabelecimento'] : '');
-            
-            $email = $hosts_usuarios['email'];
-            $name = $hosts_usuarios['name'];
-            
-            gestor_incluir_biblioteca('formato');
-            
-            $codigo = date('dmY').formato_zero_a_esquerda($id_schedules,6);
-            
-            // Formatar mensagem do email.
-            
-            gestor_incluir_biblioteca('host');
-            
-            $agendamentoAssunto = modelo_var_troca_tudo($agendamentoAssunto,"#codigo#",$codigo);
-            
-            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#codigo#",$codigo);
-            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#titulo#",$tituloEstabelecimento);
-            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#data#",formato_dado_para('data',$data));
-            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#password#",$password);
-            $agendamentoMensagem = modelo_var_troca_tudo($agendamentoMensagem,"#url-cancelamento#",'<a target="agendamento" href="'.host_url(Array('opcao'=>'full')).'agendamentos-publico/?acao=cancelar&token='.$token.'" style="overflow-wrap: break-word;">'.host_url(Array('opcao'=>'full')).'agendamentos-publico/?acao=cancelar&token='.$token.'</a>');
-            
-            $cel_nome = 'cel'; $cel[$cel_nome] = modelo_tag_val($agendamentoMensagem,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->'); $agendamentoMensagem = modelo_tag_in($agendamentoMensagem,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->','<!-- '.$cel_nome.' -->');
-            
-            $agendamentoMensagem = modelo_var_troca($agendamentoMensagem,"#seu-name#",$name);
-            
-            for($i=0;$i<(int)$companions;$i++){
-                $cel_aux = $cel[$cel_nome];
-                
-                $cel_aux = modelo_var_troca($cel_aux,"#num#",($i+1));
-                $cel_aux = modelo_var_troca($cel_aux,"#companion#",$companionsNames[$i]);
-                
-                $agendamentoMensagem = modelo_var_in($agendamentoMensagem,'<!-- '.$cel_nome.' -->',$cel_aux);
-            }
-            $agendamentoMensagem = modelo_var_troca($agendamentoMensagem,'<!-- '.$cel_nome.' -->','');
-            
-            // Formatar mensagem do alerta.
-            
-            $msgConclusaoAgendamento = modelo_var_troca_tudo($msgConclusaoAgendamento,"#data#",formato_dado_para('data',$data));
-            $msgConclusaoAgendamento = modelo_var_troca_tudo($msgConclusaoAgendamento,"#password#",$password);
-            
-            $cel_nome = 'cel'; $cel[$cel_nome] = modelo_tag_val($msgConclusaoAgendamento,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->'); $msgConclusaoAgendamento = modelo_tag_in($msgConclusaoAgendamento,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->','<!-- '.$cel_nome.' -->');
-            
-            $msgConclusaoAgendamento = modelo_var_troca($msgConclusaoAgendamento,"#seu-name#",$name);
-            
-            for($i=0;$i<(int)$companions;$i++){
-                $cel_aux = $cel[$cel_nome];
-                
-                $cel_aux = modelo_var_troca($cel_aux,"#num#",($i+1));
-                $cel_aux = modelo_var_troca($cel_aux,"#companion#",$companionsNames[$i]);
-                
-                $msgConclusaoAgendamento = modelo_var_in($msgConclusaoAgendamento,'<!-- '.$cel_nome.' -->',$cel_aux);
-            }
-            $msgConclusaoAgendamento = modelo_var_troca($msgConclusaoAgendamento,'<!-- '.$cel_nome.' -->','');
-            
-            $msgAlerta = $msgConclusaoAgendamento;
-            
-            // Enviar email com informações do agendamento.
-            
-            gestor_incluir_biblioteca(Array('comunicacao','host'));
-            
-            if(comunicacao_email(Array(
-                'hostPersonalizacao' => true,
-                'destinatarios' => Array(
-                    Array(
-                        'email' => $email,
-                        'name' => $name,
+                // Update the total number of spaces used in appointments for the date in question.
+                global $wpdb;
+                $result = $wpdb->update( $wpdb->prefix.'schedules_dates', 
+                    array( 
+                        'total' => 'total+'.( (int) $companions+1 ),
+                    ), 
+                    array(
+                        'id_schedules_dates' => $schedules_dates->id_schedules_dates,
+                    ), 
+                    array(
+                        '%d',
                     ),
-                ),
-                'mensagem' => Array(
-                    'assunto' => $agendamentoAssunto,
-                    'html' => $agendamentoMensagem,
-                    'htmlAssinaturaAutomatica' => true,
-                    'htmlVariaveis' => Array(
-                        Array(
-                            'variavel' => '[[url]]',
-                            'valor' => host_url(Array('opcao'=>'full')),
-                        ),
-                    ),
-                ),
-            ))){
+                );
                 
+                // Generate appointment password.
+                $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
+
+                // Update schedule.
+                global $wpdb;
+                $result = $wpdb->update( $wpdb->prefix.'schedules', 
+                    array( 
+                        'password' => $password,
+                        'status' => 'confirmed',
+                        'version' => 'version+1',
+                        'modification_date' => current_time('mysql', false),
+                    ), 
+                    array(
+                        'id_schedules' => $id_schedules,
+                        'user_id' => $user_id,
+                    ),
+                    array(
+                        '%s',
+                        '%s',
+                        '%d',
+                        '%s',
+                    ),
+                );
             }
+            
+            // Generate the url to be able to cancel
+            $urlCancellation = esc_url( add_query_arg(
+                array(
+                    'action' => 'schedule_cancellation',
+                    'pubID' => $pubID,
+                    'token' => $token,
+                ),
+                admin_url('admin-post.php')
+            ) );
+
+            // Get the currently logged-in user
+            $user = wp_get_current_user();
+
+            // Get the user's name and email
+            $name = $user->get_name();
+            $email = $user->get_email();
+            
+            // Format email data.
+            $scheduleSubject = ( ! empty( $html_options['schedule-subject'] ) ? $html_options['schedule-subject'] : '');
+            $scheduleMessage = ( ! empty( $html_options['schedule-message'] ) ? $html_options['schedule-message'] : '');
+            $msgConclusionScheduling = ( ! empty( $msg_options['msg-conclusion-scheduling'] ) ? $msg_options['msg-conclusion-scheduling'] : '');
+            
+            $titleEstablishment = ( ! empty( $options['title-establishment'] ) ? $options['title-establishment'] : '' );
+                    
+            $code = date('dmY').Formats::format_zero_to_the_left( $id_schedules, 6 );
+            
+            // Format email message.
+            $scheduleSubject = Templates::change_variable( $scheduleSubject, '#code#', $code );
+            
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '#code#', $code );
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '#title#', $titleEstablishment );
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '#date#', Formats::data_format_to( 'date-to-text', $date ) );
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '#password#', $password );
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '#url-cancellation#', '<a target="schedule" href="'.$urlCancellation.'" style="overflow-wrap: break-word;">'.$urlCancellation.'</a>' );
+            
+            $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $scheduleMessage, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $scheduleMessage = Formats::tag_in( $scheduleMessage,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '#your-name#', $name );
+            
+            for( $i=0; $i<(int)$companions; $i++ ){
+                $cell_aux = $cell[$cell_name];
+                
+                $cell_aux = Templates::change_variable( $cell_aux, '#num#', ($i+1) );
+                $cell_aux = Templates::change_variable( $cell_aux, '#companion#', $companionsNames[$i] );
+                
+                $scheduleMessage = Templates::variable_in( $scheduleMessage, '<!-- '.$cell_name.' -->', $cell_aux );
+            }
+            $scheduleMessage = Templates::change_variable( $scheduleMessage, '<!-- '.$cell_name.' -->', '' );
+
+            // Format alert message.
+            $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#date#', Formats::data_format_to( 'date-to-text', $date ) );
+            $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#password#', $password );
+
+            $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Formats::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            
+            $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#your-name#', $name );
+            
+            for( $i=0; $i<(int)$companions; $i++ ){
+                $cell_aux = $cell[$cell_name];
+                
+                $cell_aux = Templates::change_variable( $cell_aux, '#num#', ($i+1) );
+                $cell_aux = Templates::change_variable( $cell_aux, '#companion#', $companionsNames[$i] );
+                
+                $msgConclusionScheduling = Templates::variable_in( $msgConclusionScheduling, '<!-- '.$cell_name.' -->', $cell_aux );
+            }
+            $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '<!-- '.$cell_name.' -->', '' );
+
+            $msgAlert = $msgConclusionScheduling;
+            
+            // Prepare email fields.
+            $to = $name . ' <'.$email.'>';
+            $subject = $scheduleSubject;
+            $body = $scheduleMessage;
+    
+            // Require custom-mailer class to send emails.
+            require_once( CS_PATH . 'includes/class.custom-mailer.php' );
+
+            // Send email with scheduling information.
+            $custom_mailer = new Custom_Mailer();
+            $custom_mailer->send($to, $subject, $body);
             
             return Array(
                 'completed' => true,
-                'confirmado' => true,
-                'alert' => $msgAlerta,
+                'confirmed' => true,
+                'alert' => $msgAlert,
             );
         }
 
         private function schedule_cancel($params = false){
-            global $_GESTOR;
-            
-            if($params)foreach($params as $var => $val)$$var = $val;
-            
-            // Parâmetros
-            
-            // id_hosts - Int - Obrigatório - Identificador do host.
-            // id_schedules - Int - Obrigatório - Identificador do agendamento.
-            // user_id - Int - Obrigatório - Identificador do usuário.
-            // data - String - Obrigatório - Data do agendamento.
-            
-            // 
-            
-            // Pegar os dados de configuração.
-            
-            gestor_incluir_biblioteca('configuracao');
-            
-            $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
-            
-            // Pegar dados do agendamento.
-            
-            $schedules = banco_select(Array(
-                'unico' => true,
-                'tabela' => 'schedules',
-                'campos' => Array(
-                    'companions',
-                    'status',
-                ),
-                'extra' => 
-                    "WHERE id_schedules='".$id_schedules."'"
-                    ." AND id_hosts='".$id_hosts."'"
-            ));
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
+            // Require formats class to prepare data.
+            require_once( CS_PATH . 'includes/class.formats.php' );
+
+            // Require templates class to manipulate data.
+            require_once( CS_PATH . 'includes/class.templates.php' );
+
+            // Get the configuration data.
+            $options = get_option( 'competitive_scheduling_options' );
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+            $html_options = get_option( 'competitive_scheduling_html_options' );
+
+            // Get scheduling data.
+            global $wpdb;
+            $query = $wpdb->prepare(
+                "SELECT companions, pubID, status, password  
+                FROM {$wpdb->prefix}schedules 
+                WHERE id_schedules = '%s' 
+                AND user_id = '%s'",
+                array( $id_schedules, $user_id )
+            );
+            $schedules = $wpdb->get_results( $query );
             
             $companions = (int)$schedules->companions;
             $status = $schedules->status;
             
-            // Verificar se já foi confirmado. Caso tenha sido confirmado, atualizar a quantidade total de vagas.
-            
-            if($status == 'confirmado'){
-                // Pegar o identificador do 'hosts_agendamentos_datas'.
-                
-                $hosts_agendamentos_datas = banco_select(Array(
-                    'unico' => true,
-                    'tabela' => 'hosts_agendamentos_datas',
-                    'campos' => Array(
-                        'id_hosts_agendamentos_datas',
-                    ),
-                    'extra' => 
-                        "WHERE id_hosts='".$id_hosts."'"
-                        ." AND data='".$data."'"
-                ));
-                
-                // Atualizar a quantidade total de vagas utilizadas em agendamentos para a data em questão.
-                
-                if($hosts_agendamentos_datas){
-                    
-                    banco_update_campo('total','total-'.($companions+1),true);
-                    
-                    banco_update_executar('hosts_agendamentos_datas',"WHERE id_hosts_agendamentos_datas='".$hosts_agendamentos_datas['id_hosts_agendamentos_datas']."'");
+            // Check if it has already been confirmed. If confirmed, update the total number of vacancies.
+            if( $status == 'confirmed' ){
+                // Get the identifier from 'schedules_dates'.
+                global $wpdb;
+                $query = $wpdb->prepare(
+                    "SELECT id_schedules_dates  
+                    FROM {$wpdb->prefix}schedules_dates 
+                    WHERE date = '%s'",
+                    $date
+                );
+                $schedules_dates = $wpdb->get_results( $query );
+
+                // Update the total number of spaces used in appointments for the date in question.
+                if( $schedules_dates ){
+                    global $wpdb;
+                    $result = $wpdb->update( $wpdb->prefix.'schedules_dates', 
+                        array( 
+                            'total' => 'total-'.( $companions+1 ),
+                        ), 
+                        array(
+                            'id_schedules_dates' => $schedules_dates->id_schedules_dates,
+                        ),
+                        array(
+                            '%d',
+                        ),
+                    );
                 }
             }
             
-            // Atualizar agendamento.
-            
-            banco_update_campo('status','finalizado');
-            banco_update_campo('versao','versao+1',true);
-            banco_update_campo('data_modificacao','NOW()',true);
-            
-            banco_update_executar('schedules',"WHERE id_hosts='".$id_hosts."' AND id_schedules='".$id_schedules."' AND user_id='".$user_id."'");
-            
-            // Pegar dados do usuário.
-            
-            $hosts_usuarios = banco_select(Array(
-                'unico' => true,
-                'tabela' => 'hosts_usuarios',
-                'campos' => Array(
-                    'name',
-                    'email',
+            // Update schedule.
+            global $wpdb;
+            $result = $wpdb->update( $wpdb->prefix.'schedules', 
+                array( 
+                    'status' => 'finished',
+                    'version' => 'version+1',
+                    'modification_date' => current_time('mysql', false),
+                ), 
+                array(
+                    'id_schedules' => $id_schedules,
+                    'user_id' => $user_id,
                 ),
-                'extra' => 
-                    "WHERE user_id='".$user_id."'"
-                    ." AND id_hosts='".$id_hosts."'"
-            ));
-            
-            // Formatar dados do email.
-            
-            $desagendamentoAssunto = (existe($config['desagendamento-assunto']) ? $config['desagendamento-assunto'] : '');
-            $desagendamentoMensagem = (existe($config['desagendamento-mensagem']) ? $config['desagendamento-mensagem'] : '');
-            $msgAgendamentoCancelado = (existe($config['msg-agendamento-cancelado']) ? $config['msg-agendamento-cancelado'] : '');
-            
-            $tituloEstabelecimento = (existe($config['titulo-estabelecimento']) ? $config['titulo-estabelecimento'] : '');
-            
-            $email = $hosts_usuarios['email'];
-            $name = $hosts_usuarios['name'];
-            
-            gestor_incluir_biblioteca('formato');
-            
-            $codigo = date('dmY').formato_zero_a_esquerda($id_schedules,6);
-            
-            // Formatar mensagem do email.
-            
-            gestor_incluir_biblioteca('host');
-            
-            $desagendamentoAssunto = modelo_var_troca_tudo($desagendamentoAssunto,"#codigo#",$codigo);
-            
-            $desagendamentoMensagem = modelo_var_troca_tudo($desagendamentoMensagem,"#codigo#",$codigo);
-            $desagendamentoMensagem = modelo_var_troca_tudo($desagendamentoMensagem,"#titulo#",$tituloEstabelecimento);
-            $desagendamentoMensagem = modelo_var_troca_tudo($desagendamentoMensagem,"#data#",formato_dado_para('data',$data));
-            
-            // Formatar mensagem do alerta.
-            
-            $msgAlerta = $msgAgendamentoCancelado;
-            
-            // Enviar email com informações do agendamento.
-            
-            gestor_incluir_biblioteca(Array('comunicacao','host'));
-            
-            if(comunicacao_email(Array(
-                'hostPersonalizacao' => true,
-                'destinatarios' => Array(
-                    Array(
-                        'email' => $email,
-                        'name' => $name,
-                    ),
+                array(
+                    '%s',
+                    '%d',
+                    '%s',
                 ),
-                'mensagem' => Array(
-                    'assunto' => $desagendamentoAssunto,
-                    'html' => $desagendamentoMensagem,
-                    'htmlAssinaturaAutomatica' => true,
-                    'htmlVariaveis' => Array(
-                        Array(
-                            'variavel' => '[[url]]',
-                            'valor' => host_url(Array('opcao'=>'full')),
-                        ),
-                    ),
-                ),
-            ))){
-                
-            }
+            );
             
+            // Get the currently logged-in user
+            $user = wp_get_current_user();
+
+            // Get the user's name and email
+            $name = $user->get_name();
+            $email = $user->get_email();
+            
+            // Format email data.
+            $unscheduleSubject = ( ! empty( $html_options['unschedule-subject'] ) ? $html_options['unschedule-subject'] : '');
+            $unscheduleMessage = ( ! empty( $html_options['unschedule-message'] ) ? $html_options['unschedule-message'] : '');
+            $msgSchedulingCancelled = ( ! empty( $msg_options['msg-scheduling-cancelled'] ) ? $msg_options['msg-scheduling-cancelled'] : '');
+
+            $titleEstablishment = ( ! empty( $options['title-establishment'] ) ? $options['title-establishment'] : '' );
+                    
+            $code = date('dmY').Formats::format_zero_to_the_left( $id_schedules, 6 );
+            
+            // Format email message.
+            $unscheduleSubject = Templates::change_variable( $unscheduleSubject, '#code#', $code );
+            
+            $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#code#', $code );
+            $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#titulo#', $titleEstablishment );
+            $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#date#', Formats::data_format_to( 'date-to-text', $date ) );
+            
+            // Format alert message.
+            $msgAlert = $msgSchedulingCancelled;
+            
+            // Prepare email fields.
+            $to = $name . ' <'.$email.'>';
+            $subject = $unscheduleSubject;
+            $body = $unscheduleMessage;
+    
+            // Require custom-mailer class to send emails.
+            require_once( CS_PATH . 'includes/class.custom-mailer.php' );
+
+            // Send email with scheduling information.
+            $custom_mailer = new Custom_Mailer();
+            $custom_mailer->send($to, $subject, $body);
+
             return Array(
                 'completed' => true,
-                'cancelado' => true,
-                'alert' => $msgAlerta,
+                'canceled' => true,
+                'alert' => $msgAlert,
             );
         }
 
