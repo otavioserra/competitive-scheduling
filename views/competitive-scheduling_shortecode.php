@@ -15,7 +15,7 @@
             <?php echo esc_html__( 'Previous Appointments', 'competitive-scheduling' ); ?>
     	</a>
         <div class="ui hidden divider"></div>
-        <div class="schedule escondido scheduleWindow">
+        <div class="schedule hidden scheduleWindow">
             <div class="ui attached info message">
                 <div class="header">
                     <?php echo esc_html__( 'Schedule Service', 'competitive-scheduling' ); ?>
@@ -27,7 +27,7 @@
                     <div class="field">
                         <label><?php echo esc_html__( 'Choose the Date', 'competitive-scheduling' ); ?></label>
                         <input type="hidden" name="data" class="scheduleDate">
-                        <div class="dateSelected escondido">
+                        <div class="dateSelected hidden">
                             <div class="ui primary large label">
                                 <i class="calendar check icon"></i>
                                 <span class="dateSelectedValue"></span>
@@ -42,7 +42,7 @@
                         </select>
                         <div class="companionsCont">
                         </div>
-                        <div class="companionsTemplateCont escondido">
+                        <div class="companionsTemplateCont hidden">
                             <div class="field">
                                 <label>Field</label>
                                 <input name="field" type="text">
@@ -64,7 +64,7 @@
                 <input type="hidden" name="schedule-nonce" value="<?php echo wp_create_nonce( 'schedule-nonce' ); ?>">
             </form>
         </div>
-        <div class="schedules escondido scheduleWindow">
+        <div class="schedules hidden scheduleWindow">
             <div class="ui header"><?php echo esc_html__( 'Pre-appointments', 'competitive-scheduling' ); ?></div>
             <div class="pre-agendamentos">
                 <div class="ui top attached tabular menu">
@@ -284,7 +284,7 @@
             </div><!-- unregistered > -->
         </div>
     </div><!-- active > -->
-    <!-- changes < --><div class="confirmar escondido scheduleWindow">
+    <!-- changes < --><div class="confirmar hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Confirm Appointment', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached positive message">
             <i class="calendar check icon"></i>
@@ -324,7 +324,7 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this appointment!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <div class="cancelar escondido scheduleWindow">
+    <div class="cancelar hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Cancel Appointment', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="calendar minus icon"></i>
@@ -359,7 +359,7 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this appointment!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <div class="ExpiredOrNotFound escondido scheduleWindow">
+    <div class="ExpiredOrNotFound hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Schedule Change', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="exclamation triangle icon"></i>
