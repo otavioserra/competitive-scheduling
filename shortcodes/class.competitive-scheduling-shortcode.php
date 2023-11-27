@@ -111,7 +111,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $return = $this->schedule( array(
                     'scheduleDate' => $scheduleDate,
                     'companions' => $companions,
-                    'companionsNames' => $companionsNames,
+                    'companionsNames' => ( isset( $companionsNames ) ? $companionsNames : array() ),
                     'coupon' => $coupon,
                 ) );
 
