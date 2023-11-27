@@ -1,33 +1,28 @@
 jQuery( document ).ready( function(){
     function confirm(){
-		// Mostrar a tela de confirmação.
-		
+		// Show the confirmation screen.
 		jQuery('.confirm').show();
 		
-		// Iniciar popup.
-		
+		// Start popup.
 		jQuery('.button').popup({addTouchEvents:false});
 		
-		// Form da confirmacao.jQuery(
-		
-		var formSelector = '.confirmacaoForm';
+		// Form confirm.
+		var formSelector = '.confirmationForm';
 		
 		jQuery(formSelector)
 			.form({
 				
 			});
 		
-		// Botão de confirmação.
-		
+		// Confirmation button.
 		jQuery('.confirmScheduleBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			jQuery(formSelector).find('input[name="escolha"]').val('confirm');
+			jQuery(formSelector).find('input[name="choice"]').val('confirm');
 			jQuery(formSelector).form('submit');
 		});
 		
-		// Botão de cancelamento.
-		
+		// Cancel button.
 		jQuery('.cancelSchedulingBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
@@ -36,24 +31,21 @@ jQuery( document ).ready( function(){
 	}
 	
 	function cancel(){
-		// Mostrar a tela de confirmação pública.
-		
+		// Show the public confirmation screen.
 		jQuery('.cancel').show();
 		
-		// Iniciar popup.
-		
+		// Start popup.
 		jQuery('.button').popup({addTouchEvents:false});
 		
-		// Form da confirmacao.
-		
-		var formSelector = '.cancelamentoForm';
+		// Form confirm.
+		var formSelector = '.cancelForm';
 		
 		jQuery(formSelector)
 			.form({
 				
 			});
 		
-		// Botão de cancelamento.
+		// Cancel button.
 		
 		jQuery('.cancelSchedulingBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
@@ -62,46 +54,44 @@ jQuery( document ).ready( function(){
 		});
 	}
 	
-	function ExpiredOrNotFound(){
-		// Mostrar a tela de confirmação pública.
+	function expiredOrNotFound(){
+		// Show the public confirmation screen.
 		
 		jQuery('.ExpiredOrNotFound').show();
 	}
 	
 	function schedulingActive(){
-		// Configurações do calendário.
+		// Calendar settings.
+		var calendar = manager.calendar;
 		
-		var calendario = manager.calendario;
+		// Texts settings.
+		var texts = manager.texts;
 		
-		// Datas disponíveis para agendamento.
+		// Dates available for scheduling.
+		var availableDates = [];
 		
-		var datasDisponiveis = [];
-		
-		for(var data in calendario.datas_disponiveis){
-			var dateObj = new Date(data.replace(/-/g, '\/')); // Bug no objeto Date() do javascript. Basta trocar o '-' por '/' que a data funciona corretamente. Senão fica um dia a mais do dia correto.
+		for( var date in calendar.available_dates ){
+			var dateObj = new Date(date.replace(/-/g, '\/')); // Bug in the javascript Date() object. Just change the '-' to '/' and the date works correctly. Otherwise it will be one day longer than the correct day.
 			
-			datasDisponiveis.push(dateObj);
+			availableDates.push(dateObj);
 		}
 		
-		// Form Agendamentos.
+		// Form Schedules.
+		var formId = 'formSchedules';
+		var formSelector = '#formSchedules';
 		
-		var formId = 'formAgendamentos';
-		var formSelector = '#formAgendamentos';
-		
-		jQuery(formSelector)
+		jQuery( formSelector )
 			.form({
-				fields : (manager.formulario[formId].regrasValidacao ? manager.formulario[formId].regrasValidacao : {}),
-				onSuccess(event, fields){
+				fields : ( manager.form[formId].validationRules ? manager.form[formId].validationRules : {} ),
+				onSuccess( event, fields ){
 					
 				}
 			});
 		
-		// Cupom de prioridade mask.
+		// Mask priority coupon.
+		jQuery( '.coupon' ).mask( 'AAAA-AAAA', { clearIfNotMatch: true } );
 		
-		jQuery('.cupom').mask('AAAA-AAAA', {clearIfNotMatch: true});
-		
-		// Calendário ptBR.
-		
+		// ptBR Calendar.
 		var calendarPtBR = {
 			days: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
 			months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -112,18 +102,17 @@ jQuery( document ).ready( function(){
 			pm: 'PM'
 		};
 		
-		// Variáveis do componente 'calendar' datas-multiplas.
-		
-		var calendarDatasOpt = {
+		// Variables of the 'calendar' component multiple-dates.
+		var calendarDatesOpt = {
 			text: calendarPtBR,
 			type: 'date',
 			inline: true,
 			initialDate: new Date(),
-			minDate: new Date(calendario.ano_inicio+'/01/01'),
-			maxDate: new Date(calendario.ano_fim+'/12/31'),
+			minDate: new Date(calendar.start_year+'/01/01'),
+			maxDate: new Date(calendar.year_end+'/12/31'),
 			eventClass: 'inverted blue',
-			enabledDates: datasDisponiveis,
-			eventDates: datasDisponiveis,
+			enabledDates: availableDates,
+			eventDates: availableDates,
 			formatter: {
 				date: function (date, settings) {
 					if (!date) return '';
@@ -136,311 +125,290 @@ jQuery( document ).ready( function(){
 				}
 			},
 			onChange: function(date,dateFormated,mode){
-				jQuery(this).parent().find('.agendamentoData').val(dateFormated);
-				jQuery(this).parent().find('.dataSelecionada').show();
-				jQuery(this).parent().find('.dataSelecionada').find('.dataSelecionadaValor').html(dateFormated);
+				jQuery(this).parent().find('.scheduleDate').val(dateFormated);
+				jQuery(this).parent().find('.dateSelected').show();
+				jQuery(this).parent().find('.dateSelected').find('.dateSelectedValue').html(dateFormated);
 				
 				jQuery(formSelector).form('validate form');
 			}
 		}
 		
-		// Iniciar calendário.
+		// Start calendar.
+		jQuery( '.ui.calendar' ).calendar( calendarDatesOpt );
 		
-		jQuery('.ui.calendar').calendar(calendarDatasOpt);
+		// Start popup.
+		jQuery( '.button' ).popup( { addTouchEvents:false } );
 		
-		// Iniciar popup.
-		
-		jQuery('.button').popup({addTouchEvents:false});
-		
-		// Acompanhantes dropdown.
-		
-		jQuery('.ui.dropdown').dropdown({
-			onChange: function(value){
-				var objPai = jQuery(this).parents('.field');
-				var acompanhantesCont = objPai.find('.acompanhantesCont');
-				var acompanhantesTemplateCont = objPai.find('.acompanhantesTemplateCont');
-				var numAcom = acompanhantesCont.find('.field').length;
+		// Companions dropdown.
+		jQuery( '.ui.dropdown' ).dropdown( {
+			onChange: function( value ){
+				var parentObj = jQuery( this ).parents( '.field' );
+				var companionsCont = parentObj.find('.companionsCont');
+				var companionsTemplateCont = parentObj.find('.companionsTemplateCont');
+				var numComp = companionsCont.find('.field').length;
 				
 				value = parseInt(value);
 				
-				if(value > numAcom){
-					for(var i=numAcom;i<value;i++){
-						var field = acompanhantesTemplateCont.find('.field').clone();
+				if(value > numComp){
+					for(var i=numComp;i<value;i++){
+						var field = companionsTemplateCont.find('.field').clone();
 						var num = (i+1);
 						
 						field.attr('data-num',num);
-						field.find('label').html('Acompanhante '+num);
-						field.find('input').prop('name','acompanhante-'+num);
-						field.find('input').prop('placeholder','Nome Completo do Acompanhante '+num);
-						field.find('input').attr('data-validate','acompanhante'+num);
+						field.find('label').html(texts['companion-label']+' '+num);
+						field.find('input').prop('name','companion-'+num);
+						field.find('input').prop('placeholder',texts['companion-label']+' '+num);
+						field.find('input').attr('data-validate','companion'+num);
 						
-						acompanhantesCont.append(field);
+						companionsCont.append(field);
 						
-						jQuery(formSelector).form('add rule', ('acompanhante'+num),{ rules : manager.formulario[formId].regrasValidacao[('acompanhante'+num)].rules });
+						jQuery(formSelector).form('add rule', ('companion'+num),{ rules : manager.form[formId].validationRules[('companion'+num)].rules });
 					}
 				} else {
 					var num = 0;
 					
-					acompanhantesCont.find('.field').each(function(){
+					companionsCont.find('.field').each(function(){
 						num++;
 						
-						jQuery(formSelector).form('remove fields', ['acompanhante'+num]);
+						jQuery(formSelector).form('remove fields', ['companion'+num]);
 						
 						if(num > value){
 							jQuery(this).hide();
 						} else {
 							jQuery(this).show();
-							jQuery(formSelector).form('add rule', ('acompanhante'+num),{ rules : manager.formulario[formId].regrasValidacao[('acompanhante'+num)].rules });
+							jQuery(formSelector).form('add rule', ('companion'+num),{ rules : manager.form[formId].validationRules[('companion'+num)].rules });
 						}
 					});
 				}
 			}
 		});
 		
-		// Tratamento de telas.
-		
-		jQuery('.agendarBtn').on('mouseup tap',function(e){
+		// Screen treatment.
+		jQuery('.scheduleBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			jQuery('.agendamentosTela').hide();
-			jQuery('.agendar').show();
+			jQuery('.scheduleWindow').hide();
+			jQuery('.schedule').show();
 		});
 		
-		jQuery('.agendamentosBtn').on('mouseup tap',function(e){
+		jQuery('.schedulesBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			jQuery('.agendamentosTela').hide();
-			jQuery('.agendamentos').show();
+			jQuery('.scheduleWindow').hide();
+			jQuery('.schedules').show();
 		});
 		
-		if('tela' in manager){
-			switch(manager.tela){
-				case 'agendamentos-anteriores':
-					jQuery('.agendamentos').show();
+		if('window' in manager){
+			switch(manager.window){
+				case 'previous-schedules':
+					jQuery('.schedules').show();
 				break;
 				default:
-					jQuery('.agendar').show();
+					jQuery('.schedule').show();
 			}
 		} else {
-			jQuery('.agendar').show();
+			jQuery('.schedule').show();
 		}
 		
-		// Tab de informações dos agendamentos.
+		// Schedule information tab.
+		jQuery( '.tabular.menu .item' ).tab();
 		
-		jQuery('.tabular.menu .item').tab();
-		
-		// Botão confirmar.
-		
-		jQuery(document.body).on('mouseup tap','.confirmScheduleBtn',function(e){
-			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+		// Confirm button.
+		jQuery( document.body ).on( 'mouseup tap', '.confirmScheduleBtn', function(e){
+			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			var agendamento_id = jQuery(this).attr('data-id');
+			var schedule_id = jQuery(this).attr('data-id');
 			
-			window.open("/agendamentos/?acao=confirm&agendamento_id="+agendamento_id,"_self");
+			window.open("?action=confirm&schedule_id="+schedule_id,"_self");
 		});
 		
-		// Botão cancelar.
-		
+		// Cancel button.
 		jQuery(document.body).on('mouseup tap','.cancelSchedulingBtn',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			var agendamento_id = jQuery(this).attr('data-id');
+			var schedule_id = jQuery(this).attr('data-id');
 			
-			window.open("/agendamentos/?acao=cancel&agendamento_id="+agendamento_id,"_self");
+			window.open("?action=cancel&schedule_id="+schedule_id,"_self");
 		});
 		
-		// Informações de um agendamento.
-		
-		jQuery(document.body).on('mouseup tap','.dadosAgendamentoBtn',function(e){
+		// Appointment information.
+		jQuery(document.body).on('mouseup tap','.dataScheduleBtn',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			// Verificar o tipo de agendamento.
+			// Check the type of appointment.
+			var type = '';
+			if(jQuery(this).hasClass('preAgendamento')){type = 'preAgendamento';}
+			if(jQuery(this).hasClass('agendamento')){type = 'agendamento';}
+			if(jQuery(this).hasClass('agendamentoAntigo')){type = 'agendamentoAntigo';}
 			
-			var tipo = '';
-			if(jQuery(this).hasClass('preAgendamento')){tipo = 'preAgendamento';}
-			if(jQuery(this).hasClass('agendamento')){tipo = 'agendamento';}
-			if(jQuery(this).hasClass('agendamentoAntigo')){tipo = 'agendamentoAntigo';}
-			
-			// Buscar os dados no servidor e montar na tela o resultado.
-			
-			var opcao = 'agendamentos-host';
-			var ajaxOpcao = 'dados-do-agendamento';
+			// Search the data on the server and display the result on the screen.
+			var option = 'schedules-host';
+			var ajaxOption = 'scheduling-data';
 			
 			$.ajax({
 				type: 'POST',
-				url: manager.raiz + 'agendamentos/',
+				url: manager.root + 'schedules/',
 				data: {
-					opcao : opcao,
+					option : option,
 					ajax : 'sim',
-					ajaxPagina : 'sim',
-					ajaxOpcao : ajaxOpcao,
-					tipo : tipo,
-					agendamento_id : jQuery(this).attr('data-id')
+					ajaxPage : 'sim',
+					ajaxOption : ajaxOption,
+					type : type,
+					schedule_id : jQuery(this).attr('data-id')
 				},
 				dataType: 'json',
 				beforeSend: function(){
-					carregando('abrir');
+					loading('open');
 				},
-				success: function(dados){
-					switch(dados.status){
+				success: function(data){
+					switch(data.status){
 						case 'OK':
-							modal({mensagem:dados.dadosAgendamentos});
+							modal({message:data.dataSchedules});
 						break;
 						case 'ERROR':
-							modal({mensagem:dados.msg});
+							modal({message:data.msg});
 						break;
 						default:
-							console.log('ERROR - '+opcao+' - '+dados.status);
-							carregando('fechar');
+							console.log('ERROR - '+option+' - '+data.status);
+							loading('close');
 						
 					}
 				},
 				error: function(txt){
 					switch(txt.status){
-						case 401: window.open(manager.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
+						case 401: window.open(manager.root + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
 						default:
-							console.log('ERROR AJAX - '+opcao+' - Dados:');
+							console.log('ERROR AJAX - '+option+' - Data:');
 							console.log(txt);
-							carregando('fechar');
+							loading('close');
 					}
 				}
 			});
 		});
 		
-		// Regras para ler mais entradas de agendamentos.
-		
-		var carregarObjs = {};
-		var button_id = '.carregarMaisPre,.carregarMaisAgendamentos,.carregarMaisAntigos';
+		// Rules for reading more appointment entries.
+		var loadObjs = {};
+		var button_id = '.loadMorePre,.loadMoreAppointments,.loadOldest';
 		
 		jQuery(button_id).on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
 			var obj = this;
 			
-			// Verificar o tipo de agendamento.
+			// Check the type of appointment.
+			var type = '';
+			if(jQuery(obj).hasClass('loadMorePre')){type = 'loadMorePre';}
+			if(jQuery(obj).hasClass('loadMoreAppointments')){type = 'loadMoreAppointments';}
+			if(jQuery(obj).hasClass('loadOldest')){type = 'loadOldest';}
 			
-			var tipo = '';
-			if(jQuery(obj).hasClass('carregarMaisPre')){tipo = 'carregarMaisPre';}
-			if(jQuery(obj).hasClass('carregarMaisAgendamentos')){tipo = 'carregarMaisAgendamentos';}
-			if(jQuery(obj).hasClass('carregarMaisAntigos')){tipo = 'carregarMaisAntigos';}
-			
-			// Carregar objetos.
-			
-			if(!(tipo in carregarObjs)){
-				carregarObjs[tipo] = {
-					maxPaginas : parseInt(jQuery(obj).attr('data-num-paginas')),
-					paginaAtual : 0
+			// Load objects.
+			if(!(type in loadObjs)){
+				loadObjs[type] = {
+					maxPages : parseInt(jQuery(obj).attr('data-num-pages')),
+					actualPage : 0
 				};
 			}
 			
-			// Carregar dados do servidor.
+			// Load data from server.
+			var option = 'schedules-host';
+			var ajaxOption = 'more-results';
 			
-			var opcao = 'agendamentos-host';
-			var ajaxOpcao = 'mais-resultados';
+			loadObjs[type].actualPage++;
 			
-			carregarObjs[tipo].paginaAtual++;
-			
-			var paginaAtual = carregarObjs[tipo].paginaAtual;
+			var actualPage = loadObjs[type].actualPage;
 			
 			$.ajax({
 				type: 'POST',
-				url: manager.raiz + 'agendamentos/',
+				url: manager.root + 'schedules/',
 				data: { 
-					opcao,
+					option,
 					ajax : 'sim',
-					ajaxPagina : 'sim',
-					ajaxOpcao,
-					tipo,
-					paginaAtual
+					ajaxPage : 'sim',
+					ajaxOption,
+					type,
+					actualPage
 				},
 				dataType: 'json',
 				beforeSend: function(){
-					carregando('abrir');
+					loading('open');
 				},
-				success: function(dados){
-					switch(dados.status){
+				success: function(data){
+					switch(data.status){
 						case 'OK':
-							// Incluir os registros nas tabelas correspondentes aos tipos de agendamento.
-							
-							switch(tipo){
-								case 'carregarMaisPre': jQuery('.tabelaPreAgendamentos').append(dados.registros); break;
-								case 'carregarMaisAgendamentos': jQuery('.tabelaAgendamentos').append(dados.registros); break;
-								case 'carregarMaisAntigos': jQuery('.tabelaAgendamentosAntigos').append(dados.registros); break;
+							// Include records in tables corresponding to scheduling types.
+							switch(type){
+								case 'loadMorePre': jQuery('.tabelaPreAgendamentos').append(data.records); break;
+								case 'loadMoreAppointments': jQuery('.tabelaAgendamentos').append(data.records); break;
+								case 'loadOldest': jQuery('.tabelaAgendamentosAntigos').append(data.records); break;
 							}
 							
-							// Esconder o botão quando chegar na última página.
-							
-							if(carregarObjs[tipo].paginaAtual >= carregarObjs[tipo].maxPaginas - 1){
+							// Hide the button when you reach the last page.
+							if(loadObjs[type].actualPage >= loadObjs[type].maxPages - 1){
 								jQuery(obj).parent().hide();
 							}
 							
-							// Iniciar popup.
-							
+							// Start popup.
 							jQuery('.button').popup({addTouchEvents:false});
 						break;
 						default:
-							console.log('ERROR - '+opcao+' - '+dados.status);
+							console.log('ERROR - '+option+' - '+data.status);
 						
 					}
 					
-					carregando('fechar');
+					loading('close');
 				},
 				error: function(txt){
 					switch(txt.status){
-						case 401: window.open(manager.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
+						case 401: window.open(manager.root + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
 						default:
-							console.log('ERROR AJAX - '+opcao+' - Dados:');
+							console.log('ERROR AJAX - '+option+' - Data:');
 							console.log(txt);
-							carregando('fechar');
+							loading('close');
 					}
 				}
 			});
 		});
 		
-		function carregando(opcao){
-			switch(opcao){
-				case 'abrir':
-					if(!('carregando' in manager)){
-						jQuery('.paginaCarregando').dimmer({
+		function loading(option){
+			switch(option){
+				case 'open':
+					if(!('loading' in manager)){
+						jQuery('.pageLoading').dimmer({
 							closable: false
 						});
 						
-						manager.carregando = true;
+						manager.loading = true;
 					}
 					
-					jQuery('.paginaCarregando').dimmer('show');
+					jQuery('.pageLoading').dimmer('show');
 				break;
-				case 'fechar':
-					jQuery('.paginaCarregando').dimmer('hide');
+				case 'close':
+					jQuery('.pageLoading').dimmer('hide');
 				break;
 			}
 		}
 		
 		function modal(p={}){
-			if(p.mensagem){
-				jQuery('.ui.modal.informativo .content').html(p.mensagem);
+			if(p.message){
+				jQuery('.ui.modal.info .content').html(p.message);
 			}
 			
-			jQuery('.ui.modal.informativo').modal({
+			jQuery('.ui.modal.info').modal({
 				dimmerSettings:{
-					dimmerName:'paginaCarregando' //className, NOT id (!)
+					dimmerName:'pageLoading' //className, NOT id (!)
 				}
 			}).modal('show');
 		}
-		
-		
 	}
 	
 	function start(){
 		// Active scheduling.
-		console.log('Scheduling active!');
-        
 		if( jQuery('.active-scheduling').length > 0 ){ schedulingActive(); }
 		
 		// Handle scheduling changes.
 		if('confirm' in manager){ confirm(); }
 		if('cancel' in manager){ cancel(); }
-		if('ExpiredOrNotFound' in manager){ ExpiredOrNotFound(); }
+		if('ExpiredOrNotFound' in manager){ expiredOrNotFound(); }
 	}
 	
 	start();

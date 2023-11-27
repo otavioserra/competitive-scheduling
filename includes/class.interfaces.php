@@ -250,7 +250,7 @@ if( ! class_exists( 'Interfaces' ) ){
 
             wp_add_inline_script( 'competitive-scheduling', '
                 var manager = '.json_encode( $_MANAGER['javascript-vars'] ).';
-            ');
+            ','before');
 
             return $page;
         }

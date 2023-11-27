@@ -50,12 +50,15 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $id = array_map( 'absint', explode( ',', $id ) );
             }
 
+            // Prepare JSs and CSSs
             wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
             wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
             wp_enqueue_script( 'jQuery-Mask-Plugin', CS_URL . 'vendor/jQuery-Mask-Plugin-v1.14.16/jquery.mask.min.js', array( 'jquery' ), CS_VERSION );
             
             wp_enqueue_style( 'competitive-scheduling', CS_URL . 'assets/css/shortecode.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/shortecode.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling', CS_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/shortecode.js' ) : CS_VERSION ) );
+
+            $this->js_texts();
 
             // Get page view and return processed page
             ob_start();
@@ -2050,6 +2053,19 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             );
 
             return ( ! empty( $statusSchedulingTexts[$status] ) ? $statusSchedulingTexts[$status] : __( '<span class="ui grey label">Undefined Status</span>', 'competitive-scheduling' ) );
+        }
+
+        private function js_texts(){
+            global $_MANAGER;
+
+            $jsTexts = Array(
+                'companion-label' => __( 'Companion', 'competitive-scheduling' ),
+                'companion-placeholder' => __( 'Companion\'s full name', 'competitive-scheduling' ),
+            );
+
+            foreach( $jsTexts as $key => $text ){
+                $_MANAGER['javascript-vars']['texts'][$key] = $text;
+            }
         }
 
         private function nonce_verify( $nonce ){
