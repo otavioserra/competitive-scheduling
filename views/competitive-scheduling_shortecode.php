@@ -18,9 +18,9 @@
         <div class="schedule hidden scheduleWindow">
             <div class="ui info message">
                 <div class="header">
-                    <?php echo esc_html__( 'Scheduling Phases', 'competitive-scheduling' ); ?>
+                    <?php echo esc_html__( 'Scheduling Process', 'competitive-scheduling' ); ?>
                 </div>
-                <p><?php echo esc_html__( 'The scheduling process is divided into 4 phases:', 'competitive-scheduling' ); ?></p>
+                <p><?php echo esc_html__( 'Below you will find general information on the 4 phases of the scheduling process. After that, just below, there is the calendar with all the dates available for scheduling, as well as the number of companions you wish to take with you, along with the priority coupon if you have one, enter it in the designated field.', 'competitive-scheduling' ); ?></p>
             </div>
             <div class="ui four steps">
                 <div class="active step">
