@@ -1840,7 +1840,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $today
             );
             $schedules_dates = $wpdb->get_results( $query );
-            $schedules_dates = $schedules_dates[0];
 
             for( $i=-1; $i<$years+1; $i++ ){
                 $period_holidays[] = Array(
