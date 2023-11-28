@@ -1,6 +1,6 @@
 <?php
 
-if( !class_exists( 'Formats' ) ){
+if( ! class_exists( 'Formats' ) ){
     class Formats {
 
         /**

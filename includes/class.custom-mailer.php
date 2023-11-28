@@ -25,7 +25,7 @@ $custom_mailer = new Custom_Mailer();
 $custom_mailer->send($to, $subject, $body, $headers, $my_attachments);
  */
 
-if( !class_exists( 'Custom_Mailer' ) ){
+if( ! class_exists( 'Custom_Mailer' ) ){
     class Custom_Mailer
     {
         public $email_attachments = [];

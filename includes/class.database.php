@@ -1,6 +1,6 @@
 <?php
 
-if( !class_exists( 'Database' ) ){
+if( ! class_exists( 'Database' ) ){
     class Database {
         public static function update_database() {
             /*

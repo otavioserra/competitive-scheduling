@@ -918,12 +918,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         admin_url('admin-post.php')
                     ) );
 
-                    // Get the currently logged-in user
-                    $user = wp_get_current_user();
+                    // Require user class to get user's data.
+                    require_once( CS_PATH . 'includes/class.user.php' );
 
                     // Get the user's name and email
-                    $name = $user->get_name();
-                    $email = $user->get_email();
+                    $name = User::get_name();
+                    $email = User::get_email();
                     
                     // Format email message.
                     $scheduleSubject = Templates::change_variable( $scheduleSubject, '#code#', $code );
@@ -1104,12 +1104,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                     $msgAlert = $msgConclusionPreScheduling;
                     
-                    // Get the currently logged-in user
-                    $user = wp_get_current_user();
+                    // Require user class to get user's data.
+                    require_once( CS_PATH . 'includes/class.user.php' );
 
                     // Get the user's name and email
-                    $name = $user->get_name();
-                    $email = $user->get_email();
+                    $name = User::get_name();
+                    $email = User::get_email();
                     
                     // Prepare email fields.
                     $to = $name . ' <'.$email.'>';
@@ -1565,12 +1565,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 admin_url('admin-post.php')
             ) );
 
-            // Get the currently logged-in user
-            $user = wp_get_current_user();
+            // Require user class to get user's data.
+            require_once( CS_PATH . 'includes/class.user.php' );
 
             // Get the user's name and email
-            $name = $user->get_name();
-            $email = $user->get_email();
+            $name = User::get_name();
+            $email = User::get_email();
             
             // Format email data.
             $scheduleSubject = ( ! empty( $html_options['schedule-subject'] ) ? $html_options['schedule-subject'] : '');
@@ -1713,12 +1713,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
             $wpdb->query($sql);
             
-            // Get the currently logged-in user
-            $user = wp_get_current_user();
+            // Require user class to get user's data.
+            require_once( CS_PATH . 'includes/class.user.php' );
 
             // Get the user's name and email
-            $name = $user->get_name();
-            $email = $user->get_email();
+            $name = User::get_name();
+            $email = User::get_email();
             
             // Format email data.
             $unscheduleSubject = ( ! empty( $html_options['unschedule-subject'] ) ? $html_options['unschedule-subject'] : '');

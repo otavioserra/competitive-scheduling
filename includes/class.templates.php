@@ -1,6 +1,6 @@
 <?php
 
-if( !class_exists( 'Templates' ) ){
+if( ! class_exists( 'Templates' ) ){
     class Templates {
 
         /**
