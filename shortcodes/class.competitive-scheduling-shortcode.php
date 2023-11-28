@@ -627,6 +627,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     array( $scheduleDate, $user_id )
                 );
                 $schedules = $wpdb->get_results( $query );
+                $schedules = $schedules[0];
                 
                 // Force date to today for debuging or set today's date
                 if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
@@ -649,12 +650,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         $coupon
                     );
                     $coupons_priority = $wpdb->get_results( $query );
+                    $coupons_priority = $coupons_priority[0];
                     
                     // Check if the coupon was found. Otherwise return a not found error.
                     if( $coupons_priority ){
-                        $post_id = $coupons_priority['post_id'];
-                        $id_schedules_coupons_priority = $coupons_priority['id_schedules_coupons_priority'];
-                        $id_schedules_coupon_used = $coupons_priority['id_schedules'];
+                        $post_id = $coupons_priority->post_id;
+                        $id_schedules_coupons_priority = $coupons_priority->id_schedules_coupons_priority;
+                        $id_schedules_coupon_used = $coupons_priority->id_schedules;
                         
                         $post = get_post($post_id);
                         
@@ -793,6 +795,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $scheduleDate
                         );
                         $schedules_dates = $wpdb->get_results( $query );
+                        $schedules_dates = $schedules_dates[0];
 
                         $vacancies = (int)$maximum_number_days_week - (int)$schedules_dates->total;
                         if( $vacancies < 0 ) $vacancies = 0;
@@ -811,10 +814,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     
                     // Update the total number of spaces used in appointments for the date in question.
                     
-                    echo 'schedules_dates: '.print_r($schedules_dates->id_schedules_dates, true); 
-                    var_dump($schedules_dates);
-                    exit;
-
                     global $wpdb;
                     $result = $wpdb->update( 
                         $wpdb->prefix.'schedules_dates',
@@ -1206,6 +1205,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 array( $id_schedules, $user_id )
             );
             $schedules = $wpdb->get_results( $query );
+            $schedules = $schedules[0];
 
             if( ! $schedules ){
                 // Activation of expiredOrNotFound.
@@ -1385,6 +1385,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 array( $id_schedules, $user_id )
             );
             $schedules = $wpdb->get_results( $query );
+            $schedules = $schedules[0];
 
             if( ! $schedules ){
                 // Activation of expiredOrNotFound.
@@ -1482,6 +1483,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 array( $id_schedules, $user_id )
             );
             $schedules = $wpdb->get_results( $query );
+            $schedules = $schedules[0];
             
             $companions = (int)$schedules->companions;
             $status = $schedules->status;
@@ -1543,6 +1545,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     array( $date, ( (int) $companions+1 ), $days_week_maximum_vacancies )
                 );
                 $schedules_dates = $wpdb->get_results( $query );
+                $schedules_dates = $schedules_dates[0];
 
                 if( ! $schedules_dates ){
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
@@ -1706,6 +1709,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 array( $id_schedules, $user_id )
             );
             $schedules = $wpdb->get_results( $query );
+            $schedules = $schedules[0];
             
             $companions = (int)$schedules->companions;
             $status = $schedules->status;
@@ -1721,6 +1725,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $date
                 );
                 $schedules_dates = $wpdb->get_results( $query );
+                $schedules_dates = $schedules_dates[0];
 
                 // Update the total number of spaces used in appointments for the date in question.
                 if( $schedules_dates ){
@@ -1835,6 +1840,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $today
             );
             $schedules_dates = $wpdb->get_results( $query );
+            $schedules_dates = $schedules_dates[0];
 
             for( $i=-1; $i<$years+1; $i++ ){
                 $period_holidays[] = Array(
