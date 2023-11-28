@@ -815,19 +815,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Update the total number of spaces used in appointments for the date in question.
                     
                     global $wpdb;
-                    $result = $wpdb->update( 
-                        $wpdb->prefix.'schedules_dates',
-                        array(
-                            'total' => 'total + '.( $companions + 1 ) 
-                        ),
-                        array(
-                            'id_schedules_dates' => $schedules_dates->id_schedules_dates 
-                        ),
-                        array(
-                            '%d',
-                        ),
-                    );
-
+                    $sql = $wpdb->prepare(
+                        "UPDATE {$wpdb->prefix}schedules_dates      
+                        SET total = total + ".( $companions + 1 )." 
+                        WHERE id_schedules_dates = '".$schedules_dates->id_schedules_dates."'");
+                    $wpdb->query($sql);
 
                     // Generate appointment password.
                     $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
