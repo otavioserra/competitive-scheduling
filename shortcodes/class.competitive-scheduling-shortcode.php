@@ -115,8 +115,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'coupon' => $coupon,
                 ) );
 
-                var_dump($return);
-
                 if( isset( $return['completed'] ) )
                 if( ! $return['completed'] ){
                     // Get the configuration data.
@@ -1023,6 +1021,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Generate a schedule or update an existing one.
                     if( isset( $updateSchedule ) ){
                         $id_schedules = $schedules->id_schedules;
+
+                        echo 'updateSchedule';
                         
                         // Replace companions.
                         global $wpdb;
@@ -1063,6 +1063,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             ),
                         );
                     } else {
+                        echo 'insertSchedule';
                         // Create new schedule.
                         global $wpdb;
                         $wpdb->insert( $wpdb->prefix.'schedules', array(
