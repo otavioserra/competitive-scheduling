@@ -841,31 +841,21 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         }
                         
                         // Update schedule.
-                        $result = $wpdb->update( 
-                            $wpdb->prefix.'schedules', 
-                            array(
-                                'companions' => $companions,
-                                'password' => $password,
-                                'status' => 'confirmed',
-                                'pubID' => $pubID,
-                                'token' => $token,
-                                'version' => 'version+1',
-                                'modification_date' => current_time('mysql', false),
-                            ), 
-                            array(
-                                'id_schedules' => $id_schedules,
-                                'user_id' => $user_id,
-                            ),
-                            array(
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%d',
-                                '%s',
-                            ),
-                        );
+                        $sql = $wpdb->prepare(
+                            "UPDATE {$wpdb->prefix}schedules      
+                            SET 
+                                companions = '".$companions."',
+                                password = '".$password."',
+                                status = 'confirmed',
+                                pubID = '".$pubID."',
+                                token = '".$token."',
+                                version = version + 1,
+                                modification_date = '".current_time('mysql', false)."' 
+                            WHERE 
+                                id_schedules = '".$id_schedules."' AND 
+                                user_id = '".$user_id."'"
+                            );
+                        $wpdb->query($sql);
                     } else {
                         // Create new schedule.
                         global $wpdb;
@@ -1025,31 +1015,21 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         }
                         
                         // Update schedule.
-                        $result = $wpdb->update( 
-                            $wpdb->prefix.'schedules', 
-                            array(
-                                'companions' => $companions,
-                                'password' => $password,
-                                'status' => 'new',
-                                'pubID' => $pubID,
-                                'token' => $token,
-                                'version' => 'version+1',
-                                'modification_date' => current_time('mysql', false),
-                            ), 
-                            array(
-                                'id_schedules' => $id_schedules,
-                                'user_id' => $user_id,
-                            ),
-                            array(
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%d',
-                                '%s',
-                            ),
-                        );
+                        $sql = $wpdb->prepare(
+                            "UPDATE {$wpdb->prefix}schedules      
+                            SET 
+                                companions = '".$companions."',
+                                password = '".$password."',
+                                status = 'new',
+                                pubID = '".$pubID."',
+                                token = '".$token."',
+                                version = version + 1,
+                                modification_date = '".current_time('mysql', false)."' 
+                            WHERE 
+                                id_schedules = '".$id_schedules."' AND 
+                                user_id = '".$user_id."'"
+                            );
+                        $wpdb->query($sql);
                     } else {
                         // Create new schedule.
                         global $wpdb;
@@ -1534,7 +1514,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     FROM {$wpdb->prefix}schedules_dates 
                     WHERE date = '%s' AND total + %d <= %d 
                     ORDER BY date ASC",
-                    array( $date, ( (int) $companions+1 ), $days_week_maximum_vacancies )
+                    array( $date, ( (int) $companions + 1 ), $days_week_maximum_vacancies )
                 );
                 $schedules_dates = $wpdb->get_results( $query );
                 if( $schedules_dates ) $schedules_dates = $schedules_dates[0];
@@ -1552,41 +1532,32 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 
                 // Update the total number of spaces used in appointments for the date in question.
                 global $wpdb;
-                $result = $wpdb->update( $wpdb->prefix.'schedules_dates', 
-                    array( 
-                        'total' => 'total+'.( (int) $companions+1 ),
-                    ), 
-                    array(
-                        'id_schedules_dates' => $schedules_dates->id_schedules_dates,
-                    ), 
-                    array(
-                        '%d',
-                    ),
-                );
-                
+                $sql = $wpdb->prepare(
+                    "UPDATE {$wpdb->prefix}schedules_dates      
+                    SET 
+                        total = total + ".( (int) $companions + 1 )."
+                    WHERE 
+                        id_schedules_dates = '".$schedules_dates->id_schedules_dates."'"
+                    );
+                $wpdb->query($sql);
+
                 // Generate appointment password.
                 $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
 
                 // Update schedule.
                 global $wpdb;
-                $result = $wpdb->update( $wpdb->prefix.'schedules', 
-                    array( 
-                        'password' => $password,
-                        'status' => 'confirmed',
-                        'version' => 'version+1',
-                        'modification_date' => current_time('mysql', false),
-                    ), 
-                    array(
-                        'id_schedules' => $id_schedules,
-                        'user_id' => $user_id,
-                    ),
-                    array(
-                        '%s',
-                        '%s',
-                        '%d',
-                        '%s',
-                    ),
-                );
+                $sql = $wpdb->prepare(
+                    "UPDATE {$wpdb->prefix}schedules      
+                    SET 
+                        password = '". $password ."',
+                        status = 'confirmed',
+                        version = version + 1,
+                        modification_date = '". current_time('mysql', false) ."' 
+                    WHERE 
+                        id_schedules = '".$id_schedules."' AND 
+                        user_id = '".$user_id."'"
+                    );
+                $wpdb->query($sql);
             }
             
             // Generate the url to be able to cancel
@@ -1722,38 +1693,30 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Update the total number of spaces used in appointments for the date in question.
                 if( $schedules_dates ){
                     global $wpdb;
-                    $result = $wpdb->update( $wpdb->prefix.'schedules_dates', 
-                        array( 
-                            'total' => 'total-'.( $companions+1 ),
-                        ), 
-                        array(
-                            'id_schedules_dates' => $schedules_dates->id_schedules_dates,
-                        ),
-                        array(
-                            '%d',
-                        ),
-                    );
+                    $sql = $wpdb->prepare(
+                        "UPDATE {$wpdb->prefix}schedules_dates      
+                        SET 
+                            total = total - ".( (int)$companions + 1 )."  
+                        WHERE 
+                            id_schedules_dates = '".$schedules_dates->id_schedules_dates."'"
+                        );
+                    $wpdb->query($sql);
                 }
             }
             
             // Update schedule.
             global $wpdb;
-            $result = $wpdb->update( $wpdb->prefix.'schedules', 
-                array( 
-                    'status' => 'finished',
-                    'version' => 'version+1',
-                    'modification_date' => current_time('mysql', false),
-                ), 
-                array(
-                    'id_schedules' => $id_schedules,
-                    'user_id' => $user_id,
-                ),
-                array(
-                    '%s',
-                    '%d',
-                    '%s',
-                ),
-            );
+            $sql = $wpdb->prepare(
+                "UPDATE {$wpdb->prefix}schedules      
+                SET 
+                    status = 'finished',  
+                    version = version + 1,  
+                    modification_date = '".current_time('mysql', false)."'  
+                WHERE 
+                    id_schedules = '".$id_schedules."' AND 
+                    user_id = '".$user_id."'"
+                );
+            $wpdb->query($sql);
             
             // Get the currently logged-in user
             $user = wp_get_current_user();
