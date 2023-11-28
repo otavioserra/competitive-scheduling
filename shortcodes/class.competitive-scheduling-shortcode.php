@@ -875,20 +875,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             ),
                         );
                     } else {
-                        echo $wpdb->prefix.'schedules'.'<br>';
-                        echo print_r(array(
-                            'user_id' => $user_id,
-                            'date' => $scheduleDate,
-                            'companions' => $companions,
-                            'password' => $password,
-                            'status' => 'confirmed',
-                            'pubID' => $pubID,
-                            'token' => $token,
-                            'version' => '1',
-                            'date_creation' => current_time('mysql', false),
-                            'modification_date' => current_time('mysql', false),
-                        ),true);
-
                         // Create new schedule.
                         global $wpdb;
                         $wpdb->insert( $wpdb->prefix.'schedules', array(
@@ -906,8 +892,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                         $id_schedules = $wpdb->insert_id;
 
-                        echo $id_schedules;exit;
-                        
                         // Create appointment companions if applicable.
                         if( (int)$companions > 0 ){
                             for( $i=0; $i<(int)$companions; $i++ ){
