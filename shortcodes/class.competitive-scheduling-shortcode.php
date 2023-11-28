@@ -823,7 +823,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ),
                     );
 
-                    echo 'schedules_dates: '.$schedules_dates->id_schedules_dates; 
+                    echo 'schedules_dates: '.print_r($schedules_dates->id_schedules_dates, true); 
                     var_dump($schedules_dates);
                     exit;
 
