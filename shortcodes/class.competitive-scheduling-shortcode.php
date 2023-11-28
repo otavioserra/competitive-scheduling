@@ -889,15 +889,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     if( isset( $couponValid ) ){
                         $id_schedules_coupons_priority = $couponValid;
 
-                        $result = $wpdb->update( 
-                            $wpdb->prefix.'schedules_coupons_priority', 
-                            array(
-                                'id_schedules' => $id_schedules,
-                            ), 
-                            array(
-                                'id_schedules_coupons_priority' => $id_schedules_coupons_priority,
-                            )
-                        );
+                        $sql = $wpdb->prepare(
+                            "UPDATE {$wpdb->prefix}schedules_coupons_priority      
+                            SET id_schedules = '".$id_schedules."' 
+                            WHERE id_schedules_coupons_priority = '".$id_schedules_coupons_priority."'");
+                        $wpdb->query($sql);
                     }
                     
                     // Get the html data.
