@@ -782,8 +782,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         array( $scheduleDate, ( $companions + 1 ), $maximum_number_days_week )
                     );
                     $schedules_dates = $wpdb->get_results( $query );
+                    $schedules_dates = $schedules_dates[0];
 
-                    /* if( ! $schedules_dates ){
+                    if( ! $schedules_dates ){
                         // Available vacancies.
                         $query = $wpdb->prepare(
                             "SELECT total 
@@ -806,7 +807,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'status' => 'SCHEDULE_WITHOUT_VACANCIES',
                             'error-msg' => $msgSchedulingWithoutVacancies,
                         );
-                    } */
+                    }
                     
                     // Update the total number of spaces used in appointments for the date in question.
                     
