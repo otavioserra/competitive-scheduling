@@ -115,6 +115,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'coupon' => $coupon,
                 ) );
 
+                var_dump($return);
+
                 if( isset( $return['completed'] ) )
                 if( ! $return['completed'] ){
                     // Get the configuration data.
@@ -158,6 +160,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Redirects the page to previous schedules.
                     wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
                 }
+
+                echo 'Scheduling finished!';exit;
                 
                 // Reread the page.
                 wp_redirect( get_permalink() );
