@@ -937,6 +937,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         admin_url('admin-post.php')
                     ) );
 
+                    // Get the currently logged-in user
+                    $user = wp_get_current_user();
+
                     // Get the user's name and email
                     $name = $user->get_name();
                     $email = $user->get_email();
@@ -983,9 +986,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                     $msgAlert = $msgConclusionScheduling;
                     
-                    // Get the currently logged-in user
-                    $user = wp_get_current_user();
-
                     // Prepare email fields.
                     $to = $name . ' <'.$email.'>';
                     $subject = $scheduleSubject;
