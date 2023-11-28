@@ -823,6 +823,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ),
                     );
 
+                    echo 'schedules_dates: '; 
+                    var_dump($schedules_dates);
+                    exit;
+
                     // Generate appointment password.
                     $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
                     
