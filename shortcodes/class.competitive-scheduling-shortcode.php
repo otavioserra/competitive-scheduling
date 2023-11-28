@@ -877,33 +877,18 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     } else {
                         // Create new schedule.
                         global $wpdb;
-                        $wpdb->insert( 
-                            $wpdb->prefix.'schedules',
-                            array(
-                                'user_id' => $user_id,
-                                'date' => $scheduleDate,
-                                'companions' => $companions,
-                                'password' => $password,
-                                'status' => 'confirmed',
-                                'pubID' => $pubID,
-                                'token' => $token,
-                                'version' => 'version+1',
-                                'date_creation' => current_time('mysql', false),
-                                'modification_date' => current_time('mysql', false),
-                            ),
-                            array(
-                                '%d',
-                                '%s',
-                                '%d',
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%s',
-                                '%d',
-                                '%s',
-                                '%s',
-                            )
-                        );
+                        $wpdb->insert( $wpdb->prefix.'schedules', array(
+                            'user_id' => $user_id,
+                            'date' => $scheduleDate,
+                            'companions' => $companions,
+                            'password' => $password,
+                            'status' => 'confirmed',
+                            'pubID' => $pubID,
+                            'token' => $token,
+                            'version' => '1',
+                            'date_creation' => current_time('mysql', false),
+                            'modification_date' => current_time('mysql', false),
+                        ) );
 
                         $id_schedules = $wpdb->insert_id;
                         
