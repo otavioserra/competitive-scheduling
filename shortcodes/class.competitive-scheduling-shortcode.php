@@ -879,7 +879,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             ),
                         );
                     } else {
-                        echo 'insertSchedule';
+                        echo 'insertSchedule<br>';
 
                         // Create new schedule.
                         global $wpdb;
@@ -895,8 +895,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'date_creation' => current_time('mysql', false),
                             'modification_date' => current_time('mysql', false),
                         ) );
-                        
+
                         $id_schedules = $wpdb->insert_id;
+                        
+                        echo 'id_schedules: '.$id_schedules;
                         
                         // Create appointment companions if applicable.
                         if( (int)$companions > 0 ){
