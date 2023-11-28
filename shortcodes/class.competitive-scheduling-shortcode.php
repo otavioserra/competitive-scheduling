@@ -783,7 +783,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     );
                     $schedules_dates = $wpdb->get_results( $query );
 
-                    if( ! $schedules_dates ){
+                    /* if( ! $schedules_dates ){
                         // Available vacancies.
                         $query = $wpdb->prepare(
                             "SELECT total 
@@ -806,9 +806,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'status' => 'SCHEDULE_WITHOUT_VACANCIES',
                             'error-msg' => $msgSchedulingWithoutVacancies,
                         );
-                    }
+                    } */
                     
                     // Update the total number of spaces used in appointments for the date in question.
+                    
+                    echo 'schedules_dates: '.print_r($schedules_dates->id_schedules_dates, true); 
+                    var_dump($schedules_dates);
+                    exit;
+
                     global $wpdb;
                     $result = $wpdb->update( 
                         $wpdb->prefix.'schedules_dates',
@@ -823,9 +828,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ),
                     );
 
-                    echo 'schedules_dates: '.print_r($schedules_dates->id_schedules_dates, true); 
-                    var_dump($schedules_dates);
-                    exit;
 
                     // Generate appointment password.
                     $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
