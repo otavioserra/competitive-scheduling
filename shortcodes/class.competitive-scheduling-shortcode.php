@@ -119,6 +119,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( ! $return['completed'] ){
                     // Get the configuration data.
                     $msg_options = get_option( 'competitive_scheduling_msg_options' );
+
+                    echo 'completed<br>';
+                    echo print_r($return, true);
                     
                     switch( $return['status'] ){
                         case 'INACTIVE_SCHEDULING':
@@ -148,6 +151,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     if( isset( $return['data'] ) ){
                         $data = $return['data'];
                     }
+
+                    echo '! completed<br>';
+                    echo print_r($data, true);
                     
                     // Alert the user of scheduling success.
                     Interfaces::alert( array(
@@ -160,7 +166,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
                 }
                 
-                echo 'alert'; exit;
+                echo '<br>finish'; exit;
                 
                 // Reread the page.
                 wp_redirect( get_permalink() );
