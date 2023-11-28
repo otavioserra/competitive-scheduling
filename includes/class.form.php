@@ -49,9 +49,11 @@ if( ! class_exists( 'Form' ) ){
                 foreach( $validation as $rule ){
                     switch( $rule['rule'] ){
                         case 'manual':
-                            $validation_rules[$rule['field']] = Array(
-                                'rules' => $rule['rulesManuals'],
-                            );
+                            if( isset( $rule['rulesManuals'] ) ){
+                                $validation_rules[$rule['field']] = Array(
+                                    'rules' => $rule['rulesManuals'],
+                                );
+                            }
                         break;
                         case 'required-text':
                             $prompt[1] = Templates::change_variable( self::message( 'validation-empty' ), '#label#', $rule['label'] );
