@@ -1955,7 +1955,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $flag = false;
             if( $days_week )
             foreach( $days_week as $day_week ){
-                if(!$flag){
+                if( ! $flag ){
                     $first_day_week = $day_week;
                     $flag = true;
                 }
