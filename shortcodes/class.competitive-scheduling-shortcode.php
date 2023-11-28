@@ -816,14 +816,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'total' => 'total + '.( $companions + 1 ) 
                         ),
                         array(
-                            'id_schedules_dates' => $schedules_dates['id_schedules_dates ']
+                            'id_schedules_dates' => $schedules_dates->id_schedules_dates 
                         ),
                         array(
                             '%d',
                         ),
                     );
 
-                    echo 'schedules_dates: '; 
+                    echo 'schedules_dates: '.$schedules_dates->id_schedules_dates; 
                     var_dump($schedules_dates);
                     exit;
 
