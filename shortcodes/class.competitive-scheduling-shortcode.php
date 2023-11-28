@@ -740,6 +740,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( strtotime( $scheduleDate ) <= strtotime( $today.' + '.$residualPhase.' day' ) ){
                     $scheduleConfirm = true;
                 }
+
+                echo $scheduleDate.' <= '.$today.' + '.$residualPhase.' day<br>';
+                echo strtotime( $scheduleDate ).' <= '.strtotime( $today.' + '.$residualPhase.' day' );
                 
                 // Confirm appointment or create pre-booking.
                 if( isset( $scheduleConfirm ) ){
@@ -1021,8 +1024,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Generate a schedule or update an existing one.
                     if( isset( $updateSchedule ) ){
                         $id_schedules = $schedules->id_schedules;
-
-                        echo 'updateSchedule';
                         
                         // Replace companions.
                         global $wpdb;
@@ -1063,7 +1064,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             ),
                         );
                     } else {
-                        echo 'insertSchedule';
                         // Create new schedule.
                         global $wpdb;
                         $wpdb->insert( $wpdb->prefix.'schedules', array(
