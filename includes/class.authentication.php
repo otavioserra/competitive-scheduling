@@ -61,6 +61,10 @@ if( ! class_exists( 'Authentication' ) ){
                             "private_key_bits" => 2048,
                             "private_key_type" => OPENSSL_KEYTYPE_RSA,
                         );
+
+                        if( CS_DEBUG ){
+                            $config['config'] = 'C:\xampp\apache\conf\openssl.cnf';
+                        }
                         
                         $res = openssl_pkey_new( $config );
                         
