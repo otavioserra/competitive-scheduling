@@ -215,7 +215,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     array( $user_id, $today )
                 );
                 $DBPreSchedules = $wpdb->get_results( $query );
-
+                
                 global $wpdb;
                 $query = $wpdb->prepare(
                     "SELECT id_schedules, date, companions, password, status, modification_date
@@ -249,7 +249,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Check pre-bookings.
                     if( $DBPreSchedules ){
                         // Maximum number of records, record counter.
-                        $numRecords = $DBPreSchedules->num_rows();
+                        $numRecords = count( $DBPreSchedules );
                         $counter = 0;
                         
                         // Scan all pre-bookings.
@@ -282,7 +282,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                         $count_days++;
                                     }
                                     
-                                    if( count( $days_week_maximum_vacancies) > 1 ){
+                                    if( count( $days_week_maximum_vacancies ) > 1 ){
                                         $maximum_number_days_week = (int)$days_week_maximum_vacancies[$count_days];
                                     } else {
                                         $maximum_number_days_week = (int)$days_week_maximum_vacancies[0];
@@ -361,7 +361,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Check schedules.
                     if( $DBSchedules ){
                         // Maximum number of records, record counter.
-                        $numRecords = $DBSchedules->num_rows();
+                        $numRecords = count( $DBSchedules );
                         $counter = 0;
                         
                         // Scan all schedules.
@@ -415,7 +415,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Check old schedules.
                     if( $DBOld ){
                         // Maximum number of records, record counter.
-                        $numRecords = $DBOld->num_rows();
+                        $numRecords = count( $DBOld );
                         $counter = 0;
 
                         // Sweep all old schedules.
