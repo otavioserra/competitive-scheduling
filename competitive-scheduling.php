@@ -64,7 +64,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
         public static function activate(){
             require_once( CS_PATH . 'includes/class.database.php' );
-            require_once( CS_PATH . 'settings/class.authentication.php' );
+            require_once( CS_PATH . 'includes/class.authentication.php' );
             
             update_option( 'rewrite_rules', '' );
 
@@ -79,7 +79,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         }
 
         public static function uninstall(){
-            require_once( CS_PATH . 'settings/class.authentication.php' );
+            require_once( CS_PATH . 'includes/class.authentication.php' );
             
             Competitive_Scheduling_Settings::unregister_settings();
             Authentication::uninstall_keys();
