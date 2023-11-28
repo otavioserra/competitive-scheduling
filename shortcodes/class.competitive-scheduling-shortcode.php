@@ -875,6 +875,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             ),
                         );
                     } else {
+                        echo $wpdb->prefix.'schedules'.'<br>';
                         echo print_r(array(
                             'user_id' => $user_id,
                             'date' => $scheduleDate,
