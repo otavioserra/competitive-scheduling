@@ -602,7 +602,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
                 $schedules_dates = $wpdb->get_results( $query );
 
-                if( !$schedules_dates ){
+                if( ! $schedules_dates ){
                     $wpdb->insert( $wpdb->prefix.'schedules_dates', array(
                         'date' => $scheduleDate,
                         'total' => 0,
@@ -782,7 +782,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     );
                     $schedules_dates = $wpdb->get_results( $query );
 
-                    if( !$schedules_dates ){
+                    if( ! $schedules_dates ){
                         // Available vacancies.
                         $query = $wpdb->prepare(
                             "SELECT total 
@@ -934,6 +934,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         admin_url('admin-post.php')
                     ) );
 
+                    // Get the user's name and email
+                    $name = $user->get_name();
+                    $email = $user->get_email();
+                    
                     // Format email message.
                     $scheduleSubject = Templates::change_variable( $scheduleSubject, '#code#', $code );
 
@@ -979,10 +983,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Get the currently logged-in user
                     $user = wp_get_current_user();
 
-                    // Get the user's name and email
-                    $name = $user->get_name();
-                    $email = $user->get_email();
-                    
                     // Prepare email fields.
                     $to = $name . ' <'.$email.'>';
                     $subject = $scheduleSubject;
