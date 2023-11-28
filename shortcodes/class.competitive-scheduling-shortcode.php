@@ -777,7 +777,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $query = $wpdb->prepare(
                         "SELECT id_schedules_dates,total 
                         FROM {$wpdb->prefix}schedules_dates 
-                        WHERE date = '%s' AND total + %i <= %i",
+                        WHERE date = '%s' AND total + %d <= %d",
                         array( $scheduleDate, ( $companions + 1 ), $maximum_number_days_week )
                     );
                     $schedules_dates = $wpdb->get_results( $query );
