@@ -153,7 +153,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $data['alert']
                     ));
-
                     
                     // Redirects the page to previous schedules.
                     wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
@@ -542,7 +541,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             // Finalize interface.
             Interfaces::components_include( array(
-                'component' => Array(
+                'component' => array(
                     'modal-loading',
                     'modal-alert',
                 )

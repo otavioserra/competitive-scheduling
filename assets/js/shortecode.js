@@ -403,10 +403,10 @@ jQuery( document ).ready( function(){
 
     function alert(p={}){
 		if(p.msg){
-			$('.ui.modal.alert .content p').html(p.msg);
+			jQuery('.ui.modal.alert .content p').html(p.msg);
 		}
 		
-		$('.ui.modal.alert').modal('show');
+		jQuery('.ui.modal.alert').modal('show');
 	}
 	
 	function start(){
