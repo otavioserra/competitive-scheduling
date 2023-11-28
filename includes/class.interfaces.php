@@ -20,7 +20,7 @@ if( ! class_exists( 'Interfaces' ) ){
 
             if( isset( $msg ) ){
                 if( isset( $redirect ) ){
-                    get_option( 'cs_interface_alert', array(
+                    add_option( 'cs_interface_alert', array(
                         'msg' => $msg,
                     ) );
                     
