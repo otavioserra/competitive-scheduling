@@ -159,8 +159,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
                 }
 
-                echo 'Scheduling finished!';exit;
-                
                 // Reread the page.
                 wp_redirect( get_permalink() );
             }
@@ -836,8 +834,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     
                     // Generate a schedule or update an existing one.
                     if( isset( $updateSchedule ) ){
-                        echo 'updateSchedule';
-                        
                         $id_schedules = $schedules->id_schedules;
                         
                         // Replace companions.
@@ -879,26 +875,37 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             ),
                         );
                     } else {
-                        echo 'insertSchedule<br>';
-
                         // Create new schedule.
                         global $wpdb;
-                        $wpdb->insert( $wpdb->prefix.'schedules', array(
-                            'user_id' => $user_id,
-                            'date' => $scheduleDate,
-                            'companions' => $companions,
-                            'password' => $password,
-                            'status' => 'confirmed',
-                            'pubID' => $pubID,
-                            'token' => $token,
-                            'version' => 'version+1',
-                            'date_creation' => current_time('mysql', false),
-                            'modification_date' => current_time('mysql', false),
-                        ) );
+                        $wpdb->insert( 
+                            $wpdb->prefix.'schedules',
+                            array(
+                                'user_id' => $user_id,
+                                'date' => $scheduleDate,
+                                'companions' => $companions,
+                                'password' => $password,
+                                'status' => 'confirmed',
+                                'pubID' => $pubID,
+                                'token' => $token,
+                                'version' => 'version+1',
+                                'date_creation' => current_time('mysql', false),
+                                'modification_date' => current_time('mysql', false),
+                            ),
+                            array(
+                                '%d',
+                                '%s',
+                                '%d',
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%s',
+                                '%d',
+                                '%s',
+                                '%s',
+                            )
+                        );
 
                         $id_schedules = $wpdb->insert_id;
-                        
-                        echo 'id_schedules: '.$id_schedules;
                         
                         // Create appointment companions if applicable.
                         if( (int)$companions > 0 ){
