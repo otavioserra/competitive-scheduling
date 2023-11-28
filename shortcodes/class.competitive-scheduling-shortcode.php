@@ -611,10 +611,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 }
                 
                 // Generate the validation token.
-                $token = wp_create_nonce(CS_NOUNCE_SCHEDULES);
-                $pubID = md5(uniqid(rand(), true));
+                require_once( CS_PATH . 'includes/class.authentication.php' );
+            
+                $auth = Authentication::generate_token_validation();
 
-                wp_nonce_set_expiration(CS_NOUNCE_SCHEDULES, CS_NOUNCE_SCHEDULES_EXPIRES);
+                $token = $auth['token'];
+                $pubID = $auth['pubID'];
                 
                 // Check the user's schedule for the sent date.
                 $query = $wpdb->prepare(
@@ -1327,7 +1329,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
-            // Incluir o token no formulário.
+            // Include the token in the form.
             $page = Templates::change_variable( $page, '[[confirmation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
             $page = Templates::change_variable( $page, '[[confirmation-scheduling-id]]', $id_schedules );
 
@@ -1431,7 +1433,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
-            // Incluir o token no formulário.
+            // Include the token in the form.
             $page = Templates::change_variable( $page, '[[cancellation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
             $page = Templates::change_variable( $page, '[[cancellation-scheduling-id]]', $id_schedules );
 
@@ -1495,8 +1497,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
             
             // Generate the validation token.
-            $token = wp_create_nonce(CS_NOUNCE_SCHEDULES);
-            $pubID = md5(uniqid(rand(), true));
+            require_once( CS_PATH . 'includes/class.authentication.php' );
+        
+            $auth = Authentication::generate_token_validation();
+
+            $token = $auth['token'];
+            $pubID = $auth['pubID'];
             
             // Check if it has already been confirmed. If it has been confirmed, just alert and send an email to the user. Otherwise, carry out the confirmation procedure.
             if( $status != 'confirmed' ){
