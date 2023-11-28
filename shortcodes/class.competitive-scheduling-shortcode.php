@@ -155,6 +155,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'msg' => $data['alert']
                     ));
 
+                    echo 'alert'; exit;
+
                     // Redirects the page to previous schedules.
                     wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
                 }
