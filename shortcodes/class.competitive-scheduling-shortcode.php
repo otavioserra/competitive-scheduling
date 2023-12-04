@@ -46,7 +46,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $tag
             ));
 
-            if( !empty( $id ) ){
+            if( ! empty( $id ) ){
                 $id = array_map( 'absint', explode( ',', $id ) );
             }
 
