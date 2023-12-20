@@ -73,19 +73,27 @@ if( ! class_exists( 'Database' ) ){
 
             // Scan all tables.
             global $wpdb;
-
+            $all_tables = $wpdb->get_results( "SHOW TABLES", ARRAY_A );
+            
             if( isset( $dataBase ) )
             foreach( $dataBase['tables'] as $table => $sql){
+                // Search for the table
+                $foundTable = false;
+                foreach( $all_tables as $table_wp){
+                    if( $table_wp['Tables_in_' . DB_NAME] == $wpdb->prefix . $table ){
+                        $foundTable = true;
+                        break;
+                    }
+                }
+        
                 // Create table if it does not exist, otherwise update fields.
-                $table_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}{$table}'" );
-
-                if( ! $table_exists ){
+                if( ! $foundTable ){
                     // Create table
                     $sql = Templates::change_variable( $sql, '#prefix#', $wpdb->prefix );
                     $wpdb->query( $sql );
                 } else {
                     // Get all fields from the table.
-                    $fields = $wpdb->get_col( "SHOW COLUMNS FROM '{$wpdb->prefix}{$table}'" );
+                    $fields = $wpdb->get_results( "SHOW COLUMNS FROM `{$wpdb->prefix}{$table}`", ARRAY_A );
 
                     // Scan all SQL rows.
                     $alterTableAfter = '';
@@ -106,11 +114,11 @@ if( ! class_exists( 'Database' ) ){
                                     
                                     if( $matches[0] ){
                                         $field = ltrim( rtrim( $matches[0], "`" ), "`" );
-                                        
+
                                         $foundField = false;
                                         if( isset( $fields ) )
                                         foreach( $fields as $fieldDB ){
-                                            if( $field == $fieldDB ){
+                                            if( $field == $fieldDB['Field'] ){
                                                 $foundField = true;
                                                 break;
                                             }
