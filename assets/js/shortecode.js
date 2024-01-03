@@ -143,7 +143,7 @@ jQuery( document ).ready( function(){
 		// Start popup.
 		jQuery( '.button' ).popup( { 
 			addTouchEvents: false,
-			context: '.active-scheduling'
+			inline: true
 		} );
 		
 		// Companions dropdown.
