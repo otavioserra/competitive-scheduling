@@ -109,6 +109,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $user_data = get_userdata( $user_id );
                 $user_name = $user_data->display_name;
 
+                $dataSchedules = Templates::change_variable( $dataSchedules, '[[header-name]]', __( 'Scheduled People', 'competitive-scheduling' ) );
+                $dataSchedules = Templates::change_variable( $dataSchedules, '[[your-name-title]]', __( 'Your name', 'competitive-scheduling' ) );
                 $dataSchedules = Templates::change_variable( $dataSchedules, '[[your-name]]', $user_name );
                 
                 // Companion details.
@@ -129,7 +131,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                         $cell_aux = $cell['cell-data'];
 
-                        $cell_aux = Templates::change_variable( $cell_aux, '[[num]]', $num );
+                        $cell_aux = Templates::change_variable( $cell_aux, '[[companion-title]]', __( 'Companion', 'competitive-scheduling' ) . ' ' . $num );
                         $cell_aux = Templates::change_variable( $cell_aux, '[[companion]]', $companion->name );
 
                         $dataSchedules = Templates::variable_in( $dataSchedules, '<!-- cell-data -->', $cell_aux );
@@ -604,13 +606,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $page = Templates::change_variable( $page, '<!-- companions -->', '' );
                 
                 // 'schedule-data' cell remover.
-                // $page = Templates::change_variable( $page, '<!-- schedule-data -->', '' );
-
                 $cell_name = 'schedule-data'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-
                 // Validation form assemble.
-                
                 Form::validation( array(
                     'formId' => 'formSchedules',
                     'validation' => $validation

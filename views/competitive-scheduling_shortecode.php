@@ -295,16 +295,16 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th><?php echo esc_html__( 'Scheduled People', 'competitive-scheduling' ); ?></th>
+                        <th>[[header-name]]</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo esc_html__( 'Your name', 'competitive-scheduling' ); ?></td>
+                        <td>[[your-name-title]]</td>
                         <td>[[your-name]]</td>
                     </tr>
                     <!-- cell-data < --><tr>
-                        <td><?php echo esc_html__( 'Companion', 'competitive-scheduling' ); ?> [[num]]</td>
+                        <td>[[companion-title]]</td>
                         <td>[[companion]]</td>
                     </tr><!-- cell-data > -->
                 </tbody>
