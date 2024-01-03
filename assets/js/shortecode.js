@@ -247,7 +247,8 @@ jQuery( document ).ready( function(){
 			jQuery.ajax( {
 				url: wpApiSettings.root + 'competitive-scheduling/'+apiVersion+'/companions/',
 				method: 'GET',
-				beforeSend: function(){
+				beforeSend: function ( xhr ) {
+					xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
 					loading('open');
 				},
 				data
