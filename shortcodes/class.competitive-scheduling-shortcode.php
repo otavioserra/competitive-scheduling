@@ -81,7 +81,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Verify nonce
             $nonce = $params['nonce'];
             if( ! wp_verify_nonce( $nonce, 'companions-nonce' ) ){
-                return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.', 'competitive-scheduling' ), array( 'status' => 403 ) );
+                return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.'.$nonce, 'competitive-scheduling' ), array( 'status' => 403 ) );
             }
 
             // Require templates class to manipulate page.
