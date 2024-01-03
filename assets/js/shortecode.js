@@ -269,6 +269,8 @@ jQuery( document ).ready( function(){
 					} );
 				}
 
+				console.log(response)
+
 				loading('close');
 			} ).fail( function ( response ) {
 				loading('close');
