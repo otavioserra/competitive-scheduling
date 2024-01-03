@@ -249,7 +249,6 @@ jQuery( document ).ready( function(){
 				method: 'GET',
 				beforeSend: function ( xhr ) {
 					xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
-					loading('open');
 				},
 				data
 			} ).done( function ( response ) {
