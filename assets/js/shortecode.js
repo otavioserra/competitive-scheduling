@@ -6,7 +6,10 @@ jQuery( document ).ready( function(){
 		jQuery('.confirm').show();
 		
 		// Start popup.
-		jQuery('.button').popup({addTouchEvents:false});
+		jQuery('.button').popup({
+			addTouchEvents:false,
+			context:'.active-scheduling'
+		});
 		
 		// Form confirm.
 		var formSelector = '.confirmationForm';
