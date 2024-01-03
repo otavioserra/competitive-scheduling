@@ -381,10 +381,10 @@ jQuery( document ).ready( function(){
 	
 	function modal(p={}){
 		if(p.message){
-			jQuery('.ui.modal.info .content').html(p.message);
+			jQuery('.ui.modal.informative .content').html(p.message);
 		}
 		
-		jQuery('.ui.modal.info').modal({
+		jQuery('.ui.modal.informative').modal({
 			dimmerSettings:{
 				dimmerName:'pageLoading' //className, NOT id (!)
 			}
