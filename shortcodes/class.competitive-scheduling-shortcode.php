@@ -223,7 +223,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         case 'COUPON_PRIORITY_EXPIRED':
                         case 'COUPON_PRIORITY_ALREADY_USED':
                         case 'COUPON_PRIORITY_NOT_FOUND':
-                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
+                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $this->status_error_text( $return['status'] ) );
                         break;
                         default:
                             $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
@@ -2118,6 +2118,17 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             );
 
             return ( ! empty( $statusSchedulingTexts[$status] ) ? $statusSchedulingTexts[$status] : __( '<span class="ui grey label">Undefined Status</span>', 'competitive-scheduling' ) );
+        }
+
+        private function status_error_text( $status = '' ){
+            // Get the configuration data.
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+
+            $statusErrorsTexts = Array(
+                'MULTIPLE_SCHEDULING_NOT_ALLOWED' => 'msg-scheduling-already-exists',
+            );
+
+            return ( ! empty( $statusErrorsTexts[$status] ) ? $msg_options[$statusErrorsTexts[$status]] : __( 'Undefined Status', 'competitive-scheduling' ) );
         }
 
         private function js_texts(){
