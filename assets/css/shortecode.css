@@ -16,3 +16,6 @@
 .pageLoading{
   display: none !important;
 }
+.entry-content{
+  position: relative;
+}
