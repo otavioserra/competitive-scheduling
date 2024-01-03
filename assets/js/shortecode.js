@@ -237,8 +237,6 @@ jQuery( document ).ready( function(){
 		jQuery( document.body ).on( 'mouseup tap', '.dataScheduleBtn', function( e ){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 
-			console.log('sim')
-
 			var nonce = jQuery('input[name="companions-nonce"]').val();
 			
 			var data = {
