@@ -106,8 +106,15 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $dataSchedules = $cell['schedule-data'];
                 
                 // Get the user's full name.
-                $user_data = get_userdata( $user_id );
-                $user_name = $user_data->display_name;
+                $first_name = get_user_meta( $user_id, 'first_name', true );
+                $last_name = get_user_meta( $user_id, 'last_name', true );
+                
+                if( ! empty($first_name) && ! empty($last_name) ) {
+                    $user_name = $first_name . ' ' . $last_name;
+                } else {
+                    $user_data = get_userdata( $user_id );
+                    $user_name = $user_data->display_name;
+                }
 
                 $dataSchedules = Templates::change_variable( $dataSchedules, '[[header-name]]', __( 'Scheduled People', 'competitive-scheduling' ) );
                 $dataSchedules = Templates::change_variable( $dataSchedules, '[[your-name-title]]', __( 'Your name', 'competitive-scheduling' ) );
