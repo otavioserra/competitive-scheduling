@@ -7,8 +7,7 @@ jQuery( document ).ready( function(){
 		
 		// Start popup.
 		jQuery('.button').popup({
-			addTouchEvents:false,
-			context:'.active-scheduling'
+			addTouchEvents:false
 		});
 		
 		// Form confirm.
@@ -142,7 +141,10 @@ jQuery( document ).ready( function(){
 		jQuery( '.ui.calendar' ).calendar( calendarDatesOpt );
 		
 		// Start popup.
-		jQuery( '.button' ).popup( { addTouchEvents:false } );
+		jQuery( '.button' ).popup( { 
+			addTouchEvents: false,
+			context: '.active-scheduling'
+		} );
 		
 		// Companions dropdown.
 		jQuery( '.ui.dropdown' ).dropdown( {
