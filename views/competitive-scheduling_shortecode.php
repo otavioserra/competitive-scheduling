@@ -319,6 +319,7 @@
                 </div>
             </div><!-- unregistered > -->
         </div>
+        <input type="hidden" name="companions-nonce" value="<?php echo wp_create_nonce( 'companions-nonce' ); ?>">
     </div><!-- active > -->
     <!-- changes < --><div class="confirmar hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Confirm Appointment', 'competitive-scheduling' ); ?></div>

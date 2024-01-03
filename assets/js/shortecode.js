@@ -1,4 +1,6 @@
 jQuery( document ).ready( function(){
+	var apiVersion = 'v1';
+
     function confirm(){
 		// Show the confirmation screen.
 		jQuery('.confirm').show();
@@ -235,55 +237,33 @@ jQuery( document ).ready( function(){
 		jQuery(document.body).on('mouseup tap','.dataScheduleBtn',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			// Check the type of appointment.
-			var type = '';
-			if(jQuery(this).hasClass('preAgendamento')){type = 'preAgendamento';}
-			if(jQuery(this).hasClass('agendamento')){type = 'agendamento';}
-			if(jQuery(this).hasClass('agendamentoAntigo')){type = 'agendamentoAntigo';}
-			
-			// Search the data on the server and display the result on the screen.
-			var option = 'schedules-host';
-			var ajaxOption = 'scheduling-data';
-			
-			$.ajax({
-				type: 'POST',
-				url: manager.root + 'schedules/',
-				data: {
-					option : option,
-					ajax : 'sim',
-					ajaxPage : 'sim',
-					ajaxOption : ajaxOption,
-					type : type,
-					schedule_id : jQuery(this).attr('data-id')
-				},
-				dataType: 'json',
+			var data = {
+				schedule_id : jQuery(this).attr('data-id'),
+				nonce
+			};
+
+			jQuery.ajax( {
+				url: wpApiSettings.root + 'chat-conversion/'+apiVersion+'/companions/',
+				method: 'GET',
 				beforeSend: function(){
 					loading('open');
 				},
-				success: function(data){
-					switch(data.status){
-						case 'OK':
-							modal({message:data.dataSchedules});
-						break;
-						case 'ERROR':
-							modal({message:data.msg});
-						break;
-						default:
-							console.log('ERROR - '+option+' - '+data.status);
-							loading('close');
-						
-					}
-				},
-				error: function(txt){
-					switch(txt.status){
-						case 401: window.open(manager.root + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
-						default:
-							console.log('ERROR AJAX - '+option+' - Data:');
-							console.log(txt);
-							loading('close');
-					}
+				data
+			} ).done( function ( response ) {
+				if( response.status === 'OK' ){
+					modal( { message:data.dataSchedules } );
 				}
-			});
+
+				if( 'alert' in response ){
+					alert( {
+						msg: response.alert
+					} );
+				}
+				loading('close');
+			} ).fail( function ( response ) {
+				loading('close');
+				if( 'responseJSON' in response ){ console.log( response.status + ': ' + response.responseJSON.message ); } else { console.log( response ); }
+			} );
 		});
 		
 		// Rules for reading more appointment entries.
