@@ -250,11 +250,12 @@ jQuery( document ).ready( function(){
 				xhrFields: { withCredentials: true },
 				beforeSend: function ( xhr ) {
 					xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
+					loading('open');
 				},
 				data
 			} ).done( function ( response ) {
 				if( response.status === 'OK' ){
-					modal( { message:data.dataSchedules } );
+					modal( { message:response.dataSchedules } );
 				} else {
 					loading('close');
 				}
