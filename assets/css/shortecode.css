@@ -13,3 +13,6 @@
 .txt-1 {
   font-weight: bold;
 }
+.pageLoading{
+  display: none;
+}
