@@ -360,37 +360,37 @@ jQuery( document ).ready( function(){
 				}
 			});
 		});
-		
-		function loading(option){
-			switch(option){
-				case 'open':
-					if(!('loading' in manager)){
-						jQuery('.pageLoading').dimmer({
-							closable: false
-						});
-						
-						manager.loading = true;
-					}
+	}
+
+	function loading(option){
+		switch(option){
+			case 'open':
+				if(!('loading' in manager)){
+					jQuery('.pageLoading').dimmer({
+						closable: false
+					});
 					
-					jQuery('.pageLoading').dimmer('show');
-				break;
-				case 'close':
-					jQuery('.pageLoading').dimmer('hide');
-				break;
-			}
+					manager.loading = true;
+				}
+				
+				jQuery('.pageLoading').dimmer('show');
+			break;
+			case 'close':
+				jQuery('.pageLoading').dimmer('hide');
+			break;
+		}
+	}
+	
+	function modal(p={}){
+		if(p.message){
+			jQuery('.ui.modal.info .content').html(p.message);
 		}
 		
-		function modal(p={}){
-			if(p.message){
-				jQuery('.ui.modal.info .content').html(p.message);
+		jQuery('.ui.modal.info').modal({
+			dimmerSettings:{
+				dimmerName:'pageLoading' //className, NOT id (!)
 			}
-			
-			jQuery('.ui.modal.info').modal({
-				dimmerSettings:{
-					dimmerName:'pageLoading' //className, NOT id (!)
-				}
-			}).modal('show');
-		}
+		}).modal('show');
 	}
 
     function alert(p={}){
