@@ -604,7 +604,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $page = Templates::change_variable( $page, '<!-- companions -->', '' );
                 
                 // 'schedule-data' cell remover.
-                $page = Templates::change_variable( $page, '<!-- schedule-data -->', '' );
+                // $page = Templates::change_variable( $page, '<!-- schedule-data -->', '' );
+
+                $cell_name = 'schedule-data'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                
 
                 // Validation form assemble.
                 
