@@ -630,6 +630,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 'component' => array(
                     'modal-loading',
                     'modal-alert',
+                    'modal-info',
                 )
             ) );
 
