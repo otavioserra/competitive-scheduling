@@ -257,6 +257,8 @@ jQuery( document ).ready( function(){
 			} ).done( function ( response ) {
 				if( response.status === 'OK' ){
 					modal( { message:data.dataSchedules } );
+				} else {
+					loading('close');
 				}
 
 				if( 'nonce' in response ){
@@ -268,10 +270,6 @@ jQuery( document ).ready( function(){
 						msg: response.alert
 					} );
 				}
-
-				console.log(response)
-
-				loading('close');
 			} ).fail( function ( response ) {
 				loading('close');
 				if( 'responseJSON' in response ){ console.log( response.status + ': ' + response.responseJSON.message ); } else { console.log( response ); }
