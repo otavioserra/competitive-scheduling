@@ -14,5 +14,5 @@
   font-weight: bold;
 }
 .pageLoading{
-  display: none;
+  display: none !important;
 }
