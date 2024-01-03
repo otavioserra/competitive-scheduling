@@ -141,10 +141,7 @@ jQuery( document ).ready( function(){
 		jQuery( '.ui.calendar' ).calendar( calendarDatesOpt );
 		
 		// Start popup.
-		jQuery( '.button' ).popup( { 
-			addTouchEvents: false,
-			inline: true
-		} );
+		jQuery( '.button' ).popup( { addTouchEvents:false } );
 		
 		// Companions dropdown.
 		jQuery( '.ui.dropdown' ).dropdown( {
