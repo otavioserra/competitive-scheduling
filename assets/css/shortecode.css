@@ -8,5 +8,8 @@
   text-transform: uppercase;
 }
 .buttonsMargin > .button {
-    margin-bottom: 0.75em;
+  margin-bottom: 0.75em;
+}
+.txt-1 {
+  font-weight: bold;
 }

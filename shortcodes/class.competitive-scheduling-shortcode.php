@@ -1091,16 +1091,16 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#code#', $code );
                     $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#title#', $titleEstablishment );
                     $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
-                    $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#draw_date#', $draw_date );
+                    $preSchedulingMessage = Templates::change_variable_all( $preSchedulingMessage, '#draw_date#', $draw_date );
                     $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#date_confirmation_1#', $date_confirmation_1 );
-                    $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#date_confirmation_2#', $date_confirmation_2 );
+                    $preSchedulingMessage = Templates::change_variable_all( $preSchedulingMessage, '#date_confirmation_2#', $date_confirmation_2 );
                     $preSchedulingMessage = Templates::change_variable( $preSchedulingMessage, '#url-cancellation#', '<a target="schedule" href="'.$urlCancellation.'" style="overflow-wrap: break-word;">'.$urlCancellation.'</a>' );
                     
                     // Format alert message.
                     $msgConclusionPreScheduling = Templates::change_variable( $msgConclusionPreScheduling, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
-                    $msgConclusionPreScheduling = Templates::change_variable( $msgConclusionPreScheduling, '#draw_date#', $draw_date );
+                    $msgConclusionPreScheduling = Templates::change_variable_all( $msgConclusionPreScheduling, '#draw_date#', $draw_date );
                     $msgConclusionPreScheduling = Templates::change_variable( $msgConclusionPreScheduling, '#date_confirmation_1#', $date_confirmation_1 );
-                    $msgConclusionPreScheduling = Templates::change_variable( $msgConclusionPreScheduling, '#date_confirmation_2#', $date_confirmation_2 );
+                    $msgConclusionPreScheduling = Templates::change_variable_all( $msgConclusionPreScheduling, '#date_confirmation_2#', $date_confirmation_2 );
 
                     $msgAlert = $msgConclusionPreScheduling;
                     
