@@ -247,6 +247,9 @@ jQuery( document ).ready( function(){
 			jQuery.ajax( {
 				url: wpApiSettings.root + 'competitive-scheduling/'+apiVersion+'/companions/',
 				method: 'GET',
+				beforeSend: function(){
+					loading('open');
+				},
 				data
 			} ).done( function ( response ) {
 				if( response.status === 'OK' ){
