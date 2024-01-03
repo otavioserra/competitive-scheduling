@@ -146,7 +146,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Response data
                 $response = array(
                     'status' => 'ERROR',
-                    'alert' => __( 'User is not logged in', 'competitive-scheduling' ),
+                    'alert' => __( 'User is not logged in: '.print_r( wp_get_current_user(), true ), 'competitive-scheduling' ),
                 );
             }
 
