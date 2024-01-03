@@ -77,14 +77,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public function companions( $request ) {
             // Get all sent parameters
             $params = $request->get_params();
-
-            // Verify nonce
-            $nonce = $params['nonce'];
-            if( ! wp_verify_nonce( $nonce, 'companions-nonce' ) ){
-                return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.', 'competitive-scheduling' ), array( 'status' => 403 ) );
-            }
-
+            
             if( is_user_logged_in() ){
+                // Verify nonce
+                $nonce = $params['nonce'];
+                if( ! wp_verify_nonce( $nonce, 'companions-nonce' ) ){
+                    return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.', 'competitive-scheduling' ), array( 'status' => 403 ) );
+                }
+
                 // Require templates class to manipulate page.
                 require_once( CS_PATH . 'includes/class.templates.php' );
 
@@ -140,6 +140,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $response = array(
                     'status' => 'OK',
                     'dataSchedules' => $dataSchedules,
+                    'nonce' => wp_create_nonce( 'companions-nonce' ),
                 );
             } else {
                 // Response data

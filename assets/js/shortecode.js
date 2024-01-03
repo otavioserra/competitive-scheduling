@@ -200,7 +200,7 @@ jQuery( document ).ready( function(){
 			jQuery('.schedules').show();
 		});
 		
-		if('window' in manager){
+		if( 'window' in manager ){
 			switch(manager.window){
 				case 'previous-schedules':
 					jQuery('.schedules').show();
@@ -225,7 +225,7 @@ jQuery( document ).ready( function(){
 		});
 		
 		// Cancel button.
-		jQuery(document.body).on('mouseup tap','.cancelSchedulingBtn',function(e){
+		jQuery( document.body ).on( 'mouseup tap', '.cancelSchedulingBtn', function( e ){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
 			var schedule_id = jQuery(this).attr('data-id');
@@ -234,8 +234,10 @@ jQuery( document ).ready( function(){
 		});
 		
 		// Appointment information.
-		jQuery(document.body).on('mouseup tap','.dataScheduleBtn',function(e){
+		jQuery( document.body ).on( 'mouseup tap', '.dataScheduleBtn', function( e ){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+
+			var nonce = jQuery('input[name="companions-nonce"]').val();
 			
 			var data = {
 				schedule_id : jQuery(this).attr('data-id'),
@@ -254,11 +256,16 @@ jQuery( document ).ready( function(){
 					modal( { message:data.dataSchedules } );
 				}
 
+				if( 'nonce' in response ){
+					jQuery( 'input[name="companions-nonce"]' ).val( response.nonce );
+				}
+
 				if( 'alert' in response ){
 					alert( {
 						msg: response.alert
 					} );
 				}
+
 				loading('close');
 			} ).fail( function ( response ) {
 				loading('close');
