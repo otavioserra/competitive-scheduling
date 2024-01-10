@@ -214,8 +214,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Get the configuration data.
                     $msg_options = get_option( 'competitive_scheduling_msg_options' );
 
-                    echo 'sim';exit;
-
                     switch( $return['status'] ){
                         case 'INACTIVE_SCHEDULING':
                         case 'SCHEDULE_DATE_NOT_ALLOWED':
@@ -2129,6 +2127,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $statusErrorsTexts = Array(
                 'MULTIPLE_SCHEDULING_NOT_ALLOWED' => 'msg-scheduling-already-exists',
             );
+
+            echo 'sim: ' . $status;exit;
 
             return ( ! empty( $statusErrorsTexts[$status] ) && ! empty( $msg_options[$statusErrorsTexts[$status]] ) ? $msg_options[$statusErrorsTexts[$status]] : __( 'Undefined Status', 'competitive-scheduling' ) );
         }
