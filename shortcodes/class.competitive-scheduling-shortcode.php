@@ -225,9 +225,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         case 'COUPON_PRIORITY_EXPIRED':
                         case 'COUPON_PRIORITY_ALREADY_USED':
                         case 'COUPON_PRIORITY_NOT_FOUND':
+                            echo 'case' . '<br>';
                             $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $this->status_error_text( $return['status'] ) );
                         break;
                         default:
+                            echo 'default' . '<br>';
                             $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
                             
                             $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
