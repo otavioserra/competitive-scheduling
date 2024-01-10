@@ -239,6 +239,8 @@ jQuery( document ).ready( function(){
 			if( confirm( texts['cancel-confirmation'] ) ){
 				window.open("?action=cancel&schedule_id="+schedule_id,"_self");
 			}
+
+			console.log('depois do confirm');
 		});
 		
 		// Appointment information.
