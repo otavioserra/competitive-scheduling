@@ -629,6 +629,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
             
             // Screen treatment.
+            global $_MANAGER;
             if( isset( $_REQUEST['window'] ) ){
                 $_MANAGER['javascript-vars']['window'] = $_REQUEST['window'];
             }
