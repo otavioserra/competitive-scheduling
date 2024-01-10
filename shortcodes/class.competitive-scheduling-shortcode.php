@@ -1080,6 +1080,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     if( $schedules ){
                         if( $schedules->status != 'finished' ){
                             $msgSchedulingAlreadyExists = ( ! empty( $msg_options['msg-scheduling-already-exists'] ) ? $msg_options['msg-scheduling-already-exists'] : '' );
+
+                            $msgSchedulingAlreadyExists = Templates::change_variable( $msgSchedulingAlreadyExists, '#url-schedules-previous#', '.?window=previous-schedules' );
                             
                             return Array(
                                 'status' => 'MULTIPLE_SCHEDULING_NOT_ALLOWED',
