@@ -214,6 +214,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Get the configuration data.
                     $msg_options = get_option( 'competitive_scheduling_msg_options' );
 
+                    echo 'status: ' . $return['status'] . '<br>';
+
                     switch( $return['status'] ){
                         case 'INACTIVE_SCHEDULING':
                         case 'SCHEDULE_DATE_NOT_ALLOWED':
