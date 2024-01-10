@@ -2124,13 +2124,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Get the configuration data.
             $msg_options = get_option( 'competitive_scheduling_msg_options' );
 
-            return 'msg_options: ' . print_r( $msg_options, true );
-
             $statusErrorsTexts = Array(
                 'MULTIPLE_SCHEDULING_NOT_ALLOWED' => 'msg-scheduling-already-exists',
             );
 
-            return ( ! empty( $statusErrorsTexts[$status] ) && ! empty( $msg_options[$statusErrorsTexts[$status]] ) ? $msg_options[$statusErrorsTexts[$status]] : __( 'Undefined Status', 'competitive-scheduling' ) . ': ' . print_r($msg_options, true));
+            return ( ! empty( $statusErrorsTexts[$status] ) && ! empty( $msg_options[$statusErrorsTexts[$status]] ) ? $msg_options[$statusErrorsTexts[$status]] : __( 'Undefined Status', 'competitive-scheduling' ) );
         }
 
         private function js_texts(){
