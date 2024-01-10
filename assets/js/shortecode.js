@@ -236,7 +236,7 @@ jQuery( document ).ready( function(){
 
 			console.log(texts['cancel-confirmation']);
 			
-			if( confirm( texts['cancel-confirmation'] ) ){
+			if( confirm( 'teste' ) ){
 				window.open("?action=cancel&schedule_id="+schedule_id,"_self");
 			}
 
