@@ -222,8 +222,10 @@ jQuery( document ).ready( function(){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
 			var schedule_id = jQuery(this).attr('data-id');
-			
-			window.open("?action=confirm&schedule_id="+schedule_id,"_self");
+
+			if( confirm( manager.texts['cofirm-cofirmation'] ) ){
+				window.open("?action=confirm&schedule_id="+schedule_id,"_self");
+			}
 		});
 		
 		// Cancel button.
@@ -232,7 +234,9 @@ jQuery( document ).ready( function(){
 			
 			var schedule_id = jQuery(this).attr('data-id');
 			
-			window.open("?action=cancel&schedule_id="+schedule_id,"_self");
+			if( confirm( manager.texts['cancel-cofirmation'] ) ){
+				window.open("?action=cancel&schedule_id="+schedule_id,"_self");
+			}
 		});
 		
 		// Appointment information.
