@@ -227,6 +227,8 @@ jQuery( document ).ready( function(){
 				window.open("?action=confirm&schedule_id="+schedule_id,"_self");
 			}
 		});
+
+		confirm( 'teste' );
 		
 		// Cancel button.
 		jQuery( document.body ).on( 'mouseup tap', '.cancelSchedulingBtn', function( e ){
