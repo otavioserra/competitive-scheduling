@@ -414,7 +414,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             // Set up the scheduling cell.
                             $cell_aux = $cell[$cell_name];
                             
-                            $cell_aux = Templates::change_variable( $cell_aux, '[[schedule_id]]', $scheduling->id_schedules );
+                            $cell_aux = Templates::change_variable_all( $cell_aux, '[[schedule_id]]', $scheduling->id_schedules );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[date]]', Formats::data_format_to( 'date-to-text', $scheduling->date ) );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[people]]', ( 1 + (int)$scheduling->companions ) );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[status]]', $scheduling->status );
@@ -474,7 +474,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             // Set up the scheduling cell.
                             $cell_aux = $cell[$cell_name];
 
-                            $cell_aux = Templates::change_variable( $cell_aux, '[[schedule_id]]', $scheduling->id_schedules );
+                            $cell_aux = Templates::change_variable_all( $cell_aux, '[[schedule_id]]', $scheduling->id_schedules );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[date]]', Formats::data_format_to( 'date-to-text', $scheduling->date ) );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[people]]', ( 1 + (int)$scheduling->companions ) );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[password]]', $scheduling->password );
@@ -528,7 +528,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             // Set up the scheduling cell.
                             $cell_aux = $cell[$cell_name];
 
-                            $cell_aux = Templates::change_variable( $cell_aux, '[[schedule_id]]', $scheduling->id_schedules );
+                            $cell_aux = Templates::change_variable_all( $cell_aux, '[[schedule_id]]', $scheduling->id_schedules );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[date]]', Formats::data_format_to( 'date-to-text', $scheduling->date ) );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[people]]', ( 1 + (int)$scheduling->companions ) );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[status]]', $scheduling->status );
