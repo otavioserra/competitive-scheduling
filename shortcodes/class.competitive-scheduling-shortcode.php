@@ -214,8 +214,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Get the configuration data.
                     $msg_options = get_option( 'competitive_scheduling_msg_options' );
 
-                    echo 'status: ' . $return['status'] . '<br>';
-
                     switch( $return['status'] ){
                         case 'INACTIVE_SCHEDULING':
                         case 'SCHEDULE_DATE_NOT_ALLOWED':
@@ -225,11 +223,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         case 'COUPON_PRIORITY_EXPIRED':
                         case 'COUPON_PRIORITY_ALREADY_USED':
                         case 'COUPON_PRIORITY_NOT_FOUND':
-                            echo 'case' . '<br>';
-                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $this->status_error_text( $return['status'] ) );
+                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : __( 'Undefined Status', 'competitive-scheduling' ) );
                         break;
                         default:
-                            echo 'default' . '<br>';
                             $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
                             
                             $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
@@ -240,8 +236,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $msgAlert
                     ));
-
-                    exit;
                 } else {
                     // Returned data.
                     $data = Array();
@@ -846,6 +840,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     if( $schedules ){
                         if( $schedules->status == 'confirmed' ){
                             $msgSchedulingAlreadyExists = ( ! empty( $msg_options['msg-scheduling-already-exists'] ) ? $msg_options['msg-scheduling-already-exists'] : '' );
+
+                            $msgSchedulingAlreadyExists = Templates::change_variable( $msgSchedulingAlreadyExists, '#url-schedules-previous#', '.?window=previous-schedules' );
                             
                             return Array(
                                 'status' => 'MULTIPLE_SCHEDULING_NOT_ALLOWED',
@@ -2124,19 +2120,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             );
 
             return ( ! empty( $statusSchedulingTexts[$status] ) ? $statusSchedulingTexts[$status] : __( '<span class="ui grey label">Undefined Status</span>', 'competitive-scheduling' ) );
-        }
-
-        private function status_error_text( $status = '' ){
-            // Get the configuration data.
-            $msg_options = get_option( 'competitive_scheduling_msg_options' );
-
-            $statusErrorsTexts = Array(
-                'MULTIPLE_SCHEDULING_NOT_ALLOWED' => 'msg-scheduling-already-exists',
-            );
-
-            echo 'sim: ' . $status;exit;
-
-            return ( ! empty( $statusErrorsTexts[$status] ) && ! empty( $msg_options[$statusErrorsTexts[$status]] ) ? $msg_options[$statusErrorsTexts[$status]] : __( 'Undefined Status', 'competitive-scheduling' ) );
         }
 
         private function js_texts(){
