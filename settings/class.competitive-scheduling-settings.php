@@ -220,7 +220,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 case 'msg-scheduling-already-exists':
                     $change_variables = array(
                         'title' => __( 'Schedule Now Exist', 'competitive-scheduling' ),
-                        'description' => __( 'This date is already over. You have an appointment registered in your name. It is not Allowed to schedule twice on the same date. If you want to modify a schedule, just click here. is This is possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new appointments.', 'competitive-scheduling' ),
+                        'description' => __( 'This date is already over. You have an appointment registered in your name. It is not allowed to schedule twice on the same date. This is possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new appointments.', 'competitive-scheduling' ),
                     );
                     
                 break;
