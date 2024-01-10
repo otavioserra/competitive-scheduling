@@ -2120,9 +2120,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return ( ! empty( $statusSchedulingTexts[$status] ) ? $statusSchedulingTexts[$status] : __( '<span class="ui grey label">Undefined Status</span>', 'competitive-scheduling' ) );
         }
 
-        public function status_error_text( $status = '' ){
+        private function status_error_text( $status = '' ){
             // Get the configuration data.
             $msg_options = get_option( 'competitive_scheduling_msg_options' );
+
+            return 'msg_options: ' . print_r( $msg_options, true );
 
             $statusErrorsTexts = Array(
                 'MULTIPLE_SCHEDULING_NOT_ALLOWED' => 'msg-scheduling-already-exists',
