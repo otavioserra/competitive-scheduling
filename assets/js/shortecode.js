@@ -223,7 +223,7 @@ jQuery( document ).ready( function(){
 			
 			var schedule_id = jQuery(this).attr('data-id');
 
-			if( confirm( manager.texts['cofirm-cofirmation'] ) ){
+			if( confirm( texts['confirm-confirmation'] ) ){
 				window.open("?action=confirm&schedule_id="+schedule_id,"_self");
 			}
 		});
@@ -234,7 +234,7 @@ jQuery( document ).ready( function(){
 			
 			var schedule_id = jQuery(this).attr('data-id');
 			
-			if( confirm( manager.texts['cancel-cofirmation'] ) ){
+			if( confirm( texts['cancel-confirmation'] ) ){
 				window.open("?action=cancel&schedule_id="+schedule_id,"_self");
 			}
 		});

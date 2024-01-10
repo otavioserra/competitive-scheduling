@@ -2131,8 +2131,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $jsTexts = Array(
                 'companion-label' => __( 'Companion', 'competitive-scheduling' ),
                 'companion-placeholder' => __( 'Companion\'s full name', 'competitive-scheduling' ),
-                'cancel-cofirmation' => __( 'Are you sure you want to delete this schedule?', 'competitive-scheduling' ),
-                'confirm-cofirmation' => __( 'Are you sure you want to confirm this schedule?', 'competitive-scheduling' ),
+                'cancel-confirmation' => __( 'Are you sure you want to delete this schedule?', 'competitive-scheduling' ),
+                'confirm-confirmation' => __( 'Are you sure you want to confirm this schedule?', 'competitive-scheduling' ),
             );
 
             foreach( $jsTexts as $key => $text ){
