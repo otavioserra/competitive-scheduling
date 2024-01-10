@@ -240,6 +240,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $msgAlert
                     ));
+
+                    exit;
                 } else {
                     // Returned data.
                     $data = Array();
