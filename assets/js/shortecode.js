@@ -223,26 +223,20 @@ jQuery( document ).ready( function(){
 			
 			var schedule_id = jQuery(this).attr('data-id');
 
-			if( confirm( texts['confirm-confirmation'] ) ){
+			if( window.confirm( texts['confirm-confirmation'] ) ){
 				window.open("?action=confirm&schedule_id="+schedule_id,"_self");
 			}
 		});
 
-		window.confirm( 'teste' );
-		
 		// Cancel button.
 		jQuery( document.body ).on( 'mouseup tap', '.cancelSchedulingBtn', function( e ){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
 			var schedule_id = jQuery(this).attr('data-id');
 
-			console.log(texts['cancel-confirmation']);
-			
-			if( confirm( 'teste' ) ){
+			if( window.confirm( texts['cancel-confirmation'] ) ){
 				window.open("?action=cancel&schedule_id="+schedule_id,"_self");
 			}
-
-			console.log('depois do confirm');
 		});
 		
 		// Appointment information.
