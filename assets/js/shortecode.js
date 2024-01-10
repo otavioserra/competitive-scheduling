@@ -228,7 +228,7 @@ jQuery( document ).ready( function(){
 			}
 		});
 
-		confirm( 'teste' );
+		window.confirm( 'teste' );
 		
 		// Cancel button.
 		jQuery( document.body ).on( 'mouseup tap', '.cancelSchedulingBtn', function( e ){
