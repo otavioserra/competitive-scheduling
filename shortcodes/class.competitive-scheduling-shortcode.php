@@ -1458,6 +1458,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             } else {
+
                 // Request for confirmation of cancellation.
                 if( isset( $_REQUEST['make_cancel'] ) ){
                     // Make the cancellation.
@@ -1500,6 +1501,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'msg' => $data['alert']
                         ));
                     }
+
+                    exit;
                     
                     // Redirects the page to previous schedules.
                     wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
