@@ -1439,6 +1439,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Get the configuration data.
             $options = get_option( 'competitive_scheduling_options' );
             $msg_options = get_option( 'competitive_scheduling_msg_options' );
+
+            echo 'sim';exit;
             
             // Validate the sent schedule_id.
             $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
