@@ -55,6 +55,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_URL', plugin_dir_url( __FILE__ ) );
             define( 'CS_VERSION', '1.0.0' );
             define( 'CS_DEBUG', true );
+            define( 'CS_EMAIL_ACTIVE', false );
             define( 'CS_FORCE_DATE_TODAY', false );
             define( 'CS_DATE_TODAY_FORCED_VALUE', '2023-01-18' );
             define( 'CS_NOUNCE_SCHEDULES', 'cs-nouce-schedules' );
