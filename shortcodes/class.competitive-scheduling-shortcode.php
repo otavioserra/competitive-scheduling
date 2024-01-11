@@ -1440,8 +1440,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $options = get_option( 'competitive_scheduling_options' );
             $msg_options = get_option( 'competitive_scheduling_msg_options' );
 
-            echo 'sim';exit;
-            
             // Validate the sent schedule_id.
             $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
 
@@ -1469,6 +1467,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'date' => $date,
                     ) );
                     
+                    echo 'is completed: ' . '<br>';
                     if( ! $return['completed'] ){
                         switch( $return['status'] ){
                             case 'SCHEDULE_WITHOUT_VACANCIES':
@@ -1480,6 +1479,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
                         }
                         
+                        echo '! completed: ' . '<br>';
                         // Alert the user if a problem occurs with the problem description message.
                         Interfaces::alert( array(
                             'redirect' => true,
@@ -1492,6 +1492,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $data = $return['data'];
                         }
                         
+                        echo 'completed: ' . '<br>';
+
                         // Alert the user of change success.
                         Interfaces::alert( array(
                             'redirect' => true,
