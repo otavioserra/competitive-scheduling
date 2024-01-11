@@ -236,6 +236,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $msgAlert
                     ));
+
+                    echo 'status != OK: ' . '<br>'; exit;
                 } else {
                     // Returned data.
                     $data = Array();
@@ -248,10 +250,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $data['alert']
                     ));
+
+                    echo 'status == OK: ' . '<br>'; exit;
                     
                     // Redirects the page to previous schedules.
                     wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                 }
+
+                echo 'passou: ' . '<br>'; exit;
                 
                 // Reread the page.
                 wp_redirect( get_permalink() );
