@@ -1457,59 +1457,49 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             if( ! $schedules ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
-            } else {
 
-                // Request for confirmation of cancellation.
-                if( isset( $_REQUEST['make_cancel'] ) ){
-                    // Make the cancellation.
-                    $return = $this->schedule_cancel( array(
-                        'id_schedules' => $id_schedules,
-                        'user_id' => $user_id,
-                        'date' => $date,
-                    ) );
-                    
-                    echo 'is completed: ' . '<br>';
-                    if( ! $return['completed'] ){
-                        switch( $return['status'] ){
-                            case 'SCHEDULE_WITHOUT_VACANCIES':
-                                $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
-                        break;
-                        default:
-                            $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
-                            
-                            $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
-                        }
-                        
-                        echo '! completed: ' . '<br>';
-                        // Alert the user if a problem occurs with the problem description message.
-                        Interfaces::alert( array(
-                            'redirect' => true,
-                            'msg' => $msgAlert
-                        ));
-                    } else {
-                        // Returned data.
-                        $data = Array();
-                        if( isset( $return['data'] ) ){
-                            $data = $return['data'];
-                        }
-                        
-                        echo 'completed: ' . '<br>';
-
-                        // Alert the user of change success.
-                        Interfaces::alert( array(
-                            'redirect' => true,
-                            'msg' => $data['alert']
-                        ));
-                    }
-
-                    exit;
-                    
-                    // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
-                }
-                
                 // Cancellation activation.
                 $_MANAGER['javascript-vars']['cancel'] = true;
+            } else {
+                // Make the cancellation.
+                $return = $this->schedule_cancel( array(
+                    'id_schedules' => $id_schedules,
+                    'user_id' => $user_id,
+                    'date' => $date,
+                ) );
+                
+                if( ! $return['completed'] ){
+                    switch( $return['status'] ){
+                        case 'SCHEDULE_WITHOUT_VACANCIES':
+                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
+                    break;
+                    default:
+                        $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
+                        
+                        $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
+                    }
+                    
+                    // Alert the user if a problem occurs with the problem description message.
+                    Interfaces::alert( array(
+                        'redirect' => true,
+                        'msg' => $msgAlert
+                    ));
+                } else {
+                    // Returned data.
+                    $data = Array();
+                    if( isset( $return['data'] ) ){
+                        $data = $return['data'];
+                    }
+                    
+                    // Alert the user of change success.
+                    Interfaces::alert( array(
+                        'redirect' => true,
+                        'msg' => $data['alert']
+                    ));
+                }
+                
+                // Redirects the page to previous schedules.
+                wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
             }
 
             // Remove the active cell and changes.
