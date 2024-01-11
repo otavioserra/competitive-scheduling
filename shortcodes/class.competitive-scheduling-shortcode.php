@@ -236,8 +236,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $msgAlert
                     ));
-
-                    echo 'status != OK: ' . '<br>'; exit;
                 } else {
                     // Returned data.
                     $data = Array();
@@ -251,14 +249,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'msg' => $data['alert']
                     ));
 
-                    echo 'status == OK: ' . '<br>'; exit;
-                    
                     // Redirects the page to previous schedules.
                     wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                 }
 
-                echo 'passou: ' . '<br>'; exit;
-                
                 // Reread the page.
                 wp_redirect( get_permalink() );
             }
@@ -840,6 +834,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $scheduleConfirm = true;
                 }
 
+                // Generate appointment password.
+                $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
+
                 // Confirm appointment or create pre-booking.
                 if( isset( $scheduleConfirm ) ){
                     
@@ -920,13 +917,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     global $wpdb;
                     $sql = $wpdb->prepare(
                         "UPDATE {$wpdb->prefix}schedules_dates      
-                        SET total = total + ".( $companions + 1 )." 
-                        WHERE id_schedules_dates = '".$schedules_dates->id_schedules_dates."'");
+                        SET total = total + %d 
+                        WHERE id_schedules_dates = '%s'",
+                        array( ( $companions + 1 ), $schedules_dates->id_schedules_dates )
+                    );
                     $wpdb->query($sql);
 
-                    // Generate appointment password.
-                    $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
-                    
                     // Generate a schedule or update an existing one.
                     if( isset( $updateSchedule ) ){
                         $id_schedules = $schedules->id_schedules;
@@ -947,17 +943,18 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         $sql = $wpdb->prepare(
                             "UPDATE {$wpdb->prefix}schedules      
                             SET 
-                                companions = '".$companions."',
-                                password = '".$password."',
+                                companions = '%s',
+                                password = '%s',
                                 status = 'confirmed',
-                                pubID = '".$pubID."',
-                                token = '".$token."',
+                                pubID = '%s',
+                                token = '%s',
                                 version = version + 1,
-                                modification_date = '".current_time('mysql', false)."' 
+                                modification_date = '%s' 
                             WHERE 
-                                id_schedules = '".$id_schedules."' AND 
-                                user_id = '".$user_id."'"
-                            );
+                                id_schedules = '%s' AND 
+                                user_id = '%s'",
+                            array( $companions, $password, $pubID, $token, current_time('mysql', false), $id_schedules, $user_id )
+                        );
                         $wpdb->query($sql);
                     } else {
                         // Create new schedule.
@@ -995,8 +992,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                         $sql = $wpdb->prepare(
                             "UPDATE {$wpdb->prefix}schedules_coupons_priority      
-                            SET id_schedules = '".$id_schedules."' 
-                            WHERE id_schedules_coupons_priority = '".$id_schedules_coupons_priority."'");
+                            SET id_schedules = '%s' 
+                            WHERE id_schedules_coupons_priority = '%s'",
+                            array( $id_schedules, $id_schedules_coupons_priority )
+                        );
                         $wpdb->query($sql);
                     }
                     
@@ -1119,17 +1118,18 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         $sql = $wpdb->prepare(
                             "UPDATE {$wpdb->prefix}schedules      
                             SET 
-                                companions = '".$companions."',
-                                password = '".$password."',
+                                companions = '%s',
+                                password = '%s',
                                 status = 'new',
-                                pubID = '".$pubID."',
-                                token = '".$token."',
+                                pubID = '%s',
+                                token = '%s',
                                 version = version + 1,
-                                modification_date = '".current_time('mysql', false)."' 
+                                modification_date = '%s' 
                             WHERE 
-                                id_schedules = '".$id_schedules."' AND 
-                                user_id = '".$user_id."'"
-                            );
+                                id_schedules = '%s' AND 
+                                user_id = '%s'",
+                            array( $companions, $password, $pubID, $token, current_time('mysql', false), $id_schedules, $user_id )
+                        );
                         $wpdb->query($sql);
                     } else {
                         // Create new schedule.
