@@ -250,7 +250,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     ));
                     
                     // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                 }
                 
                 // Reread the page.
@@ -1322,7 +1322,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ));
 
                         // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                     }
                 } else {
                     if(
@@ -1337,7 +1337,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ));
 
                         // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                     }
                 }
                 
@@ -1394,7 +1394,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 }
                 
                 // Redirects the page to previous schedules.
-                wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
             }
 
             // Remove the active cell and changes.
@@ -1496,7 +1496,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 }
                 
                 // Redirects the page to previous schedules.
-                wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
             }
 
             // Remove the active cell and changes.
