@@ -163,6 +163,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function shortcode_page( $page ){
+            $proxima_execucao = wp_next_scheduled_event( 'competitive_scheduling_cron_hook' );
+            echo 'Mensagem: competitive_scheduling_cron_hook' . '<br>';
+            echo 'proxima_execucao: ' . $proxima_execucao . '<br>';
+            echo 'Forçar execução: competitive_scheduling_cron_hook' . '<br>';
+            do_action( 'competitive_scheduling_cron_hook' );
+
+            exit;
+
             // Verify if page is defined
             if( empty( $page ) ){
                 return '';
