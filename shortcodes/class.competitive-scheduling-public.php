@@ -86,7 +86,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Require interface class to alert user and get modal template.
             require_once( CS_PATH . 'includes/class.interfaces.php' );
 
-            // Request to create appointment.
+            // Request to create schedule.
             if( isset( $_REQUEST['schedule'] ) ){
                 // Verifiying nonce
                 $this->nonce_verify( 'schedule-nonce' );
@@ -183,16 +183,16 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 
                 // Get cells from schedules.
                 $cell_name = 'cell-pre'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'cell-appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'cell-schedules'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 $cell_name = 'cell-olds'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 $cell_name = 'load-more-pre'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 $cell_name = 'load-more-schedules'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 $cell_name = 'load-oldest'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-                $cell_name = 'pre-appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-                $cell_name = 'old-appointments'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'pre-schedules'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'schedules'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'old-schedules'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
                 // Calendar assembly.
                 $this->calendar();
@@ -231,7 +231,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
                 $DBOld = $wpdb->get_results( $query );
                 
-                // Check if the user has appointments.
+                // Check if the user has schedules.
                 if( $DBPreSchedules || $DBSchedules || $DBOld ){
                     // Scheduling status.
                     $statusSchedulingIDs = $this->statusSchedulingIDs;
@@ -308,7 +308,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $cell_name = 'cell-pre';
                             
                             if( ! isset( $pre_bookings_flag ) ){
-                                $pre_appointments = $cell['pre-appointments'];
+                                $pre_schedules = $cell['pre-schedules'];
                                 $pre_bookings_flag = true;
                             }
                             
@@ -327,14 +327,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 $cell_name = 'confirm-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                             }
                             
-                            // Remove change buttons if the appointment date is today.
+                            // Remove change buttons if the schedule date is today.
                             if( $today == $scheduling->date ){
                                 $cell_name = 'cancel-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                                 $cell_name = 'confirm-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                             }
                             
                             // Include the cell in its type.
-                            $pre_appointments = Formats::variable_in( $pre_appointments, '<!-- cell-pre -->', $cell_aux );
+                            $pre_schedules = Formats::variable_in( $pre_schedules, '<!-- cell-pre -->', $cell_aux );
                             
                             // Break the loop when you reach the page limit.
                             $counter++;
@@ -349,7 +349,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                             $cell_aux = Templates::change_variable( $cell_aux, '[[numPages]]', ceil( ( $numRecords / CS_NUM_RECORDS_PER_PAGE ) ) );
                             
-                            $pre_appointments = Formats::variable_in( $pre_appointments, '<!-- load-more-pre -->', $cell_aux );
+                            $pre_schedules = Formats::variable_in( $pre_schedules, '<!-- load-more-pre -->', $cell_aux );
                         }
                     }
                     
@@ -365,11 +365,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $scheduling->status = $statusSchedule['status-confirmed'];
                             
                             // Get the scheduling type cell.
-                            $cell_name = 'cell-appointments';
+                            $cell_name = 'cell-schedules';
 
-                            if( ! isset( $appointments_confirmed_flag ) ){
-                                $confirmed_appointments = $cell['appointments'];
-                                $appointments_confirmed_flag = true;
+                            if( ! isset( $schedules_confirmed_flag ) ){
+                                $confirmed_schedules = $cell['schedules'];
+                                $schedules_confirmed_flag = true;
                             }
                             
                             // Set up the scheduling cell.
@@ -382,13 +382,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $cell_aux = Templates::change_variable( $cell_aux, '[[status]]', $scheduling->status );
                             $cell_aux = Templates::change_variable( $cell_aux, '[[modification_date]]', Formats::data_format_to( 'datetime-to-text', $scheduling->modification_date ) );
                             
-                            // Remove change buttons if the appointment date is today.
+                            // Remove change buttons if the schedule date is today.
                             if( $today == $scheduling->date ){
                                 $cell_name = 'cancel-btn'; $cell_aux = Formats::tag_in( $cell_aux,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '' );
                             }
                             
                             // Include the cell in its type.
-                            $confirmed_appointments = Formats::variable_in( $confirmed_appointments, '<!-- cell-appointments -->', $cell_aux );
+                            $confirmed_schedules = Formats::variable_in( $confirmed_schedules, '<!-- cell-schedules -->', $cell_aux );
                             
                             // Break the loop when you reach the page limit.
                             $counter++;
@@ -403,7 +403,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                             $cell_aux = Templates::change_variable( $cell_aux, '[[numPages]]', ceil( ( $numRecords / CS_NUM_RECORDS_PER_PAGE ) ) );
                             
-                            $confirmed_appointments = Formats::variable_in( $confirmed_appointments, '<!-- load-more-schedules -->', $cell_aux );
+                            $confirmed_schedules = Formats::variable_in( $confirmed_schedules, '<!-- load-more-schedules -->', $cell_aux );
                         }
                     }
                     
@@ -422,7 +422,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $cell_name = 'cell-olds';
 
                             if( ! isset( $old_schedules_flag ) ){
-                                $old_appointments = $cell['old-appointments'];
+                                $old_schedules = $cell['old-schedules'];
                                 $old_schedules_flag = true;
                             }
                             
@@ -436,7 +436,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $cell_aux = Templates::change_variable( $cell_aux, '[[modification_date]]', Formats::data_format_to( 'datetime-to-text', $scheduling->modification_date ) );
 
                             // Include the cell in its type.
-                            $old_appointments = Formats::variable_in( $old_appointments, '<!-- cell-olds -->', $cell_aux );
+                            $old_schedules = Formats::variable_in( $old_schedules, '<!-- cell-olds -->', $cell_aux );
                             
                             // Break the loop when you reach the page limit.
                             $counter++;
@@ -451,7 +451,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                             $cell_aux = Templates::change_variable( $cell_aux, '[[numPages]]', ceil( ( $numRecords / CS_NUM_RECORDS_PER_PAGE ) ) );
                             
-                            $old_appointments = Formats::variable_in( $old_appointments, '<!-- load-oldest -->', $cell_aux );
+                            $old_schedules = Formats::variable_in( $old_schedules, '<!-- load-oldest -->', $cell_aux );
                         }
                     }
                 }
@@ -463,12 +463,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
                 $page .= $modal;
                 
-                // Create appointments on the page.
+                // Create schedules on the page.
                 $cell_name = 'unregistered'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-                $page = Templates::change_variable( $page, '#confirmed_appointments#', ( isset( $appointments_confirmed_flag) ? $confirmed_appointments : $cell['unregistered'] ) );
-                $page = Templates::change_variable( $page, '#pre_appointments#', ( isset( $pre_bookings_flag ) ? $pre_appointments : $cell['unregistered'] ) );
-                $page = Templates::change_variable( $page, '#old_schedules#', ( isset( $old_schedules_flag) ? $old_appointments : $cell['unregistered'] ) );
+                $page = Templates::change_variable( $page, '#confirmed_schedules#', ( isset( $schedules_confirmed_flag) ? $confirmed_schedules : $cell['unregistered'] ) );
+                $page = Templates::change_variable( $page, '#pre_schedules#', ( isset( $pre_bookings_flag ) ? $pre_schedules : $cell['unregistered'] ) );
+                $page = Templates::change_variable( $page, '#old_schedules#', ( isset( $old_schedules_flag) ? $old_schedules : $cell['unregistered'] ) );
                 
                 $page = Templates::change_variable( $page, '#draw_date#', $free_choice_phase );
                 $page = Templates::change_variable( $page, '#date_confirmation_1#', $draw_phase[0] );
@@ -689,7 +689,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 );
                             }
                             
-                            // Check if the coupon has already been used on another appointment. If so, return coupon error already used.
+                            // Check if the coupon has already been used on another schedule. If so, return coupon error already used.
                             if( ! empty( $id_schedules_coupon_used ) ){
                                 $msgPriorityCouponAlreadyUsed = ( ! empty( $msg_options['msg-priority-coupon-already-used'] ) ? $msg_options['msg-priority-coupon-already-used'] : '' );
                                 
@@ -730,10 +730,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $scheduleConfirm = true;
                 }
                 
-                // Confirm appointment or create pre-booking.
+                // Confirm schedule or create pre-booking.
                 if( isset( $scheduleConfirm ) ){
                     
-                    // Check if you already have a confirmed appointment for this date. If so, return error and permission message for only one schedule per date.
+                    // Check if you already have a confirmed schedule for this date. If so, return error and permission message for only one schedule per date.
                     if( $schedules ){
                         if( $schedules->status == 'confirmed' ){
                             $msgSchedulingAlreadyExists = ( ! empty( $msg_options['msg-scheduling-already-exists'] ) ? $msg_options['msg-scheduling-already-exists'] : '' );
@@ -801,11 +801,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         );
                     }
                     
-                    // Update the total number of spaces used in appointments for the date in question.
+                    // Update the total number of spaces used in schedules for the date in question.
                     global $wpdb;
                     $result = $wpdb->update( $wpdb->prefix.'schedules_dates', array('total' => 'total + '.( $companions + 1 ) ), array('id_schedules_dates' => $schedules_dates->id_schedules_dates ) );
 
-                    // Generate appointment password.
+                    // Generate schedule password.
                     $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
                     
                     // Generate a schedule or update an existing one.
@@ -859,7 +859,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         
                         $id_schedules = $wpdb->insert_id;
                         
-                        // Create appointment companions if applicable.
+                        // Create schedule companions if applicable.
                         if( (int)$companions > 0 ){
                             for( $i=0; $i<(int)$companions; $i++ ){
                                 $wpdb->insert( $wpdb->prefix.'schedules_companions', array(
@@ -871,7 +871,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         }
                     }
                     
-                    // Check whether a coupon has been used. If yes, mark the coupon with the appointment identifier.
+                    // Check whether a coupon has been used. If yes, mark the coupon with the schedule identifier.
                     if( isset( $couponValid ) ){
                         $id_schedules_coupons_priority = $couponValid;
 
@@ -969,7 +969,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $custom_mailer = new Custom_Mailer();
                     $custom_mailer->send($to, $subject, $body);
                 } else {
-                    // Check if you already have an appointment for this date. If so, return error and permission message for only one schedule per date.
+                    // Check if you already have an schedule for this date. If so, return error and permission message for only one schedule per date.
                     if( $schedules ){
                         if( $schedules->status != 'finished' ){
                             $msgSchedulingAlreadyExists = ( ! empty( $msg_options['msg-scheduling-already-exists'] ) ? $msg_options['msg-scheduling-already-exists'] : '' );
@@ -1034,7 +1034,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         
                         $id_schedules = $wpdb->insert_id;
 
-                        // Create appointment companions if applicable.
+                        // Create schedule companions if applicable.
                         if( (int)$companions > 0 ){
                             for( $i=0; $i<(int)$companions; $i++ ){
                                 $wpdb->insert( $wpdb->prefix.'schedules_companions', array(
@@ -1179,7 +1179,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
                 $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
            
-                // Check whether the current status of the appointment allows confirmation.
+                // Check whether the current status of the schedule allows confirmation.
                 if(
                     $status == 'confirmed' ||
                     $status == 'qualified' ||

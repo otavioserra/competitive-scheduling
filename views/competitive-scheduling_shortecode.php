@@ -10,9 +10,9 @@
             <i class="calendar plus icon"></i>
             <?php echo esc_html__( 'Schedule Service', 'competitive-scheduling' ); ?>
         </a>
-        <a class="ui blue button schedulesBtn" data-content="<?php echo esc_attr__( 'Click to view previous appointments', 'competitive-scheduling' ); ?>" data-position="bottom left" data-variation="inverted">
+        <a class="ui blue button schedulesBtn" data-content="<?php echo esc_attr__( 'Click to view previous schedules', 'competitive-scheduling' ); ?>" data-position="bottom left" data-variation="inverted">
             <i class="calendar alternate icon"></i>
-            <?php echo esc_html__( 'Previous Appointments', 'competitive-scheduling' ); ?>
+            <?php echo esc_html__( 'Previous Schedules', 'competitive-scheduling' ); ?>
     	</a>
         <div class="ui hidden divider"></div>
         <div class="schedule hidden scheduleWindow">
@@ -101,22 +101,22 @@
             </form>
         </div>
         <div class="schedules hidden scheduleWindow">
-            <div class="ui header"><?php echo esc_html__( 'Pre-appointments', 'competitive-scheduling' ); ?></div>
+            <div class="ui header"><?php echo esc_html__( 'Pre-schedules', 'competitive-scheduling' ); ?></div>
             <div class="pre-agendamentos">
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="lista-1"><?php echo esc_html__( 'Listing', 'competitive-scheduling' ); ?></a>
                     <a class="item" data-tab="informative-1"><?php echo esc_html__( 'Information', 'competitive-scheduling' ); ?></a>
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="lista-1">
-                    #pre_appointments#
+                    #pre_schedules#
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="informative-1">
-                    <p><?php echo __( '<span class="ui red text">IMPORTANT 1:</span> Pre-appointments ARE NOT confirmed appointments. They will be drawn through the system <span class="ui blue text">#draw_date#</span> days before the day of service. If your pre-booking is drawn, you must confirm your booking via an email that will be sent <span class="ui blue text">#draw_date#</span> days before the day of the appointment. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your appointment. This confirmation must be made between <span class="ui blue text">#date_confirmation_1#</span> to <span class="ui blue text">#date_confirmation_2#</span> days before the day of service. If you do not confirm your appointment within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo __( '<span class="ui red text">IMPORTANT 1:</span> Pre-schedules ARE NOT confirmed schedules. They will be drawn through the system <span class="ui blue text">#draw_date#</span> days before the day of service. If your pre-booking is drawn, you must confirm your booking via an email that will be sent <span class="ui blue text">#draw_date#</span> days before the day of the schedule. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your schedule. This confirmation must be made between <span class="ui blue text">#date_confirmation_1#</span> to <span class="ui blue text">#date_confirmation_2#</span> days before the day of service. If you do not confirm your schedule within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ); ?></p>
                     <p><?php echo __( '<span class="ui red text">IMPORTANT 2:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to all. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ); ?></p>
-                    <p><?php echo __( '<span class="ui red text">IMPORTANT 3:</span> After the day <span class="ui blue text">#date_confirmation_2#</span> the scheduling system will release the residual vacancies to be chosen again and If you have not confirmed, or have not been drawn, you can choose the same date for an appointment. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo __( '<span class="ui red text">IMPORTANT 3:</span> After the day <span class="ui blue text">#date_confirmation_2#</span> the scheduling system will release the residual vacancies to be chosen again and If you have not confirmed, or have not been drawn, you can choose the same date for an schedule. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ); ?></p>
                 </div>
             </div>
-            <!-- pre-appointments < -->
+            <!-- pre-schedules < -->
             <div class="ui stackable two column grid tabelaPreAgendamentos">
                 <!-- cell-pre < --><div class="column">
                 <div class="ui segment">
@@ -176,23 +176,23 @@
                     <?php echo esc_html__( 'Load More', 'competitive-scheduling' ); ?>
                 </a>
             </div><!-- load-more-pre > -->
-            <!-- pre-appointments > -->
-            <div class="ui header"><?php echo esc_html__( 'Confirmed Appointments', 'competitive-scheduling' ); ?></div>
+            <!-- pre-schedules > -->
+            <div class="ui header"><?php echo esc_html__( 'Confirmed Schedules', 'competitive-scheduling' ); ?></div>
             <div class="agendamentos-confirmados">
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="lista-2"><?php echo esc_html__( 'Listing', 'competitive-scheduling' ); ?></a>
                     <a class="item" data-tab="informative-2"><?php echo esc_html__( 'Information', 'competitive-scheduling' ); ?></a>
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="lista-2">
-                    #confirmed_appointments#
+                    #confirmed_schedules#
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="informative-2">
-                    <p><?php echo __( '<span class="ui red text">IMPORTANT 1:</span> It is mandatory to present the name and password provided below for you and your companions on the day of the appointment.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo __( '<span class="ui red text">IMPORTANT 1:</span> It is mandatory to present the name and password provided below for you and your companions on the day of the schedule.', 'competitive-scheduling' ); ?></p>
                 </div>
             </div>
-            <!-- appointments < -->
+            <!-- schedules < -->
             <div class="ui stackable two column grid tabelaAgendamentos">
-                <!-- cell-appointments < --><div class="column">
+                <!-- cell-schedules < --><div class="column">
                 <div class="ui segment">
                     <div class="ui top large attached label"><?php echo esc_html__( 'Service Date:', 'competitive-scheduling' ); ?> [[date]]</div>
                     <table class="ui definition unstackable table">
@@ -238,18 +238,18 @@
                         </tbody>
                     </table>
                 </div>
-                </div><!-- cell-appointments > -->
+                </div><!-- cell-schedules > -->
             </div>
             <!-- load-more-schedules < --><div class="ui center aligned basic segment">
-                <a class="ui blue button loadMoreAppointments" data-tooltip="<?php echo esc_attr__( 'Click this button to load more records.', 'competitive-scheduling' ); ?>" data-position="top center" data-inverted="" data-num-pages="[[numPages]]">
+                <a class="ui blue button loadMoreSchedules" data-tooltip="<?php echo esc_attr__( 'Click this button to load more records.', 'competitive-scheduling' ); ?>" data-position="top center" data-inverted="" data-num-pages="[[numPages]]">
                     <i class="calendar alternate outline icon"></i>
                     <?php echo esc_html__( 'Load More', 'competitive-scheduling' ); ?>
                 </a>
             </div><!-- load-more-schedules > -->
-            <!-- appointments > -->
+            <!-- schedules > -->
             <div class="ui header"><?php echo esc_html__( 'Old Schedules', 'competitive-scheduling' ); ?></div>
             <p>#old_schedules#</p>
-            <!-- old-appointments < -->
+            <!-- old-schedules < -->
             <div class="ui stackable two column grid tabelaAgendamentosAntigos">
                 <!-- cell-olds < --><div class="column">
                 <div class="ui segment">
@@ -290,7 +290,7 @@
                     <?php echo esc_html__( 'Load More', 'competitive-scheduling' ); ?>
                 </a>
             </div><!-- load-oldest > -->
-            <!-- old-appointments > -->
+            <!-- old-schedules > -->
             <!-- schedule-data < --><table class="ui definition table">
                 <thead>
                     <tr>
@@ -315,7 +315,7 @@
                     <div class="header">
                         <?php echo esc_html__( 'No Records', 'competitive-scheduling' ); ?>
                     </div>
-                    <p><?php echo esc_html__( 'There are no registered appointments of this type.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo esc_html__( 'There are no registered schedules of this type.', 'competitive-scheduling' ); ?></p>
                 </div>
             </div><!-- unregistered > -->
         </div>
@@ -329,7 +329,7 @@
                 <div class="header">
                     <?php echo esc_html__( 'Instructions', 'competitive-scheduling' ); ?>
                 </div>
-                <p><?php echo esc_html__( 'Are you sure you want to confirm this appointment? If yes, click on the <b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
+                <p><?php echo esc_html__( 'Are you sure you want to confirm this schedule? If yes, click on the <b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
         <form class="ui form attached fluid segment confirmationForm" method="post" action="<?php echo get_permalink(); ?>">
@@ -358,7 +358,7 @@
         </form>
         <div class="ui bottom attached warning message">
             <i class="icon exclamation triangle"></i>
-            <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this appointment!', 'competitive-scheduling' ); ?>
+            <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this schedule!', 'competitive-scheduling' ); ?>
         </div>
     </div>
     <div class="cancelar hidden scheduleWindow">
@@ -369,7 +369,7 @@
                 <div class="header">
                     <?php echo esc_html__( 'Instructions', 'competitive-scheduling' ); ?>
                 </div>
-                <p><?php echo esc_html__( 'Are you sure you want to cancel this appointment? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
+                <p><?php echo esc_html__( 'Are you sure you want to cancel this schedule? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
         <form class="ui form attached fluid segment cancelForm" method="post" action="<?php echo get_permalink(); ?>">
@@ -393,7 +393,7 @@
         </form>
         <div class="ui bottom attached warning message">
             <i class="icon exclamation triangle"></i>
-            <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this appointment!', 'competitive-scheduling' ); ?>
+            <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this schedule!', 'competitive-scheduling' ); ?>
         </div>
     </div>
     <div class="ExpiredOrNotFound hidden scheduleWindow">
@@ -411,7 +411,7 @@
                     <li><?php echo esc_html__( 'The deadline for changing the schedule has been reached.', 'competitive-scheduling' ); ?></li>
                     <li><?php echo esc_html__( 'The code sent is invalid.', 'competitive-scheduling' ); ?></li>
                 </ol>
-                <p><?php echo esc_html__( 'Access your appointments by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
             </div>
         </div>
     </div><!-- changes > -->

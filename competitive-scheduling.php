@@ -61,22 +61,30 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_NOUNCE_SCHEDULES', 'cs-nouce-schedules' );
             define( 'CS_NOUNCE_SCHEDULES_EXPIRES', 86400*45 );
             define( 'CS_NUM_RECORDS_PER_PAGE', 20 );
+            define( 'CS_MAX_EMAILS_PER_CYCLE', 50 ); // Maximum number of emails sent per scheduled task execution cycle
+            define( 'CS_TIME_NEXT_CYCLE_AFTER_EMAIL_PER_CYCLE_REACH', 15 ); // Number of minutes to run a new cycle of sending confirmation emails
+            define( 'CS_MAX_RERUN_CYCLES', 20 ); // Maximum number of executions allowed to send all emails before stopping
         }
 
         public static function activate(){
             require_once( CS_PATH . 'includes/class.database.php' );
             require_once( CS_PATH . 'includes/class.authentication.php' );
+            require_once( CS_PATH . 'includes/class.cron.php' );
             
             update_option( 'rewrite_rules', '' );
 
             Competitive_Scheduling_Settings::register_settings();
             Database::update_database();
             Authentication::install_keys();
+            Cron::activate();
         }
 
         public static function deactivate(){
+            require_once( CS_PATH . 'includes/class.cron.php' );
+
             flush_rewrite_rules();
             unregister_post_type( 'competitive-scheduling' );
+            Cron::deactivate();
         }
 
         public static function uninstall(){

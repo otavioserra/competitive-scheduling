@@ -281,19 +281,19 @@ jQuery( document ).ready( function(){
 			} );
 		});
 		
-		// Rules for reading more appointment entries.
+		// Rules for reading more schedule entries.
 		var loadObjs = {};
-		var button_id = '.loadMorePre,.loadMoreAppointments,.loadOldest';
+		var button_id = '.loadMorePre,.loadMoreSchedules,.loadOldest';
 		
 		jQuery(button_id).on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
 			var obj = this;
 			
-			// Check the type of appointment.
+			// Check the type of schedule.
 			var type = '';
 			if(jQuery(obj).hasClass('loadMorePre')){type = 'loadMorePre';}
-			if(jQuery(obj).hasClass('loadMoreAppointments')){type = 'loadMoreAppointments';}
+			if(jQuery(obj).hasClass('loadMoreSchedules')){type = 'loadMoreSchedules';}
 			if(jQuery(obj).hasClass('loadOldest')){type = 'loadOldest';}
 			
 			// Load objects.
@@ -333,7 +333,7 @@ jQuery( document ).ready( function(){
 							// Include records in tables corresponding to scheduling types.
 							switch(type){
 								case 'loadMorePre': jQuery('.tabelaPreAgendamentos').append(data.records); break;
-								case 'loadMoreAppointments': jQuery('.tabelaAgendamentos').append(data.records); break;
+								case 'loadMoreSchedules': jQuery('.tabelaAgendamentos').append(data.records); break;
 								case 'loadOldest': jQuery('.tabelaAgendamentosAntigos').append(data.records); break;
 							}
 							

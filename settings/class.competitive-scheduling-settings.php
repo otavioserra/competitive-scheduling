@@ -60,7 +60,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_msg_options',
                 array(
                     'print-schedules' => self::template_html( 'print-schedules' ),
-                    'coupon-priority-description' => __( 'When making a new appointment, fill in the code below in the <b>Priority Coupon</b> field', 'competitive-scheduling' ),
+                    'coupon-priority-description' => __( 'When making a new schedule, fill in the code below in the <b>Priority Coupon</b> field', 'competitive-scheduling' ),
                     'msg-alert' => self::template_html( 'msg-alert' ),
                     'msg-scheduling-cancelled' => self::template_html( 'msg-scheduling-cancelled' ),
                     'msg-scheduling-confirmed' => self::template_html( 'msg-scheduling-confirmed' ),
@@ -118,21 +118,21 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             switch($id_template) {
                 case 'schedule-message':
                     $change_variables = array(
-                        'title' => __( 'Your appointment was successful!', 'competitive-scheduling' ),
+                        'title' => __( 'Your schedule was successful!', 'competitive-scheduling' ),
                         'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
-                        'description' => __( 'You have just made an appointment within the #title# booking system:', 'competitive-scheduling' ),
+                        'description' => __( 'You have just made an schedule within the #title# booking system:', 'competitive-scheduling' ),
                         'day' => __( 'Day', 'competitive-scheduling' ),
                         'password' => __( 'Password', 'competitive-scheduling' ),
                         'scheduled-people' => __( 'Scheduled People', 'competitive-scheduling' ),
                         'your-name' => __( 'Your name', 'competitive-scheduling' ),
                         'companion' => __( 'Companion', 'competitive-scheduling' ),
-                        'cancel-appointment' => __( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'cancel-schedule' => __( 'If you wish to <b>CANCEL</b> your schedule, go to', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'unschedule-message':
                     $change_variables = array(
-                        'title' => __( 'Your appointment has been successfully cancelled!', 'competitive-scheduling' ),
+                        'title' => __( 'Your schedule has been successfully cancelled!', 'competitive-scheduling' ),
                         'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
                         'description' => __( 'You just deleted a schedule within the #title# scheduling system:', 'competitive-scheduling' ),
                         'day' => __( 'Day', 'competitive-scheduling' ),
@@ -141,12 +141,12 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 break;
                 case 'confirmation-message':
                     $change_variables = array(
-                        'title' => __( 'Confirm or cancel your appointment!', 'competitive-scheduling' ),
+                        'title' => __( 'Confirm or cancel your schedule!', 'competitive-scheduling' ),
                         'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
                         'description' => __( 'The system qualified your pre-scheduling for scheduling of #title#:', 'competitive-scheduling' ),
                         'day' => __( 'Day', 'competitive-scheduling' ),
-                        'confirm' => __( 'To <b>CONFIRM</b> your appointment and receive your service password, go to', 'competitive-scheduling' ),
-                        'cancel' => __( 'To <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'confirm' => __( 'To <b>CONFIRM</b> your schedule and receive your service password, go to', 'competitive-scheduling' ),
+                        'cancel' => __( 'To <b>CANCEL</b> your schedule, go to', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -157,10 +157,10 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                         'description' => __( 'You have just made a pre-booking within the #title# booking system:', 'competitive-scheduling' ),
                         'day' => __( 'Day', 'competitive-scheduling' ),
                         'info' => __( 'IMPORTANT INFORMATION', 'competitive-scheduling' ),
-                        'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-appointments ARE NOT confirmed appointments. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your appointment via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the appointment. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your appointment. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your appointment within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
+                        'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-schedules ARE NOT confirmed schedules. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your schedule via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the schedule. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your schedule. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your schedule within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
                         'important_2' => __( '<br /><span class="txt-1"><b>IMPORTANT 2</b>:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to everyone. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ),
-                        'important_3' => __( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an appointment. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
-                        'cancel' => __( 'If you wish to <b>CANCEL</b> your appointment, go to', 'competitive-scheduling' ),
+                        'important_3' => __( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an schedule. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
+                        'cancel' => __( 'If you wish to <b>CANCEL</b> your schedule, go to', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -206,36 +206,36 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 case 'msg-schedule-expired':
                     $change_variables = array(
                         'title' => __( 'Confirmation Period Expired', 'competitive-scheduling' ),
-                        'description1' => __( 'It is not It is possible to confirm your appointment once it is ready. outside the confirmation period!', 'competitive-scheduling' ),
+                        'description1' => __( 'It is not It is possible to confirm your schedule once it is ready. outside the confirmation period!', 'competitive-scheduling' ),
                         'description2' => __( 'The confirmation period comprises the day <b>#date_confirmation_1#</b> until the end of the month. the day <b>#date_confirmation_2#</b> .', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-already-confirmed':
                     $change_variables = array(
-                        'title' => __( 'This appointment is already available. was confirmed in another confirmation attempt and therefore is not confirmed. You can confirm the same again.', 'competitive-scheduling' ),
+                        'title' => __( 'This schedule is already available. was confirmed in another confirmation attempt and therefore is not confirmed. You can confirm the same again.', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-already-exists':
                     $change_variables = array(
                         'title' => __( 'Schedule Now Exist', 'competitive-scheduling' ),
-                        'description' => __( 'This date is already over. You have an appointment registered in your name. It is not allowed to schedule twice on the same date. This is possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new appointments.', 'competitive-scheduling' ),
+                        'description' => __( 'This date is already over. You have an schedule registered in your name. It is not allowed to schedule twice on the same date. This is possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new schedules.', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-not-found':
                     $change_variables = array(
                         'title' => __( 'Appointment Not Found', 'competitive-scheduling' ),
-                        'description1' => __( 'We were unable to find your appointment or the verification code provided has expired.', 'competitive-scheduling' ),
-                        'description2' => __( 'It is possible that your appointment has already been completed. has been confirmed or canceled and the appointment verification code has been removed from the system after use. Therefore, access the system <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and make the changes there.', 'competitive-scheduling' ),
+                        'description1' => __( 'We were unable to find your schedule or the verification code provided has expired.', 'competitive-scheduling' ),
+                        'description2' => __( 'It is possible that your schedule has already been completed. has been confirmed or canceled and the schedule verification code has been removed from the system after use. Therefore, access the system <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and make the changes there.', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-without-vacancies':
                     $change_variables = array(
                         'title' => __( 'No Vacancy Scheduling', 'competitive-scheduling' ),
-                        'description' => __( 'It is not It is possible to schedule you and/or their companions on the day <b>#date#</b> as it exceeds the capacity of appointment slots on the day in question!', 'competitive-scheduling' ),
+                        'description' => __( 'It is not It is possible to schedule you and/or their companions on the day <b>#date#</b> as it exceeds the capacity of schedule slots on the day in question!', 'competitive-scheduling' ),
                         'vacancies' => __( 'Total number of available places: <b>#vacancies#</b>.', 'competitive-scheduling' ),
                         'observations' => __( 'Observations:', 'competitive-scheduling' ),
                         'info1' => __( 'Choose another day and try again.', 'competitive-scheduling' ),
@@ -264,15 +264,15 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     $change_variables = array(
                         'title' => __( 'Pre-Schedule Completed Successfully!', 'competitive-scheduling' ),
                         'day' => __( 'Day', 'competitive-scheduling' ),
-                        'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-appointments ARE NOT confirmed appointments. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your appointment via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the appointment. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your appointment. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your appointment within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
+                        'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-schedules ARE NOT confirmed schedules. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your schedule via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the schedule. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your schedule. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your schedule within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
                         'important_2' => __( '<br /><span class="txt-1"><b>IMPORTANT 2</b>:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to everyone. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ),
-                        'important_3' => __( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an appointment. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
+                        'important_3' => __( '<br /><span class="txt-1"><b>IMPORTANT 3</b>:</span> After day <span class="txt-1">#date_confirmation_2#</span>, the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you will be able to choose the same date for an schedule. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-confirmation-status-not-permitted':
                     $change_variables = array(
-                        'title' => __( 'It is not possible to confirm this appointment as the system has not allowed it to do so.', 'competitive-scheduling' ),
+                        'title' => __( 'It is not possible to confirm this schedule as the system has not allowed it to do so.', 'competitive-scheduling' ),
                     );
                     
                 break;
@@ -913,7 +913,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 max="999"
                 value="<?php echo isset( self::$options['days-week-maximum-vacancies'] ) ? esc_attr( self::$options['days-week-maximum-vacancies'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Maximum number of appointment slots for days of the week. If you want to define different amounts per day of the week, use ',' to separate. For example, 40.60.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Maximum number of schedule slots for days of the week. If you want to define different amounts per day of the week, use ',' to separate. For example, 40.60.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -956,7 +956,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 class="input-small-text"
                 value="<?php echo isset( self::$options['draw-phase'] ) ? esc_attr( self::$options['draw-phase'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Period in days before the day of a service in which the system blocks the free choice of service to allow time for appointments to be confirmed.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Period in days before the day of a service in which the system blocks the free choice of service to allow time for schedules to be confirmed.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -971,7 +971,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 max="10"
                 value="<?php echo isset( self::$options['max-companions'] ) ? esc_attr( self::$options['max-companions'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Maximum number of companions in one appointment', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Maximum number of companions in one schedule', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1013,7 +1013,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 class="input-titles" 
                 value="<?php echo isset( self::$html_options['schedule-subject'] ) ? esc_attr( self::$html_options['schedule-subject'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Subject of emails that will be sent to users\' schedules made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1029,7 +1029,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Message of emails that will be sent to users\' appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Message of emails that will be sent to users\' schedules made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1042,7 +1042,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 class="input-titles" 
                 value="<?php echo isset( self::$html_options['unschedule-subject'] ) ? esc_attr( self::$html_options['unschedule-subject'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Subject of the emails that will be sent regarding the exclusions of user appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Subject of the emails that will be sent regarding the exclusions of user schedules made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1071,7 +1071,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 class="input-titles" 
                 value="<?php echo isset( self::$html_options['confirmation-subject'] ) ? esc_attr( self::$html_options['confirmation-subject'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Subject of emails that will be sent to confirm user appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Subject of emails that will be sent to confirm user schedules made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1087,14 +1087,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Email message that will be sent to confirm user appointments made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Email message that will be sent to confirm user schedules made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
         public function field_print_schedules_callback(){
             ?>
                 <textarea id="codemirror_editor" name="competitive_scheduling_msg_options[print-schedules]" rows="10" cols="50"><?php echo isset( self::$msg_options['print-schedules'] ) ? self::$msg_options['print-schedules'] : '';  ?></textarea>
-                <p><?php echo esc_html__( 'HTML layout for printing confirmed appointments.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'HTML layout for printing confirmed schedules.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1190,7 +1190,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Message that will be shown to the user when trying to confirm an already confirmed appointment again.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Message that will be shown to the user when trying to confirm an already confirmed schedule again.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
@@ -1238,7 +1238,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Alert message shown to users when there are no spaces for an appointment.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Alert message shown to users when there are no spaces for an schedule.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
@@ -1302,7 +1302,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Message that will be shown to the user when trying to confirm an appointment with a not allowed status.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Message that will be shown to the user when trying to confirm an schedule with a not allowed status.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
