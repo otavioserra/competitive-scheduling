@@ -17,7 +17,7 @@ if( ! class_exists( 'Cron' ) ){
                 $current_timestamp = time();
 
                 // Add 24 hours to the date
-                $tomorrow_date = date( "Y-m-d", $local_timestamp + 86400 );
+                $tomorrow_date = date( "Y-m-d", $current_timestamp + 86400 );
 
                 // Convert the tomorrow date to a timestamp and defines the task execution time
                 $tomorrow_timestamp = strtotime( $tomorrow_date . " 00:01" );
