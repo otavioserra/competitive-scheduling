@@ -10,8 +10,8 @@ if( ! class_exists( 'Cron' ) ){
 
         public static function activate(){
             if( ! wp_next_scheduled( 'competitive_scheduling_cron_hook' ) ){
-                add_action( 'competitive_scheduling_cron_hook', 'Cron::run' );
-                add_action( 'competitive_scheduling_cron_hook_after', 'Cron::run_after' );
+                add_action( 'competitive_scheduling_cron_hook', array( self, 'run' ) );
+                add_action( 'competitive_scheduling_cron_hook_after', array( self, 'run_after' ) );
 
                 // Get the current timestamp
                 $current_timestamp = time();
@@ -34,7 +34,8 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function desactivate(){
-            remove_action( 'competitive_scheduling_cron_hook', 'Cron::run' );
+            remove_action( 'competitive_scheduling_cron_hook', array( self, 'run' ) );
+            remove_action( 'competitive_scheduling_cron_hook_after', array( self, 'run_after' ) );
             wp_clear_scheduled_hook( 'competitive_scheduling_cron_hook' );
             wp_clear_scheduled_hook( 'competitive_scheduling_cron_hook_after' );
         }
