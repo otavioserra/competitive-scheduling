@@ -96,6 +96,7 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function draw(){
+            echo 'draw: start' . '<br>';
             // Control variables initial values.
             $today_day_week = strtolower( date( 'D' ) );
             $today = date( 'Y-m-d' );
