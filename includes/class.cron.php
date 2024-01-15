@@ -67,6 +67,7 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function cleaning(){
+            error_log( CS_ID . ': ' . 'cleaning' );
             // Control variables initial values.
             $today = date( 'Y-m-d' );
 
