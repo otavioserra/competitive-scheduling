@@ -79,12 +79,12 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             Cron::activate();
         }
 
-        public static function deactivate(){
+        public static function desactivate(){
             require_once( CS_PATH . 'includes/class.cron.php' );
 
             flush_rewrite_rules();
             unregister_post_type( 'competitive-scheduling' );
-            Cron::deactivate();
+            Cron::desactivate();
         }
 
         public static function uninstall(){
@@ -173,7 +173,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
 if( class_exists( 'Competitive_Scheduling' ) ){
     register_activation_hook( __FILE__, array( 'Competitive_Scheduling', 'activate' ) );
-    register_deactivation_hook( __FILE__, array( 'Competitive_Scheduling', 'deactivate' ) );
+    register_deactivation_hook( __FILE__, array( 'Competitive_Scheduling', 'desactivate' ) );
     register_uninstall_hook( __FILE__, array( 'Competitive_Scheduling', 'uninstall' ) );
 
     $Competitive_Scheduling = new Competitive_Scheduling();
