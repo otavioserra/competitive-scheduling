@@ -163,7 +163,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function shortcode_page( $page ){
-            $cron_jobs = get_option( 'cron' );
+            /* $cron_jobs = get_option( 'cron' );
             var_dump($cron_jobs);
             
             $proxima_execucao = wp_get_scheduled_event( 'competitive_scheduling_cron_hook' );
@@ -172,10 +172,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             echo 'Forçar execução: competitive_scheduling_cron_hook' . '<br>';
             do_action( 'competitive_scheduling_cron_hook' );
 
-            /* require_once( CS_PATH . 'includes/class.cron.php' );
-            Cron::run(); */
+            require_once( CS_PATH . 'includes/class.cron.php' );
+            Cron::run();
 
-            exit;
+            exit; */
 
             // Verify if page is defined
             if( empty( $page ) ){
