@@ -33,6 +33,7 @@ if( ! defined( 'ABSPATH') ){
 
 if( ! class_exists( 'Competitive_Scheduling' ) ){
     class Competitive_Scheduling{
+        public $objects = array();
 
         function __construct(){
             $this->define_constants();
@@ -46,7 +47,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
 
             require_once( CS_PATH . 'settings/class.competitive-scheduling-settings.php' );
-            $Competitive_Scheduling_Settings = new Competitive_Scheduling_Settings();
+            $objects['Competitive_Scheduling_Settings'] = new Competitive_Scheduling_Settings();
         }
 
         public function define_constants(){
@@ -95,12 +96,15 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         }
 
         public function add_menu(){
+            require_once( CS_PATH . 'pages/class.admin-page.php' );
+            $this->$objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
+
             add_menu_page(
                 esc_html__( 'Competitive Scheduling Management', 'competitive-scheduling' ),
                 esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ),
                 'manage_options',
                 'competitive_scheduling_admin',
-                array( $this, 'competitive_scheduling_page' ),
+                array( $this->$objects['Competitive_Scheduling_Admin_Page'], 'page' ),
                 'dashicons-calendar-alt'
             );
 
@@ -130,43 +134,11 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 esc_html__( 'Options', 'competitive-scheduling' ),
                 'manage_options',
                 'competitive_scheduling_settings',
-                array( $this, 'competitive_scheduling_settings_page' ),
+                array( $this->$objects['Competitive_Scheduling_Settings'], 'page' ),
                 null,
                 null
             );
 
-        }
-
-        public function competitive_scheduling_page(){
-            if( ! current_user_can( 'manage_options' ) ){
-                return;
-            }
-
-            wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
-            wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
-            
-            wp_enqueue_style( 'competitive-scheduling-admin', CS_URL . 'assets/css/admin.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/admin.css' ) : CS_VERSION ) );
-            wp_enqueue_script( 'competitive-scheduling-admin', CS_URL . 'assets/js/admin.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/admin.js' ) : CS_VERSION ) );
-
-            require( CS_PATH . 'views/competitive-scheduling-page.php' );
-        }
-
-        public function competitive_scheduling_settings_page(){
-            if( ! current_user_can( 'manage_options' ) ){
-                return;
-            }
-
-            if( isset( $_POST['reset-to-defaults'] ) ){
-                Competitive_Scheduling_Settings::reset_settings();
-            }
-
-            if( isset( $_GET['settings-updated'] ) ){
-                add_settings_error( 'competitive_scheduling_options', 'competitive_scheduling_message', esc_html__( 'Settings Saved', 'competitive-scheduling' ), 'success' );
-            }
-            
-            settings_errors( 'competitive_scheduling_options' );
-
-            require( CS_PATH . 'views/settings-page.php' );
         }
     }
 }

@@ -21,7 +21,25 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             }
 
             add_action( 'admin_init', array( $this, 'sections_init' ) );
-        } 
+        }
+
+        public function page(){
+            if( ! current_user_can( 'manage_options' ) ){
+                return;
+            }
+
+            if( isset( $_POST['reset-to-defaults'] ) ){
+                Self::reset_settings();
+            }
+
+            if( isset( $_GET['settings-updated'] ) ){
+                add_settings_error( 'competitive_scheduling_options', 'competitive_scheduling_message', esc_html__( 'Settings Saved', 'competitive-scheduling' ), 'success' );
+            }
+            
+            settings_errors( 'competitive_scheduling_options' );
+
+            require( CS_PATH . 'views/settings-page.php' );
+        }
 
         public static function register_settings(){
             add_option(
