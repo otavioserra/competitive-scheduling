@@ -622,7 +622,7 @@ if( ! class_exists( 'Cron' ) ){
                         }
 
                         // Delete user by ID
-                        wp_delete_user( $user_id ); 
+                        wp_delete_user_data( $user_id ); 
                     }
                 }
 
