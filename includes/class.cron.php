@@ -574,8 +574,9 @@ if( ! class_exists( 'Cron' ) ){
             
             // Initial Options
             $controls = array(
-                'reset' => true,
-                'create_schedules' => true,
+                'delete_users' => true,
+                'reset' => false,
+                'create_schedules' => false,
                 'num_users' => 60,
                 'date' => '2024-01-23',
                 'first_names' => ['João', 'José', 'Maria', 'Ana', 'Adriana', 'Aline', 'Antônio', 'Carlos', 'Paulo', 'Pedro', 'Henrique', 'Bruna', 'Amanda', 'Fernanda', 'Luana', 'Luiza', 'Laura', 'Lucas', 'Matheus', 'Gabriel'],
@@ -586,51 +587,52 @@ if( ! class_exists( 'Cron' ) ){
             // Tests data
             $tests = get_option( 'competiive_scheduling_tests');
 
+            // If it is necessary to reset or delete all users, remove all previously created users.
+            if( ( $controls['reset'] || $controls['delete_users'] ) && ! empty( $tests['user_ids'] ) ){
+                echo 'Delete users if exists any...' . '<br>';
+                // Array containing previously generated user IDs
+                $user_ids = $tests['user_ids']; 
+
+                // Loop through array and delete each user
+                foreach( $user_ids as $user_id ) {
+                    // Removes all schedules created for the user.
+                    global $wpdb;
+                    $query = $wpdb->prepare(
+                        "SELECT id_schedules  
+                        FROM {$wpdb->prefix}schedules 
+                        WHERE user_id = '%s'",
+                        array( $user_id )
+                    );
+                    $schedules = $wpdb->get_results( $query );
+
+                    foreach( $schedules as $schedule ) {
+                        $wpdb->delete(
+                            $wpdb->prefix.'schedules_companions',
+                            array( 
+                                'id_schedules' => $schedule->id_schedules,
+                                'user_id' => $user_id
+                            )
+                        );
+                        $wpdb->delete(
+                            $wpdb->prefix.'schedules',
+                            array( 
+                                'id_schedules' => $schedule->id_schedules,
+                                'user_id' => $user_id
+                            )
+                        );
+                    }
+
+                    // Delete user by ID
+                    wp_delete_user( $user_id ); 
+                }
+            }
+
             // If the options are empty, create the initial test data.
             if( empty( $tests ) || $controls['reset'] ){
-                echo 'Reset or create initial tests...' . '<br>';
+                echo 'Reset or create initial users...' . '<br>';
                 // Start variable.
                 if( empty( $tests ) ){
                     $tests = array();
-                }
-
-                // If it is necessary to reset, remove all previously created users.
-                if( $controls['reset'] && ! empty( $tests['user_ids'] ) ){
-                    // Array containing previously generated user IDs
-                    $user_ids = $tests['user_ids']; 
-
-                    // Loop through array and delete each user
-                    foreach( $user_ids as $user_id ) {
-                        // Removes all schedules created for the user.
-                        global $wpdb;
-                        $query = $wpdb->prepare(
-                            "SELECT id_schedules  
-                            FROM {$wpdb->prefix}schedules 
-                            WHERE user_id = '%s'",
-                            array( $user_id )
-                        );
-                        $schedules = $wpdb->get_results( $query );
-
-                        foreach( $schedules as $schedule ) {
-                            $wpdb->delete(
-                                $wpdb->prefix.'schedules_companions',
-                                array( 
-                                    'id_schedules' => $schedule->id_schedules,
-                                    'user_id' => $user_id
-                                )
-                            );
-                            $wpdb->delete(
-                                $wpdb->prefix.'schedules',
-                                array( 
-                                    'id_schedules' => $schedule->id_schedules,
-                                    'user_id' => $user_id
-                                )
-                            );
-                        }
-
-                        // Delete user by ID
-                        wp_delete_user( $user_id ); 
-                    }
                 }
 
                 // Array to store user IDs
