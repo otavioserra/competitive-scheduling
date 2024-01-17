@@ -1,35 +1,33 @@
 jQuery(document).ready(function(){
-    function cupoms_de_prioridade(){
-		// ===== Maks do quantidade.
+    function priority_coupons(){
+		// Quantity mask.
+		jQuery( '.amount' ).mask( "000", { reverse: true } );
 		
-		jQuery('.quantidade').mask("000", {reverse: true});
-		
-		// ===== Widget calendário opções.
-		
-		jQuery('#rangestart').calendar({
+		// Options calendar widget.
+		jQuery( '#rangestart' ).calendar({
 			type: 'date',
-			endCalendar: jQuery('#rangeend'),
+			endCalendar: jQuery( '#rangeend' ),
 			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
+				date: function ( date ) {
+					if ( ! date ) return '';
 					
-					var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-					var month = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+					var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
+					var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
 					var year = date.getFullYear();
 					
 					return day + '/' + month + '/' + year;
 				}
 			}
 		});
-		jQuery('#rangeend').calendar({
+		jQuery( '#rangeend' ).calendar({
 			type: 'date',
 			startCalendar: jQuery('#rangestart'),
 			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
+				date: function ( date ) {
+					if ( ! date ) return '';
 					
-					var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-					var month = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+					var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
+					var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
 					var year = date.getFullYear();
 					
 					return day + '/' + month + '/' + year;
@@ -37,132 +35,117 @@ jQuery(document).ready(function(){
 			}
 		});
 		
-		// ===== Requisição para imprimir os cupons.
-		
-		jQuery('.imprimirCupons').on('mouseup tap',function(e){
-			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+		// Request to print coupons.
+		jQuery( '.printCoupons' ).on( 'mouseup tap', function( e ){
+			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
 			window.open(manager.root+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
 		});
 	}
 	
-	function agendamentos_atualizar(p={}){
-		// ===== Caso não exista, criar o objeto de controle.
-		
-		if(!('agendamentos' in manager)){
-			manager.agendamentos = {};
+	function schedules_update(p={}){
+		// If it does not exist, create the control object.
+		if( ! ( 'schedules' in manager ) ){
+			manager.schedules = {};
 		}
 		
-		// ===== Modificar conforme enviado.
+		// Modify as submitted.
+		if( 'date' in p ){ manager.schedules.date = p.date; }
+		if( 'status' in p ){ manager.schedules.status = p.status; }
 		
-		if('data' in p){manager.agendamentos.data = p.data;}
-		if('status' in p){manager.agendamentos.status = p.status;}
-		
-		// ===== Esconder manualmente conteiners não necessários devido os componentes do fomantic-ui se auto-mostrarem no início da DOM.
-		
+		// Manually hide unnecessary containers due to fomantic-ui components showing themselves at the beginning of the DOM.
 		if(
-			!('data' in manager.agendamentos) || 
-			!('status' in manager.agendamentos)
+			! ( 'date' in manager.schedules) || 
+			! ( 'status' in manager.schedules )
 		){
-			jQuery('.printBtn').hide();
-			jQuery('.tablePeople').hide();
+			jQuery( '.printBtn' ).hide();
+			jQuery( '.tablePeople' ).hide();
 		}
 		
-		// ===== Mostrar o conteiner de resultados.
-		
+		// Show the results container.
 		if(
-			('data' in manager.agendamentos)
+			( 'date' in manager.schedules )
 		){
-			jQuery('.resultados').show();
+			jQuery( '.resultados' ).show();
 		}
 		
-		// ===== Somente atualizar caso esteja definido 'data' e 'status'.
-		
+		// Only update if 'data' and 'status' are defined.
 		if(
-			('data' in manager.agendamentos) && 
-			('status' in manager.agendamentos)
+			( 'date' in manager.schedules ) && 
+			( 'status' in manager.schedules )
 		){
-			// ===== Requisição para atualizar os agendamentos conforme opção.
-			
-			var opcao = 'agendamentos';
-			var ajaxOpcao = 'atualizar';
+			// Request to update schedules as option.
+			var option = 'schedules';
+			var ajaxOpcao = 'update';
 			
 			$.ajax({
 				type: 'POST',
 				url: manager.root + manager.moduloId + '/',
 				data: {
-					opcao : opcao,
+					option : option,
 					ajax : 'sim',
 					ajaxOpcao : ajaxOpcao,
 					ajaxPagina : 'sim',
-					data : manager.agendamentos.data,
-					status : manager.agendamentos.status
+					date : manager.schedules.date,
+					status : manager.schedules.status
 				},
 				dataType: 'json',
 				beforeSend: function(){
-					carregando('abrir');
+					loading( 'open' );
 				},
-				success: function(dados){
-					switch(dados.status){
+				success: function( data ){
+					switch( data.status ){
 						case 'OK':
-							// ===== Montar a tabela.
+							// Set up the table.
+							jQuery( '.tablePeople' ).html( data.table );
 							
-							jQuery('.tablePeople').html(dados.tabela);
+							// Update the total number of people.
+							jQuery( '.totalValue' ).html( data.total );
 							
-							// ===== Atualizar o total de pessoas.
-							
-							jQuery('.totalValue').html(dados.total);
-							
-							// ===== Mostrar ou não o botão imprimir.
-							
-							if(dados.imprimir){
-								jQuery('.printBtn').show();
+							// Show or not the print button.
+							if( data.print ){
+								jQuery( '.printBtn' ).show();
 							} else {
-								jQuery('.printBtn').hide();
+								jQuery( '.printBtn' ).hide();
 							}
 							
-							// ===== Mostrar os conteiners de informação dos resultados.
-							
-							jQuery('.totalPeople').show();
-							jQuery('.tablePeople').show();
+							// Show results information containers.
+							jQuery( '.totalPeople' ).show();
+							jQuery( '.tablePeople' ).show();
 						break;
 						default:
-							console.log('ERROR - '+opcao+' - '+dados.status);
-						
+							console.log('ERROR - '+option+' - '+data.status);
 					}
 					
-					carregando('fechar');
+					loading( 'close' );
 				},
 				error: function(txt){
 					switch(txt.status){
 						case 401: window.open(manager.root + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
 						default:
-							console.log('ERROR AJAX - '+opcao+' - Dados:');
+							console.log('ERROR AJAX - '+option+' - Dados:');
 							console.log(txt);
-							carregando('fechar');
+							loading( 'close' );
 					}
 				}
 			});
 		}
 	}
     
-    function agendamentos(){
-        // ===== Configurações do calendário.
-        
+    function schedules(){
+        // Calendar settings.
         var calendar = manager.calendar;
         
-        // ===== Datas disponíveis para agendamento.
+        // Dates available for scheduling.
+        var availableDates = [];
         
-        var datasDisponiveis = [];
-        
-        for(var data in calendar.available_dates){
-            var dateObj = new Date(data.replace(/-/g, '\/')); // Bug no objeto Date() do javascript. Basta trocar o '-' por '/' que a data funciona corretamente. Senão fica um dia a mais do dia correto.
+        for( var date in calendar.available_dates ){
+            var dateObj = new Date( date.replace( /-/g, '\/' ) ); // Bug in the javascript Date() object. Just change the '-' to '/' and the date works correctly. Otherwise it will be one day longer than the correct day.
             
-            datasDisponiveis.push(dateObj);
+            availableDates.push(dateObj);
         }
         
-        // ===== Calendário ptBR.
-        
+        // ptBR calendar.
         var calendarPtBR = {
             days: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
             months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Júlio', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -173,92 +156,109 @@ jQuery(document).ready(function(){
             pm: 'PM'
         };
         
-        // ===== Variáveis do componente 'calendar'.
-        
+        // Variables of the 'calendar' component.
         var calendarDatasOpt = {
             text: calendarPtBR,
             type: 'date',
             inline: true,
             initialDate: new Date(),
-            minDate: new Date(calendar.start_year+'/01/01'),
-            maxDate: new Date(calendar.year_end+'/12/31'),
+            minDate: new Date( calendar.start_year+'/01/01' ),
+            maxDate: new Date( calendar.year_end+'/12/31' ),
             eventClass: 'inverted blue',
-            enabledDates: datasDisponiveis,
-            eventDates: datasDisponiveis,
+            enabledDates: availableDates,
+            eventDates: availableDates,
             formatter: {
-                date: function (date, settings) {
-                    if (!date) return '';
+                date: function ( date ) {
+                    if ( ! date ) return '';
                     
-                    var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-                    var month = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+                    var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
+                    var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
                     var year = date.getFullYear();
                     
                     return day + '/' + month + '/' + year;
                 }
             },
-            onChange: function(date,dateFormated,mode){
-                jQuery('.scheduleDate').val(dateFormated);
-                jQuery('.dateSelected').find('.dateSelectedValue').html(dateFormated);
+            onChange: function( date, dateFormated ){
+                jQuery( '.scheduleDate' ).val( dateFormated );
+                jQuery( '.dateSelected' ).find( '.dateSelectedValue' ).html( dateFormated );
                 
-                var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-                var month = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+                var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
+                var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
                 var year = date.getFullYear();
                 
-                var data = year + '-' + month + '-' + day;
+                var date = year + '-' + month + '-' + day;
                 
-                agendamentos_atualizar({data});
+                schedules_update( { date } );
             }
         }
         
-        // ===== Iniciar calendário.
+        // Start calendar.
+        jQuery( '.ui.calendar' ).calendar( calendarDatasOpt );
         
-        jQuery('.ui.calendar').calendar(calendarDatasOpt);
-        
-        // ===== Acompanhantes dropdown.
-
-        jQuery('.schedule-states .button').on('mouseup tap',function(e){
-            if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+        // Escorts dropdown.
+        jQuery( '.schedule-states .button' ).on( 'mouseup tap', function(e){
+            if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
             var obj = this;
             
-            jQuery(this).parent().find('.button').each(function(){
-                jQuery(this).removeClass('active');
-                jQuery(this).find('i').removeClass('check');
-                jQuery(this).find('i').removeClass('square outline icon');
+            jQuery( this ).parent().find( '.button' ).each( function(){
+                jQuery( this ).removeClass( 'active' );
+                jQuery( this ).find( 'i' ).removeClass( 'check' );
+                jQuery( this ).find( 'i' ).removeClass( 'square outline icon' );
                 
-                if(this !== obj){
-                    jQuery(this).find('i').addClass('square outline icon');
+                if( this !== obj ){
+                    jQuery( this ).find( 'i' ).addClass( 'square outline icon' );
                 }
             });
 
-            jQuery(this).find('i').addClass('check square outline icon');
-            jQuery(this).addClass('active');
+            jQuery( this ).find( 'i' ).addClass( 'check square outline icon' );
+            jQuery( this ).addClass( 'active' );
         });
         
-        jQuery('.ui.dropdown').dropdown({
-            onChange: function(value){
-                agendamentos_atualizar({status:value});
+        jQuery( '.ui.dropdown' ).dropdown( {
+            onChange: function( value ){
+                schedules_update( { status:value } );
             }
-        });
+        } );
         
-        // ===== Imprimir.
+        // Imprimir.
         
-        jQuery('.printBtn').on('mouseup tap',function(e){
-            if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+        jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
+            if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
             
-            window.open(manager.root+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
+            window.open(manager.root+"pagina-de-impressao/","Print","menubar=0,location=0,height=700,width=1024");
         });
     }
 
     function start(){
-		if(jQuery('#formSchedules').length > 0){
-			agendamentos();
+		if( jQuery('#formSchedules').length > 0 ){
+			schedules();
 		}
 		
-		if(jQuery('#_gestor-interface-edit-dados').length > 0 || jQuery('#_gestor-interface-insert-dados').length > 0){
-			cupoms_de_prioridade();
+		if( jQuery( '#_gestor-interface-edit-dados' ).length > 0 || jQuery( '#_gestor-interface-insert-dados' ).length > 0 ){
+			priority_coupons();
 		}
 	}
 	
 	start();
+
+	function loading( option ){
+		switch( option ){
+			case 'open':
+				if( ! ( 'loading' in manager ) ){
+					jQuery( '.pageLoading' ).dimmer( {
+						closable: false
+					} );
+					
+					manager.loading = true;
+				}
+				
+				jQuery( '.pageLoading' ).dimmer('show');
+			break;
+			case 'close':
+				jQuery( '.pageLoading' ).dimmer('hide');
+			break;
+		}
+	}
+	
 });
