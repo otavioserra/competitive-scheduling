@@ -47,7 +47,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
 
             require_once( CS_PATH . 'settings/class.competitive-scheduling-settings.php' );
-            $objects['Competitive_Scheduling_Settings'] = new Competitive_Scheduling_Settings();
+            $this->objects['Competitive_Scheduling_Settings'] = new Competitive_Scheduling_Settings();
         }
 
         public function define_constants(){
