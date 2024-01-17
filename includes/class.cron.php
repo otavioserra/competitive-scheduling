@@ -567,6 +567,9 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function tests(){
+            // Include wordpress library to delete users.
+            require_once(ABSPATH.'wp-admin/includes/user.php');
+            
             // Initial Options
             $controls = array(
                 'reset' => true,
