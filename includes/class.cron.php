@@ -575,7 +575,7 @@ if( ! class_exists( 'Cron' ) ){
             // Initial Options
             $controls = array(
                 'reset' => true,
-                'create_schedules' => false,
+                'create_schedules' => true,
                 'num_users' => 60,
                 'date' => '2024-01-23',
                 'first_names' => ['João', 'José', 'Maria', 'Ana', 'Adriana', 'Aline', 'Antônio', 'Carlos', 'Paulo', 'Pedro', 'Henrique', 'Bruna', 'Amanda', 'Fernanda', 'Luana', 'Luiza', 'Laura', 'Lucas', 'Matheus', 'Gabriel'],
