@@ -697,8 +697,12 @@ if( ! class_exists( 'Cron' ) ){
                         for( $j = 0; $j < $num_companions; $j++ ) {
                             // Generate random first and last name
                             $rand_first_name = $controls['first_names'][ array_rand( $controls['first_names'] ) ];
-                            $rand_last_name = $controls['last_names'][ array_rand( $controls['last_names'] ) ];
-                            
+
+                            $rand_last_name = '';
+                            for( $k = 0; $k < rand(1,5); $k++ ) {
+                                $rand_last_name .= ( empty( $rand_last_name ) ? '' : ' ' ) . $controls['last_names'][ array_rand( $controls['last_names'] ) ];
+                            }
+
                             // Combine into full name
                             $rand_full_name = $rand_first_name . ' ' . $rand_last_name;
                             
