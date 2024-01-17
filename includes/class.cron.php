@@ -603,7 +603,7 @@ if( ! class_exists( 'Cron' ) ){
                             "SELECT id_schedules  
                             FROM {$wpdb->prefix}schedules 
                             WHERE user_id = '%s'",
-                            $user_id
+                            array( $user_id )
                         );
                         $schedules = $wpdb->get_results( $query );
 
