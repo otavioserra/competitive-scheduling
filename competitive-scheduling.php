@@ -50,7 +50,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             $this->objects['Competitive_Scheduling_Settings'] = new Competitive_Scheduling_Settings();
         }
 
-        public function define_constants(){
+        private function define_constants(){
             define( 'CS_ID', 'Competitive_Scheduling' );
             define( 'CS_PATH', plugin_dir_path( __FILE__ ) );
             define( 'CS_URL', plugin_dir_url( __FILE__ ) );
@@ -138,7 +138,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 null,
                 null
             );
-
         }
     }
 }

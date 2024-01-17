@@ -64,8 +64,8 @@ jQuery(document).ready(function(){
 			!('data' in gestor.agendamentos) || 
 			!('status' in gestor.agendamentos)
 		){
-			jQuery('.imprimirBtn').hide();
-			jQuery('.tabelaPessoas').hide();
+			jQuery('.printBtn').hide();
+			jQuery('.tablePeople').hide();
 		}
 		
 		// ===== Mostrar o conteiner de resultados.
@@ -107,24 +107,24 @@ jQuery(document).ready(function(){
 						case 'OK':
 							// ===== Montar a tabela.
 							
-							jQuery('.tabelaPessoas').html(dados.tabela);
+							jQuery('.tablePeople').html(dados.tabela);
 							
 							// ===== Atualizar o total de pessoas.
 							
-							jQuery('.totalValor').html(dados.total);
+							jQuery('.totalValue').html(dados.total);
 							
 							// ===== Mostrar ou não o botão imprimir.
 							
 							if(dados.imprimir){
-								jQuery('.imprimirBtn').show();
+								jQuery('.printBtn').show();
 							} else {
-								jQuery('.imprimirBtn').hide();
+								jQuery('.printBtn').hide();
 							}
 							
 							// ===== Mostrar os conteiners de informação dos resultados.
 							
-							jQuery('.totalPessoas').show();
-							jQuery('.tabelaPessoas').show();
+							jQuery('.totalPeople').show();
+							jQuery('.tablePeople').show();
 						break;
 						default:
 							console.log('ERROR - '+opcao+' - '+dados.status);
@@ -197,8 +197,8 @@ jQuery(document).ready(function(){
                 }
             },
             onChange: function(date,dateFormated,mode){
-                jQuery('.agendamentoData').val(dateFormated);
-                jQuery('.dataSelecionada').find('.dataSelecionadaValor').html(dateFormated);
+                jQuery('.scheduleDate').val(dateFormated);
+                jQuery('.dateSelected').find('.dateSelectedValue').html(dateFormated);
                 
                 var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
                 var month = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
@@ -243,7 +243,7 @@ jQuery(document).ready(function(){
         
         // ===== Imprimir.
         
-        jQuery('.imprimirBtn').on('mouseup tap',function(e){
+        jQuery('.printBtn').on('mouseup tap',function(e){
             if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
             
             window.open(gestor.raiz+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
@@ -251,7 +251,7 @@ jQuery(document).ready(function(){
     }
 
     function start(){
-		if(jQuery('#formAgendamentos').length > 0){
+		if(jQuery('#formSchedules').length > 0){
 			agendamentos();
 		}
 		
