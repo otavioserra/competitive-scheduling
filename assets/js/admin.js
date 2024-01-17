@@ -1,4 +1,6 @@
 jQuery(document).ready(function(){
+	var apiVersion = 'v1';
+
     function priority_coupons(){
 		// Quantity mask.
 		jQuery( '.amount' ).mask( "000", { reverse: true } );
@@ -74,61 +76,52 @@ jQuery(document).ready(function(){
 			( 'date' in manager.schedules ) && 
 			( 'status' in manager.schedules )
 		){
+			var data = {
+				option : 'schedules',
+				date : manager.schedules.date,
+				status : manager.schedules.status,
+				nonce
+			};
+
 			// Request to update schedules as option.
-			var option = 'schedules';
-			var ajaxOpcao = 'update';
-			
-			$.ajax({
-				type: 'POST',
-				url: manager.root + manager.moduloId + '/',
-				data: {
-					option : option,
-					ajax : 'sim',
-					ajaxOpcao : ajaxOpcao,
-					ajaxPagina : 'sim',
-					date : manager.schedules.date,
-					status : manager.schedules.status
-				},
-				dataType: 'json',
-				beforeSend: function(){
+			jQuery.ajax( {
+				url: wpApiSettings.root + 'competitive-scheduling/'+apiVersion+'/admin-page/',
+				method: 'GET',
+				xhrFields: { withCredentials: true },
+				beforeSend: function ( xhr ) {
+					xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
 					loading( 'open' );
 				},
-				success: function( data ){
-					switch( data.status ){
-						case 'OK':
-							// Set up the table.
-							jQuery( '.tablePeople' ).html( data.table );
+				data
+			} ).done( function ( response ) {
+				if( response.status === 'OK' ){
+					// Set up the table.
+					jQuery( '.tablePeople' ).html( response.table );
 							
-							// Update the total number of people.
-							jQuery( '.totalValue' ).html( data.total );
-							
-							// Show or not the print button.
-							if( data.print ){
-								jQuery( '.printBtn' ).show();
-							} else {
-								jQuery( '.printBtn' ).hide();
-							}
-							
-							// Show results information containers.
-							jQuery( '.totalPeople' ).show();
-							jQuery( '.tablePeople' ).show();
-						break;
-						default:
-							console.log('ERROR - '+option+' - '+data.status);
+					// Update the total number of people.
+					jQuery( '.totalValue' ).html( response.total );
+					
+					// Show or not the print button.
+					if( response.print ){
+						jQuery( '.printBtn' ).show();
+					} else {
+						jQuery( '.printBtn' ).hide();
 					}
 					
-					loading( 'close' );
-				},
-				error: function(txt){
-					switch(txt.status){
-						case 401: window.open(manager.root + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
-						default:
-							console.log('ERROR AJAX - '+option+' - Dados:');
-							console.log(txt);
-							loading( 'close' );
-					}
+					// Show results information containers.
+					jQuery( '.totalPeople' ).show();
+					jQuery( '.tablePeople' ).show();
 				}
-			});
+
+				if( 'nonce' in response ){
+					jQuery( 'input[name="companions-nonce"]' ).val( response.nonce );
+				}
+
+				loading('close');
+			} ).fail( function ( response ) {
+				loading('close');
+				if( 'responseJSON' in response ){ console.log( response.status + ': ' + response.responseJSON.message ); } else { console.log( response ); }
+			} );
 		}
 	}
     
@@ -196,33 +189,33 @@ jQuery(document).ready(function(){
         jQuery( '.ui.calendar' ).calendar( calendarDatasOpt );
         
         // Escorts dropdown.
-        jQuery( '.schedule-states .button' ).on( 'mouseup tap', function(e){
+		var lastButton;
+        jQuery( '.schedule-states .button' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
             var obj = this;
-            
-            jQuery( this ).parent().find( '.button' ).each( function(){
-                jQuery( this ).removeClass( 'active' );
-                jQuery( this ).find( 'i' ).removeClass( 'check' );
-                jQuery( this ).find( 'i' ).removeClass( 'square outline icon' );
-                
-                if( this !== obj ){
-                    jQuery( this ).find( 'i' ).addClass( 'square outline icon' );
-                }
-            });
 
-            jQuery( this ).find( 'i' ).addClass( 'check square outline icon' );
-            jQuery( this ).addClass( 'active' );
-        });
-        
-        jQuery( '.ui.dropdown' ).dropdown( {
-            onChange: function( value ){
-                schedules_update( { status:value } );
-            }
+			if( lastButton !== obj ){	
+				jQuery( this ).parent().find( '.button' ).each( function(){
+					jQuery( this ).removeClass( 'active' );
+					jQuery( this ).find( 'i' ).removeClass( 'check' );
+					jQuery( this ).find( 'i' ).removeClass( 'square outline icon' );
+					
+					if( this !== obj ){
+						jQuery( this ).find( 'i' ).addClass( 'square outline icon' );
+					}
+				});
+
+				jQuery( this ).find( 'i' ).addClass( 'check square outline icon' );
+				jQuery( this ).addClass( 'active' );
+
+				schedules_update( { status:value } );
+
+				lastButton = obj;
+			}
         } );
         
-        // Imprimir.
-        
+        // Print.
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
             
