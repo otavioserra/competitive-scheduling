@@ -583,6 +583,11 @@ if( ! class_exists( 'Cron' ) ){
 
             // If the options are empty, create the initial test data.
             if( empty( $tests ) || $controls['reset'] ){
+                // Start variable.
+                if( empty( $tests ) ){
+                    $tests = array();
+                }
+                
                 // If it is necessary to reset, remove all previously created users.
                 if( $controls['reset'] && ! empty( $tests['user_ids'] ) ){
                     // Array containing previously generated user IDs
