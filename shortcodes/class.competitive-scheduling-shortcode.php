@@ -163,19 +163,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function shortcode_page( $page ){
-            /* $cron_jobs = get_option( 'cron' );
-            var_dump($cron_jobs);
-            
-            $proxima_execucao = wp_get_scheduled_event( 'competitive_scheduling_cron_hook' );
-            echo 'Mensagem: competitive_scheduling_cron_hook' . '<br>';
-            echo 'proxima_execucao: ' . print_r( $proxima_execucao, true ) . '<br>';
-            echo 'Forçar execução: competitive_scheduling_cron_hook' . '<br>';
-            do_action( 'competitive_scheduling_cron_hook' );
-
+            echo 'Rodar tests: ' . '<br>';
             require_once( CS_PATH . 'includes/class.cron.php' );
-            Cron::run();
+            Cron::tests();
 
-            exit; */
+            exit;
 
             // Verify if page is defined
             if( empty( $page ) ){

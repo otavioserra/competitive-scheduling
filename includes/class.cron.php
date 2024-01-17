@@ -68,7 +68,6 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function cleaning(){
-            error_log( CS_ID . ': ' . 'cleaning' );
             // Control variables initial values.
             $today = date( 'Y-m-d' );
 
@@ -98,8 +97,6 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function draw(){
-            error_log( CS_ID . ': ' . 'draw' );
-
             // Control variables initial values.
             $today_day_week = strtolower( date( 'D' ) );
             $today = date( 'Y-m-d' );
@@ -561,6 +558,160 @@ if( ! class_exists( 'Cron' ) ){
                     'date' => $date,
                 ) 
             );
+        }
+
+        /**
+         * Randomly create schedules to test the robot.
+         *
+         * @return void
+         */
+
+        public static function tests(){
+            // Initial Options
+            $controls = array(
+                'reset' => false,
+                'create_schedules' => true,
+                'num_users' => 60,
+                'num_schedules' => 100,
+                'date' => '2024-01-23',
+                'first_names' => ['João', 'José', 'Maria', 'Ana', 'Adriana', 'Aline', 'Antônio', 'Carlos', 'Paulo', 'Pedro', 'Henrique', 'Bruna', 'Amanda', 'Fernanda', 'Luana', 'Luiza', 'Laura', 'Lucas', 'Matheus', 'Gabriel'],
+                'last_names' => ['Silva', 'Santos', 'Oliveira', 'Rodrigues', 'Ferreira', 'Almeida', 'Pereira', 'Lima', 'Ribeiro', 'Gomes', 'Martins', 'Souza', 'Mendes', 'Teixeira', 'Marques', 'Azevedo', 'Costa', 'Barros', 'Fernandes', 'Alves'],
+            );
+
+            // Tests data
+            $tests = get_option( 'competiive_scheduling_tests');
+
+            // If the options are empty, create the initial test data.
+            if( empty( $tests ) || $controls['reset'] ){
+                // If it is necessary to reset, remove all previously created users.
+                if( $controls['reset'] && ! empty( $tests['user_ids'] ) ){
+                    // Array containing previously generated user IDs
+                    $user_ids = $tests['user_ids']; 
+
+                    // Loop through array and delete each user
+                    foreach( $user_ids as $user_id ) {
+                        // Removes all schedules created for the user.
+                        global $wpdb;
+                        $query = $wpdb->prepare(
+                            "SELECT id_schedules  
+                            FROM {$wpdb->prefix}schedules 
+                            WHERE user_id = '%s'",
+                            $user_id
+                        );
+                        $schedules = $wpdb->get_results( $query );
+
+                        foreach( $schedules as $schedule ) {
+                            $wpdb->delete(
+                                $wpdb->prefix.'schedules_companions',
+                                array( 
+                                    'id_schedules' => $schedule->id_schedules,
+                                    'user_id' => $user_id
+                                )
+                            );
+                            $wpdb->delete(
+                                $wpdb->prefix.'schedules',
+                                array( 
+                                    'id_schedules' => $schedule->id_schedules,
+                                    'user_id' => $user_id
+                                )
+                            );
+                        }
+
+                        // Delete user by ID
+                        wp_delete_user( $user_id ); 
+                    }
+                }
+
+                // Array to store user IDs
+                $user_ids = array(); 
+
+                // Number of users to create 
+                $num_users = $controls['num_users'];
+
+                // Loop to create random users
+                for( $i = 0; $i < $num_users; $i++ ){
+
+                    // Generate random user data
+                    $random_username = 'test_' . rand(100,999);
+                    $random_email = $random_username . '@test.com';
+                    $random_password = wp_generate_password(12);
+
+                    // Create the user
+                    $user_id = wp_create_user( $random_username, $random_password, $random_email );
+
+                    // Add user ID to array
+                    $user_ids[] = $user_id;
+
+                    // Set role as subscriber
+                    $user = new WP_User( $user_id );
+                    $user->set_role('subscriber');
+
+                }
+
+                // $user_ids array now contains the IDs of generated users
+                $tests['user_ids'] = $user_ids;
+            }
+
+            // Randomly create schedules for all users.
+            if( $controls['create_schedules'] ) {
+                foreach( $tests['user_ids'] as $user_id ) {
+                    // Number of schedules to create per user
+                    $num_schedules = $controls['num_schedules'];
+
+                    // Loop to create random schedules
+                    for( $i = 0; $i < $num_schedules; $i++ ){
+                        // Date required to schedule all users.
+                        $date = $controls['date'];
+
+                        // Generate random schedule data
+                        $num_companions = rand(0,3);
+                        $pubID = md5( uniqid( rand(), true ) );
+
+                        // Insert schedule
+                        global $wpdb;
+                        $wpdb->insert(
+                            $wpdb->prefix.'schedules',
+                            array(
+                                'user_id' => $user_id,
+                                'date' => $date,
+                                'companions' => $num_companions,
+                                'pubID' => $pubID,
+                                'status' => 'new',
+                                'version' => 1,
+                                'date_creation' => current_time( 'mysql', false ),
+                                'modification_date' => current_time( 'mysql', false ),
+                            )
+                        );
+
+                        $lastid = $wpdb->insert_id;
+
+                        // Create companions if any.
+                        if( $num_companions > 0 ) {
+                            for( $j = 0; $j < $num_companions; $j++ ) {
+                                // Generate random first and last name
+                                $rand_first_name = $first_names[ array_rand( $controls['first_names'] ) ];
+                                $rand_last_name = $last_names[ array_rand( $controls['last_names'] ) ];
+                                
+                                // Combine into full name
+                                $rand_full_name = $rand_first_name . ' ' . $rand_last_name;
+                                
+                                // Insert companion
+                                $wpdb->insert(
+                                    $wpdb->prefix.'schedules_companions',
+                                    array(
+                                        'id_schedules' => $lastid,
+                                        'user_id' => $user_id,
+                                        'name' => $rand_full_name
+                                    )
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Update test data in the database.
+            update_option( 'competiive_scheduling_tests', $tests );
         }
     }
 }
