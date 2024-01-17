@@ -567,24 +567,28 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function tests(){
+            echo 'Start [tests]... ' . '<br>';
+
             // Include wordpress library to delete users.
             require_once(ABSPATH.'wp-admin/includes/user.php');
             
             // Initial Options
             $controls = array(
                 'reset' => true,
-                'create_schedules' => true,
+                'create_schedules' => false,
                 'num_users' => 60,
                 'date' => '2024-01-23',
                 'first_names' => ['João', 'José', 'Maria', 'Ana', 'Adriana', 'Aline', 'Antônio', 'Carlos', 'Paulo', 'Pedro', 'Henrique', 'Bruna', 'Amanda', 'Fernanda', 'Luana', 'Luiza', 'Laura', 'Lucas', 'Matheus', 'Gabriel'],
                 'last_names' => ['Silva', 'Santos', 'Oliveira', 'Rodrigues', 'Ferreira', 'Almeida', 'Pereira', 'Lima', 'Ribeiro', 'Gomes', 'Martins', 'Souza', 'Mendes', 'Teixeira', 'Marques', 'Azevedo', 'Costa', 'Barros', 'Fernandes', 'Alves'],
             );
 
+            echo 'Get stats... ' . '<br>';
             // Tests data
             $tests = get_option( 'competiive_scheduling_tests');
 
             // If the options are empty, create the initial test data.
             if( empty( $tests ) || $controls['reset'] ){
+                echo 'Reset or create initial tests...' . '<br>';
                 // Start variable.
                 if( empty( $tests ) ){
                     $tests = array();
@@ -661,6 +665,7 @@ if( ! class_exists( 'Cron' ) ){
 
             // Randomly create schedules for all users.
             if( $controls['create_schedules'] ) {
+                echo 'Create schedules...' . '<br>';
                 foreach( $tests['user_ids'] as $user_id ) {
                     // Date required to schedule all users.
                     $date = $controls['date'];
@@ -711,8 +716,11 @@ if( ! class_exists( 'Cron' ) ){
                 }
             }
 
+            echo 'Update stats... ' . '<br>';
             // Update test data in the database.
             update_option( 'competiive_scheduling_tests', $tests );
+
+            echo 'Done!' . '<br>';
         }
     }
 }
