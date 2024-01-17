@@ -147,6 +147,7 @@ if( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ){
             
             $day = $first_day;
             do {
+                $dateFormatted = date('d/m/Y', $day);
                 $flag = false;
                 
                 if( isset( $period_holidays ) ){
@@ -163,10 +164,7 @@ if( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ){
                 
                 if( isset( $unavailable_dates ) ){
                     foreach( $unavailable_dates as $ud){
-                        if(
-                            $day > strtotime( Formats::data_format_to( 'text-to-date', $ud ).' 00:00:00' ) &&
-                            $day < strtotime( Formats::data_format_to( 'text-to-date', $ud ).' 23:59:59' )
-                        ){
+                        if( $dateFormatted == $ud ){
                             $flag = true;
                             break;
                         }
@@ -185,9 +183,8 @@ if( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ){
                     }
                     
                     if( $flag2 ){
-                        if( $date == date('Y-m-d', $day)){
-                            $dates[$date] = 1;
-                        }
+                        $date = date('Y-m-d', $day);
+                        $dates[$date] = 1;
                     }
                 }
                 
