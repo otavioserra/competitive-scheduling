@@ -42,27 +42,27 @@ jQuery(document).ready(function(){
 		jQuery('.imprimirCupons').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
-			window.open(gestor.raiz+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
+			window.open(manager.root+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
 		});
 	}
 	
 	function agendamentos_atualizar(p={}){
 		// ===== Caso não exista, criar o objeto de controle.
 		
-		if(!('agendamentos' in gestor)){
-			gestor.agendamentos = {};
+		if(!('agendamentos' in manager)){
+			manager.agendamentos = {};
 		}
 		
 		// ===== Modificar conforme enviado.
 		
-		if('data' in p){gestor.agendamentos.data = p.data;}
-		if('status' in p){gestor.agendamentos.status = p.status;}
+		if('data' in p){manager.agendamentos.data = p.data;}
+		if('status' in p){manager.agendamentos.status = p.status;}
 		
 		// ===== Esconder manualmente conteiners não necessários devido os componentes do fomantic-ui se auto-mostrarem no início da DOM.
 		
 		if(
-			!('data' in gestor.agendamentos) || 
-			!('status' in gestor.agendamentos)
+			!('data' in manager.agendamentos) || 
+			!('status' in manager.agendamentos)
 		){
 			jQuery('.printBtn').hide();
 			jQuery('.tablePeople').hide();
@@ -71,7 +71,7 @@ jQuery(document).ready(function(){
 		// ===== Mostrar o conteiner de resultados.
 		
 		if(
-			('data' in gestor.agendamentos)
+			('data' in manager.agendamentos)
 		){
 			jQuery('.resultados').show();
 		}
@@ -79,8 +79,8 @@ jQuery(document).ready(function(){
 		// ===== Somente atualizar caso esteja definido 'data' e 'status'.
 		
 		if(
-			('data' in gestor.agendamentos) && 
-			('status' in gestor.agendamentos)
+			('data' in manager.agendamentos) && 
+			('status' in manager.agendamentos)
 		){
 			// ===== Requisição para atualizar os agendamentos conforme opção.
 			
@@ -89,14 +89,14 @@ jQuery(document).ready(function(){
 			
 			$.ajax({
 				type: 'POST',
-				url: gestor.raiz + gestor.moduloId + '/',
+				url: manager.root + manager.moduloId + '/',
 				data: {
 					opcao : opcao,
 					ajax : 'sim',
 					ajaxOpcao : ajaxOpcao,
 					ajaxPagina : 'sim',
-					data : gestor.agendamentos.data,
-					status : gestor.agendamentos.status
+					data : manager.agendamentos.data,
+					status : manager.agendamentos.status
 				},
 				dataType: 'json',
 				beforeSend: function(){
@@ -135,7 +135,7 @@ jQuery(document).ready(function(){
 				},
 				error: function(txt){
 					switch(txt.status){
-						case 401: window.open(gestor.raiz + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
+						case 401: window.open(manager.root + (txt.responseJSON.redirect ? txt.responseJSON.redirect : "signin/"),"_self"); break;
 						default:
 							console.log('ERROR AJAX - '+opcao+' - Dados:');
 							console.log(txt);
@@ -149,13 +149,13 @@ jQuery(document).ready(function(){
     function agendamentos(){
         // ===== Configurações do calendário.
         
-        var calendario = gestor.calendario;
+        var calendar = manager.calendar;
         
         // ===== Datas disponíveis para agendamento.
         
         var datasDisponiveis = [];
         
-        for(var data in calendario.datas_disponiveis){
+        for(var data in calendar.available_dates){
             var dateObj = new Date(data.replace(/-/g, '\/')); // Bug no objeto Date() do javascript. Basta trocar o '-' por '/' que a data funciona corretamente. Senão fica um dia a mais do dia correto.
             
             datasDisponiveis.push(dateObj);
@@ -180,8 +180,8 @@ jQuery(document).ready(function(){
             type: 'date',
             inline: true,
             initialDate: new Date(),
-            minDate: new Date(calendario.ano_inicio+'/01/01'),
-            maxDate: new Date(calendario.ano_fim+'/12/31'),
+            minDate: new Date(calendar.start_year+'/01/01'),
+            maxDate: new Date(calendar.year_end+'/12/31'),
             eventClass: 'inverted blue',
             enabledDates: datasDisponiveis,
             eventDates: datasDisponiveis,
@@ -246,7 +246,7 @@ jQuery(document).ready(function(){
         jQuery('.printBtn').on('mouseup tap',function(e){
             if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
             
-            window.open(gestor.raiz+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
+            window.open(manager.root+"pagina-de-impressao/","Imprimir","menubar=0,location=0,height=700,width=1024");
         });
     }
 

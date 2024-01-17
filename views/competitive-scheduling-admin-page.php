@@ -1,13 +1,9 @@
 <?php
 
     $data = '
-        var gestor = {};
+        var manager = {};
 
-        gestor.calendario = {
-            "datas_disponiveis": {"2023-10-05":1, "2023-10-09":1, "2023-10-17":1},
-            "ano_inicio": "2023",
-            "ano_fim": "2024"
-        };
+        manager.calendar = '.json_encode( $calendar ).';
     ';
 
     wp_add_inline_script( 'competitive-scheduling-admin', $data, $position = 'after' );

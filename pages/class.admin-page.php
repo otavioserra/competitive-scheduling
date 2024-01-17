@@ -23,6 +23,8 @@ if( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ){
             wp_enqueue_style( 'competitive-scheduling-admin', CS_URL . 'assets/css/admin.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/admin.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling-admin', CS_URL . 'assets/js/admin.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/admin.js' ) : CS_VERSION ) );
 
+            $calendar = $this->schedules_calendar();
+
             require( CS_PATH . 'views/competitive-scheduling-admin-page.php' );
         }
 
@@ -112,6 +114,91 @@ if( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ){
             }
 
             return rest_ensure_response( $response );
+        }
+
+        private function schedules_calendar(){
+            // Require formats class to prepare data.
+            require_once( CS_PATH . 'includes/class.formats.php' );
+            
+            // Force date to today for debuging or set today's date
+            if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+            
+            // Get the configuration data.
+            $options = get_option( 'competitive_scheduling_options' );
+            
+            $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : Array());
+            $years = ( isset( $options['calendar-years'] ) ? (int)$options['calendar-years'] : 2);
+            if( isset( $options['unavailable-dates'] )) $unavailable_dates = ( isset( $options['unavailable-dates-values'] ) ? explode('|',$options['unavailable-dates-values'] ) : Array());
+            $calendar_holidays_start = ( isset( $options['calendar-holidays-start'] ) ? trim( $options['calendar-holidays-start'] ) : '15 December');
+            $calendar_holidays_end = ( isset( $options['calendar-holidays-end'] ) ? trim( $options['calendar-holidays-end'] ) : '20 January');
+            
+            $start_year = date('Y');
+            $year_end = (int)$start_year + $years;
+            
+            for( $i=-1; $i<$years+1; $i++ ){
+                $period_holidays[] = Array(
+                    'start' => strtotime( $calendar_holidays_start." ".( $start_year+$i ) ),
+                    'end' => strtotime( $calendar_holidays_end." ".( $start_year+$i+1 ) ),
+                );
+            }
+            
+            $first_day = strtotime( date( "Y-m-d", time() ) . " + 1 day" );
+            $last_day = strtotime( date( "Y-m-d", time() ) . " + ".$years." year" );
+            
+            $day = $first_day;
+            do {
+                $flag = false;
+                
+                if( isset( $period_holidays ) ){
+                    foreach( $period_holidays as $period ){
+                        if(
+                            $day > $period['start'] &&
+                            $day < $period['end']
+                        ){
+                            $flag = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if( isset( $unavailable_dates ) ){
+                    foreach( $unavailable_dates as $ud){
+                        if(
+                            $day > strtotime( Formats::data_format_to( 'text-to-date', $ud ).' 00:00:00' ) &&
+                            $day < strtotime( Formats::data_format_to( 'text-to-date', $ud ).' 23:59:59' )
+                        ){
+                            $flag = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if( ! $flag ){
+                    $flag2 = false;
+                    
+                    if( isset( $days_week ) )
+                    foreach( $days_week as $day_week ){
+                        if( $day_week == strtolower( date( 'D', $day ) ) ){
+                            $flag2 = true;
+                            break;
+                        }
+                    }
+                    
+                    if( $flag2 ){
+                        if( $date == date('Y-m-d', $day)){
+                            $dates[$date] = 1;
+                        }
+                    }
+                }
+                
+                $day += 86400;
+            } while ( $day < $last_day);
+
+            return array(
+                'available_dates' => ( isset( $dates ) ? $dates : array() ),
+                'start_year' => $start_year,
+                'year_end' => $year_end,
+            );
         }
     }
 }
