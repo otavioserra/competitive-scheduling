@@ -97,14 +97,14 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
         public function add_menu(){
             require_once( CS_PATH . 'pages/class.admin-page.php' );
-            $this->$objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
+            $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
 
             add_menu_page(
                 esc_html__( 'Competitive Scheduling Management', 'competitive-scheduling' ),
                 esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ),
                 'manage_options',
                 'competitive_scheduling_admin',
-                array( $this->$objects['Competitive_Scheduling_Admin_Page'], 'page' ),
+                array( $this->objects['Competitive_Scheduling_Admin_Page'], 'page' ),
                 'dashicons-calendar-alt'
             );
 
@@ -134,7 +134,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 esc_html__( 'Options', 'competitive-scheduling' ),
                 'manage_options',
                 'competitive_scheduling_settings',
-                array( $this->$objects['Competitive_Scheduling_Settings'], 'page' ),
+                array( $this->objects['Competitive_Scheduling_Settings'], 'page' ),
                 null,
                 null
             );
