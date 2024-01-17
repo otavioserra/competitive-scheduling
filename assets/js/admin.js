@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+jQuery( document ).ready( function(){
 	var apiVersion = 'v1';
 
     function priority_coupons(){
@@ -254,4 +254,4 @@ jQuery(document).ready(function(){
 		}
 	}
 	
-});
+} );
