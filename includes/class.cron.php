@@ -569,10 +569,9 @@ if( ! class_exists( 'Cron' ) ){
         public static function tests(){
             // Initial Options
             $controls = array(
-                'reset' => false,
+                'reset' => true,
                 'create_schedules' => true,
                 'num_users' => 60,
-                'num_schedules' => 100,
                 'date' => '2024-01-23',
                 'first_names' => ['João', 'José', 'Maria', 'Ana', 'Adriana', 'Aline', 'Antônio', 'Carlos', 'Paulo', 'Pedro', 'Henrique', 'Bruna', 'Amanda', 'Fernanda', 'Luana', 'Luiza', 'Laura', 'Lucas', 'Matheus', 'Gabriel'],
                 'last_names' => ['Silva', 'Santos', 'Oliveira', 'Rodrigues', 'Ferreira', 'Almeida', 'Pereira', 'Lima', 'Ribeiro', 'Gomes', 'Martins', 'Souza', 'Mendes', 'Teixeira', 'Marques', 'Azevedo', 'Costa', 'Barros', 'Fernandes', 'Alves'],
@@ -587,7 +586,7 @@ if( ! class_exists( 'Cron' ) ){
                 if( empty( $tests ) ){
                     $tests = array();
                 }
-                
+
                 // If it is necessary to reset, remove all previously created users.
                 if( $controls['reset'] && ! empty( $tests['user_ids'] ) ){
                     // Array containing previously generated user IDs
@@ -660,56 +659,50 @@ if( ! class_exists( 'Cron' ) ){
             // Randomly create schedules for all users.
             if( $controls['create_schedules'] ) {
                 foreach( $tests['user_ids'] as $user_id ) {
-                    // Number of schedules to create per user
-                    $num_schedules = $controls['num_schedules'];
+                    // Date required to schedule all users.
+                    $date = $controls['date'];
 
-                    // Loop to create random schedules
-                    for( $i = 0; $i < $num_schedules; $i++ ){
-                        // Date required to schedule all users.
-                        $date = $controls['date'];
+                    // Generate random schedule data
+                    $num_companions = rand(0,3);
+                    $pubID = md5( uniqid( rand(), true ) );
 
-                        // Generate random schedule data
-                        $num_companions = rand(0,3);
-                        $pubID = md5( uniqid( rand(), true ) );
+                    // Insert schedule
+                    global $wpdb;
+                    $wpdb->insert(
+                        $wpdb->prefix.'schedules',
+                        array(
+                            'user_id' => $user_id,
+                            'date' => $date,
+                            'companions' => $num_companions,
+                            'pubID' => $pubID,
+                            'status' => 'new',
+                            'version' => 1,
+                            'date_creation' => current_time( 'mysql', false ),
+                            'modification_date' => current_time( 'mysql', false ),
+                        )
+                    );
 
-                        // Insert schedule
-                        global $wpdb;
-                        $wpdb->insert(
-                            $wpdb->prefix.'schedules',
-                            array(
-                                'user_id' => $user_id,
-                                'date' => $date,
-                                'companions' => $num_companions,
-                                'pubID' => $pubID,
-                                'status' => 'new',
-                                'version' => 1,
-                                'date_creation' => current_time( 'mysql', false ),
-                                'modification_date' => current_time( 'mysql', false ),
-                            )
-                        );
+                    $lastid = $wpdb->insert_id;
 
-                        $lastid = $wpdb->insert_id;
-
-                        // Create companions if any.
-                        if( $num_companions > 0 ) {
-                            for( $j = 0; $j < $num_companions; $j++ ) {
-                                // Generate random first and last name
-                                $rand_first_name = $first_names[ array_rand( $controls['first_names'] ) ];
-                                $rand_last_name = $last_names[ array_rand( $controls['last_names'] ) ];
-                                
-                                // Combine into full name
-                                $rand_full_name = $rand_first_name . ' ' . $rand_last_name;
-                                
-                                // Insert companion
-                                $wpdb->insert(
-                                    $wpdb->prefix.'schedules_companions',
-                                    array(
-                                        'id_schedules' => $lastid,
-                                        'user_id' => $user_id,
-                                        'name' => $rand_full_name
-                                    )
-                                );
-                            }
+                    // Create companions if any.
+                    if( $num_companions > 0 ) {
+                        for( $j = 0; $j < $num_companions; $j++ ) {
+                            // Generate random first and last name
+                            $rand_first_name = $controls['first_names'][ array_rand( $controls['first_names'] ) ];
+                            $rand_last_name = $controls['last_names'][ array_rand( $controls['last_names'] ) ];
+                            
+                            // Combine into full name
+                            $rand_full_name = $rand_first_name . ' ' . $rand_last_name;
+                            
+                            // Insert companion
+                            $wpdb->insert(
+                                $wpdb->prefix.'schedules_companions',
+                                array(
+                                    'id_schedules' => $lastid,
+                                    'user_id' => $user_id,
+                                    'name' => $rand_full_name
+                                )
+                            );
                         }
                     }
                 }
