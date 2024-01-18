@@ -173,15 +173,15 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         case 'tests':
                             echo 'Rodar tests(): ' . '<br>';
                             Cron::tests();
+                            exit;
                             break;
                         case 'run':
                             echo 'Rodar run(): ' . '<br>';
                             Cron::run();
+                            exit;
                             break;
                     }
                 }
-
-                exit;
             }
 
             // Verify if page is defined
