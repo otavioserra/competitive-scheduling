@@ -1414,19 +1414,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'msg' => $msgAlert
                     ));
                 } else {
-                    // Returned data.
-                    $data = Array();
-                    if( isset( $return['data'] ) ){
-                        $data = $return['data'];
-                    }
-                    
                     // Alert the user of change success.
                     Interfaces::alert( array(
                         'redirect' => true,
-                        'msg' => $data['alert']
+                        'msg' => $return['alert']
                     ));
-
-                    echo 'data: ' . ( print_r( $data, true ) ) . '<br>'; exit;
                 }
                 
                 // Redirects the page to previous schedules.
