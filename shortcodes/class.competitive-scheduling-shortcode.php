@@ -1475,7 +1475,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             global $wpdb;
             $query = $wpdb->prepare(
-                "SELECT date, status 
+                "SELECT date 
                 FROM {$wpdb->prefix}schedules 
                 WHERE id_schedules = '%s' 
                 AND user_id = '%s'",
@@ -1491,6 +1491,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Cancellation activation.
                 $_MANAGER['javascript-vars']['cancel'] = true;
             } else {
+                // Scheduling data.
+                $date = $schedules->date;
+                
                 // Make the cancellation.
                 $return = $this->schedule_cancel( array(
                     'id_schedules' => $id_schedules,
