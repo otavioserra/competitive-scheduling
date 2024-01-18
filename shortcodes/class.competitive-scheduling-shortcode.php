@@ -164,10 +164,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
         private function shortcode_page( $page ){
             require_once( CS_PATH . 'includes/class.cron.php' );
-            echo 'Rodar tests(): ' . '<br>';
-            Cron::tests();
-            /* echo 'Rodar run(): ' . '<br>';
-            Cron::run(); */
+            /* echo 'Rodar tests(): ' . '<br>';
+            Cron::tests(); */
+            echo 'Rodar run(): ' . '<br>';
+            Cron::run();
 
             exit;
 
