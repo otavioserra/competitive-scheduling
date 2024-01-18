@@ -164,19 +164,21 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function shortcode_page( $page ){
-            
+
             if( $this->tests ){
                 require_once( CS_PATH . 'includes/class.cron.php' );
 
-                switch( $_REQUEST['testsOption'] ){
-                    case 'tests':
-                        echo 'Rodar tests(): ' . '<br>';
-                        Cron::tests();
-                        break;
-                    case 'run':
-                        echo 'Rodar run(): ' . '<br>';
-                        Cron::run();
-                        break;
+                if( isset( $_REQUEST['testsOption'] ) ){
+                    switch( $_REQUEST['testsOption'] ){
+                        case 'tests':
+                            echo 'Rodar tests(): ' . '<br>';
+                            Cron::tests();
+                            break;
+                        case 'run':
+                            echo 'Rodar run(): ' . '<br>';
+                            Cron::run();
+                            break;
+                    }
                 }
 
                 exit;
