@@ -324,7 +324,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $query = $wpdb->prepare(
                     "SELECT id_schedules, date, companions, status, modification_date
                     FROM {$wpdb->prefix}schedules 
-                    WHERE user_id = '%s' AND date >= '%s' AND status != 'confirmed' AND  status != 'finished' 
+                    WHERE user_id = '%s' AND date >= '%s' AND status != 'confirmed' AND  status != 'finished' AND  status != 'canceled' 
                     ORDER BY date ASC",
                     array( $user_id, $today )
                 );
@@ -344,7 +344,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $query = $wpdb->prepare(
                     "SELECT id_schedules, date, companions, status, modification_date
                     FROM {$wpdb->prefix}schedules 
-                    WHERE user_id = '%s' AND ( date < '%s' OR status = 'finished' ) 
+                    WHERE user_id = '%s' AND ( date < '%s' OR status = 'finished' OR status = 'canceled' ) 
                     ORDER BY date ASC",
                     array( $user_id, $today )
                 );
@@ -1823,7 +1823,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $sql = $wpdb->prepare(
                 "UPDATE {$wpdb->prefix}schedules      
                 SET 
-                    status = 'finished',  
+                    status = 'canceled',  
                     version = version + 1,  
                     modification_date = '%s'  
                 WHERE 
