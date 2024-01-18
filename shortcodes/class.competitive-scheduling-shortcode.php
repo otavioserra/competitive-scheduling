@@ -535,7 +535,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         // Sweep all old schedules.
                         foreach( $DBOld as $scheduling ){
                             // Set the status.
-                            if( $scheduling->status = 'canceled' ){
+                            if( $scheduling->status == 'canceled' ){
                                 $scheduling->status = $statusSchedule['status-canceled'];
                             } else {
                                 $scheduling->status = $statusSchedule['status-finished'];
