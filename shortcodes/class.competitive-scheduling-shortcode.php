@@ -11,6 +11,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             'status-no-residual-vacancy',
             'status-residual-vacancies',
         );
+        private $tests = true;
 
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
@@ -163,13 +164,23 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function shortcode_page( $page ){
-            /* require_once( CS_PATH . 'includes/class.cron.php' );
-            echo 'Rodar tests(): ' . '<br>';
-            Cron::tests();
-            echo 'Rodar run(): ' . '<br>';
-            Cron::run();
+            
+            if( $this->tests ){
+                require_once( CS_PATH . 'includes/class.cron.php' );
 
-            exit; */
+                switch( $_REQUEST['testsOption'] ){
+                    case 'tests':
+                        echo 'Rodar tests(): ' . '<br>';
+                        Cron::tests();
+                        break;
+                    case 'run':
+                        echo 'Rodar run(): ' . '<br>';
+                        Cron::run();
+                        break;
+                }
+
+                exit;
+            }
 
             // Verify if page is defined
             if( empty( $page ) ){
