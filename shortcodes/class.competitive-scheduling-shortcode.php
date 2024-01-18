@@ -164,7 +164,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function shortcode_page( $page ){
-
             if( $this->tests ){
                 require_once( CS_PATH . 'includes/class.cron.php' );
 
@@ -1318,6 +1317,20 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Get the configuration data.
                 $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
                 $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
+
+                // Discovering the current phase of the scheduling process.
+                $phase = 'undetermined';
+                if(
+                    strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
+                    strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
+                ){
+                    $phase = 'confirmation';
+                } else if(
+                    strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
+                    strtotime( $today ) <= strtotime( $date.' - 1 day' )
+                ){
+                    $phase = 'residual';
+                }
            
                 // Check whether the current status of the schedule allows confirmation.
                 if(
@@ -1327,10 +1340,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $status == 'email-not-sent'
                 ){
                     // Check if you are in the confirmation phase.
-                    if(
-                        strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
-                        strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
-                    ){
+                    if( $phase == 'confirmation' || $phase == 'residual' ){
                         
                     } else {
                         // Confirmation period dates.
@@ -1352,10 +1362,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                     }
                 } else {
-                    if(
-                        strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
-                        strtotime( $today ) <= strtotime( $date.' - 1 day' )
-                    ){
+                    if( $phase == 'residual' ){
                         
                     } else {
                         Interfaces::alert( array(
