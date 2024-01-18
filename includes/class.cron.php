@@ -258,14 +258,14 @@ if( ! class_exists( 'Cron' ) ){
                             }
                             
                             // Mark the existence of the weight in the database.
-                            $schedules[$num]['weight_database'] = true;
+                            $schedules[$num]->weight_database = true;
                         } else {
                             $weight = 0;
                             $tickets[] = $ticket;
                         }
                         
                         // Update schedule array and add weight.
-                        $schedules[$num]['weight'] = $weight;
+                        $schedules[$num]->weight = $weight;
                     }
                     
                     // Draw the tickets.
