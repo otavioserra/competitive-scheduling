@@ -371,21 +371,24 @@ jQuery( document ).ready( function(){
 		switch( option ){
 			case 'open':
 				if( ! ('loading' in manager ) ){
-					jQuery('.pageLoading').dimmer({
+					jQuery('.page.dimmer').dimmer({
 						closable: false,
-						dimmerName: 'pageLoading' //className, NOT id (!)
 					});
 					
 					manager.loading = true;
 				}
 				
-				jQuery('.pageLoading').dimmer('show');
+				jQuery('.page.dimmer').dimmer('show');
 			break;
 			case 'close':
-				jQuery('.pageLoading').dimmer('hide');
+				jQuery('.page.dimmer').dimmer('hide');
 			break;
 		}
 	}
+
+	setTimeout(function(){
+		loading('open');
+	},1000);
 	
 	function modal(p={}){
 		if(p.message){
