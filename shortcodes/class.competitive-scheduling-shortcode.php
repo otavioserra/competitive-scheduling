@@ -20,7 +20,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             add_action( 'rest_api_init', function () {
                 register_rest_route( 'competitive-scheduling/v1', '/companions/', array(
                         'methods' => WP_REST_Server::READABLE,
-                        'callback' => array( $this, 'companions' )
+                        'callback' => array( $this, 'ajax_companions' )
                 ) );
             } );
         }
@@ -76,9 +76,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return $this->shortcode_page(ob_get_clean());
         }
 
-        public function companions( $request ) {
+        public function ajax_companions( $request ) {
             // Get all sent parameters
             $params = $request->get_params();
+
+            sleep(2); // Simulate delay
             
             if( is_user_logged_in() ){
                 // Verify nonce
