@@ -1376,9 +1376,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 }
                 
                 // Pick up the change choice.
-                $choice = ( $_REQUEST['choice'] == 'confirm' ? 'confirm' : 'cancel' );
-
-                echo 'choice: ' . $choice . '<br>'; exit;
+                $choice = ( $_REQUEST['action'] == 'confirm' ? 'confirm' : 'cancel' );
 
                 // Treat each choice: 'confirm' or 'cancel'.
                 switch( $choice ){
