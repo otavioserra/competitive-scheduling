@@ -372,7 +372,8 @@ jQuery( document ).ready( function(){
 			case 'open':
 				if( ! ('loading' in manager ) ){
 					jQuery('.pageLoading').dimmer({
-						closable: false
+						closable: false,
+						dimmerName: 'pageLoading' //className, NOT id (!)
 					});
 					
 					manager.loading = true;
