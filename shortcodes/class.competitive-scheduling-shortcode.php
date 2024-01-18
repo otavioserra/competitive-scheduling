@@ -535,8 +535,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         // Sweep all old schedules.
                         foreach( $DBOld as $scheduling ){
                             // Set the status.
-                            $scheduling->status = $statusSchedule['status-finished'];
-                            
+                            if( $scheduling->status = 'canceled' ){
+                                $scheduling->status = $statusSchedule['status-canceled'];
+                            } else {
+                                $scheduling->status = $statusSchedule['status-finished'];
+                            }
+
                             // Get the scheduling type cell.
                             $cell_name = 'cell-olds';
 
@@ -2135,6 +2139,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $statusSchedulingTexts = Array(
                 'status-confirmed' => __( '<span class="ui green label">Confirmed</span>', 'competitive-scheduling' ),
                 'status-finished' => __( '<span class="ui grey label">Finished</span>', 'competitive-scheduling' ),
+                'status-canceled' => __( '<span class="ui red label">Canceled</span>', 'competitive-scheduling' ),
                 'status-unqualified' => __( '<span class="ui brown label">Not Drawn - Waiting for Residual Vacancies</span>', 'competitive-scheduling' ),
                 'status-new' => __( '<span class="ui grey label">Waiting For Draw</span>', 'competitive-scheduling' ),
                 'status-qualified' => __( '<span class="ui yellow label">Drawn - Awaiting Confirmation</span>', 'competitive-scheduling' ),
