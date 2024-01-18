@@ -134,7 +134,7 @@ if( ! class_exists( 'Cron' ) ){
                 
                 $statusProcessDraw = 'new';
             } else {
-                $statusProcessDraw = ( $schedules_dates->status ? $schedules_dates->status : 'new' );
+                $statusProcessDraw = ( $schedules_dates[0]->status ? $schedules_dates[0]->status : 'new' );
             }
             
             // Counting and control variables.
@@ -383,7 +383,7 @@ if( ! class_exists( 'Cron' ) ){
                                 'status' => 'qualified',
                             ), 
                             array(
-                                'id_schedules' => $schedule['id_schedules'],
+                                'id_schedules' => $schedule->id_schedules,
                             ) 
                         );
                     }
@@ -437,9 +437,9 @@ if( ! class_exists( 'Cron' ) ){
                     // Scan all schedules.
                     $emails_sent = 0;
                     foreach( $schedules as $schedule ){
-                        $user_id = $schedule['user_id'];
-                        $id_schedules = $schedule['id_schedules'];
-                        $pubID = $schedule['pubID'];
+                        $user_id = $schedule->user_id;
+                        $id_schedules = $schedule->id_schedules;
+                        $pubID = $schedule->pubID;
 
                         // Generate the validation token.
                         $auth = Authentication::generate_token_validation( array( 
