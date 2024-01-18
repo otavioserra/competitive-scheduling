@@ -367,10 +367,10 @@ jQuery( document ).ready( function(){
 
 	loading('open');
 
-	function loading(option){
-		switch(option){
+	function loading( option ){
+		switch( option ){
 			case 'open':
-				if(!('loading' in manager)){
+				if( ! ('loading' in manager ) ){
 					jQuery('.pageLoading').dimmer({
 						closable: false
 					});
