@@ -1425,6 +1425,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'redirect' => true,
                         'msg' => $data['alert']
                     ));
+
+                    echo 'data: ' . ( print_r( $data, true ) ) . '<br>'; exit;
                 }
                 
                 // Redirects the page to previous schedules.
