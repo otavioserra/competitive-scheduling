@@ -5,6 +5,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public $statusSchedulingIDs = array(
             'status-confirmed',
             'status-finished',
+            'status-canceled',
             'status-unqualified',
             'status-new',
             'status-qualified',
