@@ -1618,7 +1618,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $days_week_maximum_vacancies_arr = ( isset( $options['days-week-maximum-vacancies'] ) ? explode(',',$options['days-week-maximum-vacancies'] ) : Array() );
 
                 $count_days = 0;
-                if( $day_week )
+                if( ! empty( $days_week ) )
                 foreach( $days_week as $day_week ){
                     if( $day_week == strtolower( date( 'D', strtotime($date) ) ) ){
                         break;
