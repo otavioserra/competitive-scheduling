@@ -69,7 +69,7 @@ if( ! class_exists( 'Cron' ) ){
 
         public static function cleaning(){
             // Control variables initial values.
-            $today = date( 'Y-m-d' );
+            if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
 
             // Check the scheduled dates in the database.
             global $wpdb;
@@ -97,9 +97,11 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function draw(){
+            // Set the day today, either automatically or by forcing for testing.
+            if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+
             // Control variables initial values.
             $today_day_week = strtolower( date( 'D' ) );
-            $today = date( 'Y-m-d' );
             
             // Get current configuration data.
             $options = get_option( 'competitive_scheduling_options' );
