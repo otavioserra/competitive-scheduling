@@ -110,11 +110,8 @@ if( ! class_exists( 'Cron' ) ){
             $days_week_maximum_vacancies_arr = ( ! empty( $options['days-week-maximum-vacancies'] ) ? explode( ',', $options['days-week-maximum-vacancies'] ) : Array() );
             $days_week = ( ! empty( $options['days-week'] ) ? explode( ',', $options['days-week'] ) : Array() );
             
-            echo 'draw_phase: ' . ( print_r( $draw_phase, true ) ) . '<br>'; 
             // Draw date.
             $date = date( 'Y-m-d', strtotime( $today.' + '.( $draw_phase[0] ).' day' ) );
-
-            echo 'date: ' . $date . '<br>'; 
             
             // Check the scheduled dates in the database.
             global $wpdb;
