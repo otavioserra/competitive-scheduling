@@ -387,6 +387,7 @@ jQuery( document ).ready( function(){
 	}
 
 	setTimeout(function(){
+		console.log('Code completed after 1 second');
 		loading('open');
 	},1000);
 	
