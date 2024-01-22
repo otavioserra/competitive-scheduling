@@ -16,3 +16,11 @@
 .scheduleWindow{
   position: relative;
 }
+.pageLoading {
+  top:0;
+  left: 0;
+}
+.modal.informative{
+  top:0;
+  left: 0;
+}
