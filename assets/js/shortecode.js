@@ -365,8 +365,6 @@ jQuery( document ).ready( function(){
 		});
 	}
 
-	loading('open');
-
 	function loading( option ){
 		switch( option ){
 			case 'open':

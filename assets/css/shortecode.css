@@ -16,8 +16,3 @@
 .scheduleWindow{
   position: relative;
 }
-.pageLoading {
-  display: flex !important;
-  top: 0;
-  left: 0;
-}
