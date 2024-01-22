@@ -670,9 +670,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 )
             ) );
 
-            $page = Interfaces::finish( $page );
-
+            // Action to include components at the beginning of the BODY tag
+            add_action( 'wp_body_open', array( $this, 'interface_componets' ) );
+            
             return $page;
+        }
+
+        public function interface_components(){
+            echo Interfaces::finish();
         }
 
         private function schedule( $params = false ){

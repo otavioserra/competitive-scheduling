@@ -227,12 +227,12 @@ if( ! class_exists( 'Interfaces' ) ){
         /**
          * Finish the page
          *
-         * @param string $page HTML code of the page where the components will be included.
+         * @param string|null $page HTML code of the page where the components will be included.
          * 
          * @return string
          */
 
-        public static function finish( $page ){
+        public static function finish( $page = '' ){
             global $_MANAGER;
 
             // Print alert on user screen.
