@@ -80,8 +80,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Get all sent parameters
             $params = $request->get_params();
 
-            sleep(2); // Simulate delay
-            
             if( is_user_logged_in() ){
                 // Verify nonce
                 $nonce = $params['nonce'];
