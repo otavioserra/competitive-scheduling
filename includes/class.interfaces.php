@@ -246,7 +246,7 @@ if( ! class_exists( 'Interfaces' ) ){
             ','before');
 
             // Action to include components at the beginning of the BODY tag
-            add_action( 'wp_body_open', array( __CLASS__, 'components_html' ) );
+            //add_action( 'wp_body_open', array( __CLASS__, 'components_html' ) );
         }
 
         /**
