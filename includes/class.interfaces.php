@@ -225,21 +225,16 @@ if( ! class_exists( 'Interfaces' ) ){
         }
 
         /**
-         * Finish the page
-         *
-         * @param string|null $page HTML code of the page where the components will be included.
+         * Finish interface
          * 
          * @return string
          */
 
-        public static function finish( $page = '' ){
+        public static function finish(){
             global $_MANAGER;
 
             // Print alert on user screen.
             Interfaces::alert( array( 'print' => true ) );
-            
-            // Add components to the page.
-            $page = Interfaces::components( $page );
             
             // Interfaces javascript vars.
             if( ! isset( $_MANAGER['javascript-vars']['interface'] ) ){
@@ -250,7 +245,18 @@ if( ! class_exists( 'Interfaces' ) ){
                 var manager = '.json_encode( $_MANAGER['javascript-vars'] ).';
             ','before');
 
-            return $page;
+            // Action to include components at the beginning of the BODY tag
+            add_action( 'wp_body_open', array( self, 'components_html' ) );
+        }
+
+        /**
+         * Echo the components html
+         * 
+         * @return string
+         */
+
+        public static function components_html(){
+            echo Interfaces::components();
         }
     }
 }

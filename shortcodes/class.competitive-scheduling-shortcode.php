@@ -669,15 +669,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'modal-info',
                 )
             ) );
+            Interfaces::finish();
 
-            // Action to include components at the beginning of the BODY tag
-            add_action( 'wp_body_open', array( $this, 'interface_components' ) );
-            
             return $page;
-        }
-
-        public function interface_components(){
-            echo Interfaces::finish();
         }
 
         private function schedule( $params = false ){
