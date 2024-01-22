@@ -671,7 +671,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             ) );
 
             // Action to include components at the beginning of the BODY tag
-            add_action( 'wp_body_open', array( $this, 'interface_componets' ) );
+            add_action( 'wp_body_open', array( $this, 'interface_components' ) );
             
             return $page;
         }
