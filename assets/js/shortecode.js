@@ -384,9 +384,10 @@ jQuery( document ).ready( function(){
 		}
 	}
 
+	loading('open');
 	setTimeout(function(){
 		console.log('Code completed after 1 second');
-		loading('open');
+		loading('close');
 	},1000);
 	
 	function modal(p={}){
