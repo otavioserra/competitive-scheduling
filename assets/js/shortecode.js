@@ -383,12 +383,6 @@ jQuery( document ).ready( function(){
 			break;
 		}
 	}
-
-	loading('open');
-	setTimeout(function(){
-		console.log('Code completed after 1 second');
-		loading('close');
-	},1000);
 	
 	function modal(p={}){
 		if(p.message){
