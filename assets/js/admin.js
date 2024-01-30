@@ -209,7 +209,9 @@ jQuery( document ).ready( function(){
 				jQuery( this ).find( 'i' ).addClass( 'check square outline icon' );
 				jQuery( this ).addClass( 'active' );
 
-				schedules_update( { status:value } );
+				var status = obj.attr( 'data-status' );
+
+				schedules_update( { status } );
 
 				lastButton = obj;
 			}
