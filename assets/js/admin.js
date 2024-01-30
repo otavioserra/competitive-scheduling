@@ -76,6 +76,10 @@ jQuery( document ).ready( function(){
 			( 'date' in manager.schedules ) && 
 			( 'status' in manager.schedules )
 		){
+			// Get the nonce of appointments.
+			var nonce = jQuery('input[name="schedules-nonce"]').val();
+
+			// Set up the data object.
 			var data = {
 				option : 'schedules',
 				date : manager.schedules.date,
@@ -114,7 +118,7 @@ jQuery( document ).ready( function(){
 				}
 
 				if( 'nonce' in response ){
-					jQuery( 'input[name="companions-nonce"]' ).val( response.nonce );
+					jQuery( 'input[name="schedules-nonce"]' ).val( response.nonce );
 				}
 
 				loading('close');

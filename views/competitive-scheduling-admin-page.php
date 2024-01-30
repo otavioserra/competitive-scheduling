@@ -110,5 +110,6 @@
                 </table><!-- people-table > -->
             </div>
         </div>
+        <input type="hidden" name="schedules-nonce" value="<?php echo wp_create_nonce( 'schedules-nonce' ); ?>">
     </form>
 </div>
