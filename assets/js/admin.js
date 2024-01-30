@@ -238,18 +238,18 @@ jQuery( document ).ready( function(){
 	function loading( option ){
 		switch( option ){
 			case 'open':
-				if( ! ( 'loading' in manager ) ){
-					jQuery( '.pageLoading' ).dimmer( {
-						closable: false
-					} );
+				if( ! ('loading' in manager ) ){
+					jQuery('.page.dimmer').dimmer({
+						closable: false,
+					});
 					
 					manager.loading = true;
 				}
 				
-				jQuery( '.pageLoading' ).dimmer('show');
+				jQuery('.page.dimmer').dimmer('show');
 			break;
 			case 'close':
-				jQuery( '.pageLoading' ).dimmer('hide');
+				jQuery('.page.dimmer').dimmer('hide');
 			break;
 		}
 	}

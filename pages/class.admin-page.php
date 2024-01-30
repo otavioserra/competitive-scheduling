@@ -30,6 +30,21 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 			wp_enqueue_style( 'competitive-scheduling-admin', CS_URL . 'assets/css/admin.css', array(), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/admin.css' ) : CS_VERSION ) );
 			wp_enqueue_script( 'competitive-scheduling-admin', CS_URL . 'assets/js/admin.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/admin.js' ) : CS_VERSION ) );
 
+			// Require interface class to alert user and get modal template.
+			require_once CS_PATH . 'includes/class.interfaces.php';
+
+			// Finalize interface.
+			Interfaces::components_include(
+				array(
+					'component' => array(
+						'modal-loading',
+						'modal-alert',
+						'modal-info',
+					),
+				)
+			);
+			Interfaces::finish();
+
 			$calendar = $this->schedules_calendar();
 
 			require CS_PATH . 'views/competitive-scheduling-admin-page.php';
