@@ -209,7 +209,7 @@ jQuery( document ).ready( function(){
 				jQuery( this ).find( 'i' ).addClass( 'check square outline icon' );
 				jQuery( this ).addClass( 'active' );
 
-				var status = $( obj ).attr( 'data-status' );
+				var status = jQuery( obj ).attr( 'data-status' );
 
 				schedules_update( { status } );
 
