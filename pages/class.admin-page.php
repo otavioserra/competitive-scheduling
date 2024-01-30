@@ -57,7 +57,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 			if ( is_user_logged_in() ) {
 				// Verify nonce
 				$nonce = $params['nonce'];
-				if ( ! wp_verify_nonce( $nonce, 'companions-nonce' ) ) {
+				if ( ! wp_verify_nonce( $nonce, 'schedules-nonce' ) ) {
 					return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.', 'competitive-scheduling' ), array( 'status' => 403 ) );
 				}
 
@@ -129,7 +129,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				$response = array(
 					'status'        => 'OK',
 					'dataSchedules' => $dataSchedules,
-					'nonce'         => wp_create_nonce( 'companions-nonce' ),
+					'nonce'         => wp_create_nonce( 'schedules-nonce' ),
 				);
 			} else {
 				// Response data
