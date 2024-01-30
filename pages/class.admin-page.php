@@ -12,7 +12,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 						'/admin-page/',
 						array(
 							'methods'  => WP_REST_Server::READABLE,
-							'callback' => array( $this, 'ajax' ),
+							'callback' => array( $this, 'ajax_schedules' ),
 						)
 					);
 				}
@@ -50,7 +50,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 			require CS_PATH . 'views/competitive-scheduling-admin-page.php';
 		}
 
-		public function ajax( $request ) {
+		public function ajax_schedules( $request ) {
 			// Get all sent parameters
 			$params = $request->get_params();
 
