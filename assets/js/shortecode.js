@@ -145,45 +145,13 @@ jQuery( document ).ready( function(){
 		// jQuery( '.button' ).popup( { addTouchEvents:false } );
 		
 		// Companions start fields rules.
-		var parentObj = jQuery( this ).parents( '.field' );
-		var companionsCont = parentObj.find('.companionsCont');
-		var companionsTemplateCont = parentObj.find('.companionsTemplateCont');
-		var numComp = companionsCont.find('.field').length;
-		
-		value = parseInt(value);
-		
-		if(value > numComp){
-			for(var i=numComp;i<value;i++){
-				var field = companionsTemplateCont.find('.field').clone();
-				var num = (i+1);
-				
-				field.attr('data-num',num);
-				field.find('label').html(texts['companion-label']+' '+num);
-				field.find('input').prop('name','companion-'+num);
-				field.find('input').prop('placeholder',texts['companion-label']+' '+num);
-				field.find('input').attr('data-validate','companion'+num);
-				
-				companionsCont.append(field);
-				
-				jQuery(formSelector).form('add rule', ('companion'+num),{ rules : manager.form[formId].validationRules[('companion'+num)].rules });
-			}
-		} else {
-			var num = 0;
-			
-			companionsCont.find('.field').each(function(){
-				num++;
-				
-				jQuery(formSelector).form('remove fields', ['companion'+num]);
-				
-				if(num > value){
-					jQuery(this).hide();
-				} else {
-					jQuery(this).show();
-					jQuery(formSelector).form('add rule', ('companion'+num),{ rules : manager.form[formId].validationRules[('companion'+num)].rules });
-				}
-			});
-		}
+		var max_companions = manager.max_companions;
 
+		for(var i=0;i<max_companions;i++){
+			var num = (i+1);
+			jQuery( formSelector ).form( 'remove fields', ['companion'+num] );
+		}
+		
 		// Companions dropdown.
 		jQuery( '.ui.dropdown' ).dropdown( {
 			onChange: function( value ){
