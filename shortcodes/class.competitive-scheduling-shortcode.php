@@ -1941,6 +1941,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         break;
                     }
                 }
+
+                echo 'limit_calendar: Ok' . '<br>'; 
                 
                 $dateFormatted = date( 'd/m/Y', $day );
                 $flag = false;
