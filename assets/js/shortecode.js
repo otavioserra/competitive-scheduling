@@ -1,5 +1,6 @@
 jQuery( document ).ready( function(){
 	var apiVersion = 'v1';
+	var manager = cs_manager;
 
     function confirm(){
 		// Show the confirmation screen.

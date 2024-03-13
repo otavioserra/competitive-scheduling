@@ -667,7 +667,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'modal-info',
                 )
             ) );
-            Interfaces::finish();
+            Interfaces::finish( CS_JS_MANAGER_VAR );
 
             return $page;
         }

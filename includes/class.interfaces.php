@@ -227,10 +227,12 @@ if( ! class_exists( 'Interfaces' ) ){
         /**
          * Finish interface
          * 
+         * @param string|null $js_manager_var defines JS global variable name.
+         * 
          * @return string
          */
 
-        public static function finish(){
+        public static function finish( $js_manager_var = 'manager' ){
             global $_MANAGER;
 
             // Print alert on user screen.
@@ -242,7 +244,7 @@ if( ! class_exists( 'Interfaces' ) ){
             }
 
             wp_add_inline_script( 'competitive-scheduling', '
-                var manager = '.json_encode( $_MANAGER['javascript-vars'] ).';
+                var '.$js_manager_var.' = '.json_encode( $_MANAGER['javascript-vars'] ).';
             ','before');
 
             // Action to include components at the beginning of the BODY tag

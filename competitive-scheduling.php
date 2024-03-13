@@ -65,6 +65,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_MAX_EMAILS_PER_CYCLE', 50 ); // Maximum number of emails sent per scheduled task execution cycle
             define( 'CS_TIME_NEXT_CYCLE_AFTER_EMAIL_PER_CYCLE_REACH', 15 ); // Number of minutes to run a new cycle of sending confirmation emails
             define( 'CS_MAX_RERUN_CYCLES', 20 ); // Maximum number of executions allowed to send all emails before stopping
+            define( 'CS_JS_MANAGER_VAR', 'cs_manager' );
         }
 
         public static function activate(){
