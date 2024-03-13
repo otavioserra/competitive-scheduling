@@ -57,7 +57,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_VERSION', '1.0.0' );
             define( 'CS_DEBUG', true );
             define( 'CS_EMAIL_ACTIVE', false );
-            define( 'CS_FORCE_DATE_TODAY', true );
+            define( 'CS_FORCE_DATE_TODAY', false );
             define( 'CS_DATE_TODAY_FORCED_VALUE', '2024-01-25' );
             define( 'CS_NOUNCE_SCHEDULES', 'cs-nouce-schedules' );
             define( 'CS_NOUNCE_SCHEDULES_EXPIRES', 86400*45 );
