@@ -4,7 +4,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 	class Competitive_Scheduling_Admin_Page {
 
 		public function __construct() {
-			/* add_action(
+			add_action(
 				'rest_api_init',
 				function () {
 					register_rest_route(
@@ -16,7 +16,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 						)
 					);
 				}
-			); */
+			);
 		}
 
 		public function page() {

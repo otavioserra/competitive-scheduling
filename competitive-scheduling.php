@@ -38,16 +38,19 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         function __construct(){
             $this->define_constants();
 
-            add_action( 'admin_menu', array( $this, 'add_menu' ) );
+            require_once( CS_PATH . 'pages/class.admin-page.php' );
+            $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
 
             require_once( CS_PATH . 'post-types/class.competitive-scheduling-priority-coupon-cpt.php' );
             $Competitive_Scheduling_Priority_Coupon_Post_Type = new Competitive_Scheduling_Priority_Coupon_Post_Type();
-
+            
             require_once( CS_PATH . 'shortcodes/class.competitive-scheduling-shortcode.php' );
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
-
+            
             require_once( CS_PATH . 'settings/class.competitive-scheduling-settings.php' );
             $this->objects['Competitive_Scheduling_Settings'] = new Competitive_Scheduling_Settings();
+            
+            add_action( 'admin_menu', array( $this, 'add_menu' ) );
         }
 
         private function define_constants(){
@@ -97,23 +100,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         }
 
         public function add_menu(){
-            require_once( CS_PATH . 'pages/class.admin-page.php' );
-            $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
-
-            add_action(
-				'rest_api_init',
-				function () {
-					register_rest_route(
-						'competitive-scheduling/v1',
-						'/admin-page/',
-						array(
-							'methods'  => WP_REST_Server::READABLE,
-							'callback' => array( $this->objects['Competitive_Scheduling_Admin_Page'], 'ajax_schedules' ),
-						)
-					);
-				}
-			);
-
             add_menu_page(
                 esc_html__( 'Competitive Scheduling Management', 'competitive-scheduling' ),
                 esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ),
