@@ -87,7 +87,7 @@ jQuery( document ).ready( function(){
 		
 		jQuery( formSelector )
 			.form({
-				fields : ( manager.form[formId].validationRules ? manager.form[formId].validationRules : {} ),
+				//fields : ( manager.form[formId].validationRules ? manager.form[formId].validationRules : {} ),
 				onSuccess( event, fields ){
 					
 				}
