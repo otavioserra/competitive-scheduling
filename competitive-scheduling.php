@@ -100,6 +100,20 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             require_once( CS_PATH . 'pages/class.admin-page.php' );
             $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
 
+            add_action(
+				'rest_api_init',
+				function () {
+					register_rest_route(
+						'competitive-scheduling/v1',
+						'/admin-page/',
+						array(
+							'methods'  => WP_REST_Server::READABLE,
+							'callback' => array( $this->objects['Competitive_Scheduling_Admin_Page'], 'ajax_schedules' ),
+						)
+					);
+				}
+			);
+
             add_menu_page(
                 esc_html__( 'Competitive Scheduling Management', 'competitive-scheduling' ),
                 esc_html__( 'Competitive Scheduling', 'competitive-scheduling' ),
