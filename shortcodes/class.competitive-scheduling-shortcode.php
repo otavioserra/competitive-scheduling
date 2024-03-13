@@ -1933,15 +1933,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $limit_calendar = strtotime( date( "Y-m", strtotime( $today . " + ".$calendar_limit_month_ahead." month") ).'-01' );
             }
 
-            echo 'limit_calendar: ' . strtotime( $today . " + ".$calendar_limit_month_ahead." month") . '<br>'; 
-            echo 'limit_calendar 2: ' . date( "Y-m", strtotime( $today . " + ".$calendar_limit_month_ahead." month") ) . '<br>'; 
-
             $day = $first_day;
             do {
-                echo 'day: ' . $day . '<br>'; 
-                echo 'limit_calendar: ' . $limit_calendar . '<br>'; 
-                echo 'if: ' . $day . ' >= ' . $limit_calendar . '<br>'; 
-
                 if( isset( $limit_calendar ) ){
                     if( $day >= $limit_calendar ){
                         break;
@@ -2034,8 +2027,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             // JS variables.
             $_MANAGER['javascript-vars']['calendar'] = $JScalendar;
-
-            echo 'Mensagem: ' . ( print_r( $JScalendar, true ) ) . '<br>'; exit;
         }
 
         private function allowed_date( $date ){
