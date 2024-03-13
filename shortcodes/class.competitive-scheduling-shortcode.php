@@ -1936,13 +1936,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $day = $first_day;
             do {
                 echo 'day: ' . $day . '<br>'; 
+                echo 'limit_calendar: ' . $limit_calendar . '<br>'; 
+                echo 'if: ' . $day . ' >= ' . $limit_calendar . '<br>'; 
+
                 if( isset( $limit_calendar ) ){
                     if( $day >= $limit_calendar ){
                         break;
                     }
                 }
-
-                echo 'limit_calendar: Ok' . '<br>'; 
                 
                 $dateFormatted = date( 'd/m/Y', $day );
                 $flag = false;
