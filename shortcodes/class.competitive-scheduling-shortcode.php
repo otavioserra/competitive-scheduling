@@ -2027,6 +2027,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             // JS variables.
             $_MANAGER['javascript-vars']['calendar'] = $JScalendar;
+
+            echo 'Mensagem: ' . ( print_r( $JScalendar, true ) ) . '<br>'; exit;
         }
 
         private function allowed_date( $date ){
