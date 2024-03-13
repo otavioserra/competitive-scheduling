@@ -1933,6 +1933,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $limit_calendar = strtotime( date( "Y-m", strtotime( $today . " + ".$calendar_limit_month_ahead." month") ).'-01' );
             }
 
+            echo 'limit_calendar: ' . strtotime( $today . " + ".$calendar_limit_month_ahead." month") . '<br>'; 
+
             $day = $first_day;
             do {
                 echo 'day: ' . $day . '<br>'; 
