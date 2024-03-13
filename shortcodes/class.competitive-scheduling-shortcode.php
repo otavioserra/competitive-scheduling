@@ -1897,6 +1897,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $options = get_option( 'competitive_scheduling_options' );
             
             $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : Array() );
+            $maxCompanions = ( ! empty( $options['max-companions'] ) ? $options['max-companions'] : 0 );
             $years = ( isset( $options['calendar-years'] ) ? (int)$options['calendar-years'] : 2 );
             $days_week_maximum_vacancies = ( isset( $options['days-week-maximum-vacancies'] ) ? explode(',',$options['days-week-maximum-vacancies'] ) : Array() );
             if( isset( $options['unavailable-dates'] )) $unavailable_dates = ( isset( $options['unavailable-dates-values'] ) ? explode('|',$options['unavailable-dates-values'] ) : Array() );
@@ -2022,6 +2023,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $JScalendar['available_dates'] = $dates;
             $JScalendar['start_year'] = $start_year;
             $JScalendar['year_end'] = $year_end;
+            $JScalendar['max_companions'] = $maxCompanions;
             
             // JS variables.
             $_MANAGER['javascript-vars']['calendar'] = $JScalendar;
