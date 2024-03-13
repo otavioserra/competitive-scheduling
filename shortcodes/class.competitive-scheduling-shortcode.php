@@ -1935,6 +1935,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             $day = $first_day;
             do {
+                echo 'day: ' . $day . '<br>'; 
                 if( isset( $limit_calendar ) ){
                     if( $day >= $limit_calendar ){
                         break;
