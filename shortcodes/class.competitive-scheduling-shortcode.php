@@ -2021,7 +2021,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $day += 86400;
             } while ( $day < $last_day );
             
-            $JScalendar['available_dates'] = $dates;
+            $JScalendar['available_dates'] = ( ! empty( $dates ) ? $dates : Array() );
             $JScalendar['start_year'] = $start_year;
             $JScalendar['year_end'] = $year_end;
             $JScalendar['max_companions'] = $maxCompanions;
