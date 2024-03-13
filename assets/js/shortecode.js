@@ -87,7 +87,6 @@ jQuery( document ).ready( function(){
 		
 		jQuery( formSelector )
 			.form({
-				//fields : ( manager.form[formId].validationRules ? manager.form[formId].validationRules : {} ),
 				onSuccess( event, fields ){
 					
 				}
@@ -143,14 +142,6 @@ jQuery( document ).ready( function(){
 		
 		// Start popup.
 		// jQuery( '.button' ).popup( { addTouchEvents:false } );
-		
-		// Companions start fields rules.
-		var max_companions = manager.max_companions;
-
-		for(var i=0;i<max_companions;i++){
-			var num = (i+1);
-			jQuery( formSelector ).form( 'remove fields', ['companion'+num] );
-		}
 		
 		// Companions dropdown.
 		jQuery( '.ui.dropdown' ).dropdown( {
