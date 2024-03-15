@@ -89,7 +89,7 @@
                             <!-- td-companions < --><table class="ui definition very compact table">
                                 <tbody>
                                     <!-- cell-companion < --><tr>
-                                        <td class="nowrap" style="width: 80px;"><?php echo esc_html__( 'Companion', 'competitive-scheduling' ); ?> [[num]]</td>
+                                        <td class="nowrap" style="width: 140px;"><?php echo esc_html__( 'Companion', 'competitive-scheduling' ); ?> [[num]]</td>
                                         <td>[[companion]]</td>
                                     </tr><!-- cell-companion > -->
                                 </tbody>
