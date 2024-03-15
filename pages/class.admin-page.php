@@ -170,7 +170,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							} );
 							
 							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cel[$cel_name];
+								$cel_aux = $cell[$cel_name];
 								
 								// Include the name.
 								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
@@ -178,12 +178,12 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								// Popular escorts.
 								$companionNum = 0;
 								if( isset( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cel['td-companions'] );
+									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
 									
 									foreach( $schedule['companionsData'] as $companionsData ){
 										$companionNum++;
 
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cel[$cel_comp];
+										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
 
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
@@ -257,20 +257,20 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								return $a['name'] <=> $b['name'];
 							} );
 							
-							$cel_name = 'th-email'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cel[$cel_name] );
+							$cel_name = 'th-email'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cell[$cel_name] );
 							
 							$cel_name = 'cell-schedule';
 							
 							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cel[$cel_name];
+								$cel_aux = $cell[$cel_name];
 								
 								// Include the status of sent or not sent.
-								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-email -->', $cel['td-email'] );
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-email -->', $cell['td-email'] );
 								
 								if( $schedule['status'] == 'email-sent' ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- sent -->', $cel['sent'] );
+									$cel_aux = Templates::change_variable( $cel_aux, '<!-- sent -->', $cell['sent'] );
 								} else {
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- not-sent -->', $cel['not-sent'] );
+									$cel_aux = Templates::change_variable( $cel_aux, '<!-- not-sent -->', $cell['not-sent'] );
 								}
 								
 								// Include the name.
@@ -279,12 +279,12 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								// Popular escorts.
 								$companionNum = 0;
 								if( isset( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cel['td-companions'] );
+									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
 									
 									foreach( $schedule['companionsData'] as $companionsData ){
 										$companionNum++;
 
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cel[$cel_comp];
+										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
 
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
@@ -358,15 +358,15 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								return $a['name'] <=> $b['name'];
 							} );
 							
-							$cel_name = 'th-password'; $table = modelo_var_troca($table,'<!-- '.$cel_name.' -->',$cel[$cel_name]);
+							$cel_name = 'th-password'; $table = modelo_var_troca($table,'<!-- '.$cel_name.' -->',$cell[$cel_name]);
 							
 							$cel_name = 'cell-schedule';
 							
 							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cel[$cel_name];
+								$cel_aux = $cell[$cel_name];
 								
 								// Include name and password.
-								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-password -->', $cel['td-password'] );
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-password -->', $cell['td-password'] );
 								
 								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
 								$cel_aux = Templates::change_variable( $cel_aux, '[[password]]', $schedule['password'] );
@@ -374,12 +374,12 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								// Popular escorts.
 								$companionNum = 0;
 								if( isset( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cel['td-companions'] );
+									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
 									
 									foreach( $schedule['companionsData'] as $companionsData ){
 										$companionNum++;
 
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cel[$cel_comp];
+										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
 
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
@@ -428,7 +428,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 									// Popular escorts.
 									$companionNum = 0;
 									if( isset( $schedule['companionsData'] ) ){
-										$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cel['td-companions'] );
+										$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
 										
 										foreach( $schedule['companionsData'] as $companionsData ){
 											$companionNum++;
@@ -530,7 +530,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$cel_name = 'cell-schedule';
 							
 							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cel[$cel_name];
+								$cel_aux = $cell[$cel_name];
 								
 								// Include the name.
 								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
@@ -538,12 +538,12 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								// Popular escorts.
 								$companionNum = 0;
 								if( isset( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cel['td-companions'] );
+									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
 									
 									foreach( $schedule['companionsData'] as $companionsData ){
 										$companionNum++;
 
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cel[$cel_comp];
+										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
 
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
 										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
