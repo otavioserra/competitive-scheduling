@@ -157,21 +157,19 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$total += 1 + $companions;
 							
 							// Include the schedule data in the schedules array.
-							$schedules[] = $schedulesAux;
+							$schedulesProc[] = $schedulesAux;
 						}
 
-						echo 'schedules: ' . ( print_r( $schedules, true ) ) . '<br>';
-						
-						// Sort the data by name to assemble the table.
-						usort( $schedules, function( $a, $b ){
-							return $a['name'] <=> $b['name'];
-						} );
-						
 						// Set up table.
-						if( $schedules ){
+						if( ! empty( $schedulesProc ) ){
 							$cel_name = 'cell-schedule';
 							
-							foreach( $schedules as $schedule ){
+							// Sort the data by name to assemble the table.
+							usort( $schedulesProc, function( $a, $b ){
+								return $a['name'] <=> $b['name'];
+							} );
+							
+							foreach( $schedulesProc as $schedule ){
 								$cel_aux = $cel[$cel_name];
 								
 								// Include the name.
@@ -247,21 +245,23 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$total += 1 + $companions;
 							
 							// Include the schedule data in the schedules array.
-							$schedules[] = $schedulesAux;
+							$schedulesProc[] = $schedulesAux;
 						}
 						
-						// Sort the data by name to assemble the table.
-						usort( $schedules, function( $a, $b ){
-							return $a['name'] <=> $b['name'];
-						} );
-						
 						// Set up table.
-						if( $schedules ){
+						if( ! empty( $schedulesProc ) ){
+							$cel_name = 'cell-schedule';
+							
+							// Sort the data by name to assemble the table.
+							usort( $schedulesProc, function( $a, $b ){
+								return $a['name'] <=> $b['name'];
+							} );
+							
 							$cel_name = 'th-email'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cel[$cel_name] );
 							
 							$cel_name = 'cell-schedule';
 							
-							foreach( $schedules as $schedule ){
+							foreach( $schedulesProc as $schedule ){
 								$cel_aux = $cel[$cel_name];
 								
 								// Include the status of sent or not sent.
@@ -346,21 +346,23 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$total += 1 + $companions;
 							
 							// Include the schedule data in the schedules array.
-							$schedules[] = $schedulesAux;
+							$schedulesProc[] = $schedulesAux;
 						}
 						
-						// Sort the data by name to assemble the table.
-						usort( $schedules, function( $a, $b ){
-							return $a['name'] <=> $b['name'];
-						} );
-						
 						// Set up table.
-						if( $schedules ){
+						if( ! empty( $schedulesProc ) ){
+							$cel_name = 'cell-schedule';
+							
+							// Sort the data by name to assemble the table.
+							usort( $schedulesProc, function( $a, $b ){
+								return $a['name'] <=> $b['name'];
+							} );
+							
 							$cel_name = 'th-password'; $table = modelo_var_troca($table,'<!-- '.$cel_name.' -->',$cel[$cel_name]);
 							
 							$cel_name = 'cell-schedule';
 							
-							foreach( $schedules as $schedule ){
+							foreach( $schedulesProc as $schedule ){
 								$cel_aux = $cel[$cel_name];
 								
 								// Include name and password.
@@ -401,7 +403,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 						// Print options.
 						if( $total > 0 ){
 							// Set up print table.
-							if( $schedules ){
+							if( ! empty( $schedulesProc ) ){
 								$tablePrint = $printLayout;
 								
 								for( $i=1; $i <= $maxCompanion; $i++ ){
@@ -416,7 +418,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								
 								$cel_name = 'cell-people';
 								
-								foreach( $schedules as $schedule ){
+								foreach( $schedulesProc as $schedule ){
 									$cel_aux = $cell2[$cel_name];
 									
 									// Include password and name.
@@ -513,19 +515,21 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$total += 1 + $companions;
 							
 							// Include the schedule data in the schedules array.
-							$schedules[] = $schedulesAux;
+							$schedulesProc[] = $schedulesAux;
 						}
 						
-						// Sort the data by name to assemble the table.
-						usort( $schedules, function( $a, $b ){
-							return $a['name'] <=> $b['name'];
-						} );
-						
 						// Set up table.
-						if( $schedules ){
+						if( ! empty( $schedulesProc ) ){
 							$cel_name = 'cell-schedule';
 							
-							foreach( $schedules as $schedule ){
+							// Sort the data by name to assemble the table.
+							usort( $schedulesProc, function( $a, $b ){
+								return $a['name'] <=> $b['name'];
+							} );
+
+							$cel_name = 'cell-schedule';
+							
+							foreach( $schedulesProc as $schedule ){
 								$cel_aux = $cel[$cel_name];
 								
 								// Include the name.
