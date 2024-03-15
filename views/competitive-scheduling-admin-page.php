@@ -113,3 +113,41 @@
         <input type="hidden" name="schedules-nonce" value="<?php echo wp_create_nonce( 'schedules-nonce' ); ?>">
     </form>
 </div>
+<div class="print-layout hidden">
+    <!-- print-header < --><div class="ui header"><?php echo esc_html__( 'Confirmed Schedules', 'competitive-scheduling' ); ?></div>
+    <div class="ui basic fitted segment">
+        <span class="dateSelected">
+            <div class="ui primary large label">
+                <i class="calendar check icon"></i>
+                <span class="dateSelectedValue">#date#</span>
+            </div>
+        </span>
+        &nbsp;
+        <span class="totalPeople">
+            <div class="ui green large label">
+                <i class="users icon"></i>
+                Total: 
+                <span class="totalValue">#total#</span>
+            </div>
+        </span>
+    </div><!-- print-header > -->
+    <!-- print-table < --><table class="ui unstackable celled very compact table">
+        <thead>
+            <tr>
+                <th><?php echo esc_html__( 'Name', 'competitive-scheduling' ); ?></th>
+                <th><?php echo esc_html__( 'Password', 'competitive-scheduling' ); ?></th>
+                <!-- th-companions < --><th>#th-companions#</th><!-- th-companions > -->
+                <th><?php echo esc_html__( 'Visa', 'competitive-scheduling' ); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- cell-people < --><tr>
+            <td>#name#</td>
+            <td>#password#</td>
+            <!-- td-companions < --><td>#td-companions#</td><!-- td-companions > -->
+            <td> </td>
+            </tr><!-- cell-people > -->
+        </tbody>
+    </table><!-- print-table > -->
+    <div id="popup-content"></div>
+</div>

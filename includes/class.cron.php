@@ -469,8 +469,8 @@ if( ! class_exists( 'Cron' ) ){
                         ) );
                         
                         // Get the user's name and email
-                        $name = User::get_name();
-                        $email = User::get_email();
+                        $name = User::get_name( $user_id );
+                        $email = User::get_email( $user_id );
                         
                         $code = date( 'dmY' ).Formats::format_zero_to_the_left( $id_schedules, 6 );
                         

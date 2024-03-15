@@ -115,6 +115,8 @@ jQuery( document ).ready( function(){
 					// Show results information containers.
 					jQuery( '.totalPeople' ).show();
 					jQuery( '.tablePeople' ).show();
+
+					jQuery( '#popup-content' ).html( response.tablePrint );
 				}
 
 				if( 'nonce' in response ){
@@ -224,8 +226,12 @@ jQuery( document ).ready( function(){
         // Print.
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
-            
-            window.open(manager.root+"pagina-de-impressao/","Print","menubar=0,location=0,height=700,width=1024");
+
+			var popupWindow = window.open( '', 'Print', 'menubar=0,location=0,width=600,height=400' );
+			popupWindow.document.write( document.getElementById('popup-content').innerHTML );
+
+			// Start printing.
+			popupWindow.print();
         });
     }
 
