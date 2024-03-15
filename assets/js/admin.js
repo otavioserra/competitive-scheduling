@@ -87,6 +87,8 @@ jQuery( document ).ready( function(){
 				nonce
 			};
 
+			console.log( data );
+
 			// Request to update schedules as option.
 			jQuery.ajax( {
 				url: wpApiSettings.root + 'competitive-scheduling/'+apiVersion+'/admin-page/',
