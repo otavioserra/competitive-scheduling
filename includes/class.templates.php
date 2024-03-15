@@ -196,5 +196,21 @@ if( ! class_exists( 'Templates' ) ){
             
             return $template;
         }
+
+        /**
+         * Renders a view and returns the raw html code.
+         *
+         * @param string $view_path is the path on the view's disk.
+         *
+         * @return string
+         */
+
+        public static function render_view( $view_path = '' ){
+            ob_start(); // Starts the output buffer
+            include( $view_path ); // Includes the view
+            $html = ob_get_contents(); // Gets the buffer content
+            ob_end_clean(); // Cleans the buffer
+            return $html; // Returns the view HTML
+        }
     }
 }

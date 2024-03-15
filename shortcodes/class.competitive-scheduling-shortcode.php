@@ -100,7 +100,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $user_id = get_current_user_id();
 
                 // Get cells from the data.
-                $page = file_get_contents( CS_PATH . 'views/competitive-scheduling_shortecode.php' );
+                $page = Templates::render_view( CS_PATH . 'views/competitive-scheduling_shortecode.php' );
 
                 $cell_name = 'cell-data'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 $cell_name = 'schedule-data'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );

@@ -86,7 +86,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				$status = sanitize_text_field( $status );
 
 				// Get table cells.
-				$page = file_get_contents( CS_PATH . 'views/competitive-scheduling-admin-page.php' );
+				$page = Templates::render_view( CS_PATH . 'views/competitive-scheduling-admin-page.php' );
 
 				// Get the tables from the page.
 				$cell_name = 'people-table'; $table = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
