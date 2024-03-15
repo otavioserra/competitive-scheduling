@@ -159,6 +159,8 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							// Include the schedule data in the schedules array.
 							$schedules[] = $schedulesAux;
 						}
+
+						echo 'schedules: ' . ( print_r( $schedules, true ) ) . '<br>';
 						
 						// Sort the data by name to assemble the table.
 						usort( $schedules, function( $a, $b ){
