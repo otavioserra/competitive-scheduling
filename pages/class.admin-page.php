@@ -293,7 +293,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 									}
 								}
 								
-								$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
+								$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', ( $companionNum > 0 ? $cel_aux : '' ) );
 							}
 							
 							$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
