@@ -7,3 +7,9 @@
 .dateSelected{
 	margin-bottom:.4rem;
 }
+.pageLoading {
+	top: 0px !important;
+	left: 0px !important;
+	bottom: 0;
+	right: 0;
+  }

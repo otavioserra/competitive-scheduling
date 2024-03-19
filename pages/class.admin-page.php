@@ -43,7 +43,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 					),
 				)
 			);
-			Interfaces::finish();
+			Interfaces::finish( CS_JS_MANAGER_VAR );
 
 			$calendar = $this->schedules_calendar();
 
