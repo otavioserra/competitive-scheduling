@@ -151,3 +151,4 @@
     </table><!-- print-table > -->
     <div id="popup-content"></div>
 </div>
+<?php echo $components_html; ?>

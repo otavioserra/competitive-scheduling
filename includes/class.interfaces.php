@@ -248,16 +248,21 @@ if( ! class_exists( 'Interfaces' ) ){
             ','before');
 
             // Action to include components at the beginning of the BODY tag
-            add_action( 'wp_footer', array( __CLASS__, 'components_html' ) );
+            add_action( 'wp_body_open', array( __CLASS__, 'components_html' ) );
         }
 
         /**
          * Echo the components html
          * 
+         * @param bool|null $return_string return components as string.
+         * 
          * @return string
          */
 
-        public static function components_html(){
+        public static function components_html( $return_string = null ){
+            if( $return_string ){
+                return Interfaces::components();
+            }
             echo Interfaces::components();
         }
     }
