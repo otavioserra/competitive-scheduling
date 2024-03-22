@@ -646,6 +646,16 @@ if( ! class_exists( 'Cron' ) ){
 
                 // Loop to create random users
                 for( $i = 0; $i < $num_users; $i++ ){
+                    // Generate random first and last name
+                    $rand_first_name = $controls['first_names'][ array_rand( $controls['first_names'] ) ];
+
+                    $rand_last_name = '';
+                    for( $k = 0; $k < rand(1,5); $k++ ) {
+                        $rand_last_name .= ( empty( $rand_last_name ) ? '' : ' ' ) . $controls['last_names'][ array_rand( $controls['last_names'] ) ];
+                    }
+
+                    // Combine into full name
+                    $rand_full_name = $rand_first_name . ' ' . $rand_last_name;
 
                     // Generate random user data
                     $random_username = 'test_' . rand(100,999);
@@ -653,7 +663,14 @@ if( ! class_exists( 'Cron' ) ){
                     $random_password = wp_generate_password(12);
 
                     // Create the user
-                    $user_id = wp_create_user( $random_username, $random_password, $random_email );
+                    $userdata = array(
+                        'user_login' => $random_username,
+                        'user_email' => $random_email,
+                        'user_pass' => $random_password,
+                        'display_name' => $rand_full_name,
+                    );
+                    
+                    $user_id = wp_insert_user( $userdata );
 
                     // Add user ID to array
                     $user_ids[] = $user_id;
