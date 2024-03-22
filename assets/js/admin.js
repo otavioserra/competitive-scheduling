@@ -253,7 +253,7 @@ jQuery( document ).ready( function(){
 				console.log('Erro ao carregar a folha de estilo');
 			}
 			};
-			xhr.send('action=wp_print_styles&stylesheet=' + href);
+			xhr.send('action=wp_print_styles&stylesheet=' + ajaxurl);
 
         });
     }
