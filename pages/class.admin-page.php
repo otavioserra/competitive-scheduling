@@ -333,7 +333,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							// Get user data from the schedule.
 							$name = User::get_name( $user_id );
 
-							echo $name."\n";
+							echo 'Name: '.$total.' - '.$name."\n";
 
 							$schedulesAux = Array(
 								'name' => $name,
