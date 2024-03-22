@@ -359,6 +359,9 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 						}
 						
 						// Set up table.
+						
+						$maxCompanion = 0;
+
 						if( ! empty( $schedulesProc ) ){
 							$cel_name = 'cell-schedule';
 							
