@@ -329,13 +329,9 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$user_id = $schedule['user_id'];
 							$companions = (int)$schedule['companions'];
 							$password = $schedule['password'];
-
-							echo 'ID: '.$user_id.' ';
 							
 							// Get user data from the schedule.
 							$name = User::get_name( $user_id );
-
-							echo 'Name: '.$total.' - '.$name."\n";
 
 							$schedulesAux = Array(
 								'name' => $name,
