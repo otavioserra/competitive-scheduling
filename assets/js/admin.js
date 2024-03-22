@@ -227,13 +227,33 @@ jQuery( document ).ready( function(){
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
-			wp_print_styles( 'fomantic-ui' );
-
-			var popupWindow = window.open( '', 'Print', 'menubar=0,location=0,width=600,height=400' );
+			/* var popupWindow = window.open( '', 'Print', 'menubar=0,location=0,width=600,height=400' );
 			popupWindow.document.write( document.getElementById('popup-content').innerHTML );
 
 			// Start printing.
-			popupWindow.print();
+			popupWindow.print(); */
+
+			var element = document.getElementById('fomantic-ui-css');
+			var ajaxurl = element.href;
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', ajaxurl);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+			if (xhr.status === 200) {
+				// Imprimir a folha de estilo na página
+				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
+				popupWindow.document.write(xhr.responseText);
+				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
+
+				// Iniciar a impressão
+				popupWindow.print();
+			} else {
+				console.log('Erro ao carregar a folha de estilo');
+			}
+			};
+			xhr.send('action=wp_print_styles&stylesheet=' + href);
+
         });
     }
 
