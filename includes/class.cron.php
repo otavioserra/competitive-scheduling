@@ -654,9 +654,6 @@ if( ! class_exists( 'Cron' ) ){
                         $rand_last_name .= ( empty( $rand_last_name ) ? '' : ' ' ) . $controls['last_names'][ array_rand( $controls['last_names'] ) ];
                     }
 
-                    // Combine into full name
-                    $rand_full_name = $rand_first_name . ' ' . $rand_last_name;
-
                     // Generate random user data
                     $random_username = 'test_' . rand(100,999);
                     $random_email = $random_username . '@test.com';
@@ -667,7 +664,8 @@ if( ! class_exists( 'Cron' ) ){
                         'user_login' => $random_username,
                         'user_email' => $random_email,
                         'user_pass' => $random_password,
-                        'display_name' => $rand_full_name,
+                        'first_name' => $rand_first_name,
+                        'last_name' => $rand_last_name,
                     );
 
                     echo print_r($userdata, true)."<br>";
