@@ -107,9 +107,9 @@ jQuery( document ).ready( function(){
 					
 					// Show or not the print button.
 					if( response.print ){
-						jQuery( '.printBtn' ).show();
+						jQuery( '.printBtn' ).addClass( 'hidden' );
 					} else {
-						jQuery( '.printBtn' ).hide();
+						jQuery( '.printBtn' ).removeClass( 'hidden' );
 					}
 					
 					// Show results information containers.
