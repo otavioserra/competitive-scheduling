@@ -367,7 +367,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 								return $a['name'] <=> $b['name'];
 							} );
 							
-							$cel_name = 'th-password'; $table = modelo_var_troca($table,'<!-- '.$cel_name.' -->',$cell[$cel_name]);
+							$cel_name = 'th-password'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cell[$cel_name] );
 							
 							$cel_name = 'cell-schedule';
 							
