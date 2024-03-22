@@ -227,6 +227,8 @@ jQuery( document ).ready( function(){
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
+			wp_print_styles( 'fomantic-ui' );
+
 			var popupWindow = window.open( '', 'Print', 'menubar=0,location=0,width=600,height=400' );
 			popupWindow.document.write( document.getElementById('popup-content').innerHTML );
 
