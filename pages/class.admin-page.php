@@ -121,6 +121,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				$cell_name = 'td-companions'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
 				$cell_name = 'cell-people'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
 
+				echo $printLayout;exit;
 				// Treat each status sent.
 				switch( $status ){
 					case 'pre':
