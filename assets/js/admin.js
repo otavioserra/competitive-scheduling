@@ -244,7 +244,7 @@ jQuery( document ).ready( function(){
 			if (xhr.status === 200) {
 				// Imprimir a folha de estilo na página
 				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
-				popupWindow.document.write(xhr.responseText);
+				popupWindow.document.write('<style>'+xhr.responseText+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
 				// Iniciar a impressão
