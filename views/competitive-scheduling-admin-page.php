@@ -70,6 +70,13 @@
                     <i class="print icon"></i>
                     <?php echo esc_html__( 'Print', 'competitive-scheduling' ); ?>
                 </a>
+                &nbsp;
+                <?php if ( CS_DEBUG ): ?>
+                <a class="ui red large label" href="<?php echo admin_url( 'admin.php?page=competitive_scheduling_admin&create-schedules=true' ); ?>" target="create-schedules">
+                    <i class="code icon"></i>
+                    <?php echo esc_html__( 'Create Schedules', 'competitive-scheduling' ); ?>
+                </a>
+                <?php endif; ?>
             </div>
             <div class="tablePeople hidden">
                 <!-- people-table < --><table class="ui unstackable celled very compact table">

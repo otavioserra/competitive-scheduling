@@ -576,11 +576,12 @@ if( ! class_exists( 'Cron' ) ){
             
             // Initial Options
             $controls = array(
-                'delete_users' => false,
+                'delete_users' => true,
                 'reset' => true,
                 'create_schedules' => true,
                 'num_users' => 60,
-                'date' => '2024-01-23',
+                'date' => '2024-03-28',
+                'status' => 'confirmed',
                 'first_names' => ['João', 'José', 'Maria', 'Ana', 'Adriana', 'Aline', 'Antônio', 'Carlos', 'Paulo', 'Pedro', 'Henrique', 'Bruna', 'Amanda', 'Fernanda', 'Luana', 'Luiza', 'Laura', 'Lucas', 'Matheus', 'Gabriel'],
                 'last_names' => ['Silva', 'Santos', 'Oliveira', 'Rodrigues', 'Ferreira', 'Almeida', 'Pereira', 'Lima', 'Ribeiro', 'Gomes', 'Martins', 'Souza', 'Mendes', 'Teixeira', 'Marques', 'Azevedo', 'Costa', 'Barros', 'Fernandes', 'Alves'],
             );
@@ -687,7 +688,7 @@ if( ! class_exists( 'Cron' ) ){
                             'date' => $date,
                             'companions' => $num_companions,
                             'pubID' => $pubID,
-                            'status' => 'new',
+                            'status' => $controls['status'],
                             'version' => 1,
                             'date_creation' => current_time( 'mysql', false ),
                             'modification_date' => current_time( 'mysql', false ),
