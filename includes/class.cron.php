@@ -669,6 +669,8 @@ if( ! class_exists( 'Cron' ) ){
                         'user_pass' => $random_password,
                         'display_name' => $rand_full_name,
                     );
+
+                    echo print_r($userdata, true)."<br>";
                     
                     $user_id = wp_insert_user( $userdata );
 
