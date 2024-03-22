@@ -233,8 +233,8 @@ jQuery( document ).ready( function(){
 			// Start printing.
 			popupWindow.print(); */
 
-			var element = document.getElementById('fomantic-ui-css');
-			var ajaxurl = element.href;
+			var element = jQuery('#fomantic-ui-css');
+			var ajaxurl = element.attr('href');
 
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', ajaxurl);
