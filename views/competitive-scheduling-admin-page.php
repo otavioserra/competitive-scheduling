@@ -1,13 +1,14 @@
 <?php
+    if( ! empty( $calendar ) ){
+        $data = '
+            var manager = {};
 
-    $data = '
-        var manager = {};
+            manager.calendar = '.json_encode( $calendar ).';
+            manager.root = "'.CS_URL.'";
+        ';
 
-        manager.calendar = '.json_encode( $calendar ).';
-        manager.root = "'.CS_URL.'";
-    ';
-
-    wp_add_inline_script( 'competitive-scheduling-admin', $data, $position = 'after' );
+        wp_add_inline_script( 'competitive-scheduling-admin', $data, $position = 'after' );
+    }
 ?>
 
 <div class="wrap limit-max-width">
@@ -159,4 +160,4 @@
     </table><!-- print-table > -->
     <div id="popup-content"></div>
 </div>
-<?php echo $components_html; ?>
+<?php if( ! empty( $components_html ) ){ echo $components_html; } ?>
