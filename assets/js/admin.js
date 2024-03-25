@@ -259,7 +259,11 @@ jQuery( document ).ready( function(){
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
 				// Start printing.
-				popupWindow.print();
+				popupWindow.print({
+					printJob: {
+						filename: manager.printTitle + '.pdf'
+					}
+				});
 			} else {
 				console.log('Error loading stylesheet');
 			}
