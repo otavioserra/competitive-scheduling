@@ -232,6 +232,19 @@ jQuery( document ).ready( function(){
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
+			var str = "Name, Price\nApple, 2\nOrange, 3";
+var uri = 'data:text/csv;charset=utf-8,' + str;
+
+var downloadLink = document.createElement("a");
+downloadLink.href = uri;
+downloadLink.download = "data.csv";
+
+document.body.appendChild(downloadLink);
+downloadLink.click();
+document.body.removeChild(downloadLink);
+
+return;
+
 			e.preventDefault();
 			
 			var element = jQuery('#fomantic-ui-css');
