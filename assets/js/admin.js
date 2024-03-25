@@ -254,21 +254,14 @@ jQuery( document ).ready( function(){
 				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
 
 				// Set the page title in the print window.
-				popupWindow.document.write('<title>'+manager.printTitle+'</title>');
+				popupWindow.document.title = manager.printTitle;
+				
+				// popupWindow.document.write('<title>'+manager.printTitle+'</title>');
 				popupWindow.document.write('<style>'+newCss+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
-				if (!window.printJob) {
-					console.log('Seu navegador não suporta a definição do nome do arquivo de impressão.');
-					return;
-				  }
-
 				// Start printing.
-				popupWindow.print({
-					printJob: {
-					  filename: manager.printTitle + '.pdf'
-					}
-				});
+				popupWindow.print();
 			} else {
 				console.log('Error loading stylesheet');
 			}
