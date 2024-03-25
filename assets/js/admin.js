@@ -134,6 +134,7 @@ jQuery( document ).ready( function(){
     function schedules(){
         // Calendar settings.
         var calendar = manager.calendar;
+        var root = manager.root;
         
         // Dates available for scheduling.
         var availableDates = [];
@@ -233,6 +234,9 @@ jQuery( document ).ready( function(){
 			// Start printing.
 			popupWindow.print(); */
 
+			
+
+
 			var element = jQuery('#fomantic-ui-css');
 			console.log(element);
 			var ajaxurl = element.attr('href');
@@ -242,9 +246,21 @@ jQuery( document ).ready( function(){
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
 			if (xhr.status === 200) {
+				var css = xhr.responseText;
+
+				// Criar uma expressão regular para encontrar as referências de url()
+				var regex = /url\((.*?)\)/g;
+
+				// Substituir as referências de url() pela variável root
+				var newCss = css.replace(regex, function(match, url) {
+					return 'url(' + root + url + ')';
+				});
+
+				console.log(newCss); // "body { background-image: url(https://example.com/img/background.png); }"
+				
 				// Imprimir a folha de estilo na página
 				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
-				popupWindow.document.write('<style>'+xhr.responseText+'</style>');
+				popupWindow.document.write('<style>'+newCss+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
 				// Iniciar a impressão

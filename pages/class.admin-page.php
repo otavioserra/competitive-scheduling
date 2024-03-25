@@ -121,7 +121,6 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				$cell_name = 'td-companions'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
 				$cell_name = 'cell-people'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
 
-				echo $printLayout;exit;
 				// Treat each status sent.
 				switch( $status ){
 					case 'pre':
@@ -463,6 +462,8 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 									}
 									
 									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', '' );
+
+									echo $tablePrint."\n";
 									
 									$tablePrint = Templates::variable_in( $tablePrint, '<!-- '.$cel_name.' -->', $cel_aux );
 								}
