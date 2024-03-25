@@ -239,6 +239,7 @@ jQuery( document ).ready( function(){
 				printable: 'popup-content',
 				type: 'html',
 				css: ajaxurl,
+				documentTitle: manager.printTitle,
 			});
 
 			return true;
