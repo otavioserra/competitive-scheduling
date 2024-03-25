@@ -257,7 +257,9 @@ jQuery( document ).ready( function(){
 				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
 
 				// Start printing.
-				popupWindow.print();
+				setTimeout( function(){
+					popupWindow.print();
+				},50 );
 			} else {
 				console.log('Error loading stylesheet');
 			}
