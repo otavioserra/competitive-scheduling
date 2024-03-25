@@ -232,6 +232,17 @@ jQuery( document ).ready( function(){
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
+			var element = jQuery('#fomantic-ui-css');
+			var ajaxurl = element.attr('href');
+
+			printJS({
+				printable: document.getElementById('popup-content').innerHTML,
+				type: 'html',
+				css: ajaxurl,
+			});
+
+			return true;
+
 			e.preventDefault();
 			
 			var element = jQuery('#fomantic-ui-css');
@@ -252,17 +263,16 @@ jQuery( document ).ready( function(){
 					return 'url(' + root + url + ')';
 				});
 
-				
 				// Print the stylesheet on the page.
 				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
 				
 				popupWindow.document.title = popupWindow.parent.document.title = "yourTitle";
 
 				// Set the page in the print window.
-				//popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><script>window.name="'+manager.printTitle+'";</script><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
+				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><script>window.name="'+manager.printTitle+'";</script><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
 
 				// Start printing.
-				// popupWindow.print();
+				popupWindow.print();
 			} else {
 				console.log('Error loading stylesheet');
 			}

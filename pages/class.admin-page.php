@@ -34,6 +34,9 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 
 			wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(), CS_VERSION );
 			wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
+			
+			wp_enqueue_style( 'print-js', 'https://printjs-4de6.kxcdn.com/print.min.css', array(), CS_VERSION );
+			wp_enqueue_script( 'print-js', 'https://printjs-4de6.kxcdn.com/print.min.js', array( 'jquery' ), CS_VERSION );
 
 			wp_enqueue_style( 'competitive-scheduling-admin', CS_URL . 'assets/css/admin.css', array(), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/admin.css' ) : CS_VERSION ) );
 			wp_enqueue_script( 'competitive-scheduling-admin', CS_URL . 'assets/js/admin.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/admin.js' ) : CS_VERSION ) );
