@@ -236,7 +236,7 @@ jQuery( document ).ready( function(){
 			var ajaxurl = element.attr('href');
 
 			printJS({
-				printable: document.getElementById('popup-content').innerHTML,
+				printable: 'popup-content',
 				type: 'html',
 				css: ajaxurl,
 			});
