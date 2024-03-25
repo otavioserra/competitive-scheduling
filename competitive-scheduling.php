@@ -57,6 +57,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_ID', 'Competitive_Scheduling' );
             define( 'CS_PATH', plugin_dir_path( __FILE__ ) );
             define( 'CS_URL', plugin_dir_url( __FILE__ ) );
+            define( 'CS_URL_FOMANTIC_UI', plugin_dir_url( __FILE__ ) . 'vendor/fomantic-UI@2.9.0/dist/');
             define( 'CS_VERSION', '1.0.0' );
             define( 'CS_DEBUG', true );
             define( 'CS_EMAIL_ACTIVE', false );
