@@ -443,7 +443,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 										foreach( $schedule['companionsData'] as $companionsData ){
 											$companionNum++;
 
-											$cel_comp = 'td-companions'; $cel_aux_2 = $cell2[$cel_comp];
+											$cel_comp = 'td-companions'; $cel_aux_2 = $cell2[$cel_comp] . "\n";
 
 											$cel_aux_2 = Templates::change_variable( $cel_aux_2, '#td-companions#', $companionsData['name'] );
 											
