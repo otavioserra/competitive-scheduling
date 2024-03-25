@@ -4,7 +4,7 @@
             var manager = {};
 
             manager.calendar = '.json_encode( $calendar ).';
-            manager.root = "'.CS_URL.'";
+            manager.root = "'.CS_URL_FOMANTIC_UI.'";
         ';
 
         wp_add_inline_script( 'competitive-scheduling-admin', $data, $position = 'after' );
