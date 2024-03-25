@@ -235,8 +235,6 @@ jQuery( document ).ready( function(){
 			popupWindow.print(); */
 
 			
-
-
 			var element = jQuery('#fomantic-ui-css');
 			console.log(element);
 			var ajaxurl = element.attr('href');
