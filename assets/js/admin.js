@@ -261,7 +261,7 @@ jQuery( document ).ready( function(){
 				// Start printing.
 				popupWindow.print({
 					printJob: {
-						filename: manager.printTitle + '.pdf'
+					  filename: manager.printTitle + '.pdf'
 					}
 				});
 			} else {
