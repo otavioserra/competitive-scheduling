@@ -255,15 +255,11 @@ jQuery( document ).ready( function(){
 				// Print the stylesheet on the page.
 				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
 
-				/* console.log(popupWindow.name);
-
-				popupWindow.name = manager.printTitle;
-
 				// Set the page in the print window.
 				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><script>window.name="'+manager.printTitle+'";</script><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
 
 				// Start printing.
-				popupWindow.print(); */
+				// popupWindow.print();
 			} else {
 				console.log('Error loading stylesheet');
 			}
