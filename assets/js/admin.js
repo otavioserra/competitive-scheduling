@@ -252,13 +252,14 @@ jQuery( document ).ready( function(){
 					return 'url(' + root + url + ')';
 				});
 
-				document.title = window.parent.document.title = "yourTitle";
-
+				
 				// Print the stylesheet on the page.
 				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
+				
+				popupWindow.document.title = popupWindow.parent.document.title = "yourTitle";
 
 				// Set the page in the print window.
-				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><script>window.name="'+manager.printTitle+'";</script><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
+				//popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><script>window.name="'+manager.printTitle+'";</script><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
 
 				// Start printing.
 				// popupWindow.print();
