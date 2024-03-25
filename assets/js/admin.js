@@ -117,6 +117,10 @@ jQuery( document ).ready( function(){
 					jQuery( '.tablePeople' ).show();
 
 					jQuery( '#popup-content' ).html( response.tablePrint );
+
+					if( 'printTitle' in response ){
+						manager.printTitle = response.printTitle;
+					}
 				}
 
 				if( 'nonce' in response ){
@@ -227,16 +231,8 @@ jQuery( document ).ready( function(){
         // Print.
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
-
-			/* var popupWindow = window.open( '', 'Print', 'menubar=0,location=0,width=600,height=400' );
-			popupWindow.document.write( document.getElementById('popup-content').innerHTML );
-
-			// Start printing.
-			popupWindow.print(); */
-
 			
 			var element = jQuery('#fomantic-ui-css');
-			console.log(element);
 			var ajaxurl = element.attr('href');
 
 			var xhr = new XMLHttpRequest();
@@ -246,25 +242,27 @@ jQuery( document ).ready( function(){
 			if (xhr.status === 200) {
 				var css = xhr.responseText;
 
-				// Criar uma expressão regular para encontrar as referências de url()
+				// Create a regular expression to find url() references.
 				var regex = /url\((.*?)\)/g;
 
-				// Substituir as referências de url() pela variável root
+				// Replace url() references with the root variable.
 				var newCss = css.replace(regex, function(match, url) {
 					return 'url(' + root + url + ')';
 				});
 
-				console.log(newCss); // "body { background-image: url(https://example.com/img/background.png); }"
-				
-				// Imprimir a folha de estilo na página
+				// Print the stylesheet on the page.
 				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
+
+				// Set the page title in the print window.
+				document.title = manager.printTitle;
+
 				popupWindow.document.write('<style>'+newCss+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
-				// Iniciar a impressão
+				// Start printing.
 				popupWindow.print();
 			} else {
-				console.log('Erro ao carregar a folha de estilo');
+				console.log('Error loading stylesheet');
 			}
 			};
 			xhr.send('action=wp_print_styles&stylesheet=' + ajaxurl);

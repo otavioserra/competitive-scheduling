@@ -480,6 +480,9 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 							$printHeader = Templates::change_variable( $printHeader, '#total#', $total );
 							
 							$tablePrint = $printHeader . $tablePrint;
+
+							// Print title.
+							$printTitle = __( 'Confirmed Schedules', 'competitive-scheduling' ).' - '.$dateStr;
 						}
 					break;
 					case 'finalized':
@@ -581,6 +584,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 					'table' 		=> $table,
 					'print' 		=> $print,
 					'tablePrint' 	=> ( ! empty( $tablePrint ) ? $tablePrint : '' ),
+					'printTitle' 	=> ( ! empty( $printTitle ) ? $printTitle : '' ),
 					'nonce'         => wp_create_nonce( 'schedules-nonce' ),
 				);
 			} else {
