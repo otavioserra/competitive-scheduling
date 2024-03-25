@@ -232,19 +232,6 @@ jQuery( document ).ready( function(){
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
-			var str = "Name, Price\nApple, 2\nOrange, 3";
-var uri = 'data:text/csv;charset=utf-8,' + str;
-
-var downloadLink = document.createElement("a");
-downloadLink.href = uri;
-downloadLink.download = "data.csv";
-
-document.body.appendChild(downloadLink);
-downloadLink.click();
-document.body.removeChild(downloadLink);
-
-return;
-
 			e.preventDefault();
 			
 			var element = jQuery('#fomantic-ui-css');
@@ -264,6 +251,8 @@ return;
 				var newCss = css.replace(regex, function(match, url) {
 					return 'url(' + root + url + ')';
 				});
+
+				document.title = window.parent.document.title = "yourTitle";
 
 				// Print the stylesheet on the page.
 				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
