@@ -463,7 +463,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 									
 									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', '' );
 
-									echo $tablePrint."\n";
+									echo $tablePrint."\n";exit;
 									
 									$tablePrint = Templates::variable_in( $tablePrint, '<!-- '.$cel_name.' -->', $cel_aux );
 								}
