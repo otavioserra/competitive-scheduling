@@ -251,12 +251,10 @@ jQuery( document ).ready( function(){
 				});
 
 				// Print the stylesheet on the page.
-				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
+				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
 
 				// Set the page title in the print window.
-				popupWindow.document.title = manager.printTitle;
-				
-				// popupWindow.document.write('<title>'+manager.printTitle+'</title>');
+				popupWindow.document.write('<title>'+manager.printTitle+'</title>');
 				popupWindow.document.write('<style>'+newCss+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
