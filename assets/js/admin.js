@@ -237,7 +237,7 @@ jQuery( document ).ready( function(){
 
 			printJS({
 				printable: 'popup-content',
-				type: 'raw-html',
+				type: 'html',
 				css: ajaxurl,
 				documentTitle: manager.printTitle,
 			});
