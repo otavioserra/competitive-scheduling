@@ -258,6 +258,11 @@ jQuery( document ).ready( function(){
 				popupWindow.document.write('<style>'+newCss+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
 
+				if (!window.printJob) {
+					console.log('Seu navegador não suporta a definição do nome do arquivo de impressão.');
+					return;
+				  }
+
 				// Start printing.
 				popupWindow.print({
 					printJob: {
