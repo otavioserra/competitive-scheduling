@@ -231,6 +231,8 @@ jQuery( document ).ready( function(){
         // Print.
         jQuery( '.printBtn' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
+
+			e.preventDefault();
 			
 			var element = jQuery('#fomantic-ui-css');
 			var ajaxurl = element.attr('href');
