@@ -253,6 +253,7 @@ jQuery( document ).ready( function(){
 				// Print the stylesheet on the page.
 				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
 
+				console.log(manager.printTitle);
 				// Set the page title in the print window.
 				popupWindow.document.title = manager.printTitle;
 
