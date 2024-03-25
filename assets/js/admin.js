@@ -239,6 +239,7 @@ jQuery( document ).ready( function(){
 				printable: 'popup-content',
 				type: 'html',
 				css: ajaxurl,
+				header: 'PrintJS - Form Element Selection',
 				documentTitle: manager.printTitle,
 			});
 
