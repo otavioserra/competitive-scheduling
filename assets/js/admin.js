@@ -255,6 +255,7 @@ jQuery( document ).ready( function(){
 
 				// Set the page title in the print window.
 				popupWindow.name = manager.printTitle;
+				popupWindow.document.title = manager.printTitle;
 
 				popupWindow.document.write('<style>'+newCss+'</style>');
 				popupWindow.document.write(document.getElementById('popup-content').innerHTML);
