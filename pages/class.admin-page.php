@@ -440,8 +440,6 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 									// Popular escorts.
 									$companionNum = 0;
 									if( ! empty( $schedule['companionsData'] ) ){
-										$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
-										
 										foreach( $schedule['companionsData'] as $companionsData ){
 											$companionNum++;
 
