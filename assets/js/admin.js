@@ -251,23 +251,13 @@ jQuery( document ).ready( function(){
 				});
 
 				// Print the stylesheet on the page.
-				var popupWindow = window.open('', 'Print', 'menubar=0,location=0,width=600,height=400');
+				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
 
 				// Set the page in the print window.
-				function check() {
-					if( popupWindow.document ) { // if loaded
-						popupWindow.document.title = manager.printTitle; // set title
-						popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
-						popupWindow.print();
-					} else { // if not loaded yet
-						setTimeout(check, 10); // check in another 10ms
-					}
-				}
-				
-				check();
+				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
 
 				// Start printing.
-				// popupWindow.print();
+				popupWindow.print();
 			} else {
 				console.log('Error loading stylesheet');
 			}
