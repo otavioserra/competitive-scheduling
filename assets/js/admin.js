@@ -254,7 +254,7 @@ jQuery( document ).ready( function(){
 				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
 
 				// Set the page in the print window.
-				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><style>'+newCss+'</style></head><body onload="document.title='+manager.printTitle+'; window.print();">'+document.getElementById('popup-content').innerHTML+'</body></html>');
+				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><style>'+newCss+'</style></head><body onload="document.title=\''+manager.printTitle+'\'; window.print();">'+document.getElementById('popup-content').innerHTML+'</body></html>');
 
 				// Start printing.
 				// popupWindow.print();
