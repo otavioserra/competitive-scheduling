@@ -237,9 +237,8 @@ jQuery( document ).ready( function(){
 
 			printJS({
 				printable: 'popup-content',
-				type: 'html',
+				type: 'raw-html',
 				css: ajaxurl,
-				header: 'PrintJS - Form Element Selection',
 				documentTitle: manager.printTitle,
 			});
 
