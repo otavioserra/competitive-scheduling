@@ -1017,11 +1017,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         }
                     }
 
-                    if( WP_DEBUG_LOG ) error_log( CS_ID . ': ' . 'before - couponValid - ' . print_r( $couponValid, true ) );
+                    error_log( CS_ID . ': ' . 'before - couponValid - ' . print_r( $couponValid, true ) );
                     
                     // Check whether a coupon has been used. If yes, mark the coupon with the schedule identifier.
                     if( isset( $couponValid ) ){
-                        if( WP_DEBUG_LOG ) error_log( CS_ID . ': ' . 'couponValid - ' . print_r( $couponValid, true ) );
+                        error_log( CS_ID . ': ' . 'couponValid - ' . print_r( $couponValid, true ) );
 
                         $id_schedules_coupons_priority = $couponValid;
 
