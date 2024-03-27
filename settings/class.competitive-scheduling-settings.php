@@ -628,6 +628,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             add_settings_field(
+                'template-priority-coupons-table',
+                esc_html__( 'Priority Coupons Table', 'competitive-scheduling' ),
+                array( $this, 'field_template_priority_coupons_table_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+            
+            add_settings_field(
                 'coupon-priority-description',
                 esc_html__( 'Coupon Priority Description', 'competitive-scheduling' ),
                 array( $this, 'field_coupon_priority_description_callback' ),
@@ -771,13 +779,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_messages_section'
             );
 
-            add_settings_field(
-                'template-priority-coupons-table',
-                esc_html__( 'Priority Coupons Table', 'competitive-scheduling' ),
-                array( $this, 'field_template_priority_coupons_table_callback' ),
-                'competitive_scheduling_messages',
-                'competitive_scheduling_messages_section'
-            );
         }
 
         function section_callback_tools() {
@@ -1131,6 +1132,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             <?php
         }
 
+        public function field_template_priority_coupons_table_callback(){
+            ?>
+                <textarea id="codemirror_editor_2" name="competitive_scheduling_msg_options[template-priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['template-priority-coupons-table'] ) ? self::$msg_options['template-priority-coupons-table'] : '';  ?></textarea>
+                <p><?php echo esc_html__( 'HTML layout for priority coupon printing.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
         public function field_coupon_priority_description_callback(){
             // Renders custom TinyMCE editor
             wp_editor(isset( self::$msg_options['coupon-priority-description'] ) ? self::$msg_options['coupon-priority-description'] : '', 'coupon-priority-description', [
@@ -1416,13 +1424,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             ?>
                 <p><?php echo esc_html__( 'When it is not possible to confirm residual vacancies due to the deadline or because there are no vacancies.', 'competitive-scheduling' ); ?></p> 
-            <?php
-        }
-
-        public function field_template_priority_coupons_table_callback(){
-            ?>
-                <textarea id="codemirror_editor_2" name="competitive_scheduling_msg_options[template-priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['template-priority-coupons-table'] ) ? self::$msg_options['template-priority-coupons-table'] : '';  ?></textarea>
-                <p><?php echo esc_html__( 'HTML layout for priority coupon printing.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
