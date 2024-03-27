@@ -173,7 +173,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     $change_variables = array(
                         'title' => __( 'Your pre-scheduling was successful!', 'competitive-scheduling' ),
                         'protocol' => __( 'Protocol nº #code#', 'competitive-scheduling' ),
-                        'description' => __( 'You have just made a pre-booking within the #title# booking system:', 'competitive-scheduling' ),
+                        'description' => __( 'You have just made a pre-scheduling within the #title# scheduling system:', 'competitive-scheduling' ),
                         'day' => __( 'Day', 'competitive-scheduling' ),
                         'info' => __( 'IMPORTANT INFORMATION', 'competitive-scheduling' ),
                         'important_1' => __( '<span class="txt-1"><b>IMPORTANT 1</b>:</span> Pre-schedules ARE NOT confirmed schedules. They will go through a draw using the <span class="txt-1">#draw_date#</span> system days before the day of service. If your pre-scheduling is drawn, you must confirm your schedule via an email that will be sent <span class="txt-1">#draw_date#</span> days before the day of the schedule. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your schedule. This confirmation must be made between <span class="txt-1">#date_confirmation_1#</span> and <span class="txt-1">#date_confirmation_2#</span> days before the day of service. If you do not confirm your schedule within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ),
