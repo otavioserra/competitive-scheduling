@@ -134,7 +134,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             }
 
             // Change template variables
-            switch($id_template) {
+            switch( $id_template ) {
                 case 'schedule-message':
                     $change_variables = array(
                         'title' => __( 'Your schedule was successful!', 'competitive-scheduling' ),
@@ -335,9 +335,9 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             }
 
             // Change all occurrences of changes_variables on template
-            if( isset($change_variables) ){
-                foreach($change_variables as $key => $value){
-                    $template = Templates::change_variable($template, '[['.$key.']]', $value);
+            if( isset( $change_variables ) ){
+                foreach( $change_variables as $key => $value ){
+                    $template = Templates::change_variable( $template, '[['.$key.']]', $value );
                 }
             }
 
@@ -630,7 +630,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             add_settings_field(
                 'priority-coupons-table',
-                esc_html__( 'Priority Coupons Table', 'competitive-scheduling' ),
+                esc_html__( 'Print Priority Coupons', 'competitive-scheduling' ),
                 array( $this, 'field_priority_coupons_table_callback' ),
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section'
@@ -779,7 +779,6 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section'
             );
-
         }
 
         function section_callback_tools() {
