@@ -65,10 +65,10 @@
     <?php if( $post->post_status === 'publish' ): ?>
     <tr>
         <th>
-            <label for="cs_valid_until"><?php echo esc_html__( 'Valid Until', 'competitive-scheduling' ); ?></label>
+            <label for="cs_valid_until"><?php echo esc_html__( 'Print Coupons', 'competitive-scheduling' ); ?></label>
         </th>
         <td>
-            <div id="imprimir-post" onclick="imprimirPost()" class="button button-primary button-large">Imprimir</div>
+            <div id="print-coupon" class="button button-primary button-large"><?php echo esc_html__( 'Print', 'competitive-scheduling' ); ?></div>
         </td>
     </tr>
     <?php endif; ?>             
