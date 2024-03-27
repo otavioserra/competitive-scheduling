@@ -508,7 +508,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 					$query = $wpdb->prepare(
 						"SELECT id_schedules, companions, user_id 
 						FROM {$wpdb->prefix}schedules 
-						WHERE date = '%s' AND status='finalized'",
+						WHERE date = '%s' AND ( status='finalized' OR status='canceled' )",
 						array( $date )
 					);
 					$schedules = $wpdb->get_results( $query, ARRAY_A );
