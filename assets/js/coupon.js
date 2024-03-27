@@ -91,15 +91,19 @@ jQuery( document ).ready( function() {
         jQuery( '#print-coupon' ).on( 'mouseup tap', function( e ){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
-			var element = jQuery('#fomantic-ui-css');
-			var cssUrl = element.attr('href');
-
-			printJS({
-				printable: 'popup-content',
-				type: 'html',
-				css: cssUrl,
-				documentTitle: manager.printTitle,
-			});
+            if( manager_coupon.status ){
+                var element = jQuery('#fomantic-ui-css');
+                var cssUrl = element.attr('href');
+    
+                printJS({
+                    printable: manager_coupon.page,
+                    type: 'raw-html',
+                    css: cssUrl,
+                    documentTitle: manager_coupon.title,
+                });
+            } else {
+                alert( manager_coupon.message );
+            }
         });
     }
 

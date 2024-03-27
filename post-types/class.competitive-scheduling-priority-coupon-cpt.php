@@ -266,7 +266,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             if( strtotime( $today ) > strtotime( $valid_until ) ){
                 return array(
                     'status' => false,
-                    'mensagem' => __( 'Coupons are expired', 'competitive-scheduling' ),
+                    'message' => __( 'Coupons are expired', 'competitive-scheduling' ),
                 );
             }
             
@@ -318,7 +318,6 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 'status' => true,
                 'title' => $name.' - ' . __( 'Qty', 'competitive-scheduling' ) . ': '.$quantity.' - ' . __( 'Valid from', 'competitive-scheduling' ) . ' '.$valid_from.' ' . __( 'until', 'competitive-scheduling' ) . ' '.$valid_until,
                 'page' => $print,
-                'mensagem' => __( 'Coupons are expired', 'competitive-scheduling' ),
             );
         }
     }
