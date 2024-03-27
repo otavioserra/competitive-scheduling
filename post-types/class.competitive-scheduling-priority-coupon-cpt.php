@@ -301,11 +301,11 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                     $print .= ( ! empty( $print ) ? '<div class="pagebreak"></div>' : '' ) . $table;
                 }
                 
-                $cel_aux = $cell[$cell_name];
+                $cell_aux = $cell[$cell_name];
                 
-                $cel_aux = Templates::change_variable( $cel_aux, '#title#', $title );
-                $cel_aux = Templates::change_variable( $cel_aux, '#validity#', $valid_until );
-                $cel_aux = Templates::change_variable( $cel_aux, '#coupon#', $coupon['coupon'] );
+                $cell_aux = Templates::change_variable( $cell_aux, '#title#', $title );
+                $cell_aux = Templates::change_variable( $cell_aux, '#validity#', $valid_until );
+                $cell_aux = Templates::change_variable( $cell_aux, '#coupon#', $coupon['coupon'] );
 
                 $print = Templates::variable_in( $print, '<!-- '.$cell_name.' -->', $cell_aux );
                 
