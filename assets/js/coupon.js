@@ -1,6 +1,4 @@
 jQuery( document ).ready( function() {
-    var apiVersion = 'v1';
-
     function loading( option ){
 		switch( option ){
 			case 'open':
@@ -89,53 +87,20 @@ jQuery( document ).ready( function() {
 			});
         });
 
-        // Request to update schedules as option.
-        var data = {};
-        
-        jQuery.ajax( {
-            url: wpApiSettings.root + 'competitive-scheduling/'+apiVersion+'/admin-page/',
-            method: 'GET',
-            xhrFields: { withCredentials: true },
-            beforeSend: function ( xhr ) {
-                xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
-                loading( 'open' );
-            },
-            data
-        } ).done( function ( response ) {
-            if( response.status === 'OK' ){
-                // Set up the table.
-                jQuery( '.tablePeople' ).html( response.table );
-                        
-                // Update the total number of people.
-                jQuery( '.totalValue' ).html( response.total );
-                
-                // Show or not the print button.
-                if( response.print ){
-                    jQuery( '.printBtn' ).removeClass( 'hidden' ).show();
-                } else {
-                    jQuery( '.printBtn' ).addClass( 'hidden' ).hide();
-                }
-                
-                // Show results information containers.
-                jQuery( '.totalPeople' ).show();
-                jQuery( '.tablePeople' ).show();
+        // Print.
+        jQuery( '#print-coupon' ).on( 'mouseup tap', function( e ){
+            if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
-                jQuery( '#popup-content' ).html( response.tablePrint );
+			var element = jQuery('#fomantic-ui-css');
+			var cssUrl = element.attr('href');
 
-                if( 'printTitle' in response ){
-                    manager.printTitle = response.printTitle;
-                }
-            }
-
-            if( 'nonce' in response ){
-                jQuery( 'input[name="schedules-nonce"]' ).val( response.nonce );
-            }
-
-            loading('close');
-        } ).fail( function ( response ) {
-            loading('close');
-            if( 'responseJSON' in response ){ console.log( response.status + ': ' + response.responseJSON.message ); } else { console.log( response ); }
-        } );
+			printJS({
+				printable: 'popup-content',
+				type: 'html',
+				css: cssUrl,
+				documentTitle: manager.printTitle,
+			});
+        });
     }
 
     start();

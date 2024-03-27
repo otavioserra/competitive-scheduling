@@ -90,14 +90,19 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             wp_enqueue_style( 'coupon-css', CS_URL . 'assets/css/coupon.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/coupon.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'coupon-js', CS_URL . 'assets/js/coupon.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/coupon.js' ) : CS_VERSION ) );
 
-            $print_coupons = $this->printing_coupons( $post );
+            wp_enqueue_style( 'print-js', 'https://printjs-4de6.kxcdn.com/print.min.css', array(), CS_VERSION );
+			wp_enqueue_script( 'print-js', 'https://printjs-4de6.kxcdn.com/print.min.js', array( 'jquery' ), CS_VERSION );
 
-            $data = '
-                var manager_coupon = '.json_encode( $print_coupons ).';
-            ';
+            if( $post->post_status === 'publish' ){
+                $print_coupons = $this->printing_coupons( $post );
 
-            wp_add_inline_script( 'coupon-js', $data, $position = 'after' );
+                $data = '
+                    var manager_coupon = '.json_encode( $print_coupons ).';
+                ';
 
+                wp_add_inline_script( 'coupon-js', $data, $position = 'after' );
+            }
+            
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
