@@ -2,9 +2,6 @@
     $cs_quantity = get_post_meta( $post->ID, 'cs_quantity', true );
     $cs_valid_from = get_post_meta( $post->ID, 'cs_valid_from', true );
     $cs_valid_until = get_post_meta( $post->ID, 'cs_valid_until', true );
-
-    // Check if the post is published.
-    $is_published = wp_is_post_published( $post_id );
 ?>
 <table class="form-table priority-coupon-metabox" data-locale="<?php echo get_locale(); ?>"> 
 <input type="hidden" name="<?php echo self::$nounce; ?>" value="<?php echo wp_create_nonce( self::$nounce ); ?>">
@@ -66,6 +63,6 @@
         </td>
     </tr>               
 </table>
-<?php if( $is_published ): ?>
+<?php if( $post->post_status === 'publish' ): ?>
 <button id="imprimir-post" onclick="imprimirPost()">Imprimir</button>
 <?php endif; ?>
