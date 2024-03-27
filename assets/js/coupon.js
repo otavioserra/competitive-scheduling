@@ -94,11 +94,13 @@ jQuery( document ).ready( function() {
             if( manager_coupon.status ){
                 var element = jQuery('#fomantic-ui-css');
                 var cssUrl = element.attr('href');
+                var element = jQuery('#coupon-css-css');
+                var cssUrl2 = element.attr('href');
     
                 printJS({
                     printable: manager_coupon.page,
                     type: 'raw-html',
-                    css: cssUrl,
+                    css: array( cssUrl, cssUrl2 ),
                     documentTitle: manager_coupon.title,
                 });
             } else {
