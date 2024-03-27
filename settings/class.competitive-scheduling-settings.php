@@ -78,6 +78,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'competitive_scheduling_msg_options',
                 array(
                     'print-schedules' => self::template_html( 'print-schedules' ),
+                    'priority-coupons-table' => self::template_html( 'priority-coupons-table' ),
                     'coupon-priority-description' => __( 'When making a new schedule, fill in the code below in the <b>Priority Coupon</b> field', 'competitive-scheduling' ),
                     'msg-alert' => self::template_html( 'msg-alert' ),
                     'msg-scheduling-cancelled' => self::template_html( 'msg-scheduling-cancelled' ),
@@ -324,7 +325,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     );
                     
                 break;
-                case 'template-priority-coupons-table':
+                case 'priority-coupons-table':
                     $change_variables = array(
                         'title' => __( 'Priority Coupon', 'competitive-scheduling' ),
                         'span_validity' => __( 'Valid until', 'competitive-scheduling' ),
@@ -628,9 +629,9 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             add_settings_field(
-                'template-priority-coupons-table',
+                'priority-coupons-table',
                 esc_html__( 'Priority Coupons Table', 'competitive-scheduling' ),
-                array( $this, 'field_template_priority_coupons_table_callback' ),
+                array( $this, 'field_priority_coupons_table_callback' ),
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section'
             );
@@ -1132,9 +1133,9 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             <?php
         }
 
-        public function field_template_priority_coupons_table_callback(){
+        public function field_priority_coupons_table_callback(){
             ?>
-                <textarea id="codemirror_editor_2" name="competitive_scheduling_msg_options[template-priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['template-priority-coupons-table'] ) ? self::$msg_options['template-priority-coupons-table'] : '';  ?></textarea>
+                <textarea id="codemirror_editor_2" name="competitive_scheduling_msg_options[priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['priority-coupons-table'] ) ? self::$msg_options['priority-coupons-table'] : '';  ?></textarea>
                 <p><?php echo esc_html__( 'HTML layout for priority coupon printing.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
