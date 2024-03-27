@@ -201,7 +201,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 case 'msg-scheduling-cancelled':
                     $change_variables = array(
                         'title' => __( 'Cancellation Success', 'competitive-scheduling' ),
-                        'description' => __( 'Appointment <b>CANCELLED</b> successfully!', 'competitive-scheduling' ),
+                        'description' => __( 'Schedule <b>CANCELLED</b> successfully!', 'competitive-scheduling' ),
                     );
                     
                 break;

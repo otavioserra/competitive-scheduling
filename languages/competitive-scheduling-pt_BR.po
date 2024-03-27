@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Blank WordPress Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2024-03-27 19:00-0300\n"
+"POT-Creation-Date: 2024-03-27 19:22-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -366,12 +366,15 @@ msgid "Your pre-scheduling was successful!"
 msgstr "Seu pré-agendamento foi realizado com sucesso!"
 
 #: settings/class.competitive-scheduling-settings.php:176
-msgid "You have just made a pre-booking within the #title# booking system:"
+msgid ""
+"You have just made a pre-scheduling within the #title# scheduling system:"
 msgstr ""
+"Você acabou de fazer um pré-agendamento dentro do sistema de agendamento "
+"#title#:"
 
 #: settings/class.competitive-scheduling-settings.php:178
 msgid "IMPORTANT INFORMATION"
-msgstr ""
+msgstr "INFORMAÇÃO IMPORTANTE"
 
 #: settings/class.competitive-scheduling-settings.php:179
 #: settings/class.competitive-scheduling-settings.php:286
@@ -390,6 +393,20 @@ msgid ""
 "guaranteed in your pre-booking draw will no longer be effective and the "
 "places will be released to be chosen by other people via the system again."
 msgstr ""
+"<span class=\"txt-1\"><b>IMPORTANTE 1</b>:</span> Pré-agendamentos NÃO SÃO "
+"agendamentos confirmados. Eles passarão por sorteio pelo sistema <span "
+"class=\"txt-1\">#draw_date#</span> dias antes do dia do atendimento. Caso "
+"seu pré-agendamento seja sorteado, você deverá confirmar seu agendamento "
+"através de um e-mail que será enviado <span class=\"txt-1\">#draw_date#</"
+"span> dias antes do dia do agendamento. Ou acessando diretamente nosso "
+"sistema após esta data e escolhendo a opção CONFIRMAR AGENDAMENTO para o dia "
+"de seu agendamento. Esta confirmação deve ser feita entre <span "
+"class=\"txt-1\">#date_confirmation_1#</span> e <span "
+"class=\"txt-1\">#date_confirmation_2#</span> dias antes do dia do "
+"atendimento. Caso você não confirme seu agendamento neste período, as vagas "
+"garantidas no seu sorteio de pré-reserva não terão mais validade e as vagas "
+"serão liberadas para serem novamente escolhidas por outras pessoas via "
+"sistema."
 
 #: settings/class.competitive-scheduling-settings.php:180
 #: settings/class.competitive-scheduling-settings.php:287
@@ -401,6 +418,12 @@ msgid ""
 "a confirmation email, it is because you were not selected to participate in "
 "the service."
 msgstr ""
+"<br /><span class=\"txt-1\"><b>IMPORTANTE 2</b>:</span> Se houver mais pré-"
+"agendamentos do que vagas de atendimento, o sistema realizará "
+"automaticamente um sorteio e enviará um email de confirmação para os "
+"selecionados, caso contrário enviará um email de confirmação para todos. "
+"Portanto, se você não receber um e-mail de confirmação é porque não foi "
+"selecionado para participar do atendimento."
 
 #: settings/class.competitive-scheduling-settings.php:181
 #: settings/class.competitive-scheduling-settings.php:288
@@ -412,24 +435,30 @@ msgid ""
 "for an schedule. At this stage, places are not guaranteed and can be chosen "
 "by anyone who accesses the system."
 msgstr ""
+"<br /><span class=\"txt-1\"><b>IMPORTANTE 3</b>:</span> Após o dia <span "
+"class=\"txt-1\">#date_confirmation_2#</span>, o sistema liberará as vagas "
+"residuais para serem escolhidas novamente e caso você não tenha confirmado, "
+"ou não tenha sido sorteado, poderá escolher a mesma data para agendamento. "
+"Nesta fase as vagas não estão garantidas e podem ser escolhidas por qualquer "
+"pessoa que acesse o sistema."
 
 #: settings/class.competitive-scheduling-settings.php:188
 #: views/competitive-scheduling-admin-page.php:87
 #: views/competitive-scheduling-admin-page.php:146
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: settings/class.competitive-scheduling-settings.php:190
 msgid "Viewed"
-msgstr ""
+msgstr "Visto"
 
 #: settings/class.competitive-scheduling-settings.php:197
 msgid "An error occurred in the last operation #error-msg#!"
-msgstr ""
+msgstr "Ocorreu um erro na última operação #error-msg#!"
 
 #: settings/class.competitive-scheduling-settings.php:203
 msgid "Cancellation Success"
-msgstr ""
+msgstr "Sucesso no Cancelamento"
 
 #: settings/class.competitive-scheduling-settings.php:204
 msgid "Appointment <b>CANCELLED</b> successfully!"
