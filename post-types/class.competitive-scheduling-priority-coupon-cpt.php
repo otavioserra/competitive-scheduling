@@ -102,7 +102,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
                 wp_add_inline_script( 'coupon-js', $data, $position = 'after' );
             }
-            
+
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
@@ -284,7 +284,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             $table = $msg_options['priority-coupons-table'];
             
             // Get table cells.
-            $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Formats::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+            $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
 
             // Get meta data for printing.
             $title = $options['title-establishment'];
