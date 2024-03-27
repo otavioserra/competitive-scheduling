@@ -1,5 +1,6 @@
 jQuery( document ).ready( function() {
-
+    var apiVersion = 'v1';
+    
     function loading( option ){
 		switch( option ){
 			case 'open':
