@@ -218,7 +218,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 case 'msg-scheduling-date-not-allowed':
                     $change_variables = array(
                         'title' => __( 'Date Not Allowed', 'competitive-scheduling' ),
-                        'description' => __( 'This date is not valid. allowed, choose another.', 'competitive-scheduling' ),
+                        'description' => __( 'This date is not allowed, choose another.', 'competitive-scheduling' ),
                     );
                     
                 break;
