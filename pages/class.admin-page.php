@@ -13,7 +13,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 						array(
 							'methods'  => WP_REST_Server::READABLE,
 							'callback' => array( $this, 'ajax_schedules' ),
-							'permission_callback' => '__return_true',
+							'permission_callback' => array( $this, 'ajax_schedules_permission' ),
 						)
 					);
 				}
@@ -63,541 +63,547 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 			require CS_PATH . 'views/competitive-scheduling-admin-page.php';
 		}
 
-		public function ajax_schedules( $request ) {
-			// Get all sent parameters
-			$params = $request->get_params();
-
-			if ( is_user_logged_in() ) {
-				// Verify nonce
-				$nonce = $params['nonce'];
-				if ( ! wp_verify_nonce( $nonce, 'schedules-nonce' ) ) {
-					return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.', 'competitive-scheduling' ), array( 'status' => 403 ) );
-				}
-
-				// Require templates class to manipulate page.
-				require_once CS_PATH . 'includes/class.templates.php';
-
-				// Require database class to manipulate data.
-				require_once( CS_PATH . 'includes/class.database.php' );
-
-				// Require user class to get user's data.
-				require_once( CS_PATH . 'includes/class.user.php' );
-
-				// Require formats class to manipulate data.
-				require_once( CS_PATH . 'includes/class.formats.php' );
-
-				// Initial default variables.
-				$total = 0;
-				$print = false;
-				
-				// Get all parmas sent.
-				$date = $params['date'];
-				$status = $params['status'];
-
-				// Sanitize all fields
-				$date = sanitize_text_field( $date );
-				$status = sanitize_text_field( $status );
-
-				// Get table cells.
-				$page = Templates::render_view( CS_PATH . 'views/competitive-scheduling-admin-page.php' );
-
-				// Get the tables from the page.
-				$cell_name = 'people-table'; $table = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
-				$cell_name = 'print-table'; $printLayout = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
-				$cell_name = 'print-header'; $printHeader = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
-
-				// Get all cells from people table.
-				$cell_name = 'th-password'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'th-email'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				
-				$cell_name = 'cell-companion'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'td-companions'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'td-password'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				
-				$cell_name = 'sent'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'not-sent'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'td-email'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				
-				$cell_name = 'cell-schedule'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				
-				// Get all cells from print table.
-				$cell_name = 'th-companions'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'td-companions'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-				$cell_name = 'cell-people'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-
-				// Treat each status sent.
-				switch( $status ){
-					case 'pre':
-						// Get the data from the bank.
-						global $wpdb;
-						$query = $wpdb->prepare(
-							"SELECT id_schedules, companions, user_id 
-							FROM {$wpdb->prefix}schedules 
-							WHERE date = '%s' AND status='new'",
-							array( $date )
-						);
-						$schedules = $wpdb->get_results( $query, ARRAY_A );
-
-						// Scan all schedules.
-						if( $schedules )
-						foreach( $schedules as $schedule ){
-							// Get scheduling data.
-							$id_schedules = $schedule['id_schedules'];
-							$user_id = $schedule['user_id'];
-							$companions = (int)$schedule['companions'];
-							
-							// Get user data from the schedule.
-							$name = User::get_name( $user_id );
-
-							$schedulesAux = Array(
-								'name' => $name,
-								'companions' => $companions,
-							);
-							
-							// Get the companions’ details.
-							global $wpdb;
-							$query = $wpdb->prepare(
-								"SELECT name 
-								FROM {$wpdb->prefix}schedules_companions 
-								WHERE id_schedules = '%s' AND user_id = '%s'",
-								array( $id_schedules, $user_id )
-							);
-							$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
-
-							$schedulesAux['companionsData'] = $schedules_companions;
-							
-							// Update the total number of people scheduled.
-							$total += 1 + $companions;
-							
-							// Include the schedule data in the schedules array.
-							$schedulesProc[] = $schedulesAux;
-						}
-
-						// Set up table.
-						if( ! empty( $schedulesProc ) ){
-							$cel_name = 'cell-schedule';
-							
-							// Sort the data by name to assemble the table.
-							usort( $schedulesProc, function( $a, $b ){
-								return $a['name'] <=> $b['name'];
-							} );
-							
-							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cell[$cel_name];
-								
-								// Include the name.
-								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
-								
-								// Popular escorts.
-								$companionNum = 0;
-								if( ! empty( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
-									
-									foreach( $schedule['companionsData'] as $companionsData ){
-										$companionNum++;
-
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
-
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
-										
-										$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
-									}
-								}
-								
-								$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
-							}
-							
-							$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
-						} else {
-							$table = '';
-						}
-					break;
-					case 'waiting':
-						// Get the data from the bank.
-						global $wpdb;
-						$query = $wpdb->prepare(
-							"SELECT id_schedules, companions, user_id, status 
-							FROM {$wpdb->prefix}schedules 
-							WHERE date = '%s' AND (status='email-sent' OR status='email-not-sent')",
-							array( $date )
-						);
-						$schedules = $wpdb->get_results( $query, ARRAY_A );
-
-						// Scan all schedules.
-						
-						if( $schedules )
-						foreach( $schedules as $schedule ){
-							// Get scheduling data.
-							$id_schedules = $schedule['id_schedules'];
-							$user_id = $schedule['user_id'];
-							$companions = (int)$schedule['companions'];
-							
-							// Get user data from the schedule.
-							$name = User::get_name( $user_id );
-
-							$schedulesAux = Array(
-								'name' => $name,
-								'companions' => $companions,
-								'status' => $schedule['status'],
-							);
-
-							// Get the companions’ details.
-							global $wpdb;
-							$query = $wpdb->prepare(
-								"SELECT name 
-								FROM {$wpdb->prefix}schedules_companions 
-								WHERE id_schedules = '%s' AND user_id = '%s'",
-								array( $id_schedules, $user_id )
-							);
-							$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
-
-							$schedulesAux['companionsData'] = $schedules_companions;
-							
-							// Update the total number of people scheduled.
-							$total += 1 + $companions;
-							
-							// Include the schedule data in the schedules array.
-							$schedulesProc[] = $schedulesAux;
-						}
-						
-						// Set up table.
-						if( ! empty( $schedulesProc ) ){
-							$cel_name = 'cell-schedule';
-							
-							// Sort the data by name to assemble the table.
-							usort( $schedulesProc, function( $a, $b ){
-								return $a['name'] <=> $b['name'];
-							} );
-							
-							$cel_name = 'th-email'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cell[$cel_name] );
-							
-							$cel_name = 'cell-schedule';
-							
-							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cell[$cel_name];
-								
-								// Include the status of sent or not sent.
-								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-email -->', $cell['td-email'] );
-								
-								if( $schedule['status'] == 'email-sent' ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- sent -->', $cell['sent'] );
-								} else {
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- not-sent -->', $cell['not-sent'] );
-								}
-								
-								// Include the name.
-								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
-								
-								// Popular escorts.
-								$companionNum = 0;
-								if( ! empty( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
-									
-									foreach( $schedule['companionsData'] as $companionsData ){
-										$companionNum++;
-
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
-
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
-										
-										$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
-									}
-								}
-								
-								$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
-							}
-							
-							$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
-						} else {
-							$table = '';
-						}
-					break;
-					case 'confirmed':
-						// Get the data from the bank.
-						global $wpdb;
-						$query = $wpdb->prepare(
-							"SELECT id_schedules, companions, user_id, password 
-							FROM {$wpdb->prefix}schedules 
-							WHERE date = '%s' AND status='confirmed'",
-							array( $date )
-						);
-						$schedules = $wpdb->get_results( $query, ARRAY_A );
-
-						// Scan all schedules.
-						if( $schedules )
-						foreach( $schedules as $schedule ){
-							// Get scheduling data.
-							$id_schedules = $schedule['id_schedules'];
-							$user_id = $schedule['user_id'];
-							$companions = (int)$schedule['companions'];
-							$password = $schedule['password'];
-							
-							// Get user data from the schedule.
-							$name = User::get_name( $user_id );
-
-							$schedulesAux = Array(
-								'name' => $name,
-								'companions' => $companions,
-								'password' => $password,
-							);
-							
-							// Get the companions’ details.
-							global $wpdb;
-							$query = $wpdb->prepare(
-								"SELECT name 
-								FROM {$wpdb->prefix}schedules_companions 
-								WHERE id_schedules = '%s' AND user_id = '%s'",
-								array( $id_schedules, $user_id )
-							);
-							$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
-
-							$schedulesAux['companionsData'] = $schedules_companions;
-							
-							// Update the total number of people scheduled.
-							$total += 1 + $companions;
-							
-							// Include the schedule data in the schedules array.
-							$schedulesProc[] = $schedulesAux;
-						}
-						
-						// Set up table.
-						
-						$maxCompanion = 0;
-
-						if( ! empty( $schedulesProc ) ){
-							$cel_name = 'cell-schedule';
-							
-							// Sort the data by name to assemble the table.
-							usort( $schedulesProc, function( $a, $b ){
-								return $a['name'] <=> $b['name'];
-							} );
-							
-							$cel_name = 'th-password'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cell[$cel_name] );
-							
-							$cel_name = 'cell-schedule';
-							
-							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cell[$cel_name];
-								
-								// Include name and password.
-								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-password -->', $cell['td-password'] );
-								
-								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
-								$cel_aux = Templates::change_variable( $cel_aux, '[[password]]', $schedule['password'] );
-								
-								// Popular escorts.
-								$companionNum = 0;
-								if( ! empty( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
-									
-									foreach( $schedule['companionsData'] as $companionsData ){
-										$companionNum++;
-
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
-
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
-										
-										$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
-									}
-								}
-
-								if($companionNum > $maxCompanion){
-									$maxCompanion = $companionNum;
-								}
-								
-								$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
-							}
-							
-							$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
-						} else {
-							$table = '';
-						}
-						
-						// Print options.
-						if( $total > 0 ){
-							// Set up print table.
-							if( ! empty( $schedulesProc ) ){
-								$tablePrint = $printLayout;
-								
-								for( $i=1; $i <= $maxCompanion; $i++ ){
-									$cel_aux = $cell2['th-companions'];
-									
-									$cel_aux = Templates::change_variable( $cel_aux, '#th-companions#', esc_html__( 'Companion', 'competitive-scheduling' ) . ' ' . $i );
-
-									$tablePrint = Templates::variable_in( $tablePrint, '<!-- th-companions -->', $cel_aux );
-								}
-
-								$tablePrint = Templates::change_variable( $tablePrint, '<!-- th-companions -->', '' );
-								
-								$cel_name = 'cell-people';
-								
-								foreach( $schedulesProc as $schedule ){
-									$cel_aux = $cell2[$cel_name];
-									
-									// Include password and name.
-									$cel_aux = Templates::change_variable( $cel_aux, '#name#', $schedule['name'] );
-									$cel_aux = Templates::change_variable( $cel_aux, '#password#', $schedule['password'] );
-									
-									// Popular escorts.
-									$companionNum = 0;
-									if( ! empty( $schedule['companionsData'] ) ){
-										foreach( $schedule['companionsData'] as $companionsData ){
-											$companionNum++;
-
-											$cel_comp = 'td-companions'; $cel_aux_2 = $cell2[$cel_comp] . "\n";
-
-											$cel_aux_2 = Templates::change_variable( $cel_aux_2, '#td-companions#', $companionsData['name'] );
-											
-											$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
-										}
-									}
-									
-									for( $i=( $companionNum + 1 ); $i <= $maxCompanion; $i++ ){
-										$cel_aux_2 = $cell2['td-companions'];
-
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '#td-companions#', '' );
-										
-										$cel_aux = Templates::variable_in( $cel_aux, '<!-- td-companions -->', $cel_aux_2 );
-									}
-									
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', '' );
-
-									$tablePrint = Templates::variable_in( $tablePrint, '<!-- '.$cel_name.' -->', $cel_aux );
-								}
-								
-								$tablePrint = Templates::change_variable( $tablePrint, '<!-- '.$cel_name.' -->', '' );
-							} else {
-								$tablePrint = '';
-							}
-							
-							// Variable printing patterns.
-							$print = true;
-							
-							// Format date.
-							$dateStr = Formats::data_format_to( 'date-to-text', $date );
-							
-							// Change print header fields.
-							$printHeader = Templates::change_variable( $printHeader, '#date#', $dateStr );
-							$printHeader = Templates::change_variable( $printHeader, '#total#', $total );
-							
-							$tablePrint = $printHeader . $tablePrint;
-
-							// Print title.
-							$printTitle = __( 'Confirmed Schedules', 'competitive-scheduling' ).' - '.$dateStr;
-						}
-					break;
-					case 'finalized':
-						// Get the data from the bank.
-						global $wpdb;
-						$query = $wpdb->prepare(
-							"SELECT id_schedules, companions, user_id 
-							FROM {$wpdb->prefix}schedules 
-							WHERE date = '%s' AND status='finalized'",
-							array( $date )
-						);
-						$schedules = $wpdb->get_results( $query, ARRAY_A );
-
-						// Scan all schedules.
-						if( $schedules )
-						foreach( $schedules as $schedule ){
-							// Get scheduling data.
-							$id_schedules = $schedule['id_schedules'];
-							$user_id = $schedule['user_id'];
-							$companions = (int)$schedule['companions'];
-							
-							// Get user data from the schedule.
-							$name = User::get_name( $user_id );
-
-							$schedulesAux = Array(
-								'name' => $name,
-								'companions' => $companions,
-							);
-							
-							// Get the companions’ details.
-							global $wpdb;
-							$query = $wpdb->prepare(
-								"SELECT name 
-								FROM {$wpdb->prefix}schedules_companions 
-								WHERE id_schedules = '%s' AND user_id = '%s'",
-								array( $id_schedules, $user_id )
-							);
-							$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
-
-							$schedulesAux['companionsData'] = $schedules_companions;
-
-							// Update the total number of people scheduled.
-							$total += 1 + $companions;
-							
-							// Include the schedule data in the schedules array.
-							$schedulesProc[] = $schedulesAux;
-						}
-						
-						// Set up table.
-						if( ! empty( $schedulesProc ) ){
-							$cel_name = 'cell-schedule';
-							
-							// Sort the data by name to assemble the table.
-							usort( $schedulesProc, function( $a, $b ){
-								return $a['name'] <=> $b['name'];
-							} );
-
-							$cel_name = 'cell-schedule';
-							
-							foreach( $schedulesProc as $schedule ){
-								$cel_aux = $cell[$cel_name];
-								
-								// Include the name.
-								$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
-								
-								// Popular escorts.
-								$companionNum = 0;
-								if( ! empty( $schedule['companionsData'] ) ){
-									$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
-									
-									foreach( $schedule['companionsData'] as $companionsData ){
-										$companionNum++;
-
-										$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
-
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
-										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
-										
-										$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
-									}
-								}
-								
-								$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
-							}
-							
-							$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
-						} else {
-							$table = '';
-						}
-					break;
-					default:
-						$table = '';
-				}
-				
-				// Response data
-				$response = array(
-					'status'        => 'OK',
-					'total' 		=> $total,
-					'table' 		=> $table,
-					'print' 		=> $print,
-					'tablePrint' 	=> ( ! empty( $tablePrint ) ? $tablePrint : '' ),
-					'printTitle' 	=> ( ! empty( $printTitle ) ? $printTitle : '' ),
-					'nonce'         => wp_create_nonce( 'schedules-nonce' ),
-				);
-			} else {
+		public function ajax_schedules_permission( $request ) {
+			if ( ! is_user_logged_in() ) {
 				// Response data
 				$response = array(
 					'status' => 'ERROR',
 					'alert'  => __( 'User is not logged in', 'competitive-scheduling' ),
 				);
+
+				return rest_ensure_response( $response );
 			}
+
+			return true;
+		}
+
+		public function ajax_schedules( $request ) {
+			// Get all sent parameters
+			$params = $request->get_params();
+
+			// Verify nonce
+			$nonce = $params['nonce'];
+			if ( ! wp_verify_nonce( $nonce, 'schedules-nonce' ) ) {
+				return new WP_Error( 'rest_api_nonce_invalid', esc_html__( 'The system did not validate the nonce sent. Please try again or seek help from support.', 'competitive-scheduling' ), array( 'status' => 403 ) );
+			}
+
+			// Require templates class to manipulate page.
+			require_once CS_PATH . 'includes/class.templates.php';
+
+			// Require database class to manipulate data.
+			require_once( CS_PATH . 'includes/class.database.php' );
+
+			// Require user class to get user's data.
+			require_once( CS_PATH . 'includes/class.user.php' );
+
+			// Require formats class to manipulate data.
+			require_once( CS_PATH . 'includes/class.formats.php' );
+
+			// Initial default variables.
+			$total = 0;
+			$print = false;
+			
+			// Get all parmas sent.
+			$date = $params['date'];
+			$status = $params['status'];
+
+			// Sanitize all fields
+			$date = sanitize_text_field( $date );
+			$status = sanitize_text_field( $status );
+
+			// Get table cells.
+			$page = Templates::render_view( CS_PATH . 'views/competitive-scheduling-admin-page.php' );
+
+			// Get the tables from the page.
+			$cell_name = 'people-table'; $table = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
+			$cell_name = 'print-table'; $printLayout = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
+			$cell_name = 'print-header'; $printHeader = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' );
+
+			// Get all cells from people table.
+			$cell_name = 'th-password'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'th-email'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			
+			$cell_name = 'cell-companion'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'td-companions'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'td-password'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			
+			$cell_name = 'sent'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'not-sent'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'td-email'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			
+			$cell_name = 'cell-schedule'; $cell[$cell_name] = Templates::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Templates::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			
+			// Get all cells from print table.
+			$cell_name = 'th-companions'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'td-companions'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+			$cell_name = 'cell-people'; $cell2[$cell_name] = Templates::tag_value( $printLayout, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $printLayout = Templates::tag_in( $printLayout,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+
+			// Treat each status sent.
+			switch( $status ){
+				case 'pre':
+					// Get the data from the bank.
+					global $wpdb;
+					$query = $wpdb->prepare(
+						"SELECT id_schedules, companions, user_id 
+						FROM {$wpdb->prefix}schedules 
+						WHERE date = '%s' AND status='new'",
+						array( $date )
+					);
+					$schedules = $wpdb->get_results( $query, ARRAY_A );
+
+					// Scan all schedules.
+					if( $schedules )
+					foreach( $schedules as $schedule ){
+						// Get scheduling data.
+						$id_schedules = $schedule['id_schedules'];
+						$user_id = $schedule['user_id'];
+						$companions = (int)$schedule['companions'];
+						
+						// Get user data from the schedule.
+						$name = User::get_name( $user_id );
+
+						$schedulesAux = Array(
+							'name' => $name,
+							'companions' => $companions,
+						);
+						
+						// Get the companions’ details.
+						global $wpdb;
+						$query = $wpdb->prepare(
+							"SELECT name 
+							FROM {$wpdb->prefix}schedules_companions 
+							WHERE id_schedules = '%s' AND user_id = '%s'",
+							array( $id_schedules, $user_id )
+						);
+						$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
+
+						$schedulesAux['companionsData'] = $schedules_companions;
+						
+						// Update the total number of people scheduled.
+						$total += 1 + $companions;
+						
+						// Include the schedule data in the schedules array.
+						$schedulesProc[] = $schedulesAux;
+					}
+
+					// Set up table.
+					if( ! empty( $schedulesProc ) ){
+						$cel_name = 'cell-schedule';
+						
+						// Sort the data by name to assemble the table.
+						usort( $schedulesProc, function( $a, $b ){
+							return $a['name'] <=> $b['name'];
+						} );
+						
+						foreach( $schedulesProc as $schedule ){
+							$cel_aux = $cell[$cel_name];
+							
+							// Include the name.
+							$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
+							
+							// Popular escorts.
+							$companionNum = 0;
+							if( ! empty( $schedule['companionsData'] ) ){
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
+								
+								foreach( $schedule['companionsData'] as $companionsData ){
+									$companionNum++;
+
+									$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
+
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
+									
+									$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
+								}
+							}
+							
+							$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
+						}
+						
+						$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
+					} else {
+						$table = '';
+					}
+				break;
+				case 'waiting':
+					// Get the data from the bank.
+					global $wpdb;
+					$query = $wpdb->prepare(
+						"SELECT id_schedules, companions, user_id, status 
+						FROM {$wpdb->prefix}schedules 
+						WHERE date = '%s' AND (status='email-sent' OR status='email-not-sent')",
+						array( $date )
+					);
+					$schedules = $wpdb->get_results( $query, ARRAY_A );
+
+					// Scan all schedules.
+					
+					if( $schedules )
+					foreach( $schedules as $schedule ){
+						// Get scheduling data.
+						$id_schedules = $schedule['id_schedules'];
+						$user_id = $schedule['user_id'];
+						$companions = (int)$schedule['companions'];
+						
+						// Get user data from the schedule.
+						$name = User::get_name( $user_id );
+
+						$schedulesAux = Array(
+							'name' => $name,
+							'companions' => $companions,
+							'status' => $schedule['status'],
+						);
+
+						// Get the companions’ details.
+						global $wpdb;
+						$query = $wpdb->prepare(
+							"SELECT name 
+							FROM {$wpdb->prefix}schedules_companions 
+							WHERE id_schedules = '%s' AND user_id = '%s'",
+							array( $id_schedules, $user_id )
+						);
+						$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
+
+						$schedulesAux['companionsData'] = $schedules_companions;
+						
+						// Update the total number of people scheduled.
+						$total += 1 + $companions;
+						
+						// Include the schedule data in the schedules array.
+						$schedulesProc[] = $schedulesAux;
+					}
+					
+					// Set up table.
+					if( ! empty( $schedulesProc ) ){
+						$cel_name = 'cell-schedule';
+						
+						// Sort the data by name to assemble the table.
+						usort( $schedulesProc, function( $a, $b ){
+							return $a['name'] <=> $b['name'];
+						} );
+						
+						$cel_name = 'th-email'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cell[$cel_name] );
+						
+						$cel_name = 'cell-schedule';
+						
+						foreach( $schedulesProc as $schedule ){
+							$cel_aux = $cell[$cel_name];
+							
+							// Include the status of sent or not sent.
+							$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-email -->', $cell['td-email'] );
+							
+							if( $schedule['status'] == 'email-sent' ){
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- sent -->', $cell['sent'] );
+							} else {
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- not-sent -->', $cell['not-sent'] );
+							}
+							
+							// Include the name.
+							$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
+							
+							// Popular escorts.
+							$companionNum = 0;
+							if( ! empty( $schedule['companionsData'] ) ){
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
+								
+								foreach( $schedule['companionsData'] as $companionsData ){
+									$companionNum++;
+
+									$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
+
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
+									
+									$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
+								}
+							}
+							
+							$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
+						}
+						
+						$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
+					} else {
+						$table = '';
+					}
+				break;
+				case 'confirmed':
+					// Get the data from the bank.
+					global $wpdb;
+					$query = $wpdb->prepare(
+						"SELECT id_schedules, companions, user_id, password 
+						FROM {$wpdb->prefix}schedules 
+						WHERE date = '%s' AND status='confirmed'",
+						array( $date )
+					);
+					$schedules = $wpdb->get_results( $query, ARRAY_A );
+
+					// Scan all schedules.
+					if( $schedules )
+					foreach( $schedules as $schedule ){
+						// Get scheduling data.
+						$id_schedules = $schedule['id_schedules'];
+						$user_id = $schedule['user_id'];
+						$companions = (int)$schedule['companions'];
+						$password = $schedule['password'];
+						
+						// Get user data from the schedule.
+						$name = User::get_name( $user_id );
+
+						$schedulesAux = Array(
+							'name' => $name,
+							'companions' => $companions,
+							'password' => $password,
+						);
+						
+						// Get the companions’ details.
+						global $wpdb;
+						$query = $wpdb->prepare(
+							"SELECT name 
+							FROM {$wpdb->prefix}schedules_companions 
+							WHERE id_schedules = '%s' AND user_id = '%s'",
+							array( $id_schedules, $user_id )
+						);
+						$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
+
+						$schedulesAux['companionsData'] = $schedules_companions;
+						
+						// Update the total number of people scheduled.
+						$total += 1 + $companions;
+						
+						// Include the schedule data in the schedules array.
+						$schedulesProc[] = $schedulesAux;
+					}
+					
+					// Set up table.
+					
+					$maxCompanion = 0;
+
+					if( ! empty( $schedulesProc ) ){
+						$cel_name = 'cell-schedule';
+						
+						// Sort the data by name to assemble the table.
+						usort( $schedulesProc, function( $a, $b ){
+							return $a['name'] <=> $b['name'];
+						} );
+						
+						$cel_name = 'th-password'; $table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', $cell[$cel_name] );
+						
+						$cel_name = 'cell-schedule';
+						
+						foreach( $schedulesProc as $schedule ){
+							$cel_aux = $cell[$cel_name];
+							
+							// Include name and password.
+							$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-password -->', $cell['td-password'] );
+							
+							$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
+							$cel_aux = Templates::change_variable( $cel_aux, '[[password]]', $schedule['password'] );
+							
+							// Popular escorts.
+							$companionNum = 0;
+							if( ! empty( $schedule['companionsData'] ) ){
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
+								
+								foreach( $schedule['companionsData'] as $companionsData ){
+									$companionNum++;
+
+									$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
+
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
+									
+									$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
+								}
+							}
+
+							if($companionNum > $maxCompanion){
+								$maxCompanion = $companionNum;
+							}
+							
+							$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
+						}
+						
+						$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
+					} else {
+						$table = '';
+					}
+					
+					// Print options.
+					if( $total > 0 ){
+						// Set up print table.
+						if( ! empty( $schedulesProc ) ){
+							$tablePrint = $printLayout;
+							
+							for( $i=1; $i <= $maxCompanion; $i++ ){
+								$cel_aux = $cell2['th-companions'];
+								
+								$cel_aux = Templates::change_variable( $cel_aux, '#th-companions#', esc_html__( 'Companion', 'competitive-scheduling' ) . ' ' . $i );
+
+								$tablePrint = Templates::variable_in( $tablePrint, '<!-- th-companions -->', $cel_aux );
+							}
+
+							$tablePrint = Templates::change_variable( $tablePrint, '<!-- th-companions -->', '' );
+							
+							$cel_name = 'cell-people';
+							
+							foreach( $schedulesProc as $schedule ){
+								$cel_aux = $cell2[$cel_name];
+								
+								// Include password and name.
+								$cel_aux = Templates::change_variable( $cel_aux, '#name#', $schedule['name'] );
+								$cel_aux = Templates::change_variable( $cel_aux, '#password#', $schedule['password'] );
+								
+								// Popular escorts.
+								$companionNum = 0;
+								if( ! empty( $schedule['companionsData'] ) ){
+									foreach( $schedule['companionsData'] as $companionsData ){
+										$companionNum++;
+
+										$cel_comp = 'td-companions'; $cel_aux_2 = $cell2[$cel_comp] . "\n";
+
+										$cel_aux_2 = Templates::change_variable( $cel_aux_2, '#td-companions#', $companionsData['name'] );
+										
+										$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
+									}
+								}
+								
+								for( $i=( $companionNum + 1 ); $i <= $maxCompanion; $i++ ){
+									$cel_aux_2 = $cell2['td-companions'];
+
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '#td-companions#', '' );
+									
+									$cel_aux = Templates::variable_in( $cel_aux, '<!-- td-companions -->', $cel_aux_2 );
+								}
+								
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', '' );
+
+								$tablePrint = Templates::variable_in( $tablePrint, '<!-- '.$cel_name.' -->', $cel_aux );
+							}
+							
+							$tablePrint = Templates::change_variable( $tablePrint, '<!-- '.$cel_name.' -->', '' );
+						} else {
+							$tablePrint = '';
+						}
+						
+						// Variable printing patterns.
+						$print = true;
+						
+						// Format date.
+						$dateStr = Formats::data_format_to( 'date-to-text', $date );
+						
+						// Change print header fields.
+						$printHeader = Templates::change_variable( $printHeader, '#date#', $dateStr );
+						$printHeader = Templates::change_variable( $printHeader, '#total#', $total );
+						
+						$tablePrint = $printHeader . $tablePrint;
+
+						// Print title.
+						$printTitle = __( 'Confirmed Schedules', 'competitive-scheduling' ).' - '.$dateStr;
+					}
+				break;
+				case 'finalized':
+					// Get the data from the bank.
+					global $wpdb;
+					$query = $wpdb->prepare(
+						"SELECT id_schedules, companions, user_id 
+						FROM {$wpdb->prefix}schedules 
+						WHERE date = '%s' AND status='finalized'",
+						array( $date )
+					);
+					$schedules = $wpdb->get_results( $query, ARRAY_A );
+
+					// Scan all schedules.
+					if( $schedules )
+					foreach( $schedules as $schedule ){
+						// Get scheduling data.
+						$id_schedules = $schedule['id_schedules'];
+						$user_id = $schedule['user_id'];
+						$companions = (int)$schedule['companions'];
+						
+						// Get user data from the schedule.
+						$name = User::get_name( $user_id );
+
+						$schedulesAux = Array(
+							'name' => $name,
+							'companions' => $companions,
+						);
+						
+						// Get the companions’ details.
+						global $wpdb;
+						$query = $wpdb->prepare(
+							"SELECT name 
+							FROM {$wpdb->prefix}schedules_companions 
+							WHERE id_schedules = '%s' AND user_id = '%s'",
+							array( $id_schedules, $user_id )
+						);
+						$schedules_companions = $wpdb->get_results( $query, ARRAY_A );
+
+						$schedulesAux['companionsData'] = $schedules_companions;
+
+						// Update the total number of people scheduled.
+						$total += 1 + $companions;
+						
+						// Include the schedule data in the schedules array.
+						$schedulesProc[] = $schedulesAux;
+					}
+					
+					// Set up table.
+					if( ! empty( $schedulesProc ) ){
+						$cel_name = 'cell-schedule';
+						
+						// Sort the data by name to assemble the table.
+						usort( $schedulesProc, function( $a, $b ){
+							return $a['name'] <=> $b['name'];
+						} );
+
+						$cel_name = 'cell-schedule';
+						
+						foreach( $schedulesProc as $schedule ){
+							$cel_aux = $cell[$cel_name];
+							
+							// Include the name.
+							$cel_aux = Templates::change_variable( $cel_aux, '[[name]]', $schedule['name'] );
+							
+							// Popular escorts.
+							$companionNum = 0;
+							if( ! empty( $schedule['companionsData'] ) ){
+								$cel_aux = Templates::change_variable( $cel_aux, '<!-- td-companions -->', $cell['td-companions'] );
+								
+								foreach( $schedule['companionsData'] as $companionsData ){
+									$companionNum++;
+
+									$cel_comp = 'cell-companion'; $cel_aux_2 = $cell[$cel_comp];
+
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[num]]', $companionNum );
+									$cel_aux_2 = Templates::change_variable( $cel_aux_2, '[[companion]]', $companionsData['name'] );
+									
+									$cel_aux = Templates::variable_in( $cel_aux, '<!-- '.$cel_comp.' -->', $cel_aux_2 );
+								}
+							}
+							
+							$table = Templates::variable_in( $table, '<!-- '.$cel_name.' -->', $cel_aux );
+						}
+						
+						$table = Templates::change_variable( $table, '<!-- '.$cel_name.' -->', '' );
+					} else {
+						$table = '';
+					}
+				break;
+				default:
+					$table = '';
+			}
+			
+			// Response data
+			$response = array(
+				'status'        => 'OK',
+				'total' 		=> $total,
+				'table' 		=> $table,
+				'print' 		=> $print,
+				'tablePrint' 	=> ( ! empty( $tablePrint ) ? $tablePrint : '' ),
+				'printTitle' 	=> ( ! empty( $printTitle ) ? $printTitle : '' ),
+				'nonce'         => wp_create_nonce( 'schedules-nonce' ),
+			);
 
 			return rest_ensure_response( $response );
 		}
