@@ -232,7 +232,8 @@ jQuery(document).ready(function(){
         });
 
         codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
-
+    }
+    
     var codeMirrorTextArea2 = jQuery('#codemirror_editor_2');
 
     if(codeMirrorTextArea2.length > 0){
