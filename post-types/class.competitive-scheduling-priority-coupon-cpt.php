@@ -258,7 +258,6 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             // Start variables.
             $today = date('Y-m-d');
 
-            $valid_from = Formats::data_format_to( 'text-to-date', $cs_valid_from );
             $valid_until = Formats::data_format_to( 'text-to-date', $cs_valid_until );
             $quantity = $cs_quantity;
             
@@ -305,7 +304,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 
                 $cell_aux = Templates::change_variable( $cell_aux, '#title#', $title );
                 $cell_aux = Templates::change_variable( $cell_aux, '#description#', $description );
-                $cell_aux = Templates::change_variable( $cell_aux, '#validity#', $valid_until );
+                $cell_aux = Templates::change_variable( $cell_aux, '#validity#', $cs_valid_until );
                 $cell_aux = Templates::change_variable( $cell_aux, '#coupon#', $coupon['coupon'] );
 
                 $print = Templates::variable_in( $print, '<!-- '.$cell_name.' -->', $cell_aux );
@@ -317,7 +316,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             // Return data for printing.
             return array(
                 'status' => true,
-                'title' => $name.' - ' . __( 'Qty', 'competitive-scheduling' ) . ': '.$quantity.' - ' . __( 'Valid from', 'competitive-scheduling' ) . ' '.$valid_from.' ' . __( 'until', 'competitive-scheduling' ) . ' '.$valid_until,
+                'title' => $name.' - ' . __( 'Qty', 'competitive-scheduling' ) . ': '.$quantity.' - ' . __( 'Valid from', 'competitive-scheduling' ) . ' '.$cs_valid_from.' ' . __( 'until', 'competitive-scheduling' ) . ' '.$cs_valid_until,
                 'page' => $print,
             );
         }
