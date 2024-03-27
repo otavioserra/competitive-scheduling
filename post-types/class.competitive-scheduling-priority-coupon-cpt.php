@@ -296,7 +296,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             
             if( ! empty( $coupons_priority ) )
             foreach( $coupons_priority as $coupon ){
-                if( $count % 9 == 0 ){
+                if( $count % 6 == 0 ){
                     $print = Templates::change_variable( $print, '<!-- '.$cell_name.' -->', '' );
                     $print .= ( ! empty( $print ) ? '<div class="pagebreak"></div>' : '' ) . $table;
                 }
