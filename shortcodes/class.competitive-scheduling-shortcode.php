@@ -765,10 +765,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 require_once( CS_PATH . 'includes/class.formats.php' );
                 
                 // Check priority coupon.
-                if( isset( $data['coupon'] ) )
-                if( ! empty( $data['coupon'] ) ){
-                    $coupon = $data['coupon'];
-
+                if( isset( $coupon ) )
+                if( ! empty( $coupon ) ){
                     $query = $wpdb->prepare(
                         "SELECT id_schedules_coupons_priority,post_id,id_schedules 
                         FROM {$wpdb->prefix}schedules_coupons_priority 
@@ -1016,13 +1014,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             }
                         }
                     }
-
-                    error_log( CS_ID . ': ' . 'before - couponValid - ' . print_r( $couponValid, true ) );
                     
                     // Check whether a coupon has been used. If yes, mark the coupon with the schedule identifier.
                     if( isset( $couponValid ) ){
-                        error_log( CS_ID . ': ' . 'couponValid - ' . print_r( $couponValid, true ) );
-
                         $id_schedules_coupons_priority = $couponValid;
 
                         $sql = $wpdb->prepare(
