@@ -233,53 +233,14 @@ jQuery( document ).ready( function(){
             if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
 			var element = jQuery('#fomantic-ui-css');
-			var ajaxurl = element.attr('href');
+			var cssUrl = element.attr('href');
 
 			printJS({
 				printable: 'popup-content',
 				type: 'html',
-				css: ajaxurl,
+				css: cssUrl,
 				documentTitle: manager.printTitle,
 			});
-
-			return true;
-
-			e.preventDefault();
-			
-			var element = jQuery('#fomantic-ui-css');
-			var ajaxurl = element.attr('href');
-
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', ajaxurl);
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onload = function() {
-			if (xhr.status === 200) {
-				var css = xhr.responseText;
-
-				// Create a regular expression to find url() references.
-				var regex = /url\((.*?)\)/g;
-
-				// Replace url() references with the root variable.
-				var newCss = css.replace(regex, function(match, url) {
-					return 'url(' + root + url + ')';
-				});
-
-				// Print the stylesheet on the page.
-				var popupWindow = window.open(manager.printTitle + '.pdf', 'Print', 'menubar=0,location=0,width=600,height=400');
-				
-				popupWindow.document.title = popupWindow.parent.document.title = "yourTitle";
-
-				// Set the page in the print window.
-				popupWindow.document.write('<!doctype html><html><head><title>'+manager.printTitle+'</title><script>window.name="'+manager.printTitle+'";</script><style>'+newCss+'</style></head><body>'+document.getElementById('popup-content').innerHTML+'</body></html>');
-
-				// Start printing.
-				popupWindow.print();
-			} else {
-				console.log('Error loading stylesheet');
-			}
-			};
-			xhr.send('action=wp_print_styles&stylesheet=' + ajaxurl);
-
         });
     }
 

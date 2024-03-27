@@ -13,6 +13,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 						array(
 							'methods'  => WP_REST_Server::READABLE,
 							'callback' => array( $this, 'ajax_schedules' ),
+							'permission_callback' => '__return_true',
 						)
 					);
 				}
