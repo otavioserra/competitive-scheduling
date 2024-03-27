@@ -304,6 +304,7 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 $cell_aux = $cell[$cell_name];
                 
                 $cell_aux = Templates::change_variable( $cell_aux, '#title#', $title );
+                $cell_aux = Templates::change_variable( $cell_aux, '#description#', $description );
                 $cell_aux = Templates::change_variable( $cell_aux, '#validity#', $valid_until );
                 $cell_aux = Templates::change_variable( $cell_aux, '#coupon#', $coupon['coupon'] );
 
