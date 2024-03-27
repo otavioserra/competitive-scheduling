@@ -100,7 +100,7 @@ jQuery( document ).ready( function() {
                 printJS({
                     printable: manager_coupon.page,
                     type: 'raw-html',
-                    css: array( cssUrl, cssUrl2 ),
+                    css: [ cssUrl, cssUrl2 ],
                     documentTitle: manager_coupon.title,
                 });
             } else {
