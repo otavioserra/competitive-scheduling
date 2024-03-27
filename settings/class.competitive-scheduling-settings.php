@@ -324,6 +324,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     );
                     
                 break;
+                case 'template-priority-coupons-table':
+                    $change_variables = array(
+                        'title' => __( 'Priority Coupon', 'competitive-scheduling' ),
+                        'span_validity' => __( 'Valid until', 'competitive-scheduling' ),
+                    );
+                    
+                break;
             }
 
             // Change all occurrences of changes_variables on template
@@ -760,6 +767,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 'msg-residual-vacancies-unavailable',
                 esc_html__( 'Residual Vacancies Unavailable', 'competitive-scheduling' ),
                 array( $this, 'field_msg_residual_vacancies_unavailable_callback' ),
+                'competitive_scheduling_messages',
+                'competitive_scheduling_messages_section'
+            );
+
+            add_settings_field(
+                'template-priority-coupons-table',
+                esc_html__( 'Priority Coupons Table', 'competitive-scheduling' ),
+                array( $this, 'field_template_priority_coupons_table_callback' ),
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section'
             );
@@ -1401,6 +1416,13 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             ?>
                 <p><?php echo esc_html__( 'When it is not possible to confirm residual vacancies due to the deadline or because there are no vacancies.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_template_priority_coupons_table_callback(){
+            ?>
+                <textarea id="codemirror_editor" name="competitive_scheduling_msg_options[template-priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['template-priority-coupons-table'] ) ? self::$msg_options['template-priority-coupons-table'] : '';  ?></textarea>
+                <p><?php echo esc_html__( 'HTML layout for priority coupon printing.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         

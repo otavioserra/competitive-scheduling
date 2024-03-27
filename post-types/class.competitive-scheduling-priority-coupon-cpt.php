@@ -90,6 +90,8 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             wp_enqueue_style( 'coupon-css', CS_URL . 'assets/css/coupon.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/coupon.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'coupon-js', CS_URL . 'assets/js/coupon.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/coupon.js' ) : CS_VERSION ) );
 
+            $print_coupons = $this->printing_coupons( $post );
+
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
@@ -223,6 +225,96 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 global $wpdb;
                 $wpdb->delete( $wpdb->prefix.'schedules_coupons_priority', ['post_id' => $post_id] );
             }
+        }
+
+        public function printing_coupons( $post ){
+            // Require formats class to manipulate data.
+            require_once( CS_PATH . 'includes/class.formats.php' );
+
+            // Get coupon data.
+            $cs_quantity = get_post_meta( $post->ID, 'cs_quantity', true );
+            $cs_valid_from = get_post_meta( $post->ID, 'cs_valid_from', true );
+            $cs_valid_until = get_post_meta( $post->ID, 'cs_valid_until', true );
+            $name = $post->post_title;
+            
+            // Start variables.
+            $today = date('Y-m-d');
+
+            $valid_from = Formats::data_format_to( 'text-to-date', $cs_valid_from );
+            $valid_until = Formats::data_format_to( 'text-to-date', $cs_valid_until );
+            $quantity = $cs_quantity;
+            
+            // Check that the coupons are within their expiration date.
+            if( strtotime( $today ) > strtotime( $valid_until ) ){
+                return array(
+                    'status' => false,
+                    'mensagem' => __( 'Coupons are expired', 'competitive-scheduling' ),
+                );
+            }
+            
+            // Get coupon codes from the database.
+            global $wpdb;
+            $query = $wpdb->prepare(
+                "SELECT coupon 
+                FROM {$wpdb->prefix}schedules_coupons_priority 
+                WHERE post_id = '%s'",
+                $post->ID
+            );
+            $coupons_priority = $wpdb->get_results( $query );
+            
+            // Pegar o componente de impressão da tabela de cupons.
+            
+            $tabela = gestor_componente(Array(
+                'id' => 'tabela-cupons-prioridade',
+            ));
+            
+            // Pegar células da tabela.
+            
+            $cel_nome = 'cel'; $cel[$cel_nome] = modelo_tag_val($tabela,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->'); $tabela = modelo_tag_in($tabela,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->','<!-- '.$cel_nome.' -->');
+            
+            // Pegar configurações do host.
+            
+            $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
+            
+            $titulo = $config['titulo-estabelecimento'];
+            $descricao = $config['cupom-prioridade-descricao'];
+            
+            // Formatar a validade.
+            
+            $validade_de = formato_dado_para('data',$valid_from);
+            $validade = formato_dado_para('data',$valid_until);
+            
+            // Montar a tabela com todos os códigos.
+            
+            $impressao = '';
+            $cont = 0;
+            
+            if($hosts_cupons_prioridade)
+            foreach($hosts_cupons_prioridade as $cupom){
+                if($cont % 9 == 0){
+                    $impressao = modelo_var_troca($impressao,'<!-- '.$cel_nome.' -->','');
+                    $impressao .= (existe($impressao) ? '<div class="pagebreak"></div>' : '').$tabela;
+                }
+                
+                $cel_aux = $cel[$cel_nome];
+                
+                $cel_aux = modelo_var_troca($cel_aux,"#titulo#",$titulo);
+                $cel_aux = modelo_var_troca($cel_aux,"#descricao#",$descricao);
+                $cel_aux = modelo_var_troca($cel_aux,"#validade#",$validade);
+                $cel_aux = modelo_var_troca($cel_aux,"#codigo#",$cupom['codigo']);
+                
+                $impressao = modelo_var_in($impressao,'<!-- '.$cel_nome.' -->',$cel_aux);
+                
+                $cont++;
+            }
+            $impressao = modelo_var_troca($impressao,'<!-- '.$cel_nome.' -->','');
+            
+            // Incluir a tabela no buffer de impressão.
+            
+            comunicacao_impressao(Array(
+                'titulo' => $name.' - Qtd: '.$quantity.' - Válido de '.$validade_de.' até '.$validade,
+                'pagina' => $impressao,
+            ));
         }
     }
 }
