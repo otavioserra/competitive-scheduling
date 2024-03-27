@@ -1115,7 +1115,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 } else {
                     // Check if you already have an schedule for this date. If so, return error and permission message for only one schedule per date.
                     if( $schedules ){
-                        if( $schedules->status != 'finished' ){
+                        if( $schedules->status != 'finished' && $schedules->status != 'canceled' ){
                             $msgSchedulingAlreadyExists = ( ! empty( $msg_options['msg-scheduling-already-exists'] ) ? $msg_options['msg-scheduling-already-exists'] : '' );
 
                             $msgSchedulingAlreadyExists = Templates::change_variable( $msgSchedulingAlreadyExists, '#url-schedules-previous#', '.?window=previous-schedules' );
