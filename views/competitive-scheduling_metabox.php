@@ -61,8 +61,15 @@
             </div>
             
         </td>
-    </tr>               
+    </tr>
+    <?php if( $post->post_status === 'publish' ): ?>
+    <tr>
+        <th>
+            <label for="cs_valid_until"><?php echo esc_html__( 'Valid Until', 'competitive-scheduling' ); ?></label>
+        </th>
+        <td>
+            <div id="imprimir-post" onclick="imprimirPost()" class="button button-primary button-large">Imprimir</div>
+        </td>
+    </tr>
+    <?php endif; ?>             
 </table>
-<?php if( $post->post_status === 'publish' ): ?>
-<button id="imprimir-post" onclick="imprimirPost()">Imprimir</button>
-<?php endif; ?>
