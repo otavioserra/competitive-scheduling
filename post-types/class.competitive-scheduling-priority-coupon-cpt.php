@@ -92,6 +92,12 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
 
             $print_coupons = $this->printing_coupons( $post );
 
+            $data = '
+                var manager_coupon = '.json_encode( $print_coupons ).';
+            ';
+
+            wp_add_inline_script( 'coupon-js', $data, $position = 'after' );
+
             require_once( CS_PATH . 'views/competitive-scheduling_metabox.php' );
         }
 
@@ -231,6 +237,13 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
             // Require formats class to manipulate data.
             require_once( CS_PATH . 'includes/class.formats.php' );
 
+            // Require templates class to manipulate page.
+            require_once( CS_PATH . 'includes/class.templates.php' );
+
+            // Get all configuration data.
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+            $options = get_option( 'competitive_scheduling_options' );
+
             // Get coupon data.
             $cs_quantity = get_post_meta( $post->ID, 'cs_quantity', true );
             $cs_valid_from = get_post_meta( $post->ID, 'cs_valid_from', true );
@@ -260,61 +273,48 @@ if( !class_exists( 'Competitive_Scheduling_Priority_Coupon_Post_Type') ){
                 WHERE post_id = '%s'",
                 $post->ID
             );
-            $coupons_priority = $wpdb->get_results( $query );
+            $coupons_priority = $wpdb->get_results( $query, ARRAY_A );
             
-            // Pegar o componente de impressão da tabela de cupons.
+            // Get the coupon table printing component.
+            $table = $msg_options['priority-coupons-table'];
             
-            $tabela = gestor_componente(Array(
-                'id' => 'tabela-cupons-prioridade',
-            ));
+            // Get table cells.
+            $cell_name = 'cell'; $cell[$cell_name] = Formats::tag_value( $table, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $table = Formats::tag_in( $table,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+
+            // Get meta data for printing.
+            $title = $options['title-establishment'];
+            $description = $msg_options['coupon-priority-description'];
             
-            // Pegar células da tabela.
+            // Set up the table with all the coupons.
+            $print = '';
+            $count = 0;
             
-            $cel_nome = 'cel'; $cel[$cel_nome] = modelo_tag_val($tabela,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->'); $tabela = modelo_tag_in($tabela,'<!-- '.$cel_nome.' < -->','<!-- '.$cel_nome.' > -->','<!-- '.$cel_nome.' -->');
-            
-            // Pegar configurações do host.
-            
-            $config = configuracao_hosts_variaveis(Array('modulo' => 'configuracoes-agendamentos'));
-            
-            $titulo = $config['titulo-estabelecimento'];
-            $descricao = $config['cupom-prioridade-descricao'];
-            
-            // Formatar a validade.
-            
-            $validade_de = formato_dado_para('data',$valid_from);
-            $validade = formato_dado_para('data',$valid_until);
-            
-            // Montar a tabela com todos os códigos.
-            
-            $impressao = '';
-            $cont = 0;
-            
-            if($hosts_cupons_prioridade)
-            foreach($hosts_cupons_prioridade as $cupom){
-                if($cont % 9 == 0){
-                    $impressao = modelo_var_troca($impressao,'<!-- '.$cel_nome.' -->','');
-                    $impressao .= (existe($impressao) ? '<div class="pagebreak"></div>' : '').$tabela;
+            if( ! empty( $coupons_priority ) )
+            foreach( $coupons_priority as $coupon ){
+                if( $count % 9 == 0 ){
+                    $print = Templates::change_variable( $print, '<!-- '.$cell_name.' -->', '' );
+                    $print .= ( ! empty( $print ) ? '<div class="pagebreak"></div>' : '' ) . $table;
                 }
                 
-                $cel_aux = $cel[$cel_nome];
+                $cel_aux = $cell[$cell_name];
                 
-                $cel_aux = modelo_var_troca($cel_aux,"#titulo#",$titulo);
-                $cel_aux = modelo_var_troca($cel_aux,"#descricao#",$descricao);
-                $cel_aux = modelo_var_troca($cel_aux,"#validade#",$validade);
-                $cel_aux = modelo_var_troca($cel_aux,"#codigo#",$cupom['codigo']);
+                $cel_aux = Templates::change_variable( $cel_aux, '#title#', $title );
+                $cel_aux = Templates::change_variable( $cel_aux, '#validity#', $valid_until );
+                $cel_aux = Templates::change_variable( $cel_aux, '#coupon#', $coupon['coupon'] );
+
+                $print = Templates::variable_in( $print, '<!-- '.$cell_name.' -->', $cell_aux );
                 
-                $impressao = modelo_var_in($impressao,'<!-- '.$cel_nome.' -->',$cel_aux);
-                
-                $cont++;
+                $count++;
             }
-            $impressao = modelo_var_troca($impressao,'<!-- '.$cel_nome.' -->','');
+            $print = Templates::change_variable( $print, '<!-- '.$cell_name.' -->', '' );
             
-            // Incluir a tabela no buffer de impressão.
-            
-            comunicacao_impressao(Array(
-                'titulo' => $name.' - Qtd: '.$quantity.' - Válido de '.$validade_de.' até '.$validade,
-                'pagina' => $impressao,
-            ));
+            // Return data for printing.
+            return array(
+                'status' => true,
+                'title' => $name.' - ' . __( 'Qty', 'competitive-scheduling' ) . ': '.$quantity.' - ' . __( 'Valid from', 'competitive-scheduling' ) . ' '.$valid_from.' ' . __( 'until', 'competitive-scheduling' ) . ' '.$valid_until,
+                'page' => $print,
+                'mensagem' => __( 'Coupons are expired', 'competitive-scheduling' ),
+            );
         }
     }
 }
