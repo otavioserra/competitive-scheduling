@@ -1421,7 +1421,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
         public function field_template_priority_coupons_table_callback(){
             ?>
-                <textarea id="codemirror_editor" name="competitive_scheduling_msg_options[template-priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['template-priority-coupons-table'] ) ? self::$msg_options['template-priority-coupons-table'] : '';  ?></textarea>
+                <textarea id="codemirror_editor_2" name="competitive_scheduling_msg_options[template-priority-coupons-table]" rows="10" cols="50"><?php echo isset( self::$msg_options['template-priority-coupons-table'] ) ? self::$msg_options['template-priority-coupons-table'] : '';  ?></textarea>
                 <p><?php echo esc_html__( 'HTML layout for priority coupon printing.', 'competitive-scheduling' ); ?></p> 
             <?php
         }

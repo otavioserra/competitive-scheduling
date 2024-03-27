@@ -232,5 +232,29 @@ jQuery(document).ready(function(){
         });
 
         codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
+
+    var codeMirrorTextArea2 = jQuery('#codemirror_editor_2');
+
+    if(codeMirrorTextArea2.length > 0){
+        var codeMirrorEditor = CodeMirror.fromTextArea(codeMirrorTextArea2[0], {
+            mode: 'xml',
+            lineNumbers: true,
+            theme: 'default',
+            lineWrapping: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            htmlMode: true,
+            indentUnit: 4,
+            extraKeys: {
+                "F11": function(cm) {
+                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                },
+                "Esc": function(cm) {
+                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                }
+            }
+        });
+
+        codeMirrorEditor.getWrapperElement().style.maxWidth = '1250px';
     }
 });
