@@ -1,6 +1,6 @@
 jQuery( document ).ready( function() {
     var apiVersion = 'v1';
-    
+
     function loading( option ){
 		switch( option ){
 			case 'open':
@@ -88,7 +88,10 @@ jQuery( document ).ready( function() {
 				documentTitle: manager.printTitle,
 			});
         });
+
         // Request to update schedules as option.
+        var data = {};
+        
         jQuery.ajax( {
             url: wpApiSettings.root + 'competitive-scheduling/'+apiVersion+'/admin-page/',
             method: 'GET',
