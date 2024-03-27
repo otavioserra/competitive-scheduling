@@ -63,3 +63,4 @@
         </td>
     </tr>               
 </table>
+<button id="imprimir-post" onclick="imprimirPost()">Imprimir</button>
