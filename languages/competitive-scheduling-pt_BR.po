@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Blank WordPress Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2024-03-27 19:22-0300\n"
+"POT-Creation-Date: 2024-03-27 19:32-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -461,28 +461,28 @@ msgid "Cancellation Success"
 msgstr "Sucesso no Cancelamento"
 
 #: settings/class.competitive-scheduling-settings.php:204
-msgid "Appointment <b>CANCELLED</b> successfully!"
-msgstr ""
+msgid "Schedule <b>CANCELLED</b> successfully!"
+msgstr "Agendamento <b>CANCELADO</b> com sucesso!"
 
 #: settings/class.competitive-scheduling-settings.php:210
 msgid "Confirmation Success"
-msgstr ""
+msgstr "Sucesso na confirmação"
 
 #: settings/class.competitive-scheduling-settings.php:211
 msgid "Scheduling <b>CONFIRMED</b> Successfully!"
-msgstr ""
+msgstr "Agendamento <b>CONFIRMADO</b> com Sucesso!"
 
 #: settings/class.competitive-scheduling-settings.php:220
 msgid "Date Not Allowed"
-msgstr ""
+msgstr "Data Não Permitida"
 
 #: settings/class.competitive-scheduling-settings.php:221
-msgid "This date is not valid. allowed, choose another."
-msgstr ""
+msgid "This date is not allowed, choose another."
+msgstr "Esta data não é permitida, escolha outra."
 
 #: settings/class.competitive-scheduling-settings.php:227
 msgid "Confirmation Period Expired"
-msgstr ""
+msgstr "Período de Confirmação Expirou"
 
 #: settings/class.competitive-scheduling-settings.php:228
 msgid ""
