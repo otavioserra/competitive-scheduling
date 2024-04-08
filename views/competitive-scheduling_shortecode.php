@@ -48,7 +48,7 @@
                     <i class="route icon"></i>
                     <div class="content">
                         <div class="title"><?php echo esc_html__( 'Utilization', 'competitive-scheduling' ); ?></div>
-                        <div class="description"><?php echo esc_html__( 'On the day of booking, use your password sent after confirmation and go to the establishment.', 'competitive-scheduling' ); ?></div>
+                        <div class="description"><?php echo esc_html__( 'On the day of service, use your password sent after confirmation and go to the establishment.', 'competitive-scheduling' ); ?></div>
                     </div>
                 </div>
             </div>
@@ -111,9 +111,9 @@
                     #pre_schedules#
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="informative-1">
-                    <p><?php echo __( '<span class="ui red text">IMPORTANT 1:</span> Pre-schedules ARE NOT confirmed schedules. They will be drawn through the system <span class="ui blue text">#draw_date#</span> days before the day of service. If your pre-booking is drawn, you must confirm your booking via an email that will be sent <span class="ui blue text">#draw_date#</span> days before the day of the schedule. Or by directly accessing our system after this date and choosing the CONFIRM APPOINTMENT option for the day of your schedule. This confirmation must be made between <span class="ui blue text">#date_confirmation_1#</span> to <span class="ui blue text">#date_confirmation_2#</span> days before the day of service. If you do not confirm your schedule within this period, the places guaranteed in your pre-booking draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ); ?></p>
-                    <p><?php echo __( '<span class="ui red text">IMPORTANT 2:</span> If there are more pre-bookings than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to all. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ); ?></p>
-                    <p><?php echo __( '<span class="ui red text">IMPORTANT 3:</span> After the day <span class="ui blue text">#date_confirmation_2#</span> the scheduling system will release the residual vacancies to be chosen again and If you have not confirmed, or have not been drawn, you can choose the same date for an schedule. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo __( '<span class="ui red text">IMPORTANT 1:</span> Pre-schedules ARE NOT confirmed schedules. They will be drawn through the system <span class="ui blue text">#draw_date#</span> days before the day of service. If your pre-schedule is drawn, you must confirm your booking via an email that will be sent <span class="ui blue text">#draw_date#</span> days before the day of the schedule. Or by directly accessing our system after this date and choosing the CONFIRM SCHEDULE option for the day of your schedule. This confirmation must be made between <span class="ui blue text">#date_confirmation_1#</span> to <span class="ui blue text">#date_confirmation_2#</span> days before the day of service. If you do not confirm your schedule within this period, the places guaranteed in your pre-schedule draw will no longer be effective and the places will be released to be chosen by other people via the system again.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo __( '<span class="ui red text">IMPORTANT 2:</span> If there are more pre-schedules than there are service spaces, the system will automatically carry out a draw and send a confirmation email to those selected, otherwise it will send a confirmation email to all. Therefore, if you do not receive a confirmation email, it is because you were not selected to participate in the service.', 'competitive-scheduling' ); ?></p>
+                    <p><?php echo __( '<span class="ui red text">IMPORTANT 3:</span> After the day <span class="ui blue text">#date_confirmation_2#</span> the scheduling system will release the residual vacancies to be chosen again and if you have not confirmed, or have not been drawn, you can choose the same date for an schedule. At this stage, places are not guaranteed and can be chosen by anyone who accesses the system.', 'competitive-scheduling' ); ?></p>
                 </div>
             </div>
             <!-- pre-schedules < -->
@@ -158,7 +158,7 @@
                                             <i class="calendar minus outline icon"></i>
                                             <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                                         </a><!-- cancel-btn > -->
-                                        <!-- confirm-btn < --><a class="ui tiny button basic green confirmScheduleBtn preAgendamento" data-content="<?php echo esc_attr__( 'Click to Confirm Appointment', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
+                                        <!-- confirm-btn < --><a class="ui tiny button basic green confirmScheduleBtn preAgendamento" data-content="<?php echo esc_attr__( 'Click to Confirm Schedule', 'competitive-scheduling' ); ?>" data-id="[[schedule_id]]" data-position="top right" data-variation="inverted">
                                             <i class="calendar check outline icon"></i>
                                             <?php echo esc_html__( 'Confirm', 'competitive-scheduling' ); ?>
                                         </a><!-- confirm-btn > -->
@@ -322,7 +322,7 @@
         <input type="hidden" name="companions-nonce" value="<?php echo wp_create_nonce( 'companions-nonce' ); ?>">
     </div><!-- active > -->
     <!-- changes < --><div class="confirmar hidden scheduleWindow">
-        <div class="ui header"><?php echo esc_html__( 'Confirm Appointment', 'competitive-scheduling' ); ?></div>
+        <div class="ui header"><?php echo esc_html__( 'Confirm Schedule', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached positive message">
             <i class="calendar check icon"></i>
             <div class="content">
@@ -345,7 +345,7 @@
                         <i class="calendar minus outline icon"></i>
                         <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                     </a>
-                    <a class="ui button green confirmScheduleBtn" data-content="<?php echo esc_attr__( 'Click to Confirm Appointment', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button green confirmScheduleBtn" data-content="<?php echo esc_attr__( 'Click to Confirm Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
                         <i class="calendar check outline icon"></i>
                         <?php echo esc_html__( 'Confirm', 'competitive-scheduling' ); ?>
                     </a>
@@ -362,7 +362,7 @@
         </div>
     </div>
     <div class="cancelar hidden scheduleWindow">
-        <div class="ui header"><?php echo esc_html__( 'Cancel Appointment', 'competitive-scheduling' ); ?></div>
+        <div class="ui header"><?php echo esc_html__( 'Cancel Schedule', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="calendar minus icon"></i>
             <div class="content">

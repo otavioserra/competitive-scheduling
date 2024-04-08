@@ -225,27 +225,27 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 case 'msg-schedule-expired':
                     $change_variables = array(
                         'title' => __( 'Confirmation Period Expired', 'competitive-scheduling' ),
-                        'description1' => __( 'It is not It is possible to confirm your schedule once it is ready. outside the confirmation period!', 'competitive-scheduling' ),
+                        'description1' => __( 'It is no longer possible to confirm your schedule as it is outside the confirmation period!', 'competitive-scheduling' ),
                         'description2' => __( 'The confirmation period comprises the day <b>#date_confirmation_1#</b> until the end of the month. the day <b>#date_confirmation_2#</b> .', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-already-confirmed':
                     $change_variables = array(
-                        'title' => __( 'This schedule is already available. was confirmed in another confirmation attempt and therefore is not confirmed. You can confirm the same again.', 'competitive-scheduling' ),
+                        'title' => __( 'This schedule has already been confirmed in another confirmation attempt and therefore it is not possible to confirm it again.', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-already-exists':
                     $change_variables = array(
                         'title' => __( 'Schedule Now Exist', 'competitive-scheduling' ),
-                        'description' => __( 'This date is already over. You have an schedule registered in your name. It is not allowed to schedule twice on the same date. This is possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new schedules.', 'competitive-scheduling' ),
+                        'description' => __( 'This date already has a schedule registered in your name. It is not permitted to schedule twice on the same date. If you want to modify a schedule, it is only possible by removing the schedule for the same date in <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and creating a new schedule for the same date again, as long as the date is free for new schedules.', 'competitive-scheduling' ),
                     );
                     
                 break;
                 case 'msg-scheduling-not-found':
                     $change_variables = array(
-                        'title' => __( 'Appointment Not Found', 'competitive-scheduling' ),
+                        'title' => __( 'Schedule Not Found', 'competitive-scheduling' ),
                         'description1' => __( 'We were unable to find your schedule or the verification code provided has expired.', 'competitive-scheduling' ),
                         'description2' => __( 'It is possible that your schedule has already been completed. has been confirmed or canceled and the schedule verification code has been removed from the system after use. Therefore, access the system <a class="_ajax_not" href="#url-schedules-previous#">Schedules</a> and make the changes there.', 'competitive-scheduling' ),
                     );
@@ -1018,7 +1018,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 class="input-titles" 
                 value="<?php echo isset( self::$html_options['pre-scheduling-subject'] ) ? esc_attr( self::$html_options['pre-scheduling-subject'] ) : ''; ?>"
                 >
-                <p><?php echo esc_html__( 'Subject of emails that will be sent to users pre-bookings made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Subject of emails that will be sent to users pre-schedule made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1034,7 +1034,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Email message that will be sent to users\' pre-bookings made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Email message that will be sent to users\' pre-schedule made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1092,7 +1092,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Message of the emails that will be sent to exclude users from bookings made on your website.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Message of the emails that will be sent regarding the exclusions of user schedules made on your website.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
 
@@ -1327,7 +1327,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             ]);
 
             ?>
-                <p><?php echo esc_html__( 'Alert message shown to users when completing a pre-booking.', 'competitive-scheduling' ); ?></p> 
+                <p><?php echo esc_html__( 'Alert message shown to users when completing a pre-schedule.', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
