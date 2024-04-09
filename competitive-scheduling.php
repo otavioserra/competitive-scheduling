@@ -37,6 +37,8 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
 
         function __construct(){
             $this->define_constants();
+            
+            $this->load_textdomain();
 
             require_once( CS_PATH . 'pages/class.admin-page.php' );
             $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
@@ -98,6 +100,14 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             
             Competitive_Scheduling_Settings::unregister_settings();
             Authentication::uninstall_keys();
+        }
+
+        public function load_textdomain(){
+            load_plugin_textdomain(
+                'competitive-scheduling',
+                false,
+                dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+            );
         }
 
         public function add_menu(){
