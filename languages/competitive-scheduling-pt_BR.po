@@ -3,12 +3,12 @@
 # This file is distributed under the GNU General Public License v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Blank WordPress Pot v1.0.0\n"
+"Project-Id-Version: Competitive Schedulling Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2024-03-27 19:00-0300\n"
+"POT-Creation-Date: 2024-04-09 14:20-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: Your Team <translations@example.com>\n"
+"Language-Team: Otávio <otavio@b2make.com>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -366,10 +366,11 @@ msgid "Your pre-scheduling was successful!"
 msgstr "Seu pré-agendamento foi realizado com sucesso!"
 
 #: settings/class.competitive-scheduling-settings.php:176
-#, fuzzy
-#| msgid "You have just made an schedule within the #title# booking system:"
-msgid "You have just made a pre-booking within the #title# booking system:"
-msgstr "Você acabou de fazer um agendamento no sistema de reservas #title#:"
+msgid ""
+"You have just made a pre-scheduling within the #title# scheduling system:"
+msgstr ""
+"Você acabou de fazer um pré-agendamento dentro do sistema de agendamento "
+"#title#:"
 
 #: settings/class.competitive-scheduling-settings.php:178
 msgid "IMPORTANT INFORMATION"
@@ -460,10 +461,8 @@ msgid "Cancellation Success"
 msgstr "Sucesso no Cancelamento"
 
 #: settings/class.competitive-scheduling-settings.php:204
-#, fuzzy
-#| msgid "Schedule <b>CANCELLED</b> successfully!"
-msgid "Appointment <b>CANCELLED</b> successfully!"
-msgstr "Agendamento <b>CANCELADO</b> com sucesso!"
+msgid "Schedule <b>CANCELLED</b> successfully!"
+msgstr "Agendamento <b>CONFIRMADO</b> com Sucesso!"
 
 #: settings/class.competitive-scheduling-settings.php:210
 msgid "Confirmation Success"
@@ -478,9 +477,7 @@ msgid "Date Not Allowed"
 msgstr "Data Não Permitida"
 
 #: settings/class.competitive-scheduling-settings.php:221
-#, fuzzy
-#| msgid "This date is not allowed, choose another."
-msgid "This date is not valid. allowed, choose another."
+msgid "This date is not allowed, choose another."
 msgstr "Esta data não é permitida, escolha outra."
 
 #: settings/class.competitive-scheduling-settings.php:227
@@ -488,13 +485,9 @@ msgid "Confirmation Period Expired"
 msgstr "Período de Confirmação Expirou"
 
 #: settings/class.competitive-scheduling-settings.php:228
-#, fuzzy
-#| msgid ""
-#| "It is no longer possible to confirm your schedule as it is outside the "
-#| "confirmation period!"
 msgid ""
-"It is not It is possible to confirm your schedule once it is ready. outside "
-"the confirmation period!"
+"It is no longer possible to confirm your schedule as it is outside the "
+"confirmation period!"
 msgstr ""
 "Não é possível mais confirmar seu agendamento uma vez que o mesmo está fora "
 "do período de confirmação!"
@@ -508,13 +501,9 @@ msgstr ""
 "final do mês. o dia <b>#date_confirmation_2#</b> ."
 
 #: settings/class.competitive-scheduling-settings.php:235
-#, fuzzy
-#| msgid ""
-#| "This schedule has already been confirmed in another confirmation attempt "
-#| "and therefore it is not possible to confirm it again."
 msgid ""
-"This schedule is already available. was confirmed in another confirmation "
-"attempt and therefore is not confirmed. You can confirm the same again."
+"This schedule has already been confirmed in another confirmation attempt and "
+"therefore it is not possible to confirm it again."
 msgstr ""
 "Este agendamento já foi confirmado em outra tentativa de confirmação e "
 "portanto não é possível confirmar o mesmo novamente."
@@ -524,20 +513,13 @@ msgid "Schedule Now Exist"
 msgstr "Agendamento Já Existente"
 
 #: settings/class.competitive-scheduling-settings.php:242
-#, fuzzy
-#| msgid ""
-#| "This date already has a schedule registered in your name. It is not "
-#| "permitted to schedule twice on the same date. If you want to modify a "
-#| "schedule, it is only possible by removing the schedule for the same date "
-#| "in <a class=\"_ajax_not\" href=\"#url-schedules-previous#\">Schedules</a> "
-#| "and creating a new schedule for the same date again, as long as the date "
-#| "is free for new schedules."
 msgid ""
-"This date is already over. You have an schedule registered in your name. It "
-"is not allowed to schedule twice on the same date. This is possible by "
-"removing the schedule for the same date in <a class=\"_ajax_not\" "
-"href=\"#url-schedules-previous#\">Schedules</a> and creating a new schedule "
-"for the same date again, as long as the date is free for new schedules."
+"This date already has a schedule registered in your name. It is not "
+"permitted to schedule twice on the same date. If you want to modify a "
+"schedule, it is only possible by removing the schedule for the same date in "
+"<a class=\"_ajax_not\" href=\"#url-schedules-previous#\">Schedules</a> and "
+"creating a new schedule for the same date again, as long as the date is free "
+"for new schedules."
 msgstr ""
 "Esta data já tem agendamento cadastrado em seu nome. Não é permitido agendar "
 "duas vezes na mesma data. Caso queira modificar um agendamento, só é "
@@ -546,10 +528,8 @@ msgstr ""
 "liberada para novos agendamentos."
 
 #: settings/class.competitive-scheduling-settings.php:248
-#, fuzzy
-#| msgid "Coupon Priority Not Found"
-msgid "Appointment Not Found"
-msgstr "Cupom de Prioridade Não Encontrado"
+msgid "Schedule Not Found"
+msgstr "Agendamento Não Encontrado"
 
 #: settings/class.competitive-scheduling-settings.php:249
 msgid ""
@@ -994,24 +974,16 @@ msgid "Maximum number of companions in one schedule"
 msgstr "Número máximo de acompanhantes em um agendamento"
 
 #: settings/class.competitive-scheduling-settings.php:1021
-#, fuzzy
-#| msgid ""
-#| "Subject of emails that will be sent to users pre-schedule made on your "
-#| "website."
 msgid ""
-"Subject of emails that will be sent to users pre-bookings made on your "
+"Subject of emails that will be sent to users pre-schedule made on your "
 "website."
 msgstr ""
-"Assunto dos e-mails que serão enviados aos usuários pré-agendados em seu "
-"site."
+"Assunto dos e-mails que serão enviados para agendamentos de usuários "
+"realizados em seu site."
 
 #: settings/class.competitive-scheduling-settings.php:1037
-#, fuzzy
-#| msgid ""
-#| "Email message that will be sent to users' pre-schedule made on your "
-#| "website."
 msgid ""
-"Email message that will be sent to users' pre-bookings made on your website."
+"Email message that will be sent to users' pre-schedule made on your website."
 msgstr ""
 "Mensagem dos e-mails que serão enviados aos usuários pré-agendados em seu "
 "site."
@@ -1039,16 +1011,12 @@ msgstr ""
 "agendamentos de usuários realizados em seu site."
 
 #: settings/class.competitive-scheduling-settings.php:1095
-#, fuzzy
-#| msgid ""
-#| "Message of the emails that will be sent to exclude users from schedules "
-#| "made on your website."
 msgid ""
-"Message of the emails that will be sent to exclude users from bookings made "
-"on your website."
+"Message of the emails that will be sent regarding the exclusions of user "
+"schedules made on your website."
 msgstr ""
-"Mensagem dos e-mails que serão enviados para excluir usuários dos "
-"agendamentos feitos em seu site."
+"Mensagem dos e-mails que serão enviados referentes às exclusões de "
+"agendamentos de usuários feitas em seu site."
 
 #: settings/class.competitive-scheduling-settings.php:1108
 msgid ""
@@ -1144,8 +1112,9 @@ msgid "Alert message shown to users when completing a schedule."
 msgstr "Mensagem de alerta mostrada aos usuários ao concluir um agendamento."
 
 #: settings/class.competitive-scheduling-settings.php:1330
-msgid "Alert message shown to users when completing a pre-booking."
-msgstr "Mensagem de alerta mostrada aos usuários ao concluir uma pré-reserva."
+msgid "Alert message shown to users when completing a pre-schedule."
+msgstr ""
+"Mensagem de alerta mostrada aos usuários ao concluir um pré-agendamento."
 
 #: settings/class.competitive-scheduling-settings.php:1346
 msgid ""
@@ -1417,12 +1386,8 @@ msgid "Utilization"
 msgstr "Utilização"
 
 #: views/competitive-scheduling_shortecode.php:51
-#, fuzzy
-#| msgid ""
-#| "On the day of service, use your password sent after confirmation and go "
-#| "to the establishment."
 msgid ""
-"On the day of booking, use your password sent after confirmation and go to "
+"On the day of service, use your password sent after confirmation and go to "
 "the establishment."
 msgstr ""
 "No dia do atendimento, utilize sua senha enviada após confirmação e dirija-"
@@ -1466,34 +1431,19 @@ msgid "Listing"
 msgstr "Listagem"
 
 #: views/competitive-scheduling_shortecode.php:114
-#, fuzzy
-#| msgid ""
-#| "<span class=\"ui red text\">IMPORTANT 1:</span> Pre-schedules ARE NOT "
-#| "confirmed schedules. They will be drawn through the system <span "
-#| "class=\"ui blue text\">#draw_date#</span> days before the day of service. "
-#| "If your pre-schedule is drawn, you must confirm your booking via an email "
-#| "that will be sent <span class=\"ui blue text\">#draw_date#</span> days "
-#| "before the day of the schedule. Or by directly accessing our system after "
-#| "this date and choosing the CONFIRM SCHEDULE option for the day of your "
-#| "schedule. This confirmation must be made between <span class=\"ui blue "
-#| "text\">#date_confirmation_1#</span> to <span class=\"ui blue "
-#| "text\">#date_confirmation_2#</span> days before the day of service. If "
-#| "you do not confirm your schedule within this period, the places "
-#| "guaranteed in your pre-schedule draw will no longer be effective and the "
-#| "places will be released to be chosen by other people via the system again."
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 1:</span> Pre-schedules ARE NOT "
 "confirmed schedules. They will be drawn through the system <span class=\"ui "
 "blue text\">#draw_date#</span> days before the day of service. If your pre-"
-"booking is drawn, you must confirm your booking via an email that will be "
+"schedule is drawn, you must confirm your booking via an email that will be "
 "sent <span class=\"ui blue text\">#draw_date#</span> days before the day of "
 "the schedule. Or by directly accessing our system after this date and "
-"choosing the CONFIRM APPOINTMENT option for the day of your schedule. This "
+"choosing the CONFIRM SCHEDULE option for the day of your schedule. This "
 "confirmation must be made between <span class=\"ui blue "
 "text\">#date_confirmation_1#</span> to <span class=\"ui blue "
 "text\">#date_confirmation_2#</span> days before the day of service. If you "
 "do not confirm your schedule within this period, the places guaranteed in "
-"your pre-booking draw will no longer be effective and the places will be "
+"your pre-schedule draw will no longer be effective and the places will be "
 "released to be chosen by other people via the system again."
 msgstr ""
 "<span class=\"ui red text\">IMPORTANTE 1:</span> Pré-agendamentos NÃO SÃO "
@@ -1512,17 +1462,9 @@ msgstr ""
 "sistema."
 
 #: views/competitive-scheduling_shortecode.php:115
-#, fuzzy
-#| msgid ""
-#| "<span class=\"ui red text\">IMPORTANT 2:</span> If there are more pre-"
-#| "schedules than there are service spaces, the system will automatically "
-#| "carry out a draw and send a confirmation email to those selected, "
-#| "otherwise it will send a confirmation email to all. Therefore, if you do "
-#| "not receive a confirmation email, it is because you were not selected to "
-#| "participate in the service."
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 2:</span> If there are more pre-"
-"bookings than there are service spaces, the system will automatically carry "
+"schedules than there are service spaces, the system will automatically carry "
 "out a draw and send a confirmation email to those selected, otherwise it "
 "will send a confirmation email to all. Therefore, if you do not receive a "
 "confirmation email, it is because you were not selected to participate in "
@@ -1536,18 +1478,10 @@ msgstr ""
 "selecionado para participar do atendimento."
 
 #: views/competitive-scheduling_shortecode.php:116
-#, fuzzy
-#| msgid ""
-#| "<span class=\"ui red text\">IMPORTANT 3:</span> After the day <span "
-#| "class=\"ui blue text\">#date_confirmation_2#</span> the scheduling system "
-#| "will release the residual vacancies to be chosen again and if you have "
-#| "not confirmed, or have not been drawn, you can choose the same date for "
-#| "an schedule. At this stage, places are not guaranteed and can be chosen "
-#| "by anyone who accesses the system."
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 3:</span> After the day <span "
 "class=\"ui blue text\">#date_confirmation_2#</span> the scheduling system "
-"will release the residual vacancies to be chosen again and If you have not "
+"will release the residual vacancies to be chosen again and if you have not "
 "confirmed, or have not been drawn, you can choose the same date for an "
 "schedule. At this stage, places are not guaranteed and can be chosen by "
 "anyone who accesses the system."
@@ -1614,9 +1548,7 @@ msgstr "Clique para Cancelar o Agendamento"
 
 #: views/competitive-scheduling_shortecode.php:161
 #: views/competitive-scheduling_shortecode.php:348
-#, fuzzy
-#| msgid "Click to Confirm Schedule"
-msgid "Click to Confirm Appointment"
+msgid "Click to Confirm Schedule"
 msgstr "Clique para Confirmar o Agendamento"
 
 #: views/competitive-scheduling_shortecode.php:174
@@ -1654,8 +1586,8 @@ msgid "There are no registered schedules of this type."
 msgstr "Não há agendamentos cadastrados deste tipo."
 
 #: views/competitive-scheduling_shortecode.php:325
-msgid "Confirm Appointment"
-msgstr ""
+msgid "Confirm Schedule"
+msgstr "Confirmar Agendamento"
 
 #: views/competitive-scheduling_shortecode.php:332
 msgid ""
@@ -1677,8 +1609,8 @@ msgid ""
 msgstr "Importante: não é possível cancelar o cancelamento deste agendamento!"
 
 #: views/competitive-scheduling_shortecode.php:365
-msgid "Cancel Appointment"
-msgstr ""
+msgid "Cancel Schedule"
+msgstr "Cancelar Agendamento"
 
 #: views/competitive-scheduling_shortecode.php:372
 msgid ""
@@ -1733,28 +1665,46 @@ msgstr "aqui"
 msgid "Save Settings"
 msgstr "Salvar Configurações"
 
+#~ msgid "You have just made a pre-booking within the #title# booking system:"
+#~ msgstr "Você acabou de fazer um agendamento no sistema de reservas #title#:"
+
+#, fuzzy
+#~| msgid "Schedule <b>CANCELLED</b> successfully!"
+#~ msgid "Appointment <b>CANCELLED</b> successfully!"
+#~ msgstr "Agendamento <b>CANCELADO</b> com sucesso!"
+
+#, fuzzy
+#~| msgid "Coupon Priority Not Found"
+#~ msgid "Appointment Not Found"
+#~ msgstr "Cupom de Prioridade Não Encontrado"
+
+#, fuzzy
+#~| msgid ""
+#~| "Subject of emails that will be sent to users pre-schedule made on your "
+#~| "website."
 #~ msgid ""
-#~ "You have just made a pre-scheduling within the #title# scheduling system:"
+#~ "Subject of emails that will be sent to users pre-bookings made on your "
+#~ "website."
 #~ msgstr ""
-#~ "Você acabou de fazer um pré-agendamento dentro do sistema de agendamento "
-#~ "#title#:"
+#~ "Assunto dos e-mails que serão enviados aos usuários pré-agendados em seu "
+#~ "site."
 
-#~ msgid "Schedule Not Found"
-#~ msgstr "Agendamento Não Encontrado"
-
+#, fuzzy
+#~| msgid ""
+#~| "Message of the emails that will be sent to exclude users from schedules "
+#~| "made on your website."
 #~ msgid ""
-#~ "Message of the emails that will be sent regarding the exclusions of user "
-#~ "schedules made on your website."
+#~ "Message of the emails that will be sent to exclude users from bookings "
+#~ "made on your website."
 #~ msgstr ""
-#~ "Mensagem dos e-mails que serão enviados referentes às exclusões de "
-#~ "agendamentos de usuários feitas em seu site."
+#~ "Mensagem dos e-mails que serão enviados para excluir usuários dos "
+#~ "agendamentos feitos em seu site."
 
-#~ msgid "Alert message shown to users when completing a pre-schedule."
+#~ msgid "Alert message shown to users when completing a pre-booking."
 #~ msgstr ""
-#~ "Mensagem de alerta mostrada aos usuários ao concluir um pré-agendamento."
+#~ "Mensagem de alerta mostrada aos usuários ao concluir uma pré-reserva."
 
-#~ msgid "Confirm Schedule"
-#~ msgstr "Confirmar Agendamento"
-
-#~ msgid "Cancel Schedule"
-#~ msgstr "Cancelar Agendamento"
+#, fuzzy
+#~| msgid "Click to Confirm Schedule"
+#~ msgid "Click to Confirm Appointment"
+#~ msgstr "Clique para Confirmar o Agendamento"
