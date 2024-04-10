@@ -33,6 +33,8 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				}
 			}
 
+			wp_enqueue_script( 'wp-api' );
+			
 			wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(), CS_VERSION );
 			wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
 			

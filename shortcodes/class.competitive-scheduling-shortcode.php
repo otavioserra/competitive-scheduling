@@ -64,6 +64,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
             wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
             wp_enqueue_script( 'jQuery-Mask-Plugin', CS_URL . 'vendor/jQuery-Mask-Plugin-v1.14.16/jquery.mask.min.js', array( 'jquery' ), CS_VERSION );
+            wp_enqueue_script( 'wp-api' );
             
             wp_enqueue_style( 'competitive-scheduling', CS_URL . 'assets/css/shortecode.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/shortecode.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling', CS_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/shortecode.js' ) : CS_VERSION ) );
