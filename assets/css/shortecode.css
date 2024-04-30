@@ -23,3 +23,10 @@
   right: 0;
 	z-index: 99999999999999999999999999;
 }
+.ui.calendar tr td {
+  background-color: #FFF;
+  border:none;
+}
+.ui.calendar tr th {
+  border:none;
+}
