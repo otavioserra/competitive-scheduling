@@ -268,6 +268,8 @@ if ( ! class_exists( 'Authentication' ) ) {
 				}
 			}
 
+			echo 'validate_jwt: '. $token . ' && ' .  $privateKey . ' && ' . $privateKeyPassword;
+
 			if ( isset( $token ) && isset( $privateKey ) && isset( $privateKeyPassword ) ) {
 				// Break the token into header, payload and signature.
 				$part = explode( '.', $token );
@@ -279,8 +281,6 @@ if ( ! class_exists( 'Authentication' ) ) {
 				$header    = $part[0];
 				$payload   = $part[1];
 				$signature = $part[2];
-
-				echo 'validate_jwt';
 
 				$encodedData = $signature;
 
