@@ -213,14 +213,6 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
             // Generate the validation token.
             require_once( CS_PATH . 'includes/class.authentication.php' );
             
-            $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
-
-            $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
-
-            echo 'pubID: ' . $pubID . ' == ' . $pubIDSent;
-
-            return $page;
-            
             // Require formats class to manipulate data.
             require_once( CS_PATH . 'includes/class.formats.php' );
 
@@ -230,86 +222,100 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
             // Require interfaces class to manipulate page.
             require_once( CS_PATH . 'includes/class.interfaces.php' );
 
-            // Get current user id.
-            $user_id = get_current_user_id();
-            
-            // Get the configuration data.
-            $options = get_option( 'competitive_scheduling_options' );
-            $msg_options = get_option( 'competitive_scheduling_msg_options' );
-            
-            // Validate the sent schedule_id.
-            $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
+            // Checks if the token and pubID sent are valid
+            $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
+            $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
 
-            global $wpdb;
-            $query = $wpdb->prepare(
-                "SELECT date, status 
-                FROM {$wpdb->prefix}schedules 
-                WHERE id_schedules = '%s' 
-                AND user_id = '%s'",
-                array( $id_schedules, $user_id )
-            );
-            $schedules = $wpdb->get_results( $query );
-
-            if( ! $schedules ){
+            if( empty( $pubID ) ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             } else {
-                // Request for confirmation of cancellation.
-                if( isset( $_REQUEST['make_cancel'] ) ){
-                    // Make confirmation.
-                    $return = $this->change( array(
-                        'opcao' => 'cancel',
-                        'id_schedules' => $id_schedules,
-                        'user_id' => $user_id,
-                    ) );
-                    
-                    if( ! $return['completed'] ){
-                        switch( $return['status'] ){
-                            case 'SCHEDULE_NOT_FOUND':
-                            case 'SCHEDULE_CONFIRMATION_EXPIRED':
-                            case 'SCHEDULE_WITHOUT_VACANCIES':
-                                $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
-                        break;
-                        default:
-                            $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
-                            
-                            $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
-                        }
+                if( $pubID != $pubIDSent ){
+                    if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
+                        // Get current user id.
+                        $user_id = get_current_user_id();
                         
-                        // Alert the user if a problem occurs with the problem description message.
-                        Interfaces::alert( array(
-                            'redirect' => true,
-                            'msg' => $msgAlert
-                        ));
-                    } else {
-                        // Returned data.
-                        $data = Array();
-                        if( isset( $return['data'] ) ){
-                            $data = $return['data'];
-                        }
+                        // Get the configuration data.
+                        $options = get_option( 'competitive_scheduling_options' );
+                        $msg_options = get_option( 'competitive_scheduling_msg_options' );
                         
-                        // Alert the user of change success.
-                        Interfaces::alert( array(
-                            'redirect' => true,
-                            'msg' => $data['alert']
-                        ));
-                    }
-                    
-                    // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
-                }
-                
-                // Cancellation activation.
-                $_MANAGER['javascript-vars']['cancel'] = true;
-            }
+                        // Validate the sent schedule_id.
+                        $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
 
-            // Remove the active cell and changes.
-            $cell_name = 'active'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            $cell_name = 'changes'; $cell[$cell_name] = Formats::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Formats::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            
-            // Incluir o token no formulário.
-            $page = Templates::change_variable( $page, '[[cancellation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
-            $page = Templates::change_variable( $page, '[[cancellation-scheduling-id]]', $id_schedules );
+                        global $wpdb;
+                        $query = $wpdb->prepare(
+                            "SELECT date, status 
+                            FROM {$wpdb->prefix}schedules 
+                            WHERE id_schedules = '%s' 
+                            AND user_id = '%s'",
+                            array( $id_schedules, $user_id )
+                        );
+                        $schedules = $wpdb->get_results( $query );
+
+                        if( ! $schedules ){
+                            // Activation of expiredOrNotFound.
+                            $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                        } else {
+                            // Request for confirmation of cancellation.
+                            if( isset( $_REQUEST['make_cancel'] ) ){
+                                // Make confirmation.
+                                $return = $this->change( array(
+                                    'opcao' => 'cancel',
+                                    'id_schedules' => $id_schedules,
+                                    'user_id' => $user_id,
+                                ) );
+                                
+                                if( ! $return['completed'] ){
+                                    switch( $return['status'] ){
+                                        case 'SCHEDULE_NOT_FOUND':
+                                        case 'SCHEDULE_CONFIRMATION_EXPIRED':
+                                        case 'SCHEDULE_WITHOUT_VACANCIES':
+                                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
+                                    break;
+                                    default:
+                                        $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
+                                        
+                                        $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
+                                    }
+                                    
+                                    // Alert the user if a problem occurs with the problem description message.
+                                    Interfaces::alert( array(
+                                        'redirect' => true,
+                                        'msg' => $msgAlert
+                                    ));
+                                } else {
+                                    // Returned data.
+                                    $data = Array();
+                                    if( isset( $return['data'] ) ){
+                                        $data = $return['data'];
+                                    }
+                                    
+                                    // Alert the user of change success.
+                                    Interfaces::alert( array(
+                                        'redirect' => true,
+                                        'msg' => $data['alert']
+                                    ));
+                                }
+                                
+                                // Redirects the page to previous schedules.
+                                wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                            }
+                            
+                            
+                        }
+                    } else {
+                        // Incluir o token no formulário.
+                        $page = Templates::change_variable( $page, '[[token]]', $_REQUEST['token'] );
+                        $page = Templates::change_variable( $page, '[[pubID]]', $pubIDSent );
+
+                        // Cancellation activation.
+                        $_MANAGER['javascript-vars']['cancel'] = true;
+                    }
+                } else {
+                    // Activation of expiredOrNotFound.
+                    $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                }
+            }
 
             // Finalize interface.
             Interfaces::components_include( array(

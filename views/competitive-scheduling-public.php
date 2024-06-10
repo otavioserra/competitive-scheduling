@@ -27,9 +27,10 @@
                 </div>
             </div>
             <input type="hidden" name="action" value="schedule_confirmation">
-            <input type="hidden" name="make_public_confirmation" value="1">
+            <input type="hidden" name="action_after_acceptance" value="1">
             <input type="hidden" name="choice" value="confirm">
             <input type="hidden" name="token" value="[[token]]">
+            <input type="hidden" name="pubID" value="[[pubID]]">
         </form>
         <div class="ui bottom attached warning message">
             <i class="icon exclamation triangle"></i>
@@ -57,9 +58,10 @@
                 </div>
             </div>
             <input type="hidden" name="action" value="schedule_cancellation">
-            <input type="hidden" name="make_public_cancellation" value="1">
+            <input type="hidden" name="action_after_acceptance" value="1">
             <input type="hidden" name="choice" value="cancel">
             <input type="hidden" name="token" value="[[token]]">
+            <input type="hidden" name="pubID" value="[[pubID]]">
         </form>
         <div class="ui bottom attached warning message">
             <i class="icon exclamation triangle"></i>
