@@ -300,9 +300,9 @@ if ( ! class_exists( 'Authentication' ) ) {
 
 					openssl_private_decrypt( $part2, $partialDecodedData, $resPrivateKey );
 					$decodedData .= $partialDecodedData;
+					
+					echo 'decodedData: ' . $decodedData;
 				}
-
-				echo $header . '.' . $payload . ' === ' . $decodedData;
 
 				// Validate JWT
 				if ( $header . '.' . $payload === $decodedData ) {
