@@ -18,7 +18,7 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
         }
 
         public function cancellation_page(){
-            return 'cancellation_page';
+            echo '<span>cancellation_page</span>';
         }
 
         public function confirmation_page(){
