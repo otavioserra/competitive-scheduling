@@ -43,6 +43,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             require_once( CS_PATH . 'pages/class.admin-page.php' );
             $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
 
+            require_once( CS_PATH . 'pages/class.competitive-scheduling-public.php' );
+            $Competitive_Scheduling_Public = new Competitive_Scheduling_Public();
+            
             require_once( CS_PATH . 'post-types/class.competitive-scheduling-priority-coupon-cpt.php' );
             $Competitive_Scheduling_Priority_Coupon_Post_Type = new Competitive_Scheduling_Priority_Coupon_Post_Type();
             
