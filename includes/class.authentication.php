@@ -291,6 +291,8 @@ if ( ! class_exists( 'Authentication' ) ) {
 				// Decrypt data in parts if necessary. Using dots as split separator.
 				$rawEncodedData = $encodedData;
 
+				echo 'rawEncodedData: ' . $rawEncodedData;
+
 				$countCrypt         = 0;
 				$partialDecodedData = '';
 				$decodedData        = '';
@@ -301,7 +303,7 @@ if ( ! class_exists( 'Authentication' ) ) {
 					openssl_private_decrypt( $part2, $partialDecodedData, $resPrivateKey );
 					$decodedData .= $partialDecodedData;
 					
-					echo 'decodedData: ' . $decodedData;
+					echo 'part2: ' . $part2;
 				}
 
 				// Validate JWT
