@@ -307,14 +307,14 @@ if ( ! class_exists( 'Authentication' ) ) {
 					$payload = base64_decode( $payload );
 					$payload = json_decode( $payload, true );
 
+					echo 'expiration: '. (int) $payload['exp']. '<br>';
+
 					// Check if the variables exist, otherwise it was formatted wrong and should not be accepted.
 					if ( ! isset( $payload['exp'] ) || ! isset( $payload['sub'] ) ) {
 						return false;
 					}
 
 					$expiration_ok = false;
-
-					echo 'expiration: '. (int) $payload['exp']. '<br>';
 
 					// If the token's expiration time is shorter than the time now, it is because this token has expired.
 					if ( (int) $payload['exp'] > time() ) {
