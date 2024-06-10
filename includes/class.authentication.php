@@ -170,8 +170,6 @@ if ( ! class_exists( 'Authentication' ) ) {
 					$privateKey         = $cs_openssl_keys['private'];
 					$privateKeyPassword = $cs_openssl_keys['private-password'];
 
-					echo 'not empty';
-
 					// Check if the JWT is valid.
 					$tokenPubId = self::validate_jwt(
 						array(
@@ -281,6 +279,8 @@ if ( ! class_exists( 'Authentication' ) ) {
 				$header    = $part[0];
 				$payload   = $part[1];
 				$signature = $part[2];
+
+				echo 'validate_jwt';
 
 				$encodedData = $signature;
 
