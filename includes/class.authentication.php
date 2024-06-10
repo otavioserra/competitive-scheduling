@@ -302,12 +302,12 @@ if ( ! class_exists( 'Authentication' ) ) {
 					$decodedData .= $partialDecodedData;
 				}
 
+				echo $header . '.' . $payload . ' === ' . $decodedData;
+
 				// Validate JWT
 				if ( $header . '.' . $payload === $decodedData ) {
 					$payload = base64_decode( $payload );
 					$payload = json_decode( $payload, true );
-
-					echo 'expiration: '. (int) $payload['exp']. '<br>';
 
 					// Check if the variables exist, otherwise it was formatted wrong and should not be accepted.
 					if ( ! isset( $payload['exp'] ) || ! isset( $payload['sub'] ) ) {
