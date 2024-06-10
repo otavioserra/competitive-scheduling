@@ -145,7 +145,7 @@ if ( ! class_exists( 'Authentication' ) ) {
 		 *
 		 * @param string $token JWT generated previously.
 		 *
-		 * @return boolean
+		 * @return boolean | string containing 'pubID' on success, false on failure.
 		 */
 		public static function validate_token_validation( $params = false ) {
 			if ( $params ) {

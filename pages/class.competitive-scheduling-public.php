@@ -13,12 +13,23 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
         );
 
         public function __construct(){
-            add_action( 'admin_post_schedule_cancellation', array( $this, 'cancellation_page' ) );
+            add_action( 'admin_post_schedule_cancellation', array( $this, 'cancellation' ) );
             add_action( 'admin_post_schedule_confirmation', array( $this, 'confirmation_page' ) );
         }
 
-        public function cancellation_page(){
-            echo '<span>cancellation_page</span>';
+        public function cancellation(){
+            // Prepare JSs and CSSs
+            wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
+            wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
+            
+            wp_enqueue_style( 'competitive-scheduling-public', CS_URL . 'assets/css/public.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/public.css' ) : CS_VERSION ) );
+            wp_enqueue_script( 'competitive-scheduling-public', CS_URL . 'assets/js/public.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/public.js' ) : CS_VERSION ) );
+
+            // Get page view and return processed page
+            ob_start();
+            require( CS_PATH . 'views/competitive-scheduling-public.php' );
+
+            echo $this->cancellation_page(ob_get_clean());
         }
 
         public function confirmation_page(){
@@ -196,8 +207,17 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
             return $page;
         }
 
-        private function cancellation( $page ){
+        private function cancellation_page( $page ){
             global $_MANAGER;
+
+            // Generate the validation token.
+            require_once( CS_PATH . 'includes/class.authentication.php' );
+            
+            $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
+
+            echo 'pubID: ' . $pubID;
+
+            return $page;
             
             // Require formats class to manipulate data.
             require_once( CS_PATH . 'includes/class.formats.php' );
