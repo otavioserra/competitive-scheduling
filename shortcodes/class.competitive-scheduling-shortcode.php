@@ -1451,7 +1451,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 )
             ) );
             
-            $page = Interfaces::finish( $page );
+            Interfaces::finish( CS_JS_MANAGER_VAR );
 
             return $page;
         }
@@ -1550,7 +1550,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 )
             ) );
             
-            $page = Interfaces::finish( $page );
+            Interfaces::finish( CS_JS_MANAGER_VAR );
 
             return $page;
         }

@@ -1,74 +1,72 @@
-$(document).ready(function(){
+$( document ).ready( function(){
 	function confirmPublic(){
-		// Mostrar a tela de confirmação pública.
+		// Show the public confirmation screen.
+		$( '.confirmPublic' ).show();
 		
-		$('.confirmPublic').show();
+		// Start popup.
+		$( '.button' ).popup( { addTouchEvents:false } );
 		
-		// Iniciar popup.
-		
-		$('.button').popup({addTouchEvents:false});
-		
-		// Form da confirmacao.
-		
+		// Confirmation form.
 		var formSelector = '.confirmationPublicForm';
 		
-		$(formSelector)
-			.form({
+		$( formSelector )
+			.form( {
 				
-			});
+			} );
 		
-		// Botão de confirmação.
-		
-		$('.confirmPublicSchedulleBtn').on('mouseup tap',function(e){
-			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+		// Confirmation button.
+		$( '.confirmPublicSchedulleBtn' ).on( 'mouseup tap', function(e){
+			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			$(formSelector).find('input[name="choice"]').val('confirm');
-			$(formSelector).form('submit');
-		});
+			$( formSelector ).find( 'input[name="choice"]' ).val( 'confirm' );
+			$( formSelector ).form( 'submit' );
+		} );
 		
-		// Botão de cancelamento.
-		
-		$('.cancelPublicSchedulingBtn').on('mouseup tap',function(e){
-			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+		// Cancel button.
+		$( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
+			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			$(formSelector).form('submit');
-		});
+			$( formSelector ).form( 'submit' );
+		} );
 	}
 	
 	function cancelPublic(){
-		// Mostrar a tela de confirmação pública.
+		// Show the public cancellation screen.
+		$( '.cancelPublic' ).show();
 		
-		$('.cancelPublic').show();
+		// Start popup.
+		$( '.button' ).popup( { addTouchEvents:false } );
 		
-		// Iniciar popup.
-		
-		$('.button').popup({addTouchEvents:false});
-		
-		// Form da confirmacao.
-		
+		// Confirmation form.
 		var formSelector = '.cancellationPublicoForm';
 		
-		$(formSelector)
-			.form({
+		$( formSelector )
+			.form( {
 				
-			});
+			} );
 		
-		// Botão de cancelamento.
-		
-		$('.cancelPublicSchedulingBtn').on('mouseup tap',function(e){
-			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
+		// Cancel button.
+		$( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
+			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			$(formSelector).form('submit');
-		});
+			$( formSelector ).form( 'submit' );
+		} );
+	}
+
+	function expiredOrNotFound(){
+		// Show the public expired or not found screen.
+		
+		$( '.expiredOrNotFound' ).show();
 	}
 	
 	function start(){
-		// Tratar alterações do agendamento.
+		// Handle scheduling changes.
 		
-		if('confirmPublic' in gestor){ confirmPublic(); }
-		if('cancelPublic' in gestor){ cancelPublic(); }
+		if( 'confirmPublic' in cs_manager ){ confirmPublic(); }
+		if( 'cancelPublic' in cs_manager ){ cancelPublic(); }
+		if( 'expiredOrNotFound' in cs_manager ){ expiredOrNotFound(); }
 	}
 	
 	start();
 	
-});
+} );
