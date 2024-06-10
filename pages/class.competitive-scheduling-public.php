@@ -215,7 +215,9 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
             
             $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
 
-            echo 'pubID: ' . $pubID;
+            $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
+
+            echo 'pubID: ' . $pubID . ' == ' . $pubIDSent;
 
             return $page;
             
