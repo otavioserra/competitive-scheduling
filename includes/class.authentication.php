@@ -272,8 +272,6 @@ if ( ! class_exists( 'Authentication' ) ) {
 				// Break the token into header, payload and signature.
 				$part = explode( '.', $token );
 
-				echo 'validate_jwt - passou if';
-
 				if ( gettype( $part ) != 'array' ) {
 					return false;
 				}
@@ -315,6 +313,8 @@ if ( ! class_exists( 'Authentication' ) ) {
 					}
 
 					$expiration_ok = false;
+
+					echo 'expiration: '. (int) $payload['exp']. '<br>';
 
 					// If the token's expiration time is shorter than the time now, it is because this token has expired.
 					if ( (int) $payload['exp'] > time() ) {
