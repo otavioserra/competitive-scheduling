@@ -71,7 +71,7 @@ if ( ! class_exists( 'Authentication' ) ) {
 
 						$res = openssl_pkey_new( $config );
 
-						if ( isset( $password ) ) {
+						if ( ! empty( $password ) ) {
 							openssl_pkey_export( $res, $privateKey, $password );
 						} else {
 							openssl_pkey_export( $res, $privateKey );
