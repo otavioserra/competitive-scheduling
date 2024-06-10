@@ -165,10 +165,14 @@ if ( ! class_exists( 'Authentication' ) ) {
 				// Get the host's public key.
 				$cs_openssl_keys = get_option( 'competitive_scheduling_openssl_keys' );
 
+				echo 'validate_token_validation';
+
 				if ( ! empty( $cs_openssl_keys['private'] || ! empty( $cs_openssl_keys['private-password'] ) ) ) {
 					// Open private key and key password.
 					$privateKey         = $cs_openssl_keys['private'];
 					$privateKeyPassword = $cs_openssl_keys['private-password'];
+
+					echo ' - entrou no if';
 
 					// Check if the JWT is valid.
 					$tokenPubId = self::validate_jwt(
