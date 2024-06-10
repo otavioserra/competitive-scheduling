@@ -162,6 +162,8 @@ if ( ! class_exists( 'Authentication' ) ) {
 					return false;
 				}
 
+				echo $JWTToken;
+
 				// Get the host's public key.
 				$cs_openssl_keys = get_option( 'competitive_scheduling_openssl_keys' );
 
