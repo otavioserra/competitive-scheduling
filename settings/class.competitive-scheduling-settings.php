@@ -6,12 +6,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public static $options;
         public static $html_options;
         public static $msg_options;
+        public static $pages_options;
         public static $tools_options;
         
         public function __construct(){
             self::$options = get_option('competitive_scheduling_options');
             self::$html_options = get_option('competitive_scheduling_html_options');
             self::$msg_options = get_option('competitive_scheduling_msg_options');
+            self::$pages_options = get_option('competitive_scheduling_pages_options');
             self::$tools_options = get_option('competitive_scheduling_tools_options');
 
             if(isset(self::$tools_options['reset-to-defaults'])){
@@ -102,6 +104,14 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             add_option(
+                'competitive_scheduling_pages_options',
+                array(
+                    'schedule-page-id' => '0',
+                    'schedule-public-page-id' => '0',
+                )
+            );
+
+            add_option(
                 'competitive_scheduling_tools_options',
                 array(
                     'print-schedules' => self::template_html( 'print-schedules' ),
@@ -113,6 +123,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             delete_option('competitive_scheduling_options');
             delete_option('competitive_scheduling_html_options');
             delete_option('competitive_scheduling_msg_options');
+            delete_option('competitive_scheduling_pages_options');
             delete_option('competitive_scheduling_tools_options');
         }
 
@@ -368,6 +379,11 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             register_setting( 
+                'competitive_scheduling_group_pages_options', 
+                'competitive_scheduling_pages_options'
+            );
+
+            register_setting( 
                 'competitive_scheduling_group_tools', 
                 'competitive_scheduling_tools_options'
             );
@@ -398,6 +414,15 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
 
             $this->section_fields_messages();
+
+            add_settings_section(
+                'competitive_scheduling_pages_section',
+                esc_html__( 'Pages', 'competitive-scheduling' ),
+                array( $this, 'section_callback_pages' ),
+                'competitive_scheduling_pages'
+            );
+
+            $this->section_fields_pages();
 
             add_settings_section(
                 'competitive_scheduling_tools_section',
@@ -778,6 +803,28 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                 array( $this, 'field_msg_residual_vacancies_unavailable_callback' ),
                 'competitive_scheduling_messages',
                 'competitive_scheduling_messages_section'
+            );
+        }
+
+        function section_callback_pages() {
+            esc_html_e( 'Here you can find all the pages options to personalise your plugin\'s instance.', 'competitive-scheduling' );
+        }
+
+        function section_fields_pages(){
+            add_settings_field(
+                'schedule-page-id',
+                esc_html__( 'Schedule Page ID', 'competitive-scheduling' ),
+                array( $this, 'field_schedule_page_id_callback' ),
+                'competitive_scheduling_pages',
+                'competitive_scheduling_pages_section',
+            );
+
+            add_settings_field(
+                'schedule-public-page-id',
+                esc_html__( 'Schedule Public Page ID', 'competitive-scheduling' ),
+                array( $this, 'field_schedule_public_page_id_callback' ),
+                'competitive_scheduling_pages',
+                'competitive_scheduling_pages_section'
             );
         }
 
@@ -1424,6 +1471,32 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
 
             ?>
                 <p><?php echo esc_html__( 'When it is not possible to confirm residual vacancies due to the deadline or because there are no vacancies.', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+
+        public function field_schedule_page_id_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_pages_options[schedule-page-id]" 
+                id="subject"
+                class="input-titles" 
+                value="<?php echo isset( self::$pages_options['schedule-page-id'] ) ? esc_attr( self::$pages_options['schedule-page-id'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Numeric page identifier within Wordpress with the default scheduling interface. Important: you can use no limit schedule interfaces by use this shortcode on any page/post/etc [competitive_scheduling]', 'competitive-scheduling' ); ?></p> 
+            <?php
+        }
+        
+        public function field_schedule_public_page_id_callback(){
+            ?>
+                <input 
+                type="text" 
+                name="competitive_scheduling_pages_options[schedule-public-page-id]" 
+                id="subject"
+                class="input-titles" 
+                value="<?php echo isset( self::$pages_options['schedule-public-page-id'] ) ? esc_attr( self::$pages_options['schedule-public-page-id'] ) : ''; ?>"
+                >
+                <p><?php echo esc_html__( 'Numeric page identifier within Wordpress with standard scheduling interface to meet system demands in a public way. Important: no matter the number of shortcodes, public interactions, without being logged into the system, will always use this page', 'competitive-scheduling' ); ?></p> 
             <?php
         }
         
