@@ -48,8 +48,9 @@ jQuery( document ).ready( function(){
 		// Cancel button.
 		jQuery( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
-			
-			jQuery( formSelector ).form( 'submit' );
+
+			loading( 'open' );
+			// jQuery( formSelector ).form( 'submit' );
 		} );
 	}
 
@@ -68,5 +69,24 @@ jQuery( document ).ready( function(){
 	}
 	
 	start();
+
+	function loading( option ){
+		switch( option ){
+			case 'open':
+				if( ! ('loading' in manager ) ){
+					jQuery('.page.dimmer').dimmer({
+						closable: false,
+					});
+					
+					manager.loading = true;
+				}
+				
+				jQuery('.page.dimmer').dimmer('show');
+			break;
+			case 'close':
+				jQuery('.page.dimmer').dimmer('hide');
+			break;
+		}
+	}
 	
 } );
