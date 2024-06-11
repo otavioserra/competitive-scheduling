@@ -54,7 +54,7 @@ jQuery( document ).ready( function(){
 	}
 
 	function expiredOrNotFound(){
-		// Show the public expired or not found screen.
+		// Show the public expired or not found screen0.
 		
 		jQuery( '.expiredOrNotFound' ).show();
 	}
