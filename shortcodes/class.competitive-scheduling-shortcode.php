@@ -27,21 +27,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 ) );
             } );
 
-            // Require interfaces class to manipulate page.
-            require_once( CS_PATH . 'includes/class.interfaces.php' );
-
-            // Finalize interface.
-            Interfaces::components_include( array(
-                'component' => Array(
-                    'modal-loading',
-                    'modal-alert',
-                    'modal-info',
-                )
-            ) );
             
-            $this->html_body = Interfaces::components_html( true );
-
-            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
         }
 
         public function add_shortcode( $atts = array(), $content = null, $tag = '' ){
@@ -88,6 +74,22 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             wp_enqueue_script( 'competitive-scheduling', CS_URL . 'assets/js/shortecode.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/shortecode.js' ) : CS_VERSION ) );
 
             $this->js_texts();
+
+            // Require interfaces class to manipulate page.
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+
+            // Finalize interface.
+            Interfaces::components_include( array(
+                'component' => Array(
+                    'modal-loading',
+                    'modal-alert',
+                    'modal-info',
+                )
+            ) );
+            
+            $this->html_body = Interfaces::components_html( true );
+
+            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
 
             // Get page view and return processed page
             ob_start();
