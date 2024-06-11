@@ -16,6 +16,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
+            add_shortcode( 'competitive_scheduling_public', array( $this, 'add_shortcode_public' ) );
 
             add_action( 'rest_api_init', function () {
                 register_rest_route( 'competitive-scheduling/v1', '/companions/', array(
@@ -76,6 +77,21 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             require( CS_PATH . 'views/competitive-scheduling_shortecode.php' );
 
             return $this->shortcode_page(ob_get_clean());
+        }
+
+		public function add_shortcode_public( $atts = array(), $content = null, $tag = '' ){
+            // Prepare JSs and CSSs
+            wp_enqueue_style( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.css', array(  ), CS_VERSION );
+            wp_enqueue_script( 'fomantic-ui', CS_URL . 'vendor/fomantic-UI@2.9.0/dist/semantic.min.js', array( 'jquery' ), CS_VERSION );
+            
+            wp_enqueue_style( 'competitive-scheduling-public', CS_URL . 'assets/css/public.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/public.css' ) : CS_VERSION ) );
+            wp_enqueue_script( 'competitive-scheduling-public', CS_URL . 'assets/js/public.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/public.js' ) : CS_VERSION ) );
+
+            // Get page view and return processed page
+            ob_start();
+            require( CS_PATH . 'views/competitive-scheduling-public.php' );
+
+            return $this->shortcode_page_public( ob_get_clean() );
         }
 
 		public function ajax_companions_permission( $request ) {
@@ -675,6 +691,129 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'modal-info',
                 )
             ) );
+            Interfaces::finish( CS_JS_MANAGER_VAR );
+
+            return $page;
+        }
+
+        private function shortcode_page_public( $page ){
+            global $_MANAGER;
+
+            // Generate the validation token.
+            require_once( CS_PATH . 'includes/class.authentication.php' );
+            
+            // Require formats class to manipulate data.
+            require_once( CS_PATH . 'includes/class.formats.php' );
+
+            // Require templates class to manipulate page.
+            require_once( CS_PATH . 'includes/class.templates.php' );
+
+            // Require interfaces class to manipulate page.
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+
+            // Checks if the token and pubID sent are valid
+            $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
+            $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
+
+            if( empty( $pubID ) ){
+                // Activation of expiredOrNotFound.
+                $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+            } else {
+                if( $pubID != $pubIDSent ){
+                    if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
+                        // Get current user id.
+                        $user_id = get_current_user_id();
+                        
+                        // Get the configuration data.
+                        $options = get_option( 'competitive_scheduling_options' );
+                        $msg_options = get_option( 'competitive_scheduling_msg_options' );
+                        
+                        // Validate the sent schedule_id.
+                        $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
+
+                        global $wpdb;
+                        $query = $wpdb->prepare(
+                            "SELECT date, status 
+                            FROM {$wpdb->prefix}schedules 
+                            WHERE id_schedules = '%s' 
+                            AND user_id = '%s'",
+                            array( $id_schedules, $user_id )
+                        );
+                        $schedules = $wpdb->get_results( $query );
+
+                        if( ! $schedules ){
+                            // Activation of expiredOrNotFound.
+                            $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                        } else {
+                            // Request for confirmation of cancellation.
+                            if( isset( $_REQUEST['make_cancel'] ) ){
+                                // Make confirmation.
+                                $return = $this->change( array(
+                                    'opcao' => 'cancel',
+                                    'id_schedules' => $id_schedules,
+                                    'user_id' => $user_id,
+                                ) );
+                                
+                                if( ! $return['completed'] ){
+                                    switch( $return['status'] ){
+                                        case 'SCHEDULE_NOT_FOUND':
+                                        case 'SCHEDULE_CONFIRMATION_EXPIRED':
+                                        case 'SCHEDULE_WITHOUT_VACANCIES':
+                                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
+                                    break;
+                                    default:
+                                        $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
+                                        
+                                        $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
+                                    }
+                                    
+                                    // Alert the user if a problem occurs with the problem description message.
+                                    Interfaces::alert( array(
+                                        'redirect' => true,
+                                        'msg' => $msgAlert
+                                    ));
+                                } else {
+                                    // Returned data.
+                                    $data = Array();
+                                    if( isset( $return['data'] ) ){
+                                        $data = $return['data'];
+                                    }
+                                    
+                                    // Alert the user of change success.
+                                    Interfaces::alert( array(
+                                        'redirect' => true,
+                                        'msg' => $data['alert']
+                                    ));
+                                }
+                                
+                                // Redirects the page to previous schedules.
+                                wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                            }
+                            
+                            
+                        }
+                    } else {
+                        // Incluir o token no formulário.
+                        $page = Templates::change_variable( $page, '[[token]]', $_REQUEST['token'] );
+                        $page = Templates::change_variable( $page, '[[pubID]]', $pubIDSent );
+
+                        // Cancellation activation.
+                        $_MANAGER['javascript-vars']['cancel'] = true;
+                    }
+                } else {
+                    // Activation of expiredOrNotFound.
+                    $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                }
+            }
+
+            // Finalize interface.
+            Interfaces::components_include( array(
+                'component' => Array(
+                    'modal-loading',
+                    'modal-alert',
+                )
+            ) );
+            
             Interfaces::finish( CS_JS_MANAGER_VAR );
 
             return $page;
