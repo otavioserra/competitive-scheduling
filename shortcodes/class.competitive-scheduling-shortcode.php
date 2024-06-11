@@ -837,8 +837,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         }
                     } else {
                         // Incluir o token no formulário.
-                        $page = Templates::change_variable( $page, '[[token]]', $_REQUEST['token'] );
-                        $page = Templates::change_variable( $page, '[[pubID]]', $pubIDSent );
+                        $page = Templates::change_variable_all( $page, '[[token]]', $_REQUEST['token'] );
+                        $page = Templates::change_variable_all( $page, '[[pubID]]', $pubIDSent );
 
                         // Cancellation activation.
                         $_MANAGER['javascript-vars']['cancel'] = true;
