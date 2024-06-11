@@ -131,6 +131,20 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $schedule_url = home_url();
             }
 
+            // Require interfaces class to manipulate page.
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+
+            // Finalize interface.
+            Interfaces::components_include( array(
+                'component' => Array(
+                    'modal-loading',
+                    'modal-alert',
+                    'modal-info',
+                )
+            ) );
+            
+            $html_body = Interfaces::components_html( true );
+
             // Get page view and return processed page
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
