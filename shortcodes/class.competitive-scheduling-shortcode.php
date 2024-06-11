@@ -831,7 +831,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
-            return $page;
+            return $page . Interfaces::components_html( true );
         }
 
         private function confirmation_public( $page, $params = false ){
