@@ -94,6 +94,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 case'schedule_confirmation':
                     ob_start();
                     require( CS_PATH . 'views/competitive-scheduling-public.php' );
+                break;
+            }
+
+            switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
                     return $this->cancellation_public( ob_get_clean() );
                     break;
@@ -710,7 +714,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         private function cancellation_public( $page ){
             global $_MANAGER;
 
-            return 'cancellation_public';
+            return $page;
 
             // Generate the validation token.
             require_once( CS_PATH . 'includes/class.authentication.php' );
