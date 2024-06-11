@@ -13,7 +13,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             'status-residual-vacancies',
         );
         private $tests = true;
-        public $html_body = '';
+        public $html_body = 'TESTE';
 
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
