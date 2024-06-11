@@ -12,10 +12,15 @@ if( ! class_exists( 'Pages' ) ){
             // Get default page settings.
             $pages_options = get_option('competitive_scheduling_pages_options');
 
+            if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . 'activate' );
+
             // Checks whether the default pages already exist. If not, include the page data for each of the default pages.
             if( ! empty( $pages_options ) ){
+                if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '! empty( $pages_options )' );
                 if( ! empty( $pages_options['schedule-page-id'] ) ){
+                    if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '! empty( $pages_options[\'schedule-page-id\'] )' );
                     if( $pages_options['schedule-page-id'] == '0' ){
+                        if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '$pages_options[\'schedule-page-id\'] == '0'' );
                         $pages_data['schedules'] = array(
                             'post_title' => __( 'Schedules', 'competitive-scheduling' ),
                             'post_content' => "<!-- wp:shortcode -->
