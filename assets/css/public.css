@@ -7,3 +7,7 @@
 .cancelPublicSchedulingBtn, .cancellationPublicoForm{
 	position: relative;
 }
+
+[data-tooltip][data-variation~="absolute"] {
+	position: absolute;
+}
