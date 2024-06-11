@@ -127,10 +127,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
-                    return $this->cancellation_public( ob_get_clean() );
+                    return $this->cancellation_public( ob_get_clean(), array( 'schedule_url' => $schedule_url ) );
                     break;
                 case'schedule_confirmation':    
-                    return $this->confirmation_public( ob_get_clean() );
+                    return $this->confirmation_public( ob_get_clean(), array( 'schedule_url' => $schedule_url ) );
                     break;
                 default:
                     wp_redirect( home_url() );
@@ -739,15 +739,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return $page;
         }
 
-        private function cancellation_public( $page ){
+        private function cancellation_public( $page, $params = false ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
             global $_MANAGER;
 
             // Generate the validation token.
             require_once( CS_PATH . 'includes/class.authentication.php' );
             
-            // Require formats class to manipulate data.
-            require_once( CS_PATH . 'includes/class.formats.php' );
-
             // Require templates class to manipulate page.
             require_once( CS_PATH . 'includes/class.templates.php' );
 
@@ -755,98 +754,71 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             require_once( CS_PATH . 'includes/class.interfaces.php' );
 
             // Checks if the token and pubID sent are valid
-            $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
+            $token = ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' );
+            $pubID = Authentication::validate_token_validation( array( 'token' => $token ) );
             $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
 
-            if( empty( $pubID ) ){
-                // Activation of expiredOrNotFound.
-                $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
-            } else {
+            if( ! empty( $pubID ) ){
                 if( $pubID == $pubIDSent ){
-                    if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
-                        // Get current user id.
-                        $user_id = get_current_user_id();
-                        
-                        // Get the configuration data.
-                        $options = get_option( 'competitive_scheduling_options' );
-                        $msg_options = get_option( 'competitive_scheduling_msg_options' );
-                        
-                        // Validate the sent schedule_id.
-                        $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
+                    global $wpdb;
+                    $query = $wpdb->prepare(
+                        "SELECT user_id, id_schedules, date 
+                        FROM {$wpdb->prefix}schedules 
+                        WHERE token = '%s' 
+                        AND pubID = '%s'",
+                        array( $token, $pubID )
+                    );
+                    $schedules = $wpdb->get_results( $query );
 
-                        global $wpdb;
-                        $query = $wpdb->prepare(
-                            "SELECT date, status 
-                            FROM {$wpdb->prefix}schedules 
-                            WHERE id_schedules = '%s' 
-                            AND user_id = '%s'",
-                            array( $id_schedules, $user_id )
-                        );
-                        $schedules = $wpdb->get_results( $query );
+                    if( ! empty( $schedules ) ){
+                        if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
+                            $schedules = $schedules[0];
 
-                        if( ! $schedules ){
-                            // Activation of expiredOrNotFound.
-                            $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
-                        } else {
+                            // Get current user id and id_schedules.
+                            $user_id = $schedules->user_id;
+                            $id_schedules = $schedules->id_schedules;
+                            $date = $schedules->date;
+                            
+                            // Get the configuration data.
+                            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+                            
                             // Request for confirmation of cancellation.
-                            if( isset( $_REQUEST['make_cancel'] ) ){
-                                // Make confirmation.
-                                $return = $this->change( array(
-                                    'opcao' => 'cancel',
+                            if( isset( $_REQUEST['action_after_acceptance'] ) ){
+                                // Make the cancellation.
+                                $return = $this->schedule_cancel( array(
                                     'id_schedules' => $id_schedules,
                                     'user_id' => $user_id,
+                                    'date' => $date,
                                 ) );
                                 
-                                if( ! $return['completed'] ){
-                                    switch( $return['status'] ){
-                                        case 'SCHEDULE_NOT_FOUND':
-                                        case 'SCHEDULE_CONFIRMATION_EXPIRED':
-                                        case 'SCHEDULE_WITHOUT_VACANCIES':
-                                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
-                                    break;
-                                    default:
-                                        $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
-                                        
-                                        $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
-                                    }
-                                    
-                                    // Alert the user if a problem occurs with the problem description message.
-                                    Interfaces::alert( array(
-                                        'redirect' => true,
-                                        'msg' => $msgAlert
-                                    ));
-                                } else {
-                                    // Returned data.
-                                    $data = Array();
-                                    if( isset( $return['data'] ) ){
-                                        $data = $return['data'];
-                                    }
-                                    
-                                    // Alert the user of change success.
-                                    Interfaces::alert( array(
-                                        'redirect' => true,
-                                        'msg' => $data['alert']
-                                    ));
-                                }
-                                
+                                // Alert the user of change success.
+                                Interfaces::alert( array(
+                                    'redirect' => true,
+                                    'msg' => $return['alert']
+                                ));
+                            
                                 // Redirects the page to previous schedules.
-                                wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                                wp_redirect( $schedule_url, 301, array( 'window' => 'previous-schedules' ) );
                             }
-                            
-                            
+                        } else {
+                            // Incluir o token no formulário.
+                            $page = Templates::change_variable_all( $page, '[[token]]', $_REQUEST['token'] );
+                            $page = Templates::change_variable_all( $page, '[[pubID]]', $pubIDSent );
+
+                            // Cancellation activation.
+                            $_MANAGER['javascript-vars']['cancel'] = true;
                         }
                     } else {
-                        // Incluir o token no formulário.
-                        $page = Templates::change_variable_all( $page, '[[token]]', $_REQUEST['token'] );
-                        $page = Templates::change_variable_all( $page, '[[pubID]]', $pubIDSent );
-
-                        // Cancellation activation.
-                        $_MANAGER['javascript-vars']['cancel'] = true;
+                        // Activation of expiredOrNotFound.
+                        $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
                     }
                 } else {
                     // Activation of expiredOrNotFound.
                     $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
                 }
+            } else {
+                // Activation of expiredOrNotFound.
+                $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             }
 
             // Finalize interface.
@@ -862,7 +834,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return $page;
         }
 
-        private function confirmation_public( $page ){
+        private function confirmation_public( $page, $params = false ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
             return $page;
         }
 
@@ -1691,31 +1665,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'user_id' => $user_id,
                     'date' => $date,
                 ) );
-                
-                if( ! $return['completed'] ){
-                    switch( $return['status'] ){
-                        case 'SCHEDULE_WITHOUT_VACANCIES':
-                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
-                    break;
-                    default:
-                        $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
-                        
-                        $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
-                    }
-                    
-                    // Alert the user if a problem occurs with the problem description message.
-                    Interfaces::alert( array(
-                        'redirect' => true,
-                        'msg' => $msgAlert
-                    ));
-                } else {
-                    // Alert the user of change success.
-                    Interfaces::alert( array(
-                        'redirect' => true,
-                        'msg' => $return['alert']
-                    ));
-                }
-                
+            
+                // Alert the user of change success.
+                Interfaces::alert( array(
+                    'redirect' => true,
+                    'msg' => $return['alert']
+                ));
+            
                 // Redirects the page to previous schedules.
                 wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
             }
