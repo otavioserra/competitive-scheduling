@@ -228,11 +228,12 @@ if( ! class_exists( 'Interfaces' ) ){
          * Finish interface
          * 
          * @param string|null $js_manager_var defines JS global variable name.
+         * @param string|null $js_id defines JS ID to use.
          * 
          * @return string
          */
 
-        public static function finish( $js_manager_var = 'manager' ){
+        public static function finish( $js_manager_var = 'manager', $js_id = 'competitive-scheduling' ){
             global $_MANAGER;
 
             // Print alert on user screen.
@@ -243,7 +244,7 @@ if( ! class_exists( 'Interfaces' ) ){
                 $_MANAGER['javascript-vars']['interface'] = Array();
             }
 
-            wp_add_inline_script( 'competitive-scheduling', '
+            wp_add_inline_script( $js_id, '
                 var '.$js_manager_var.' = '.json_encode( $_MANAGER['javascript-vars'] ).';
             ','before');
 

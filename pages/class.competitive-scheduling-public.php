@@ -207,7 +207,7 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
                 )
             ) );
             
-            Interfaces::finish( CS_JS_MANAGER_VAR );
+            Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
             return $page;
         }

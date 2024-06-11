@@ -88,10 +88,20 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             wp_enqueue_script( 'competitive-scheduling-public', CS_URL . 'assets/js/public.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/public.js' ) : CS_VERSION ) );
 
             // Get page view and return processed page
-            ob_start();
-            require( CS_PATH . 'views/competitive-scheduling-public.php' );
-
-            return $this->shortcode_page_public( ob_get_clean() );
+            switch( $_REQUEST['action'] ){
+                case'schedule_cancellation':
+                case'schedule_confirmation':
+                    ob_start();
+                    require( CS_PATH . 'views/competitive-scheduling-public.php' );
+                case'schedule_cancellation':
+                    return $this->cancellation_public( ob_get_clean() );
+                    break;
+                case'schedule_confirmation':    
+                    return $this->confirmation_public( ob_get_clean() );
+                    break;
+                default:
+                    wp_redirect( home_url() );
+            }
         }
 
 		public function ajax_companions_permission( $request ) {
@@ -691,12 +701,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'modal-info',
                 )
             ) );
-            Interfaces::finish( CS_JS_MANAGER_VAR );
+            Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling' );
 
             return $page;
         }
 
-        private function shortcode_page_public( $page ){
+        private function cancellation_public( $page ){
             global $_MANAGER;
 
             // Generate the validation token.
@@ -814,8 +824,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 )
             ) );
             
-            Interfaces::finish( CS_JS_MANAGER_VAR );
+            Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
+            return $page;
+        }
+
+        private function confirmation_public( $page ){
             return $page;
         }
 
