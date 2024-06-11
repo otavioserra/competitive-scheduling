@@ -15,7 +15,7 @@ if( ! class_exists( 'Pages' ) ){
             // Checks whether the default pages already exist. If not, include the page data for each of the default pages.
             if( ! empty( $pages_options ) ){
                 if( $pages_options['schedule-page-id'] == '0' ){
-                    $pages_data['schedules'] = array(
+                    $pages_data['schedule-page-id'] = array(
                         'post_title' => __( 'Schedules', 'competitive-scheduling' ),
                         'post_content' => "<!-- wp:shortcode -->
 [competitive_scheduling]
@@ -27,7 +27,7 @@ if( ! class_exists( 'Pages' ) ){
                 }
 
                 if( $pages_options['schedule-public-page-id'] == '0' ){
-                    $pages_data['schedules-public'] = array(
+                    $pages_data['schedule-public-page-id'] = array(
                         'post_title' => __( 'Schedules Public', 'competitive-scheduling' ),
                         'post_content' => "<!-- wp:shortcode -->
 [competitive_scheduling_public]
@@ -44,7 +44,7 @@ if( ! class_exists( 'Pages' ) ){
                 foreach( $pages_data as $key => $page_data ){
                     $page_id = wp_insert_post( $page_data );
 
-                    if( $page_id ){
+                    if( ! empty( $page_id ) ){
                         update_option( 'competitive_scheduling_pages_options['. $key. ']', $page_id );
                     }
                 }
