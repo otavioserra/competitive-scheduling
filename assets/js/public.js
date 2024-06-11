@@ -73,12 +73,12 @@ jQuery( document ).ready( function(){
 	function loading( option ){
 		switch( option ){
 			case 'open':
-				if( ! ('loading' in manager ) ){
+				if( ! ('loading' in cs_manager ) ){
 					jQuery('.page.dimmer').dimmer({
 						closable: false,
 					});
 					
-					manager.loading = true;
+					cs_manager.loading = true;
 				}
 				
 				jQuery('.page.dimmer').dimmer('show');
