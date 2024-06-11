@@ -87,12 +87,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             wp_enqueue_style( 'competitive-scheduling-public', CS_URL . 'assets/css/public.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/public.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling-public', CS_URL . 'assets/js/public.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/public.js' ) : CS_VERSION ) );
 
-            return 'add_shortcode_public';
-
+            
             // Get page view and return processed page
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
                 case'schedule_confirmation':
+                    return 'schedule_cancellation';
                     ob_start();
                     require( CS_PATH . 'views/competitive-scheduling-public.php' );
                 case'schedule_cancellation':
