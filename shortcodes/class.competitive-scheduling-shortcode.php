@@ -17,6 +17,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
             add_shortcode( 'competitive_scheduling_public', array( $this, 'add_shortcode_public' ) );
+            add_action( 'wp_footer', array( $this, 'add_html_footer' ) );
 
             add_action( 'rest_api_init', function () {
                 register_rest_route( 'competitive-scheduling/v1', '/companions/', array(
@@ -830,7 +831,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
-            return $page . Interfaces::components_html( true );
+            do_action( 'wp_footer', array( 'html_footer' => Interfaces::components_html( true ) ) );
+
+            return $page;
         }
 
         private function confirmation_public( $page, $params = false ){
@@ -2330,6 +2333,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // If nonce is invalid, redirect to home
             if( isset( $noNonce ) ){
                 wp_redirect( home_url( '/' ) ); exit;
+            }
+        }
+
+        private function add_html_footer( $params = false ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
+            if( isset( $html_footer ) ){
+                echo $html_footer;
             }
         }
 
