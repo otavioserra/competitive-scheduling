@@ -87,7 +87,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             wp_enqueue_style( 'competitive-scheduling-public', CS_URL . 'assets/css/public.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/public.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling-public', CS_URL . 'assets/js/public.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/public.js' ) : CS_VERSION ) );
 
-            
             // Get page view and return processed page
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
@@ -713,8 +712,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
         private function cancellation_public( $page ){
             global $_MANAGER;
-
-            return $page;
 
             // Generate the validation token.
             require_once( CS_PATH . 'includes/class.authentication.php' );
