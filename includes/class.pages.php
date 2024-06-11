@@ -52,7 +52,9 @@ if( ! class_exists( 'Pages' ) ){
             }
 
             // Update page IDs in page options.
-            update_option( 'competitive_scheduling_pages_options', $pages_options );
+            if( ! empty( $update ) ){
+                update_option( 'competitive_scheduling_pages_options', $pages_options );
+            }
         }
 
         /**
@@ -68,13 +70,21 @@ if( ! class_exists( 'Pages' ) ){
             // Checks whether the default pages already exist. If so, delete them.
             if( ! empty( $pages_options ) ){
                 if( $pages_options['schedule-page-id'] != '0' ){
+                    $update = true;
                     wp_delete_post( absint( $pages_options['schedule-page-id'] ), true );
+                    $pages_options['schedule-page-id'] = '0';
                 }
 
                 if( $pages_options['schedule-public-page-id'] != '0' ){
-                    // Delete the post permanently
+                    $update = true;
                     wp_delete_post( absint( $pages_options['schedule-public-page-id'] ), true );
+                    $pages_options['schedule-public-page-id'] = '0';
                 }
+            }
+
+            // Update page IDs in page options.
+            if( ! empty( $update ) ){
+                update_option( 'competitive_scheduling_pages_options', $pages_options );
             }
         }
     }
