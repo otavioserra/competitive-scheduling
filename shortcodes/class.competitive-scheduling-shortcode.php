@@ -34,6 +34,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             Interfaces::components_include( array(
                 'component' => Array(
                     'modal-loading',
+                    'modal-alert',
+                    'modal-info',
                 )
             ) );
             
