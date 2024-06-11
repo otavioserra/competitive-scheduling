@@ -766,12 +766,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         FROM {$wpdb->prefix}schedules 
                         WHERE token = '%s' 
                         AND pubID = '%s'",
-                        array( $token, $pubID )
+                        array( $token.'=', $pubID )
                     );
                     $schedules = $wpdb->get_results( $query );
 
-                    
-                    echo 'Mensagem: token: ' . $token . ' - pubID: ' . $pubID . '<br>'; exit;
                     if( ! empty( $schedules ) ){
                         if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
                             $schedules = $schedules[0];
