@@ -87,6 +87,35 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             wp_enqueue_style( 'competitive-scheduling-public', CS_URL . 'assets/css/public.css', array(  ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/css/public.css' ) : CS_VERSION ) );
             wp_enqueue_script( 'competitive-scheduling-public', CS_URL . 'assets/js/public.js', array( 'jquery' ), ( CS_DEBUG ? filemtime( CS_PATH . 'assets/js/public.js' ) : CS_VERSION ) );
 
+            // Get the ID of the public schedule page and schedule page.
+            $pages_options = get_option('competitive_scheduling_pages_options');
+
+            if( ! empty( $pages_options['schedule-public-page-id'] ) ){
+                $page_id = $pages_options['schedule-public-page-id'];
+            } else {
+                $page_id = 0;
+            }
+
+            // Get de page_url of the public schedule page.
+            if( $page_id != 0 && $page_id != '0' ) { 
+                $schedule_public_url = get_permalink( $page_id );
+            } else {
+                $schedule_public_url = home_url();
+            }
+
+            if( ! empty( $pages_options['schedule-page-id'] ) ){
+                $page_id = $pages_options['schedule-page-id'];
+            } else {
+                $page_id = 0;
+            }
+
+            // Get de page_url of the public schedule page.
+            if( $page_id != 0 && $page_id != '0' ) { 
+                $schedule_url = get_permalink( $page_id );
+            } else {
+                $schedule_url = home_url();
+            }
+
             // Get page view and return processed page
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':

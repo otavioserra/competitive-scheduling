@@ -13,7 +13,7 @@
                 <p><?php echo __( 'Are you sure you want to confirm this schedule? If yes, click on the <b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
-        <form class="ui form attached fluid segment confirmationPublicForm" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+        <form class="ui form attached fluid segment confirmationPublicForm" method="post" action="<?php echo $schedule_public_url; ?>">
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
                     <a class="ui button red cancelPublicSchedulingBtn" data-content="<?php echo esc_html__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
@@ -48,7 +48,7 @@
                 <p><?php echo __( 'Are you sure you want to cancel this schedule? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
-        <form class="ui form attached fluid segment cancellationPublicoForm" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+        <form class="ui form attached fluid segment cancellationPublicoForm" method="post" action="<?php echo $schedule_public_url; ?>">
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
                     <a class="ui button red cancelPublicSchedulingBtn">
@@ -83,7 +83,7 @@
                     <li><?php echo esc_html__( 'The deadline for changing the schedule has been reached.', 'competitive-scheduling' ); ?></li>
                     <li><?php echo esc_html__( 'The code sent is invalid.', 'competitive-scheduling' ); ?></li>
                 </ol>
-                <p><?php echo esc_html__( 'For more information visit our website', 'competitive-scheduling' ); ?> <a href="<?php echo esc_url( site_url() ); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+                <p><?php echo esc_html__( 'For more information visit our website', 'competitive-scheduling' ); ?> <a href="<?php echo $schedule_url; ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
             </div>
         </div>
     </div><!-- changes > -->
