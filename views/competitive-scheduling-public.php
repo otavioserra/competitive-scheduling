@@ -68,7 +68,7 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this schedule!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <div class="ExpiredOrNotFound hidden scheduleWindow">
+    <div class="expiredOrNotFound hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Schedule Change', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="exclamation triangle icon"></i>
