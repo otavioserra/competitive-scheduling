@@ -17,7 +17,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
             add_shortcode( 'competitive_scheduling_public', array( $this, 'add_shortcode_public' ) );
-            add_action( 'wp_footer', array( $this, 'add_html_footer' ) );
+            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
 
             add_action( 'rest_api_init', function () {
                 register_rest_route( 'competitive-scheduling/v1', '/companions/', array(
@@ -232,7 +232,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return rest_ensure_response( $response );
         }
 
-        public function add_html_footer( $params = false ){
+        public function add_html_body( $params = false ){
             if( $params ) foreach( $params as $var => $val ) $$var = $val;
 
             echo '<!-- Competitive Scheduling -->';
