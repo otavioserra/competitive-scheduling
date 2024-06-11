@@ -1,7 +1,3 @@
-<a class="ui button red cancelPublicSchedulingBtn" data-content="<?php echo esc_html__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
-    <i class="calendar minus outline icon"></i>
-    <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
-</a>
 <div class="ui container buttonsMargin">
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>
@@ -52,11 +48,10 @@
                 <p><?php echo __( 'Are you sure you want to cancel this schedule? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
-        
         <form class="ui form attached fluid segment cancellationPublicoForm" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
-                    <a class="ui button red cancelPublicSchedulingBtn" data-content="<?php echo esc_html__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button red cancelPublicSchedulingBtn">
                         <i class="calendar minus outline icon"></i>
                         <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                     </a>
