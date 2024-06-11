@@ -1477,10 +1477,12 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function field_schedule_page_id_callback(){
             ?>
                 <input 
-                type="text" 
+                type="number" 
                 name="competitive_scheduling_pages_options[schedule-page-id]" 
-                id="subject"
-                class="input-titles" 
+                id="schedule-page-id"
+                class="input-numbers"
+                min="0"
+                max="9999999999" 
                 value="<?php echo isset( self::$pages_options['schedule-page-id'] ) ? esc_attr( self::$pages_options['schedule-page-id'] ) : ''; ?>"
                 >
                 <p><?php echo esc_html__( 'Numeric page identifier within Wordpress with the default scheduling interface. Important: you can use no limit schedule interfaces by use this shortcode on any page/post/etc [competitive_scheduling]', 'competitive-scheduling' ); ?></p> 
@@ -1490,10 +1492,12 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         public function field_schedule_public_page_id_callback(){
             ?>
                 <input 
-                type="text" 
+                type="number" 
                 name="competitive_scheduling_pages_options[schedule-public-page-id]" 
-                id="subject"
-                class="input-titles" 
+                id="schedule-public-page-id"
+                class="input-numbers"
+                min="0"
+                max="9999999999" 
                 value="<?php echo isset( self::$pages_options['schedule-public-page-id'] ) ? esc_attr( self::$pages_options['schedule-public-page-id'] ) : ''; ?>"
                 >
                 <p><?php echo esc_html__( 'Numeric page identifier within Wordpress with standard scheduling interface to meet system demands in a public way. Important: no matter the number of shortcodes, public interactions, without being logged into the system, will always use this page', 'competitive-scheduling' ); ?></p> 
