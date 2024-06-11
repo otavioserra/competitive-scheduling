@@ -62,8 +62,8 @@ jQuery( document ).ready( function(){
 	function start(){
 		// Handle scheduling changes.
 		
-		if( 'confirmPublic' in cs_manager ){ confirmPublic(); }
-		if( 'cancelPublic' in cs_manager ){ cancelPublic(); }
+		if( 'confirm' in cs_manager ){ confirmPublic(); }
+		if( 'cancel' in cs_manager ){ cancelPublic(); }
 		if( 'expiredOrNotFound' in cs_manager ){ expiredOrNotFound(); }
 	}
 	
