@@ -4,6 +4,6 @@
 .buttonsMargin{
 	margin-bottom: 1px;
 }
-.confirmationPublicForm, .cancellationPublicoForm{
+.cancelPublicSchedulingBtn, .cancellationPublicoForm{
 	position: relative;
 }
