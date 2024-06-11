@@ -232,6 +232,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return rest_ensure_response( $response );
         }
 
+        public function add_html_footer( $params = false ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
+            if( isset( $html_footer ) ){
+                echo $html_footer;
+            }
+        }
+
         private function shortcode_page( $page ){
             if( $this->tests ){
                 require_once( CS_PATH . 'includes/class.cron.php' );
@@ -2333,14 +2341,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // If nonce is invalid, redirect to home
             if( isset( $noNonce ) ){
                 wp_redirect( home_url( '/' ) ); exit;
-            }
-        }
-
-        private function add_html_footer( $params = false ){
-            if( $params ) foreach( $params as $var => $val ) $$var = $val;
-
-            if( isset( $html_footer ) ){
-                echo $html_footer;
             }
         }
 
