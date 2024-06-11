@@ -20,7 +20,7 @@ if( ! class_exists( 'Pages' ) ){
                 if( ! empty( $pages_options['schedule-page-id'] ) ){
                     if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '! empty( $pages_options[\'schedule-page-id\'] )' );
                     if( $pages_options['schedule-page-id'] == '0' ){
-                        if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '$pages_options[\'schedule-page-id\'] == '0'' );
+                        if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '$pages_options[\'schedule-page-id\'] == \'0\'' );
                         $pages_data['schedules'] = array(
                             'post_title' => __( 'Schedules', 'competitive-scheduling' ),
                             'post_content' => "<!-- wp:shortcode -->
