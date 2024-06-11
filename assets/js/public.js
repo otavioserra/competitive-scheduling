@@ -1,7 +1,7 @@
 jQuery( document ).ready( function(){
 	function confirmPublic(){
 		// Show the public confirmation screen.
-		jQuery( '.confirmPublic' ).show();
+		jQuery( '.confirmPublic' ).removeClass( 'hidden' );
 		
 		// Start popup.
 		jQuery( '.button' ).popup( { addTouchEvents:false } );
@@ -32,7 +32,7 @@ jQuery( document ).ready( function(){
 	
 	function cancelPublic(){
 		// Show the public cancellation screen.
-		jQuery( '.cancelPublic' ).show();
+		jQuery( '.cancelPublic' ).removeClass( 'hidden' );
 		
 		// Start popup.
 		jQuery( '.button' ).popup( { addTouchEvents:false } );
@@ -56,7 +56,7 @@ jQuery( document ).ready( function(){
 	function expiredOrNotFound(){
 		// Show the public expired or not found screen0.
 		
-		jQuery( '.expiredOrNotFound' ).show();
+		jQuery( '.expiredOrNotFound' ).removeClass( 'hidden' );
 	}
 	
 	function start(){
