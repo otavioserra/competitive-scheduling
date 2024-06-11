@@ -2,5 +2,6 @@
 	display:none;
 }
 .buttonsMargin{
+	position: relative;
 	margin-bottom: 1px;
 }
