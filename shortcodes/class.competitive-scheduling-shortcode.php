@@ -18,7 +18,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
             add_shortcode( 'competitive_scheduling_public', array( $this, 'add_shortcode_public' ) );
-
+            
             add_action( 'rest_api_init', function () {
                 register_rest_route( 'competitive-scheduling/v1', '/companions/', array(
                         'methods' => WP_REST_Server::READABLE,
@@ -26,6 +26,20 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'permission_callback' => array( $this, 'ajax_companions_permission' ),
                 ) );
             } );
+
+            // Require interfaces class to manipulate page.
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+
+            // Finalize interface.
+            Interfaces::components_include( array(
+                'component' => Array(
+                    'modal-loading',
+                )
+            ) );
+            
+            $this->html_body = Interfaces::components_html( true );
+
+            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
         }
 
         public function add_shortcode( $atts = array(), $content = null, $tag = '' ){
@@ -826,18 +840,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             }
 
-            // Finalize interface.
-            Interfaces::components_include( array(
-                'component' => Array(
-                    'modal-loading',
-                )
-            ) );
-            
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
-
-            $this->html_body = Interfaces::components_html( true );
-            
-            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
 
             return $page;
         }
