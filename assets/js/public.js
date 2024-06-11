@@ -78,6 +78,9 @@ jQuery( document ).ready( function(){
 				if( ! ('loading' in cs_manager ) ){
 					jQuery('.page.dimmer').dimmer({
 						closable: false,
+						onVisible: function(){
+							jQuery('.page.dimmer').removeClass( 'transition' );
+						}
 					});
 					
 					cs_manager.loading = true;
