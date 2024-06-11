@@ -13,11 +13,25 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             'status-residual-vacancies',
         );
         private $tests = true;
-        public $html_body = 'TESTE';
+        public $html_body = '';
 
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
             add_shortcode( 'competitive_scheduling_public', array( $this, 'add_shortcode_public' ) );
+            
+
+            // Require interfaces class to manipulate page.
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+
+            // Finalize interface.
+            Interfaces::components_include( array(
+                'component' => Array(
+                    'modal-loading',
+                )
+            ) );
+            
+            $this->html_body = Interfaces::components_html( true );
+
             add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
 
             add_action( 'rest_api_init', function () {
