@@ -92,10 +92,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
                 case'schedule_confirmation':
-                    return 'schedule_cancellation';
                     ob_start();
                     require( CS_PATH . 'views/competitive-scheduling-public.php' );
                 case'schedule_cancellation':
+                    return 'schedule_cancellation';
                     return $this->cancellation_public( ob_get_clean() );
                     break;
                 case'schedule_confirmation':    
