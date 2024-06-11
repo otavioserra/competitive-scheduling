@@ -18,21 +18,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
             add_shortcode( 'competitive_scheduling_public', array( $this, 'add_shortcode_public' ) );
-            
-
-            // Require interfaces class to manipulate page.
-            require_once( CS_PATH . 'includes/class.interfaces.php' );
-
-            // Finalize interface.
-            Interfaces::components_include( array(
-                'component' => Array(
-                    'modal-loading',
-                )
-            ) );
-            
-            $this->html_body = Interfaces::components_html( true );
-
-            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
 
             add_action( 'rest_api_init', function () {
                 register_rest_route( 'competitive-scheduling/v1', '/companions/', array(
@@ -850,8 +835,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
-            $this->html_body = 'TESTE' . Interfaces::components_html( true );
-            wp_body_open();
+            $this->html_body = Interfaces::components_html( true );
+            
+            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
 
             return $page;
         }
