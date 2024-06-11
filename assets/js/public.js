@@ -49,6 +49,8 @@ jQuery( document ).ready( function(){
 		jQuery( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 
+			console.log( 'cancelPublic' );
+
 			loading( 'open' );
 			// jQuery( formSelector ).form( 'submit' );
 		} );
