@@ -12,39 +12,30 @@ if( ! class_exists( 'Pages' ) ){
             // Get default page settings.
             $pages_options = get_option('competitive_scheduling_pages_options');
 
-            if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . 'activate' );
-
             // Checks whether the default pages already exist. If not, include the page data for each of the default pages.
             if( ! empty( $pages_options ) ){
-                if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '! empty( $pages_options )' );
-                if( ! empty( $pages_options['schedule-page-id'] ) ){
-                    if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '! empty( $pages_options[\'schedule-page-id\'] )' );
-                    if( $pages_options['schedule-page-id'] == '0' ){
-                        if( WP_DEBUG_LOG ) error_log( CS_ID . ' Pages: ' . '$pages_options[\'schedule-page-id\'] == \'0\'' );
-                        $pages_data['schedules'] = array(
-                            'post_title' => __( 'Schedules', 'competitive-scheduling' ),
-                            'post_content' => "<!-- wp:shortcode -->
+                if( $pages_options['schedule-page-id'] == '0' ){
+                    $pages_data['schedules'] = array(
+                        'post_title' => __( 'Schedules', 'competitive-scheduling' ),
+                        'post_content' => "<!-- wp:shortcode -->
 [competitive_scheduling]
 <!-- /wp:shortcode -->",
-                            'post_status' => 'publish',
-                            'post_type' => 'page',
-                            'post_name' => __( 'schedules', 'competitive-scheduling' ),
-                        );
-                    }
+                        'post_status' => 'publish',
+                        'post_type' => 'page',
+                        'post_name' => __( 'schedules', 'competitive-scheduling' ),
+                    );
                 }
 
-                if( ! empty( $pages_options['schedule-public-page-id'] ) ){
-                    if( $pages_options['schedule-public-page-id'] == '0' ){
-                        $pages_data['schedules-public'] = array(
-                            'post_title' => __( 'Schedules Public', 'competitive-scheduling' ),
-                            'post_content' => "<!-- wp:shortcode -->
+                if( $pages_options['schedule-public-page-id'] == '0' ){
+                    $pages_data['schedules-public'] = array(
+                        'post_title' => __( 'Schedules Public', 'competitive-scheduling' ),
+                        'post_content' => "<!-- wp:shortcode -->
 [competitive_scheduling_public]
 <!-- /wp:shortcode -->",
-                            'post_status' => 'publish',
-                            'post_type' => 'page',
-                            'post_name' => __( 'schedules-public', 'competitive-scheduling' ),
-                        );
-                    }
+                        'post_status' => 'publish',
+                        'post_type' => 'page',
+                        'post_name' => __( 'schedules-public', 'competitive-scheduling' ),
+                    );
                 }
             }
 
@@ -72,17 +63,13 @@ if( ! class_exists( 'Pages' ) ){
 
             // Checks whether the default pages already exist. If so, delete them.
             if( ! empty( $pages_options ) ){
-                if( ! empty( $pages_options['schedule-page-id'] ) ){
-                    if( $pages_options['schedule-page-id'] != '0' ){
-                        wp_delete_post( absint( $pages_options['schedule-page-id'] ), true );
-                    }
+                if( $pages_options['schedule-page-id'] != '0' ){
+                    wp_delete_post( absint( $pages_options['schedule-page-id'] ), true );
                 }
 
-                if( ! empty( $pages_options['schedule-public-page-id'] ) ){
-                    if( $pages_options['schedule-public-page-id'] != '0' ){
-                        // Delete the post permanently
-                        wp_delete_post( absint( $pages_options['schedule-public-page-id'] ), true );
-                    }
+                if( $pages_options['schedule-public-page-id'] != '0' ){
+                    // Delete the post permanently
+                    wp_delete_post( absint( $pages_options['schedule-public-page-id'] ), true );
                 }
             }
         }
