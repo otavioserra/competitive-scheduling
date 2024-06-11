@@ -836,7 +836,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
-            $this->html_body = Interfaces::components_html( true );
+            $this->html_body = 'TESTE' . Interfaces::components_html( true );
             do_action( 'wp_body_open' );
 
             return $page;
