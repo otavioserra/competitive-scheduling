@@ -4,10 +4,3 @@
 .buttonsMargin{
 	margin-bottom: 1px;
 }
-.cancelPublicSchedulingBtn, .cancellationPublicoForm{
-	position: relative;
-}
-
-[data-tooltip][data-variation~="absolute"] {
-	position: absolute;
-}
