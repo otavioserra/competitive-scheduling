@@ -75,7 +75,7 @@ jQuery( document ).ready( function(){
 	function loading( option ){
 		switch( option ){
 			case 'open':
-				if( ! ('loading' in cs_manager ) ){
+				/* if( ! ('loading' in cs_manager ) ){
 					jQuery('.page.dimmer').dimmer({
 						closable: false,
 						onVisible: function(){
@@ -84,10 +84,10 @@ jQuery( document ).ready( function(){
 					});
 					
 					cs_manager.loading = true;
-				}
+				} */
 				
 				jQuery('.page.dimmer').dimmer('show');
-				jQuery('.page.dimmer').removeClass( 'transition' );
+				// jQuery('.page.dimmer').removeClass( 'transition' );
 			break;
 			case 'close':
 				jQuery('.page.dimmer').dimmer('hide');
