@@ -729,13 +729,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
             $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
 
-            echo $pubID; exit;
-
             if( empty( $pubID ) ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             } else {
-                if( $pubID != $pubIDSent ){
+                if( $pubID == $pubIDSent ){
                     if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
                         // Get current user id.
                         $user_id = get_current_user_id();
