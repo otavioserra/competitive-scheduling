@@ -729,6 +729,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $pubID = Authentication::validate_token_validation( array( 'token' => ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' ) ) );
             $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
 
+            echo $pubID; exit;
+
             if( empty( $pubID ) ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
