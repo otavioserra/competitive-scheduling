@@ -95,10 +95,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     ob_start();
                     require( CS_PATH . 'views/competitive-scheduling-public.php' );
                 case'schedule_cancellation':
-                    return 'schedule_cancellation';
                     return $this->cancellation_public( ob_get_clean() );
                     break;
                 case'schedule_confirmation':    
+                    return 'schedule_cancellation';
                     return $this->confirmation_public( ob_get_clean() );
                     break;
                 default:
