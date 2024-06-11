@@ -98,7 +98,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     return $this->cancellation_public( ob_get_clean() );
                     break;
                 case'schedule_confirmation':    
-                    return 'schedule_cancellation';
                     return $this->confirmation_public( ob_get_clean() );
                     break;
                 default:
@@ -710,6 +709,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
         private function cancellation_public( $page ){
             global $_MANAGER;
+
+            return $page;
 
             // Generate the validation token.
             require_once( CS_PATH . 'includes/class.authentication.php' );
