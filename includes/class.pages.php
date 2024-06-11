@@ -45,10 +45,14 @@ if( ! class_exists( 'Pages' ) ){
                     $page_id = wp_insert_post( $page_data );
 
                     if( ! empty( $page_id ) ){
-                        update_option( 'competitive_scheduling_pages_options['. $key. ']', $page_id );
+                        $update = true;
+                        $pages_options[ $key ] = $page_id;
                     }
                 }
             }
+
+            // Update page IDs in page options.
+            update_option( 'competitive_scheduling_pages_options', $pages_options );
         }
 
         /**
