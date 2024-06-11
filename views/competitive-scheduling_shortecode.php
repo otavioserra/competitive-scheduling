@@ -1,3 +1,4 @@
+<?php echo $html_body; ?>
 <div class="ui container buttonsMargin">
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>

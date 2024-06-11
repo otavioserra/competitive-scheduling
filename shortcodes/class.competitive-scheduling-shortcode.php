@@ -26,8 +26,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'permission_callback' => array( $this, 'ajax_companions_permission' ),
                 ) );
             } );
-
-            
         }
 
         public function add_shortcode( $atts = array(), $content = null, $tag = '' ){
@@ -87,9 +85,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 )
             ) );
             
-            $this->html_body = Interfaces::components_html( true );
-
-            add_action( 'wp_body_open', array( $this, 'add_html_body' ) );
+            $html_body = Interfaces::components_html( true );
 
             // Get page view and return processed page
             ob_start();
