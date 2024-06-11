@@ -760,13 +760,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             }
             
             // Finalize interface.
-            Interfaces::components_include( array(
-                'component' => array(
-                    'modal-loading',
-                    'modal-alert',
-                    'modal-info',
-                )
-            ) );
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling' );
 
             return $page;
