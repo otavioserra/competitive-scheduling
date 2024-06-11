@@ -128,13 +128,8 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
         }
 
         public static function reset_settings(){
-            require_once( CS_PATH . 'includes/class.pages.php' );
-            
-            Pages::uninstall();
             self::unregister_settings();
-            
             self::register_settings();
-            Pages::activate();
         }
 
         private static function template_html( $id_template ){
