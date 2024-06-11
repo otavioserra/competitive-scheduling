@@ -30,13 +30,10 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
                 $page_id = 0;
             }
 
-            echo 'page_id: '.$page_id;
-
-            $page_url = get_permalink( $page_id );
-            echo 'page_url: '.$page_url;
-
             // Redirect to public schedule page or to home page if the page does not exist.
-            if( is_page( $page_id ) ) { 
+            if( $page_id != 0 && $page_id != '0' ) { 
+                $page_url = get_permalink( $page_id );
+                echo 'page_url: '.$page_url;
                 // wp_redirect( $page_url );
             } else {
                 // wp_redirect( home_url() );
