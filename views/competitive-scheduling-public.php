@@ -1,3 +1,7 @@
+<a class="ui button red cancelPublicSchedulingBtn" data-content="<?php echo esc_html__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+    <i class="calendar minus outline icon"></i>
+    <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
+</a>
 <div class="ui container buttonsMargin">
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>
@@ -37,10 +41,6 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this appointment!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <a class="ui button red cancelPublicSchedulingBtn" data-content="<?php echo esc_html__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
-            <i class="calendar minus outline icon"></i>
-            <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
-        </a>
     <div class="cancelPublic hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Cancel Schedule', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
