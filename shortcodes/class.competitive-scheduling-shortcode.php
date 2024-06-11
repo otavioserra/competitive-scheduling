@@ -13,6 +13,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             'status-residual-vacancies',
         );
         private $tests = true;
+        public $html_body = '';
 
         public function __construct(){
             add_shortcode( 'competitive_scheduling', array( $this, 'add_shortcode' ) );
@@ -232,14 +233,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             return rest_ensure_response( $response );
         }
 
-        public function add_html_body( $params = false ){
-            if( $params ) foreach( $params as $var => $val ) $$var = $val;
-
-            echo '<!-- Competitive Scheduling -->';
-
-            if( isset( $html_footer ) ){
-                echo $html_footer;
-            }
+        public function add_html_body(){
+            echo $this->html_body;
         }
 
         private function shortcode_page( $page ){
@@ -841,7 +836,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
-            do_action( 'wp_footer', array( 'html_footer' => Interfaces::components_html( true ) ) );
+            $this->html_body = Interfaces::components_html( true );
+            do_action( 'wp_body_open' );
 
             return $page;
         }
