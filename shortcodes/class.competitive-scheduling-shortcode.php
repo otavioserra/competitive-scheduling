@@ -235,6 +235,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         public function add_html_footer( $params = false ){
             if( $params ) foreach( $params as $var => $val ) $$var = $val;
 
+            echo '<!-- Competitive Scheduling -->';
+
             if( isset( $html_footer ) ){
                 echo $html_footer;
             }
