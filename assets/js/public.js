@@ -79,7 +79,7 @@ jQuery( document ).ready( function(){
 					jQuery('.page.dimmer').dimmer({
 						closable: false,
 						onVisible: function(){
-							jQuery('.page.dimmer').removeClass('active');
+							jQuery('.page.dimmer').removeClass( 'transition' );
 						}
 					});
 					
