@@ -1,62 +1,62 @@
-$( document ).ready( function(){
+jQuery( document ).ready( function(){
 	function confirmPublic(){
 		// Show the public confirmation screen.
-		$( '.confirmPublic' ).show();
+		jQuery( '.confirmPublic' ).show();
 		
 		// Start popup.
-		$( '.button' ).popup( { addTouchEvents:false } );
+		jQuery( '.button' ).popup( { addTouchEvents:false } );
 		
 		// Confirmation form.
 		var formSelector = '.confirmationPublicForm';
 		
-		$( formSelector )
+		jQuery( formSelector )
 			.form( {
 				
 			} );
 		
 		// Confirmation button.
-		$( '.confirmPublicSchedulleBtn' ).on( 'mouseup tap', function(e){
+		jQuery( '.confirmPublicSchedulleBtn' ).on( 'mouseup tap', function(e){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			$( formSelector ).find( 'input[name="choice"]' ).val( 'confirm' );
-			$( formSelector ).form( 'submit' );
+			jQuery( formSelector ).find( 'input[name="choice"]' ).val( 'confirm' );
+			jQuery( formSelector ).form( 'submit' );
 		} );
 		
 		// Cancel button.
-		$( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
+		jQuery( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			$( formSelector ).form( 'submit' );
+			jQuery( formSelector ).form( 'submit' );
 		} );
 	}
 	
 	function cancelPublic(){
 		// Show the public cancellation screen.
-		$( '.cancelPublic' ).show();
+		jQuery( '.cancelPublic' ).show();
 		
 		// Start popup.
-		$( '.button' ).popup( { addTouchEvents:false } );
+		jQuery( '.button' ).popup( { addTouchEvents:false } );
 		
 		// Confirmation form.
 		var formSelector = '.cancellationPublicoForm';
 		
-		$( formSelector )
+		jQuery( formSelector )
 			.form( {
 				
 			} );
 		
 		// Cancel button.
-		$( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
+		jQuery( '.cancelPublicSchedulingBtn' ).on( 'mouseup tap', function(e){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
-			$( formSelector ).form( 'submit' );
+			jQuery( formSelector ).form( 'submit' );
 		} );
 	}
 
 	function expiredOrNotFound(){
 		// Show the public expired or not found screen.
 		
-		$( '.expiredOrNotFound' ).show();
+		jQuery( '.expiredOrNotFound' ).show();
 	}
 	
 	function start(){
