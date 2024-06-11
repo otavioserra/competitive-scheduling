@@ -10,7 +10,7 @@
                 <div class="header">
                     <?php echo esc_html__( 'Instructions', 'competitive-scheduling' ); ?>
                 </div>
-                <p><?php echo esc_html__( 'Are you sure you want to confirm this schedule? If yes, click on the <b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
+                <p><?php echo __( 'Are you sure you want to confirm this schedule? If yes, click on the <b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
         <form class="ui form attached fluid segment confirmationPublicForm" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -45,7 +45,7 @@
                 <div class="header">
                     <?php echo esc_html__( 'Instructions', 'competitive-scheduling' ); ?>
                 </div>
-                <p><?php echo esc_html__( 'Are you sure you want to cancel this schedule? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
+                <p><?php echo __( 'Are you sure you want to cancel this schedule? If yes, click the <b>CANCEL</b> button.', 'competitive-scheduling' ); ?></p>
             </div>
         </div>
         <form class="ui form attached fluid segment cancellationPublicoForm" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
