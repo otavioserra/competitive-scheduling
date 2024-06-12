@@ -821,7 +821,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 $_MANAGER['javascript-vars']['successInfo'] = true;
                             }
                         } else {
-                            // Incluir o token no formulário.
+                            // Include the token in the form.
                             $page = Templates::change_variable_all( $page, '[[token]]', $_REQUEST['token'] );
                             $page = Templates::change_variable_all( $page, '[[pubID]]', $pubIDSent );
 
@@ -971,12 +971,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 }
                             }
                         } else {
-                            // Incluir o token no formulário.
+                            // Include the token in the form.
                             $page = Templates::change_variable_all( $page, '[[token]]', $_REQUEST['token'] );
                             $page = Templates::change_variable_all( $page, '[[pubID]]', $pubIDSent );
 
-                            // Cancellation activation.
-                            $_MANAGER['javascript-vars']['cancel'] = true;
+                            // Confirmation activation.
+                            $_MANAGER['javascript-vars']['confirm'] = true;
                         }
                     } else {
                         // Activation of expiredOrNotFound.
