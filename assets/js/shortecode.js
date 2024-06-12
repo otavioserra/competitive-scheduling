@@ -94,6 +94,8 @@ jQuery( document ).ready( function(){
 						jQuery( formSelector ).form( 'add errors', [texts['date-not-selected']] );
 						return false;
 					}
+
+					loading( 'open' );
 				}
 			});
 
@@ -104,7 +106,6 @@ jQuery( document ).ready( function(){
 			jQuery( formSelector ).form( 'validate form' );
 
 			if( jQuery( formSelector ).form( 'is valid' ) ){
-				loading( 'open' );
 				jQuery( formSelector ).form('submit' );
 			}
 		} );
