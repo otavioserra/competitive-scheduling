@@ -143,7 +143,7 @@ jQuery( document ).ready( function(){
 				jQuery(this).parent().find('.dateSelected').show();
 				jQuery(this).parent().find('.dateSelected').find('.dateSelectedValue').html(dateFormated);
 				
-				jQuery(formSelector).form('validate form');
+				// jQuery(formSelector).form('validate form');
 			}
 		}
 		
