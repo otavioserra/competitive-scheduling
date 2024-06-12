@@ -148,7 +148,9 @@ jQuery( document ).ready( function(){
 				jQuery(this).parent().find('.dateSelected').show();
 				jQuery(this).parent().find('.dateSelected').find('.dateSelectedValue').html(dateFormated);
 				
-				jQuery( formSelector ).form( 'remove errors' );
+				if( ! dataSelected ){
+					jQuery( formSelector ).form( 'remove errors' );
+				}
 
 				dataSelected = true;
 			}
