@@ -97,11 +97,14 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function draw(){
-            // Set the day today, either automatically or by forcing for testing.
-            if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
-
-            // Control variables initial values.
-            $today_day_week = strtolower( date( 'D' ) );
+            // Set the day today, either automatically or by forcing for testing and control variables initial values.
+            if( CS_FORCE_DATE_TODAY ){ 
+                $today = CS_DATE_TODAY_FORCED_VALUE; 
+                $today_day_week = strtolower( date( 'D', strtotime( $today ) ) );
+            } else { 
+                $today_day_week = strtolower( date( 'D' ) );
+                $today = date('Y-m-d'); 
+            }
             
             // Get current configuration data.
             $options = get_option( 'competitive_scheduling_options' );
