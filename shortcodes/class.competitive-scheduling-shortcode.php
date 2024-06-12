@@ -2329,6 +2329,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 'companion-placeholder' => __( 'Companion\'s full name', 'competitive-scheduling' ),
                 'cancel-confirmation' => __( 'Are you sure you want to delete this schedule?', 'competitive-scheduling' ),
                 'confirm-confirmation' => __( 'Are you sure you want to confirm this schedule?', 'competitive-scheduling' ),
+                'date-not-selected' => __( 'Date not selected! It is mandatory to select a date to continue!', 'competitive-scheduling' ),
             );
 
             foreach( $jsTexts as $key => $text ){
