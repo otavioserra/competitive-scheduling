@@ -2,7 +2,7 @@
 <div class="ui container buttonsMargin">
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>
-    <!-- inactive < --><div class="agendamento-inativo">
+    <!-- inactive < --><div class="schedule-inactive">
         <div class="ui header"><?php echo esc_html__( 'Inactive Schedule', 'competitive-scheduling' ); ?></div>
         [[msg-scheduling-suspended]]
     </div><!-- inactive > -->
@@ -95,7 +95,7 @@
                 </div>
                 <div class="ui error message"></div>
                 <div class="ui center aligned basic segment">
-                    <button id="formAgendarBtn" data-tooltip="<?php echo esc_attr__( 'Click this button to SAVE the changes.', 'competitive-scheduling' ); ?>" data-position="top center" data-inverted="" class="positive ui button"><?php echo esc_html__( 'Send', 'competitive-scheduling' ); ?></button>
+                    <div id="formScheduleBtn" data-tooltip="<?php echo esc_attr__( 'Click this button to SAVE the changes.', 'competitive-scheduling' ); ?>" data-position="top center" data-inverted="" class="positive ui button"><?php echo esc_html__( 'Send', 'competitive-scheduling' ); ?></div>
                 </div>
                 <input type="hidden" name="schedule" value="1">
                 <input type="hidden" name="schedule-nonce" value="<?php echo wp_create_nonce( 'schedule-nonce' ); ?>">
@@ -322,7 +322,7 @@
         </div>
         <input type="hidden" name="companions-nonce" value="<?php echo wp_create_nonce( 'companions-nonce' ); ?>">
     </div><!-- active > -->
-    <!-- changes < --><div class="confirmar hidden scheduleWindow">
+    <!-- changes < --><div class="confirm hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Confirm Schedule', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached positive message">
             <i class="calendar check icon"></i>
@@ -362,7 +362,7 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this schedule!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <div class="cancelar hidden scheduleWindow">
+    <div class="cancel hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Cancel Schedule', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="calendar minus icon"></i>
@@ -397,7 +397,7 @@
             <?php echo esc_html__( 'Important: it is not possible to cancel the cancellation of this schedule!', 'competitive-scheduling' ); ?>
         </div>
     </div>
-    <div class="ExpiredOrNotFound hidden scheduleWindow">
+    <div class="expiredOrNotFound hidden scheduleWindow">
         <div class="ui header"><?php echo esc_html__( 'Schedule Change', 'competitive-scheduling' ); ?></div>
         <div class="ui icon attached warning message">
             <i class="exclamation triangle icon"></i>

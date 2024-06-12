@@ -31,6 +31,7 @@ jQuery( document ).ready( function(){
 		jQuery('.cancelSchedulingBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
+			loading( 'open' );
 			jQuery(formSelector).form('submit');
 		});
 	}
@@ -55,6 +56,7 @@ jQuery( document ).ready( function(){
 		jQuery('.cancelSchedulingBtn').on('mouseup tap',function(e){
 			if(e.which != 1 && e.which != 0 && e.which != undefined) return false;
 			
+			loading( 'open' );
 			jQuery(formSelector).form('submit');
 		});
 	}
@@ -87,10 +89,18 @@ jQuery( document ).ready( function(){
 		
 		jQuery( formSelector )
 			.form({
-				onSuccess( event, fields ){
-					
+				onSuccess: function( event, fields ){
+					loading( 'open' );
+					jQuery( formSelector ).form( 'submit' );
 				}
 			});
+
+		// Cancel button.
+		jQuery( '#formScheduleBtn' ).on( 'mouseup tap', function(e){
+			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
+			
+			jQuery( formSelector ).form( 'validate form' );
+		} );
 		
 		// Mask priority coupon.
 		jQuery( '.coupon' ).mask( 'AAAA-AAAA', { clearIfNotMatch: true } );
@@ -411,7 +421,7 @@ jQuery( document ).ready( function(){
 		// Handle scheduling changes.
 		if('confirm' in manager){ confirm(); }
 		if('cancel' in manager){ cancel(); }
-		if('ExpiredOrNotFound' in manager){ expiredOrNotFound(); }
+		if('expiredOrNotFound' in manager){ expiredOrNotFound(); }
 
         // Alert
         if('interface' in manager){
