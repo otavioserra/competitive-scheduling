@@ -415,6 +415,32 @@
                 <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
             </div>
         </div>
+    </div>
+    <div class="errorInfo hidden scheduleWindow">
+        <div class="ui header"><?php echo esc_html__( 'Schedule Change', 'competitive-scheduling' ); ?></div>
+        <div class="ui icon attached negative message">
+            <i class="times circle outline icon"></i>
+            <div class="content">
+                <div class="header">
+                    <?php echo esc_html__( 'Error', 'competitive-scheduling' ); ?>
+                </div>
+                <p><?php echo esc_html__( 'It is not possible to change your schedule due to the following error:', 'competitive-scheduling' ); ?> [[error-info]]</p>
+                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+            </div>
+        </div>
+    </div>
+    <div class="successInfo hidden scheduleWindow">
+        <div class="ui header"><?php echo esc_html__( 'Schedule Change', 'competitive-scheduling' ); ?></div>
+        <div class="ui icon attached success message">
+            <i class="check circle outline icon"></i>
+            <div class="content">
+                <div class="header">
+                    <?php echo esc_html__( 'Success', 'competitive-scheduling' ); ?>
+                </div>
+                <p>[[success-info]]</p>
+                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+            </div>
+        </div>
     </div><!-- changes > -->
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>

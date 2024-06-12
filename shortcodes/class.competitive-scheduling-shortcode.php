@@ -139,7 +139,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 'component' => Array(
                     'modal-loading',
                     'modal-alert',
-                    'modal-info',
                 )
             ) );
             
@@ -156,10 +155,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             switch( $_REQUEST['action'] ){
                 case'schedule_cancellation':
-                    return $this->cancellation_public( ob_get_clean(), array( 'schedule_url' => $schedule_url ) );
+                    return $this->cancellation_public( ob_get_clean() );
                     break;
                 case'schedule_confirmation':    
-                    return $this->confirmation_public( ob_get_clean(), array( 'schedule_url' => $schedule_url ) );
+                    return $this->confirmation_public( ob_get_clean() );
                     break;
                 default:
                     wp_redirect( home_url() );
@@ -818,13 +817,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 ) );
                                 
                                 // Alert the user of change success.
-                                Interfaces::alert( array(
-                                    'redirect' => true,
-                                    'msg' => $return['alert']
-                                ));
-                            
-                                // Redirects the page to previous schedules.
-                                wp_redirect( $schedule_url . '?window=previous-schedules', 301 );
+                                $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
+
+                                $_MANAGER['javascript-vars']['successInfo'] = true;
                             }
                         } else {
                             // Incluir o token no formulário.
@@ -854,6 +849,151 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
         private function confirmation_public( $page, $params = false ){
             if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
+            global $_MANAGER;
+
+            // Generate the validation token.
+            require_once( CS_PATH . 'includes/class.authentication.php' );
+            
+            // Require templates class to manipulate page.
+            require_once( CS_PATH . 'includes/class.templates.php' );
+
+            // Require interfaces class to manipulate page.
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+
+            // Checks if the token and pubID sent are valid
+            $token = ( ! empty( $_REQUEST['token'] ) ? $_REQUEST['token'] : '' );
+            $pubID = Authentication::validate_token_validation( array( 'token' => $token ) );
+            $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
+
+            if( ! empty( $pubID ) ){
+                if( $pubID == $pubIDSent ){
+                    global $wpdb;
+                    $query = $wpdb->prepare(
+                        "SELECT user_id, id_schedules, date, status 
+                        FROM {$wpdb->prefix}schedules 
+                        WHERE token = '%s' 
+                        AND pubID = '%s'",
+                        array( $token.'=', $pubID )
+                    );
+                    $schedules = $wpdb->get_results( $query );
+
+                    if( ! empty( $schedules ) ){
+                        if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
+                            $schedules = $schedules[0];
+
+                            // Get current user id and id_schedules.
+                            $user_id = $schedules->user_id;
+                            $id_schedules = $schedules->id_schedules;
+                            $date = $schedules->date;
+                            $status = $schedules->status;
+                            
+                            // Get the configuration data.
+                            $options = get_option( 'competitive_scheduling_options' );
+                            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+                            
+                            // Request for confirmation of cancellation.
+                            if( isset( $_REQUEST['action_after_acceptance'] ) ){
+                                // Force date to today for debuging or set today's date
+                                if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+
+                                // Get the configuration data.
+                                $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
+                                $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
+                        
+                                // Check whether the current status of the schedule allows confirmation.
+                                if(
+                                    $status == 'confirmed' ||
+                                    $status == 'qualified' ||
+                                    $status == 'email-sent' ||
+                                    $status == 'email-not-sent'
+                                ){
+                                    // Check if you are in the confirmation phase.
+                                    if(
+                                        strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
+                                        strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
+                                    ){
+                                        
+                                    } else {
+                                        // Confirmation period dates.
+                                        $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
+                                        $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
+                                    
+                                        // Return the expired schedule message.
+                                        $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
+                                        
+                                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
+                                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
+                                        
+                                        $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
+
+                                        Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+                                        $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+
+                                        return $page;
+                                    }
+                                } else {
+                                    if(
+                                        strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
+                                        strtotime( $today ) <= strtotime( $date.' - 1 day' )
+                                    ){
+                                        
+                                    } else {
+                                        $page = Templates::change_variable( $page, '[[error-info]]', 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION' );
+
+                                        Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+                                        $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+
+                                        return $page;
+                                    }
+                                }
+
+                                // Make the schedule_confirmation.
+                                $return = $this->schedule_confirm( array(
+                                    'id_schedules' => $id_schedules,
+                                    'user_id' => $user_id,
+                                    'date' => $date,
+                                ) );
+                                
+                                if( ! $return['completed'] ){
+                                    $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
+
+                                    Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+
+                                    return $page;
+                                } else {
+                                    // Alert the user of change success.
+                                    $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
+
+                                    $_MANAGER['javascript-vars']['successInfo'] = true;
+                                }
+                            }
+                        } else {
+                            // Incluir o token no formulário.
+                            $page = Templates::change_variable_all( $page, '[[token]]', $_REQUEST['token'] );
+                            $page = Templates::change_variable_all( $page, '[[pubID]]', $pubIDSent );
+
+                            // Cancellation activation.
+                            $_MANAGER['javascript-vars']['cancel'] = true;
+                        }
+                    } else {
+                        // Activation of expiredOrNotFound.
+                        $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                    }
+                } else {
+                    // Activation of expiredOrNotFound.
+                    $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                }
+            } else {
+                // Activation of expiredOrNotFound.
+                $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+            }
+
+            Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
             return $page;
         }

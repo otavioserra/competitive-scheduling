@@ -56,9 +56,21 @@ jQuery( document ).ready( function(){
 	}
 
 	function expiredOrNotFound(){
-		// Show the public expired or not found screen0.
+		// Show the public expired or not found.
 		
 		jQuery( '.expiredOrNotFound' ).show();
+	}
+
+	function errorInfo(){
+		// Show the public error info.
+		
+		jQuery( '.errorInfo' ).show();
+	}
+
+	function successInfo(){
+		// Show the public success info.
+		
+		jQuery( '.successInfo' ).show();
 	}
 	
 	function start(){
@@ -67,6 +79,8 @@ jQuery( document ).ready( function(){
 		if( 'confirm' in cs_manager ){ confirmPublic(); }
 		if( 'cancel' in cs_manager ){ cancelPublic(); }
 		if( 'expiredOrNotFound' in cs_manager ){ expiredOrNotFound(); }
+		if( 'errorInfo' in cs_manager ){ errorInfo(); }
+		if( 'successInfo' in cs_manager ){ successInfo(); }
 	}
 	
 	start();
