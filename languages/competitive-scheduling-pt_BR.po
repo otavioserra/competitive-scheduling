@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Competitive Schedulling Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2024-06-11 10:40-0300\n"
+"POT-Creation-Date: 2024-06-12 15:51-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Otávio <otavio@b2make.com>\n"
@@ -47,8 +47,8 @@ msgid "Competitive Scheduling Options"
 msgstr "Opções de Agendamento Concorrencial"
 
 #: competitive-scheduling.php:153
-#: views/competitive-scheduling_shortecode.php:154
-#: views/competitive-scheduling_shortecode.php:228
+#: views/competitive-scheduling_shortecode.php:155
+#: views/competitive-scheduling_shortecode.php:229
 msgid "Options"
 msgstr "Opções"
 
@@ -128,18 +128,18 @@ msgid "Are you sure you want to delete this item?"
 msgstr "Tem certeza de que deseja excluir este item?"
 
 #: includes/class.interfaces.php:213 includes/class.interfaces.php:219
-#: views/competitive-scheduling-public.php:21
-#: views/competitive-scheduling-public.php:56
-#: views/competitive-scheduling_shortecode.php:159
-#: views/competitive-scheduling_shortecode.php:233
-#: views/competitive-scheduling_shortecode.php:346
-#: views/competitive-scheduling_shortecode.php:386
+#: views/competitive-scheduling-public.php:22
+#: views/competitive-scheduling-public.php:57
+#: views/competitive-scheduling_shortecode.php:160
+#: views/competitive-scheduling_shortecode.php:234
+#: views/competitive-scheduling_shortecode.php:347
+#: views/competitive-scheduling_shortecode.php:387
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: includes/class.interfaces.php:214 views/competitive-scheduling-public.php:25
-#: views/competitive-scheduling_shortecode.php:163
-#: views/competitive-scheduling_shortecode.php:350
+#: includes/class.interfaces.php:214 views/competitive-scheduling-public.php:26
+#: views/competitive-scheduling_shortecode.php:164
+#: views/competitive-scheduling_shortecode.php:351
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -169,8 +169,8 @@ msgid "Iframe"
 msgstr "Iframe"
 
 #: includes/class.interfaces.php:220
-#: views/competitive-scheduling_shortecode.php:108
-#: views/competitive-scheduling_shortecode.php:184
+#: views/competitive-scheduling_shortecode.php:109
+#: views/competitive-scheduling_shortecode.php:185
 msgid "Information"
 msgstr "Informação"
 
@@ -195,12 +195,12 @@ msgid "schedules-public"
 msgstr "agendamentos-publico"
 
 #: pages/class.admin-page.php:73
-#: shortcodes/class.competitive-scheduling-shortcode.php:86
+#: shortcodes/class.competitive-scheduling-shortcode.php:174
 msgid "User is not logged in"
 msgstr "Usuário não está logado"
 
 #: pages/class.admin-page.php:89
-#: shortcodes/class.competitive-scheduling-shortcode.php:102
+#: shortcodes/class.competitive-scheduling-shortcode.php:190
 msgid ""
 "The system did not validate the nonce sent. Please try again or seek help "
 "from support."
@@ -212,31 +212,31 @@ msgstr ""
 #: settings/class.competitive-scheduling-settings.php:158
 #: settings/class.competitive-scheduling-settings.php:225
 #: settings/class.competitive-scheduling-settings.php:289
-#: shortcodes/class.competitive-scheduling-shortcode.php:158
-#: shortcodes/class.competitive-scheduling-shortcode.php:635
-#: shortcodes/class.competitive-scheduling-shortcode.php:2168
+#: shortcodes/class.competitive-scheduling-shortcode.php:246
+#: shortcodes/class.competitive-scheduling-shortcode.php:727
+#: shortcodes/class.competitive-scheduling-shortcode.php:2328
 #: views/competitive-scheduling-admin-page.php:101
 msgid "Companion"
 msgstr "Acompanhante"
 
 #: pages/class.admin-page.php:504
 #: views/competitive-scheduling-admin-page.php:126
-#: views/competitive-scheduling_shortecode.php:180
+#: views/competitive-scheduling_shortecode.php:181
 msgid "Confirmed Schedules"
 msgstr "Agendamentos Confirmados"
 
-#: pages/class.competitive-scheduling-public.php:1408
-#: shortcodes/class.competitive-scheduling-shortcode.php:2151
+#: pages/class.competitive-scheduling-public.php:1290
+#: shortcodes/class.competitive-scheduling-shortcode.php:2311
 msgid "<span class=\"ui green label\">Confirmed</span>"
 msgstr "<span class=\"ui green label\">Confirmado</span>"
 
-#: pages/class.competitive-scheduling-public.php:1409
-#: shortcodes/class.competitive-scheduling-shortcode.php:2152
+#: pages/class.competitive-scheduling-public.php:1291
+#: shortcodes/class.competitive-scheduling-shortcode.php:2312
 msgid "<span class=\"ui grey label\">Finished</span>"
 msgstr "<span class=\"ui grey label\">Finalizado</span>"
 
-#: pages/class.competitive-scheduling-public.php:1410
-#: shortcodes/class.competitive-scheduling-shortcode.php:2154
+#: pages/class.competitive-scheduling-public.php:1292
+#: shortcodes/class.competitive-scheduling-shortcode.php:2314
 msgid ""
 "<span class=\"ui brown label\">Not Drawn - Waiting for Residual Vacancies</"
 "span>"
@@ -244,36 +244,36 @@ msgstr ""
 "<span class=\"ui brown label\">Não Sorteado - Aguardando Vagas Residuais</"
 "span>"
 
-#: pages/class.competitive-scheduling-public.php:1411
-#: shortcodes/class.competitive-scheduling-shortcode.php:2155
+#: pages/class.competitive-scheduling-public.php:1293
+#: shortcodes/class.competitive-scheduling-shortcode.php:2315
 msgid "<span class=\"ui grey label\">Waiting For Draw</span>"
 msgstr "<span class=\"ui grey label\">Aguardando Sorteio</span>"
 
-#: pages/class.competitive-scheduling-public.php:1412
-#: shortcodes/class.competitive-scheduling-shortcode.php:2156
+#: pages/class.competitive-scheduling-public.php:1294
+#: shortcodes/class.competitive-scheduling-shortcode.php:2316
 msgid "<span class=\"ui yellow label\">Drawn - Awaiting Confirmation</span>"
 msgstr ""
 "<span class=\"ui yellow label\">Sorteado - Aguardando Confirmação</span>"
 
-#: pages/class.competitive-scheduling-public.php:1413
-#: shortcodes/class.competitive-scheduling-shortcode.php:2157
+#: pages/class.competitive-scheduling-public.php:1295
+#: shortcodes/class.competitive-scheduling-shortcode.php:2317
 msgid "<span class=\"ui brown label\">No Residual Vacancies</span>"
 msgstr "<span class=\"ui brown label\">Sem Vagas Residuais</span>"
 
-#: pages/class.competitive-scheduling-public.php:1414
-#: shortcodes/class.competitive-scheduling-shortcode.php:2158
+#: pages/class.competitive-scheduling-public.php:1296
+#: shortcodes/class.competitive-scheduling-shortcode.php:2318
 msgid "<span class=\"ui teal label\">Available Residual Vacancies</span>"
 msgstr "<span class=\"ui teal label\">Vagas Residuais Disponíveis</span>"
 
-#: pages/class.competitive-scheduling-public.php:1417
-#: shortcodes/class.competitive-scheduling-shortcode.php:2161
+#: pages/class.competitive-scheduling-public.php:1299
+#: shortcodes/class.competitive-scheduling-shortcode.php:2321
 msgid "<span class=\"ui grey label\">Undefined Status</span>"
 msgstr "<span class=\"ui grey label\">Status Indefinido</span>"
 
 #: post-types/class.competitive-scheduling-priority-coupon-cpt.php:23
 #: post-types/class.competitive-scheduling-priority-coupon-cpt.php:27
 #: settings/class.competitive-scheduling-settings.php:341
-#: views/competitive-scheduling_shortecode.php:91
+#: views/competitive-scheduling_shortecode.php:92
 msgid "Priority Coupon"
 msgstr "Cupom de Prioridade"
 
@@ -373,20 +373,20 @@ msgstr "Dia"
 #: settings/class.competitive-scheduling-settings.php:286
 #: views/competitive-scheduling-admin-page.php:88
 #: views/competitive-scheduling-admin-page.php:147
-#: views/competitive-scheduling_shortecode.php:205
+#: views/competitive-scheduling_shortecode.php:206
 msgid "Password"
 msgstr "Senha"
 
 #: settings/class.competitive-scheduling-settings.php:156
 #: settings/class.competitive-scheduling-settings.php:223
 #: settings/class.competitive-scheduling-settings.php:287
-#: shortcodes/class.competitive-scheduling-shortcode.php:136
+#: shortcodes/class.competitive-scheduling-shortcode.php:224
 msgid "Scheduled People"
 msgstr "Pessoas Agendadas"
 
 #: settings/class.competitive-scheduling-settings.php:157
 #: settings/class.competitive-scheduling-settings.php:224
-#: shortcodes/class.competitive-scheduling-shortcode.php:137
+#: shortcodes/class.competitive-scheduling-shortcode.php:225
 msgid "Your name"
 msgstr "Seu nome"
 
@@ -1272,39 +1272,44 @@ msgstr ""
 "todas as configurações sejam redefinidas para os valores padrão. Importante: "
 "todos os valores anteriores serão excluídos."
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:255
+#: shortcodes/class.competitive-scheduling-shortcode.php:347
 msgid "Undefined Status"
 msgstr "Status Indefinido"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:594
+#: shortcodes/class.competitive-scheduling-shortcode.php:686
 msgid "Scheduling Data"
 msgstr "Data de Agendamento"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:620
+#: shortcodes/class.competitive-scheduling-shortcode.php:712
 msgid "It is mandatory to choose a date before submitting."
 msgstr "É obrigatório escolher uma data antes de enviar."
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2153
+#: shortcodes/class.competitive-scheduling-shortcode.php:2313
 msgid "<span class=\"ui red label\">Canceled</span>"
 msgstr "<span class=\"ui red label\">Cancelado</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2169
+#: shortcodes/class.competitive-scheduling-shortcode.php:2329
 msgid "Companion's full name"
 msgstr "Nome completo do acompanhante"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2170
+#: shortcodes/class.competitive-scheduling-shortcode.php:2330
 msgid "Are you sure you want to delete this schedule?"
 msgstr "Tem certeza de que deseja excluir este agendamento?"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2171
+#: shortcodes/class.competitive-scheduling-shortcode.php:2331
 msgid "Are you sure you want to confirm this schedule?"
 msgstr "Tem certeza de que deseja confirmar este agendamento?"
 
+#: shortcodes/class.competitive-scheduling-shortcode.php:2332
+msgid "Date not selected! It is mandatory to select a date to continue!"
+msgstr ""
+"Data não Selecionada! É obrigatório selecionar uma data para continuar!"
+
 #: views/competitive-scheduling-admin-page.php:20
-#: views/competitive-scheduling-public.php:11
-#: views/competitive-scheduling-public.php:46
-#: views/competitive-scheduling_shortecode.php:330
-#: views/competitive-scheduling_shortecode.php:370
+#: views/competitive-scheduling-public.php:12
+#: views/competitive-scheduling-public.php:47
+#: views/competitive-scheduling_shortecode.php:331
+#: views/competitive-scheduling_shortecode.php:371
 msgid "Instructions"
 msgstr "Instruções"
 
@@ -1354,7 +1359,7 @@ msgid "Create Schedules"
 msgstr "Criar Agendamentos"
 
 #: views/competitive-scheduling-admin-page.php:89
-#: views/competitive-scheduling_shortecode.php:75
+#: views/competitive-scheduling_shortecode.php:76
 msgid "Companions"
 msgstr "Acompanhantes"
 
@@ -1374,13 +1379,13 @@ msgstr "Não Enviado"
 msgid "Visa"
 msgstr "Visto"
 
-#: views/competitive-scheduling-public.php:6
-#: views/competitive-scheduling_shortecode.php:325
+#: views/competitive-scheduling-public.php:7
+#: views/competitive-scheduling_shortecode.php:326
 msgid "Confirm Schedule"
 msgstr "Confirmar Agendamento"
 
-#: views/competitive-scheduling-public.php:13
-#: views/competitive-scheduling_shortecode.php:332
+#: views/competitive-scheduling-public.php:14
+#: views/competitive-scheduling_shortecode.php:333
 msgid ""
 "Are you sure you want to confirm this schedule? If yes, click on the "
 "<b>CONFIRM</b> button, otherwise click on the <b>CANCEL</b> button."
@@ -1388,33 +1393,32 @@ msgstr ""
 "Tem certeza de que deseja confirmar este agendamento? Se sim, clique no "
 "botão <b>CONFIRMAR</b>, caso contrário, clique no botão <b>CANCELAR</b>."
 
-#: views/competitive-scheduling-public.php:19
-#: views/competitive-scheduling-public.php:54
-#: views/competitive-scheduling_shortecode.php:157
-#: views/competitive-scheduling_shortecode.php:231
-#: views/competitive-scheduling_shortecode.php:344
-#: views/competitive-scheduling_shortecode.php:384
+#: views/competitive-scheduling-public.php:20
+#: views/competitive-scheduling_shortecode.php:158
+#: views/competitive-scheduling_shortecode.php:232
+#: views/competitive-scheduling_shortecode.php:345
+#: views/competitive-scheduling_shortecode.php:385
 msgid "Click to Cancel Schedule"
 msgstr "Clique para Cancelar o Agendamento"
 
-#: views/competitive-scheduling-public.php:23
-#: views/competitive-scheduling_shortecode.php:161
-#: views/competitive-scheduling_shortecode.php:348
+#: views/competitive-scheduling-public.php:24
+#: views/competitive-scheduling_shortecode.php:162
+#: views/competitive-scheduling_shortecode.php:349
 msgid "Click to Confirm Schedule"
 msgstr "Clique para Confirmar o Agendamento"
 
-#: views/competitive-scheduling-public.php:37
+#: views/competitive-scheduling-public.php:38
 msgid ""
 "Important: it is not possible to cancel the cancellation of this appointment!"
 msgstr "Importante: não é possível cancelar o cancelamento deste agendamento!"
 
-#: views/competitive-scheduling-public.php:41
-#: views/competitive-scheduling_shortecode.php:365
+#: views/competitive-scheduling-public.php:42
+#: views/competitive-scheduling_shortecode.php:366
 msgid "Cancel Schedule"
 msgstr "Cancelar Agendamento"
 
-#: views/competitive-scheduling-public.php:48
-#: views/competitive-scheduling_shortecode.php:372
+#: views/competitive-scheduling-public.php:49
+#: views/competitive-scheduling_shortecode.php:373
 msgid ""
 "Are you sure you want to cancel this schedule? If yes, click the <b>CANCEL</"
 "b> button."
@@ -1422,35 +1426,35 @@ msgstr ""
 "Tem certeza de que deseja cancelar este agendamento? Se sim, clique no botão "
 "<b>CANCELAR</b>."
 
-#: views/competitive-scheduling-public.php:68
-#: views/competitive-scheduling_shortecode.php:361
-#: views/competitive-scheduling_shortecode.php:396
+#: views/competitive-scheduling-public.php:69
+#: views/competitive-scheduling_shortecode.php:362
+#: views/competitive-scheduling_shortecode.php:397
 msgid ""
 "Important: it is not possible to cancel the cancellation of this schedule!"
 msgstr "Importante: não é possível cancelar o cancelamento deste agendamento!"
 
-#: views/competitive-scheduling-public.php:72
-#: views/competitive-scheduling_shortecode.php:400
+#: views/competitive-scheduling-public.php:73
+#: views/competitive-scheduling_shortecode.php:401
 msgid "Schedule Change"
 msgstr "Alterar Agendamento"
 
-#: views/competitive-scheduling-public.php:77
-#: views/competitive-scheduling_shortecode.php:405
+#: views/competitive-scheduling-public.php:78
+#: views/competitive-scheduling_shortecode.php:406
 msgid "Validation Code Not Found"
 msgstr "Código de Validação Não Encontrado"
 
-#: views/competitive-scheduling-public.php:79
-#: views/competitive-scheduling_shortecode.php:407
+#: views/competitive-scheduling-public.php:80
+#: views/competitive-scheduling_shortecode.php:408
 msgid "The validation code for changing your schedule was not found!"
 msgstr ""
 "O código de validação para alteração do seu agendamento não foi encontrado!"
 
-#: views/competitive-scheduling-public.php:80
+#: views/competitive-scheduling-public.php:81
 msgid "Possible Reasons"
 msgstr "Razões Possíveis"
 
-#: views/competitive-scheduling-public.php:82
-#: views/competitive-scheduling_shortecode.php:410
+#: views/competitive-scheduling-public.php:83
+#: views/competitive-scheduling_shortecode.php:411
 msgid ""
 "The validation code has already been used in another attempt to change the "
 "schedule."
@@ -1458,22 +1462,22 @@ msgstr ""
 "O código de validação já foi utilizado em outra tentativa de alteração do "
 "agendamento."
 
-#: views/competitive-scheduling-public.php:83
-#: views/competitive-scheduling_shortecode.php:411
+#: views/competitive-scheduling-public.php:84
+#: views/competitive-scheduling_shortecode.php:412
 msgid "The deadline for changing the schedule has been reached."
 msgstr "O prazo para alteração do agendamento foi atingido."
 
-#: views/competitive-scheduling-public.php:84
-#: views/competitive-scheduling_shortecode.php:412
+#: views/competitive-scheduling-public.php:85
+#: views/competitive-scheduling_shortecode.php:413
 msgid "The code sent is invalid."
 msgstr "O código enviado é inválido."
 
-#: views/competitive-scheduling-public.php:86
+#: views/competitive-scheduling-public.php:87
 msgid "For more information visit our website"
 msgstr "Para mais informações visite nosso site"
 
-#: views/competitive-scheduling-public.php:86
-#: views/competitive-scheduling_shortecode.php:414
+#: views/competitive-scheduling-public.php:87
+#: views/competitive-scheduling_shortecode.php:415
 msgid "here"
 msgstr "aqui"
 
@@ -1481,31 +1485,31 @@ msgstr "aqui"
 msgid "Print Coupons"
 msgstr "Imprimir Cupons de Prioridade"
 
-#: views/competitive-scheduling_shortecode.php:5
+#: views/competitive-scheduling_shortecode.php:6
 msgid "Inactive Schedule"
 msgstr "Agendamento Inativo"
 
-#: views/competitive-scheduling_shortecode.php:9
+#: views/competitive-scheduling_shortecode.php:10
 msgid "Click to create a new schedule"
 msgstr "Clique para criar um novo agendamento"
 
-#: views/competitive-scheduling_shortecode.php:11
+#: views/competitive-scheduling_shortecode.php:12
 msgid "Schedule Service"
 msgstr "Agendar Atendimento"
 
-#: views/competitive-scheduling_shortecode.php:13
+#: views/competitive-scheduling_shortecode.php:14
 msgid "Click to view previous schedules"
 msgstr "Clique para ver os agendamentos anteriores"
 
-#: views/competitive-scheduling_shortecode.php:15
+#: views/competitive-scheduling_shortecode.php:16
 msgid "Previous Schedules"
 msgstr "Agendamentos Anteriores"
 
-#: views/competitive-scheduling_shortecode.php:21
+#: views/competitive-scheduling_shortecode.php:22
 msgid "Scheduling Process"
 msgstr "Processo de Agendamento"
 
-#: views/competitive-scheduling_shortecode.php:23
+#: views/competitive-scheduling_shortecode.php:24
 msgid ""
 "Below you will find general information about the 4 phases of the scheduling "
 "process. After that, just below, is the calendar with all the dates "
@@ -1520,35 +1524,35 @@ msgstr ""
 "forma, se você tiver um cupom prioritário, insira-o também no campo "
 "designado."
 
-#: views/competitive-scheduling_shortecode.php:29
+#: views/competitive-scheduling_shortecode.php:30
 msgid "Registration"
 msgstr "Cadastro"
 
-#: views/competitive-scheduling_shortecode.php:30
+#: views/competitive-scheduling_shortecode.php:31
 msgid "Registration period to participate in a schedule."
 msgstr "Período de inscrição para participar de um agendamento."
 
-#: views/competitive-scheduling_shortecode.php:36
+#: views/competitive-scheduling_shortecode.php:37
 msgid "Waiting Draw"
 msgstr "Aguardando Sorteio"
 
-#: views/competitive-scheduling_shortecode.php:37
+#: views/competitive-scheduling_shortecode.php:38
 msgid "Waiting for scheduling slot draw."
 msgstr "Aguardando agendamento de sorteio de vagas."
 
-#: views/competitive-scheduling_shortecode.php:43
+#: views/competitive-scheduling_shortecode.php:44
 msgid "Draw and Confirmation"
 msgstr "Sorteio e Confirmação"
 
-#: views/competitive-scheduling_shortecode.php:44
+#: views/competitive-scheduling_shortecode.php:45
 msgid "A confirmation email will be sent if you are drawn."
 msgstr "Um e-mail de confirmação será enviado caso você seja sorteado."
 
-#: views/competitive-scheduling_shortecode.php:50
+#: views/competitive-scheduling_shortecode.php:51
 msgid "Utilization"
 msgstr "Utilização"
 
-#: views/competitive-scheduling_shortecode.php:51
+#: views/competitive-scheduling_shortecode.php:52
 msgid ""
 "On the day of service, use your password sent after confirmation and go to "
 "the establishment."
@@ -1556,11 +1560,11 @@ msgstr ""
 "No dia do atendimento, utilize sua senha enviada após confirmação e dirija-"
 "se ao estabelecimento."
 
-#: views/competitive-scheduling_shortecode.php:57
+#: views/competitive-scheduling_shortecode.php:58
 msgid "Schedule Registration Service"
 msgstr "Agendamento de Atendimento"
 
-#: views/competitive-scheduling_shortecode.php:59
+#: views/competitive-scheduling_shortecode.php:60
 msgid ""
 "Choose an available date below. As well as if you have any companion(s), "
 "choose the number and fill in the name of each one. Additionally, "
@@ -1572,28 +1576,28 @@ msgstr ""
 "opcionalmente, se você tiver um cupom de prioridade, insira-o abaixo. Por "
 "fim, clique no botão ENVIAR para criar um novo agendamento."
 
-#: views/competitive-scheduling_shortecode.php:64
+#: views/competitive-scheduling_shortecode.php:65
 msgid "Choose the Date"
 msgstr "Escolha a Data"
 
-#: views/competitive-scheduling_shortecode.php:97
+#: views/competitive-scheduling_shortecode.php:98
 msgid "Click this button to SAVE the changes."
 msgstr "Clique neste botão para SALVAR as alterações."
 
-#: views/competitive-scheduling_shortecode.php:97
+#: views/competitive-scheduling_shortecode.php:98
 msgid "Send"
 msgstr "Enviar"
 
-#: views/competitive-scheduling_shortecode.php:104
+#: views/competitive-scheduling_shortecode.php:105
 msgid "Pre-schedules"
 msgstr "Pré-agendamentos"
 
-#: views/competitive-scheduling_shortecode.php:107
-#: views/competitive-scheduling_shortecode.php:183
+#: views/competitive-scheduling_shortecode.php:108
+#: views/competitive-scheduling_shortecode.php:184
 msgid "Listing"
 msgstr "Listagem"
 
-#: views/competitive-scheduling_shortecode.php:114
+#: views/competitive-scheduling_shortecode.php:115
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 1:</span> Pre-schedules ARE NOT "
 "confirmed schedules. They will be drawn through the system <span class=\"ui "
@@ -1624,7 +1628,7 @@ msgstr ""
 "vagas serão liberadas para serem novamente escolhidas por outras pessoas via "
 "sistema."
 
-#: views/competitive-scheduling_shortecode.php:115
+#: views/competitive-scheduling_shortecode.php:116
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 2:</span> If there are more pre-"
 "schedules than there are service spaces, the system will automatically carry "
@@ -1640,7 +1644,7 @@ msgstr ""
 "Portanto, se você não receber um e-mail de confirmação é porque não foi "
 "selecionado para participar do atendimento."
 
-#: views/competitive-scheduling_shortecode.php:116
+#: views/competitive-scheduling_shortecode.php:117
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 3:</span> After the day <span "
 "class=\"ui blue text\">#date_confirmation_2#</span> the scheduling system "
@@ -1656,65 +1660,65 @@ msgstr ""
 "Nesta fase as vagas não estão garantidas e podem ser escolhidas por qualquer "
 "pessoa que acesse o sistema."
 
-#: views/competitive-scheduling_shortecode.php:123
-#: views/competitive-scheduling_shortecode.php:197
-#: views/competitive-scheduling_shortecode.php:256
+#: views/competitive-scheduling_shortecode.php:124
+#: views/competitive-scheduling_shortecode.php:198
+#: views/competitive-scheduling_shortecode.php:257
 msgid "Service Date:"
 msgstr "Data do Atendimento:"
 
-#: views/competitive-scheduling_shortecode.php:127
-#: views/competitive-scheduling_shortecode.php:201
-#: views/competitive-scheduling_shortecode.php:260
+#: views/competitive-scheduling_shortecode.php:128
+#: views/competitive-scheduling_shortecode.php:202
+#: views/competitive-scheduling_shortecode.php:261
 msgid "Current state"
 msgstr "Estado Atual"
 
-#: views/competitive-scheduling_shortecode.php:131
+#: views/competitive-scheduling_shortecode.php:132
 msgid "Next Update"
 msgstr "Próxima Atualização"
 
-#: views/competitive-scheduling_shortecode.php:135
-#: views/competitive-scheduling_shortecode.php:209
-#: views/competitive-scheduling_shortecode.php:264
+#: views/competitive-scheduling_shortecode.php:136
+#: views/competitive-scheduling_shortecode.php:210
+#: views/competitive-scheduling_shortecode.php:265
 msgid "Modification Date"
 msgstr "Data de Modificação"
 
-#: views/competitive-scheduling_shortecode.php:139
-#: views/competitive-scheduling_shortecode.php:213
-#: views/competitive-scheduling_shortecode.php:268
+#: views/competitive-scheduling_shortecode.php:140
+#: views/competitive-scheduling_shortecode.php:214
+#: views/competitive-scheduling_shortecode.php:269
 msgid "Qty. People"
 msgstr "Qtd. Pessoas"
 
-#: views/competitive-scheduling_shortecode.php:143
-#: views/competitive-scheduling_shortecode.php:217
-#: views/competitive-scheduling_shortecode.php:272
+#: views/competitive-scheduling_shortecode.php:144
+#: views/competitive-scheduling_shortecode.php:218
+#: views/competitive-scheduling_shortecode.php:273
 msgid "People"
 msgstr "Pessoas"
 
-#: views/competitive-scheduling_shortecode.php:146
-#: views/competitive-scheduling_shortecode.php:220
-#: views/competitive-scheduling_shortecode.php:275
+#: views/competitive-scheduling_shortecode.php:147
+#: views/competitive-scheduling_shortecode.php:221
+#: views/competitive-scheduling_shortecode.php:276
 msgid "Click to View Scheduling Data"
 msgstr "Clique para Visualizar Dados do Agendamento"
 
-#: views/competitive-scheduling_shortecode.php:148
-#: views/competitive-scheduling_shortecode.php:222
-#: views/competitive-scheduling_shortecode.php:277
+#: views/competitive-scheduling_shortecode.php:149
+#: views/competitive-scheduling_shortecode.php:223
+#: views/competitive-scheduling_shortecode.php:278
 msgid "View"
 msgstr "Visualizar"
 
-#: views/competitive-scheduling_shortecode.php:174
-#: views/competitive-scheduling_shortecode.php:244
-#: views/competitive-scheduling_shortecode.php:288
+#: views/competitive-scheduling_shortecode.php:175
+#: views/competitive-scheduling_shortecode.php:245
+#: views/competitive-scheduling_shortecode.php:289
 msgid "Click this button to load more records."
 msgstr "Clique neste botão para carregar mais registros."
 
-#: views/competitive-scheduling_shortecode.php:176
-#: views/competitive-scheduling_shortecode.php:246
-#: views/competitive-scheduling_shortecode.php:290
+#: views/competitive-scheduling_shortecode.php:177
+#: views/competitive-scheduling_shortecode.php:247
+#: views/competitive-scheduling_shortecode.php:291
 msgid "Load More"
 msgstr "Carregar Mais"
 
-#: views/competitive-scheduling_shortecode.php:190
+#: views/competitive-scheduling_shortecode.php:191
 msgid ""
 "<span class=\"ui red text\">IMPORTANT 1:</span> It is mandatory to present "
 "the name and password provided below for you and your companions on the day "
@@ -1724,28 +1728,28 @@ msgstr ""
 "nome e senha fornecidos abaixo para você e seus acompanhantes no dia do "
 "agendamento."
 
-#: views/competitive-scheduling_shortecode.php:250
+#: views/competitive-scheduling_shortecode.php:251
 msgid "Old Schedules"
 msgstr "Agendamentos Antigos"
 
-#: views/competitive-scheduling_shortecode.php:316
+#: views/competitive-scheduling_shortecode.php:317
 msgid "No Records"
 msgstr "Sem Registros"
 
-#: views/competitive-scheduling_shortecode.php:318
+#: views/competitive-scheduling_shortecode.php:319
 msgid "There are no registered schedules of this type."
 msgstr "Não há agendamentos cadastrados deste tipo."
 
-#: views/competitive-scheduling_shortecode.php:338
-#: views/competitive-scheduling_shortecode.php:378
+#: views/competitive-scheduling_shortecode.php:339
+#: views/competitive-scheduling_shortecode.php:379
 msgid "Schedule Date:"
 msgstr "Agendamento Data:"
 
-#: views/competitive-scheduling_shortecode.php:408
+#: views/competitive-scheduling_shortecode.php:409
 msgid "Possible reasons:"
 msgstr "Razões possíveis:"
 
-#: views/competitive-scheduling_shortecode.php:414
+#: views/competitive-scheduling_shortecode.php:415
 msgid "Access your schedules by clicking"
 msgstr "Acesse seus agendamentos clicando"
 
