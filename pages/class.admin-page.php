@@ -29,6 +29,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				if( CS_DEBUG ){
 					require_once CS_PATH . 'includes/class.cron.php';
 					Cron::tests();
+					echo 'Current Page: '.get_permalink();;
 					exit;
 				}
 			}
