@@ -32,7 +32,6 @@ if( ! class_exists( 'Database' ) ){
                             `password` VARCHAR(100) NULL,
                             `status` VARCHAR(100) NULL,
                             `pubID` VARCHAR(255) NULL,
-                            `token` TEXT NULL,
                             `version` INT NULL,
                             `date_creation` DATETIME NULL,
                             `modification_date` DATETIME NULL,

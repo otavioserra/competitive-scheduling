@@ -789,9 +789,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $query = $wpdb->prepare(
                         "SELECT user_id, id_schedules, date 
                         FROM {$wpdb->prefix}schedules 
-                        WHERE token = '%s' 
-                        AND pubID = '%s'",
-                        array( $token.'=', $pubID )
+                        WHERE pubID = '%s'",
+                        array( $pubID )
                     );
                     $schedules = $wpdb->get_results( $query );
 
@@ -872,13 +871,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $query = $wpdb->prepare(
                         "SELECT user_id, id_schedules, date, status 
                         FROM {$wpdb->prefix}schedules 
-                        WHERE token = '%s' 
-                        AND pubID = '%s'",
-                        array( $token, $pubID )
+                        WHERE pubID = '%s'",
+                        array( $pubID )
                     );
                     $schedules = $wpdb->get_results( $query );
-
-                    echo 'Mensagem: schedules' . ( print_r( $schedules, true ) ) . '<br>'; exit;
 
                     if( ! empty( $schedules ) ){
                         if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
@@ -1297,13 +1293,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 password = '%s',
                                 status = 'confirmed',
                                 pubID = '%s',
-                                token = '%s',
                                 version = version + 1,
                                 modification_date = '%s' 
                             WHERE 
                                 id_schedules = '%s' AND 
                                 user_id = '%s'",
-                            array( $companions, $password, $pubID, $token, current_time('mysql', false), $id_schedules, $user_id )
+                            array( $companions, $password, $pubID, current_time('mysql', false), $id_schedules, $user_id )
                         );
                         $wpdb->query($sql);
                     } else {
@@ -1316,7 +1311,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'password' => $password,
                             'status' => 'confirmed',
                             'pubID' => $pubID,
-                            'token' => $token,
                             'version' => '1',
                             'date_creation' => current_time('mysql', false),
                             'modification_date' => current_time('mysql', false),
@@ -1472,13 +1466,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 password = '%s',
                                 status = 'new',
                                 pubID = '%s',
-                                token = '%s',
                                 version = version + 1,
                                 modification_date = '%s' 
                             WHERE 
                                 id_schedules = '%s' AND 
                                 user_id = '%s'",
-                            array( $companions, $password, $pubID, $token, current_time('mysql', false), $id_schedules, $user_id )
+                            array( $companions, $password, $pubID, current_time('mysql', false), $id_schedules, $user_id )
                         );
                         $wpdb->query($sql);
                     } else {
@@ -1491,7 +1484,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'password' => $password,
                             'status' => 'new',
                             'pubID' => $pubID,
-                            'token' => $token,
                             'version' => '1',
                             'date_creation' => current_time('mysql', false),
                             'modification_date' => current_time('mysql', false),
@@ -1759,7 +1751,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
-            // Include the token in the form.
+            // Change the scheduling date and id.
             $page = Templates::change_variable( $page, '[[confirmation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
             $page = Templates::change_variable( $page, '[[confirmation-scheduling-id]]', $id_schedules );
 
@@ -1840,7 +1832,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
             
-            // Include the token in the form.
+            // Change the scheduling date and id.
             $page = Templates::change_variable( $page, '[[cancellation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
             $page = Templates::change_variable( $page, '[[cancellation-scheduling-id]]', $id_schedules );
 
@@ -1874,7 +1866,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Get scheduling data.
             global $wpdb;
             $query = $wpdb->prepare(
-                "SELECT companions, pubID, status, password  
+                "SELECT companions, pubID, status, password, pubID  
                 FROM {$wpdb->prefix}schedules 
                 WHERE id_schedules = '%s' 
                 AND user_id = '%s'",
@@ -1886,6 +1878,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $companions = (int)$schedules->companions;
             $status = $schedules->status;
             $password = $schedules->password;
+            $pubID = $schedules->pubID;
             
             // Get the companions’ details.
             global $wpdb;
@@ -1907,10 +1900,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             // Generate the validation token.
             require_once( CS_PATH . 'includes/class.authentication.php' );
         
-            $auth = Authentication::generate_token_validation();
+            $auth = Authentication::generate_token_validation( array( 
+                'pubID' => $pubID,
+            ) );
 
             $token = $auth['token'];
-            $pubID = $auth['pubID'];
             
             // Check if it has already been confirmed. If it has been confirmed, just alert and send an email to the user. Otherwise, carry out the confirmation procedure.
             if( $status != 'confirmed' ){
