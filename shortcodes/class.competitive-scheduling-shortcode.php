@@ -866,8 +866,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $pubID = Authentication::validate_token_validation( array( 'token' => $token ) );
             $pubIDSent = ( ! empty( $_REQUEST['pubID'] ) ? $_REQUEST['pubID'] : '' );
 
-            echo 'token: ' . $token . ' - pubID: ' . $pubID . ' - pubIDSent: ' . $pubIDSent . '<br>'; exit;
-
             if( ! empty( $pubID ) ){
                 if( $pubID == $pubIDSent ){
                     global $wpdb;
@@ -879,6 +877,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         array( $token.'=', $pubID )
                     );
                     $schedules = $wpdb->get_results( $query );
+
+                    echo 'token: ' . $token . ' - pubID: ' . $pubID . ' - pubIDSent: ' . $pubIDSent . '<br>'; exit;
 
                     if( ! empty( $schedules ) ){
                         if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
