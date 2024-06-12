@@ -394,7 +394,6 @@ jQuery( document ).ready( function(){
 				if( ! ('loading' in manager ) ){
 					jQuery('.page.dimmer').dimmer({
 						closable: false,
-						dimmerName:'pageLoading'
 					});
 					
 					manager.loading = true;
@@ -415,7 +414,10 @@ jQuery( document ).ready( function(){
 		
 		jQuery('.ui.modal.informative').modal({
 			dimmerSettings:{
-				dimmerName:'modalLoading' //className, NOT id (!)
+				dimmerName:'pageLoading' //className, NOT id (!)
+			},
+			onHide:function(){
+				loading( 'close' );
 			}
 		}).modal('show');
 	}
