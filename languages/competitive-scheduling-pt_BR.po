@@ -524,7 +524,7 @@ msgstr "Sucesso no Cancelamento"
 
 #: settings/class.competitive-scheduling-settings.php:215
 msgid "Schedule <b>CANCELLED</b> successfully!"
-msgstr "Agendamento <b>CONFIRMADO</b> com Sucesso!"
+msgstr "Agendamento <b>CANCELADO</b> com Sucesso!"
 
 #: settings/class.competitive-scheduling-settings.php:221
 msgid "Confirmation Success"

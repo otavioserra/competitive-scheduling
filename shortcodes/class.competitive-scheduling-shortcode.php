@@ -824,7 +824,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 ));
                             
                                 // Redirects the page to previous schedules.
-                                wp_redirect( $schedule_url, 301, array( 'window' => 'previous-schedules' ) );
+                                wp_redirect( $schedule_url . '?window=previous-schedules', 301 );
                             }
                         } else {
                             // Incluir o token no formulário.
@@ -2026,7 +2026,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $unscheduleSubject = Templates::change_variable( $unscheduleSubject, '#code#', $code );
             
             $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#code#', $code );
-            $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#titulo#', $titleEstablishment );
+            $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#title#', $titleEstablishment );
             $unscheduleMessage = Templates::change_variable( $unscheduleMessage, '#date#', Formats::data_format_to( 'date-to-text', $date ) );
             
             // Format alert message.

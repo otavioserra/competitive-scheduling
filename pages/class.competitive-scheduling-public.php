@@ -118,7 +118,7 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
                         ));
 
                         // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                     }
                 } else {
                     if(
@@ -133,7 +133,7 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
                         ));
 
                         // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                     }
                 }
                 
@@ -184,7 +184,7 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
                     }
                     
                     // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink(), 301, array( 'window' => 'previous-schedules' ) );
+                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 );
                 }
                 
                 // Activation of confirmation.

@@ -1519,7 +1519,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
                     id="reset-to-defaults"
                     value="1"
                 />
-                <label for="reset-to-defaults"><?php echo esc_html__( 'Select this option and then click <b>Save Settings</b> below so that all settings are reset to default values. Important: all previous values will be deleted.', 'competitive-scheduling' ); ?></label>
+                <label for="reset-to-defaults"><?php echo __( 'Select this option and then click <b>Save Settings</b> below so that all settings are reset to default values. Important: all previous values will be deleted.', 'competitive-scheduling' ); ?></label>
             <?php
         }
     }
