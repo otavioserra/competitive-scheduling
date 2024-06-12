@@ -342,11 +342,11 @@
             <br>
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
-                    <a class="ui button red cancelSchedulingBtn" data-content="<?php echo esc_attr__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button red cancelSchedulingBtn">
                         <i class="calendar minus outline icon"></i>
                         <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                     </a>
-                    <a class="ui button green confirmScheduleBtn" data-content="<?php echo esc_attr__( 'Click to Confirm Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button green confirmScheduleBtn">
                         <i class="calendar check outline icon"></i>
                         <?php echo esc_html__( 'Confirm', 'competitive-scheduling' ); ?>
                     </a>
