@@ -90,8 +90,11 @@ jQuery( document ).ready( function(){
 		jQuery( formSelector )
 			.form({
 				onSuccess: function( event, fields ){
+					if( ! dataSelected ){
+						return false;
+					}
+
 					loading( 'open' );
-					jQuery( formSelector ).form( 'submit' );
 				}
 			});
 
@@ -117,6 +120,7 @@ jQuery( document ).ready( function(){
 		};
 		
 		// Variables of the 'calendar' component multiple-dates.
+		var dataSelected = false;
 		var calendarDatesOpt = {
 			text: calendarPtBR,
 			type: 'date',
@@ -143,7 +147,7 @@ jQuery( document ).ready( function(){
 				jQuery(this).parent().find('.dateSelected').show();
 				jQuery(this).parent().find('.dateSelected').find('.dateSelectedValue').html(dateFormated);
 				
-				// jQuery(formSelector).form('validate form');
+				dataSelected = true;
 			}
 		}
 		
