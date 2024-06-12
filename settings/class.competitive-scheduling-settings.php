@@ -17,7 +17,7 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             self::$tools_options = get_option('competitive_scheduling_tools_options');
 
             if(isset(self::$tools_options['reset-to-defaults'])){
-                self::reset_settings();
+                self::reset_settings(true);
                 unset(self::$tools_options['reset-to-defaults']);
                 update_option('competitive_scheduling_tools_options', self::$tools_options);
             }
@@ -119,16 +119,19 @@ if( !class_exists( 'Competitive_Scheduling_Settings' ) ){
             );
         }
 
-        public static function unregister_settings(){
+        public static function unregister_settings( $resetToDefaults = false ){
             delete_option('competitive_scheduling_options');
             delete_option('competitive_scheduling_html_options');
             delete_option('competitive_scheduling_msg_options');
-            delete_option('competitive_scheduling_pages_options');
             delete_option('competitive_scheduling_tools_options');
+
+            if( ! $resetToDefaults ){
+                delete_option('competitive_scheduling_pages_options');
+            }
         }
 
-        public static function reset_settings(){
-            self::unregister_settings();
+        public static function reset_settings( $resetToDefaults = false ){
+            self::unregister_settings( $resetToDefaults );
             self::register_settings();
         }
 
