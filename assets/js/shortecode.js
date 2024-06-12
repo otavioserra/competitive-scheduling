@@ -415,7 +415,7 @@ jQuery( document ).ready( function(){
 		
 		jQuery('.ui.modal.informative').modal({
 			dimmerSettings:{
-				dimmerName:'pageLoading' //className, NOT id (!)
+				dimmerName:'modalLoading' //className, NOT id (!)
 			}
 		}).modal('show');
 	}
