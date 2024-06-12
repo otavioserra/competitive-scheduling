@@ -878,8 +878,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     );
                     $schedules = $wpdb->get_results( $query );
 
+                    echo 'Mensagem: schedules' . ( print_r( $schedules, true ) ) . '<br>'; exit;
+
                     if( ! empty( $schedules ) ){
-                        echo 'Mensagem: schedules' . '<br>';
                         if( ! empty( $_REQUEST['action_after_acceptance'] ) ){
                             $schedules = $schedules[0];
 
