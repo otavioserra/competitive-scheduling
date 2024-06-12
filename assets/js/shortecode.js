@@ -91,7 +91,7 @@ jQuery( document ).ready( function(){
 			.form({
 				onSuccess: function( event, fields ){
 					if( ! dataSelected ){
-						jQuery( formSelector ).form( 'add errors', 'Data não selecionada!' );
+						jQuery( formSelector ).form( 'add errors', ['Data não selecionada!'] );
 						return false;
 					}
 
