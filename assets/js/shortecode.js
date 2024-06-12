@@ -394,6 +394,7 @@ jQuery( document ).ready( function(){
 				if( ! ('loading' in manager ) ){
 					jQuery('.page.dimmer').dimmer({
 						closable: false,
+						dimmerName:'pageLoading'
 					});
 					
 					manager.loading = true;
