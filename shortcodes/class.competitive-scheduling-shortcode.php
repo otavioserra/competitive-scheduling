@@ -1943,11 +1943,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         WHERE date = '%s'",
                         array( $date )
                     );
-                    $schedules_dates_total = $wpdb->get_results( $query, OBJECT );
+                    $schedules_dates_total = $wpdb->get_results( $query, ARRAY_A );
 
-                    echo 'days_week_maximum_vacancies: ' . $days_week_maximum_vacancies . ' - total: ' . $schedules_dates_total->total . '<br>';
+                    echo 'days_week_maximum_vacancies: ' . $days_week_maximum_vacancies . ' - total: ' . $schedules_dates_total['total'] . '<br>';
 
-                    $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates_total->total;
+                    $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates_total['total'];
                     if( $vacancies < 0 ) $vacancies = 0;
 
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
