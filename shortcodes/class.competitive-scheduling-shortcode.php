@@ -897,36 +897,37 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
                             $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
                     
-                            // Check whether the current status of the schedule allows confirmation.
+                            // Check if it is in the residual phase. If yes, it allows confirmations as anyone can get a place during this period. Otherwise, do the other conferences.
                             if(
-                                $status == 'confirmed' ||
-                                $status == 'qualified' ||
-                                $status == 'email-sent' ||
-                                $status == 'email-not-sent'
+                                strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
+                                strtotime( $today ) <= strtotime( $date.' - 1 day' )
                             ){
-                                // Check if you are in the confirmation phase.
+                                // It is in the residual phase, so it can be confirmed even if the confirmation link has expired.
+                            } else {
+                                // Check whether the current status of the schedule allows confirmation.
                                 if(
-                                    strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
-                                    strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
+                                    $status == 'confirmed' ||
+                                    $status == 'qualified' ||
+                                    $status == 'email-sent' ||
+                                    $status == 'email-not-sent'
                                 ){
-                                    if( $status == 'confirmed' ){
-                                        // Returns message that has already been confirmed.
-                                        $msgSchedulingAlreadyConfirmed = ( ! empty( $msg_options['msg-scheduling-already-confirmed'] ) ? $msg_options['msg-scheduling-already-confirmed'] : '' );
-                                        
-                                        $page = Templates::change_variable( $page, '[[error-info]]', $msgSchedulingAlreadyConfirmed );
-
-                                        $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
-                                    }
-                                } else {
+                                    // Check if you are in the confirmation phase.
                                     if(
-                                        strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
-                                        strtotime( $today ) <= strtotime( $date.' - 1 day' )
+                                        strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
+                                        strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
                                     ){
-                                        // It is in the residual phase, so it can be confirmed even if the confirmation link has expired.
+                                        if( $status == 'confirmed' ){
+                                            // Returns message that has already been confirmed.
+                                            $msgSchedulingAlreadyConfirmed = ( ! empty( $msg_options['msg-scheduling-already-confirmed'] ) ? $msg_options['msg-scheduling-already-confirmed'] : '' );
+                                            
+                                            $page = Templates::change_variable( $page, '[[error-info]]', $msgSchedulingAlreadyConfirmed );
+    
+                                            $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
+                                        }
                                     } else {
                                         // Require formats class to format data.
                                         require_once( CS_PATH . 'includes/class.formats.php' );
-
+    
                                         // Confirmation period dates.
                                         $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
                                         $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
@@ -938,19 +939,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                         $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
                                         
                                         $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
-
+    
                                         $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                     }
-                                }
-                            } else {
-                                if(
-                                    strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
-                                    strtotime( $today ) <= strtotime( $date.' - 1 day' )
-                                ){
-                                    // It is in the residual phase, so it can be confirmed even if the confirmation link has expired.
                                 } else {
                                     $page = Templates::change_variable( $page, '[[error-info]]', 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION' );
-
+    
                                     $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                 }
                             }
