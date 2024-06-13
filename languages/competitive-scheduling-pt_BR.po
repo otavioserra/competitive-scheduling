@@ -579,12 +579,12 @@ msgid ""
 "<b>#date#</b> as it exceeds the capacity of schedule slots on the day in "
 "question!"
 msgstr ""
-"Não é possível agendar você e/ou seus acompanhantes no dia <b>#data#</b> "
+"Não é possível agendar você e/ou seus acompanhantes no dia <b>#date#</b> "
 "pois supera a capacidade de vagas de agendamento no dia em questão!"
 
 #: settings/class.competitive-scheduling-settings.php:272
 msgid "Total number of available places: <b>#vacancies#</b>."
-msgstr "Quantidade total de vagas disponíveis: <b>#vagas#</b>."
+msgstr "Quantidade total de vagas disponíveis: <b>#vacancies#</b>."
 
 #: settings/class.competitive-scheduling-settings.php:273
 msgid "Observations:"

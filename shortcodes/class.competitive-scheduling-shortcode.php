@@ -961,8 +961,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 if( ! $return['completed'] ){
                                     $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
 
-                                    echo '! completed: ' . '<br>';
-    
                                     $_MANAGER['javascript-vars']['errorInfo'] = true;
                                 } else {
                                     // Alert the user of change success.
@@ -1934,6 +1932,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( ! $schedules_dates ){
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
                     
+                    $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#data#', $var );
+
                     return array(
                         'completed' => false,
                         'confirmed' => false,
