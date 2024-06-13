@@ -1949,9 +1949,15 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates_total->total;
                     if( $vacancies < 0 ) $vacancies = 0;
 
+                    // Require formats class to format data.
+                    require_once( CS_PATH . 'includes/class.formats.php' );
+    
+                    // Confirmation period dates.
+                    $date_str = Formats::data_format_to( 'date-to-text', $date );
+
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
                     
-                    $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#date#', $date );
+                    $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#date#', $date_str );
                     $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#vacancies#', $vacancies );
 
                     return array(
