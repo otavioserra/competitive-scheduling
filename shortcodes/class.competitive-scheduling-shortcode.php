@@ -1945,6 +1945,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     );
                     $schedules_dates_total = $wpdb->get_results( $query );
 
+                    echo 'days_week_maximum_vacancies: ' . $days_week_maximum_vacancies . ' - total: ' . $schedules_dates_total->total . '<br>';
+
                     $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates_total->total;
                     if( $vacancies < 0 ) $vacancies = 0;
 
