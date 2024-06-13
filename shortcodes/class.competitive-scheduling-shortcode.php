@@ -960,12 +960,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 
                                 if( ! $return['completed'] ){
                                     $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
-    
-                                    Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+                                    echo '! completed: ' . '<br>';
     
                                     $_MANAGER['javascript-vars']['errorInfo'] = true;
-    
-                                    return $page;
                                 } else {
                                     // Alert the user of change success.
                                     $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
@@ -1936,8 +1934,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( ! $schedules_dates ){
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
                     
-                    echo 'SCHEDULE_WITHOUT_VACANCIES: ' . '<br>';
-
                     return array(
                         'completed' => false,
                         'confirmed' => false,
