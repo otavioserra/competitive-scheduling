@@ -918,22 +918,29 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                         $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                     }
                                 } else {
-                                    // Require formats class to format data.
-                                    require_once( CS_PATH . 'includes/class.formats.php' );
+                                    if(
+                                        strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
+                                        strtotime( $today ) <= strtotime( $date.' - 1 day' )
+                                    ){
+                                        // It is in the residual phase, so it can be confirmed even if the confirmation link has expired.
+                                    } else {
+                                        // Require formats class to format data.
+                                        require_once( CS_PATH . 'includes/class.formats.php' );
 
-                                    // Confirmation period dates.
-                                    $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
-                                    $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
-                                
-                                    // Return the expired schedule message.
-                                    $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
+                                        // Confirmation period dates.
+                                        $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
+                                        $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
                                     
-                                    $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
-                                    $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
-                                    
-                                    $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
+                                        // Return the expired schedule message.
+                                        $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
+                                        
+                                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
+                                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
+                                        
+                                        $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
 
-                                    $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
+                                        $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
+                                    }
                                 }
                             } else {
                                 if(
