@@ -97,7 +97,7 @@
                     <?php echo esc_html__( 'Error', 'competitive-scheduling' ); ?>
                 </div>
                 <p><?php echo esc_html__( 'It is not possible to change your schedule due to the following error:', 'competitive-scheduling' ); ?> [[error-info]]</p>
-                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo $schedule_url; ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
                     <?php echo esc_html__( 'Success', 'competitive-scheduling' ); ?>
                 </div>
                 <p>[[success-info]]</p>
-                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo get_permalink(); ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
+                <p><?php echo esc_html__( 'Access your schedules by clicking', 'competitive-scheduling' ); ?> <a href="<?php echo $schedule_url; ?>"><?php echo esc_html__( 'here', 'competitive-scheduling' ); ?></a>.</p>
             </div>
         </div>
     </div><!-- changes > -->
