@@ -915,7 +915,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                         
                                         $page = Templates::change_variable( $page, '[[error-info]]', $msgSchedulingAlreadyConfirmed );
 
-                                        $_MANAGER['javascript-vars']['errorConfirmInfo'] = true; $returnMens = true;
+                                        $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                     }
                                 } else {
                                     // Confirmation period dates.
@@ -930,7 +930,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                     
                                     $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
 
-                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true; $returnMens = true;
+                                    $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                 }
                             } else {
                                 if(
@@ -941,7 +941,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 } else {
                                     $page = Templates::change_variable( $page, '[[error-info]]', 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION' );
 
-                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true; $returnMens = true;
+                                    $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                 }
                             }
 
@@ -959,7 +959,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
     
                                     Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
     
-                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+                                    $_MANAGER['javascript-vars']['errorInfo'] = true;
     
                                     return $page;
                                 } else {
