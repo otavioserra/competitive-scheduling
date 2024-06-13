@@ -18,6 +18,7 @@ jQuery( document ).ready( function(){
 		jQuery( '.confirmPublicSchedulleBtn' ).on( 'mouseup tap', function(e){
 			if( e.which != 1 && e.which != 0 && e.which != undefined ) return false;
 			
+			loading( 'open' );
 			jQuery( formSelector ).find( 'input[name="choice"]' ).val( 'confirm' );
 			jQuery( formSelector ).form( 'submit' );
 		} );
