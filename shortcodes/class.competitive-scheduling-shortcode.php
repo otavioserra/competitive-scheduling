@@ -126,7 +126,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             // Get de page_url of the public schedule page.
             if( $page_id != 0 && $page_id != '0' ) { 
-                $schedule_url = get_permalink( $page_id );
+                $schedule_url = get_permalink( $page_id ) . '?window=previous-schedules';
             } else {
                 $schedule_url = home_url();
             }
