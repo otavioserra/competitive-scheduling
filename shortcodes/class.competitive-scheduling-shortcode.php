@@ -903,6 +903,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                 strtotime( $today ) <= strtotime( $date.' - 1 day' )
                             ){
                                 // It is in the residual phase, so it can be confirmed even if the confirmation link has expired.
+                                if( $status == 'confirmed' ){
+                                    // Returns message that has already been confirmed.
+                                    $msgSchedulingAlreadyConfirmed = ( ! empty( $msg_options['msg-scheduling-already-confirmed'] ) ? $msg_options['msg-scheduling-already-confirmed'] : '' );
+                                    
+                                    $page = Templates::change_variable( $page, '[[error-info]]', $msgSchedulingAlreadyConfirmed );
+
+                                    $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
+                                }
                             } else {
                                 // Check whether the current status of the schedule allows confirmation.
                                 if(
