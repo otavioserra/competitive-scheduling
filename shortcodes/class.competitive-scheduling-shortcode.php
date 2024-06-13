@@ -909,7 +909,14 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                     strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
                                     strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
                                 ){
-                                    echo 'Mensagem: confirmed / fora da data' . '<br>';
+                                    if( $status == 'confirmed' ){
+                                        // Returns message that has already been confirmed.
+                                        $msgSchedulingAlreadyConfirmed = ( ! empty( $msg_options['msg-scheduling-already-confirmed'] ) ? $msg_options['msg-scheduling-already-confirmed'] : '' );
+                                        
+                                        $page = Templates::change_variable( $page, '[[error-info]]', $msgSchedulingAlreadyConfirmed );
+
+                                        $_MANAGER['javascript-vars']['errorConfirmInfo'] = true; $returnMens = true;
+                                    }
                                 } else {
                                     // Confirmation period dates.
                                     $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
@@ -923,49 +930,44 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                     
                                     $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
 
-                                    Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
-
-                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
-
-                                    return $page;
+                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true; $returnMens = true;
                                 }
                             } else {
                                 if(
                                     strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
                                     strtotime( $today ) <= strtotime( $date.' - 1 day' )
                                 ){
-                                    echo 'Mensagem: ! confirmed / fora da data' . '<br>';
+                                    // It is in the residual phase, so it can be confirmed even if the confirmation link has expired.
                                 } else {
                                     $page = Templates::change_variable( $page, '[[error-info]]', 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION' );
 
-                                    Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
-
-                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
-
-                                    return $page;
+                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true; $returnMens = true;
                                 }
                             }
 
-                            // Make the schedule_confirmation.
-                            $return = $this->schedule_confirm( array(
-                                'id_schedules' => $id_schedules,
-                                'user_id' => $user_id,
-                                'date' => $date,
-                            ) );
-                            
-                            if( ! $return['completed'] ){
-                                $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
-
-                                Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
-
-                                $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
-
-                                return $page;
-                            } else {
-                                // Alert the user of change success.
-                                $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
-
-                                $_MANAGER['javascript-vars']['successInfo'] = true;
+                            // If there is no problem, confirm the schedule.
+                            if( ! isset( $returnMens ) ){
+                                // Make the schedule_confirmation.
+                                $return = $this->schedule_confirm( array(
+                                    'id_schedules' => $id_schedules,
+                                    'user_id' => $user_id,
+                                    'date' => $date,
+                                ) );
+                                
+                                if( ! $return['completed'] ){
+                                    $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
+    
+                                    Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+    
+                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+    
+                                    return $page;
+                                } else {
+                                    // Alert the user of change success.
+                                    $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
+    
+                                    $_MANAGER['javascript-vars']['successInfo'] = true;
+                                }
                             }
                         } else {
                             // Include the token in the form.
