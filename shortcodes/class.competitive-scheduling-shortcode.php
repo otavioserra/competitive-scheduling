@@ -1890,7 +1890,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 ORDER BY name ASC",
                 array( $id_schedules, $user_id )
             );
-            $schedules_companions = $wpdb->get_results( $query );
+            $schedules_companions = $wpdb->get_results( $query, ARRAY_A );
 
             if($schedules_companions)
             foreach($schedules_companions as $companion){
