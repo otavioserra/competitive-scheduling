@@ -890,85 +890,82 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             $options = get_option( 'competitive_scheduling_options' );
                             $msg_options = get_option( 'competitive_scheduling_msg_options' );
                             
-                            // Request for confirmation of cancellation.
-                            if( isset( $_REQUEST['action_after_acceptance'] ) ){
-                                // Force date to today for debuging or set today's date
-                                if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+                            // Force date to today for debuging or set today's date
+                            if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
 
-                                // Get the configuration data.
-                                $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
-                                $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
-                        
-                                // Check whether the current status of the schedule allows confirmation.
+                            // Get the configuration data.
+                            $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
+                            $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
+                    
+                            // Check whether the current status of the schedule allows confirmation.
+                            if(
+                                $status == 'confirmed' ||
+                                $status == 'qualified' ||
+                                $status == 'email-sent' ||
+                                $status == 'email-not-sent'
+                            ){
+                                // Check if you are in the confirmation phase.
                                 if(
-                                    $status == 'confirmed' ||
-                                    $status == 'qualified' ||
-                                    $status == 'email-sent' ||
-                                    $status == 'email-not-sent'
+                                    strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
+                                    strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
                                 ){
-                                    // Check if you are in the confirmation phase.
-                                    if(
-                                        strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
-                                        strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
-                                    ){
-                                        
-                                    } else {
-                                        // Confirmation period dates.
-                                        $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
-                                        $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
-                                    
-                                        // Return the expired schedule message.
-                                        $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
-                                        
-                                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
-                                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
-                                        
-                                        $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
-
-                                        Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
-
-                                        $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
-
-                                        return $page;
-                                    }
+                                    echo 'Mensagem: confirmed / fora da data' . '<br>';
                                 } else {
-                                    if(
-                                        strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
-                                        strtotime( $today ) <= strtotime( $date.' - 1 day' )
-                                    ){
-                                        
-                                    } else {
-                                        $page = Templates::change_variable( $page, '[[error-info]]', 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION' );
-
-                                        Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
-
-                                        $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
-
-                                        return $page;
-                                    }
-                                }
-
-                                // Make the schedule_confirmation.
-                                $return = $this->schedule_confirm( array(
-                                    'id_schedules' => $id_schedules,
-                                    'user_id' => $user_id,
-                                    'date' => $date,
-                                ) );
+                                    // Confirmation period dates.
+                                    $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
+                                    $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
                                 
-                                if( ! $return['completed'] ){
-                                    $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
+                                    // Return the expired schedule message.
+                                    $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
+                                    
+                                    $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
+                                    $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
+                                    
+                                    $page = Templates::change_variable( $page, '[[error-info]]', $msgScheduleExpired );
 
                                     Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
                                     $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
 
                                     return $page;
-                                } else {
-                                    // Alert the user of change success.
-                                    $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
-
-                                    $_MANAGER['javascript-vars']['successInfo'] = true;
                                 }
+                            } else {
+                                if(
+                                    strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
+                                    strtotime( $today ) <= strtotime( $date.' - 1 day' )
+                                ){
+                                    echo 'Mensagem: ! confirmed / fora da data' . '<br>';
+                                } else {
+                                    $page = Templates::change_variable( $page, '[[error-info]]', 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION' );
+
+                                    Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+                                    $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+
+                                    return $page;
+                                }
+                            }
+
+                            // Make the schedule_confirmation.
+                            $return = $this->schedule_confirm( array(
+                                'id_schedules' => $id_schedules,
+                                'user_id' => $user_id,
+                                'date' => $date,
+                            ) );
+                            
+                            if( ! $return['completed'] ){
+                                $page = Templates::change_variable( $page, '[[error-info]]', $return['alert'] );
+
+                                Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+                                $_MANAGER['javascript-vars']['errorConfirmInfo'] = true;
+
+                                return $page;
+                            } else {
+                                // Alert the user of change success.
+                                $page = Templates::change_variable( $page, '[[success-info]]', $return['alert'] );
+
+                                $_MANAGER['javascript-vars']['successInfo'] = true;
                             }
                         } else {
                             // Include the token in the form.
