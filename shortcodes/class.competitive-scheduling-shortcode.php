@@ -1895,19 +1895,10 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             );
             $schedules_companions = $wpdb->get_results( $query, ARRAY_A );
 
-            if($schedules_companions)
-            foreach($schedules_companions as $companion){
+            if( $schedules_companions )
+            foreach( $schedules_companions as $companion ){
                 $companionsNames[] = $companion['name'];
             }
-            
-            // Generate the validation token.
-            require_once( CS_PATH . 'includes/class.authentication.php' );
-        
-            $auth = Authentication::generate_token_validation( array( 
-                'pubID' => $pubID,
-            ) );
-
-            $token = $auth['token'];
             
             // Check if it has already been confirmed. If it has been confirmed, just alert and send an email to the user. Otherwise, carry out the confirmation procedure.
             if( $status != 'confirmed' ){
@@ -1945,7 +1936,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( ! $schedules_dates ){
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
                     
-                    return Array(
+                    echo 'SCHEDULE_WITHOUT_VACANCIES: ' . '<br>';
+
+                    return array(
                         'completed' => false,
                         'confirmed' => false,
                         'status' => 'SCHEDULE_WITHOUT_VACANCIES',
@@ -1984,6 +1977,15 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
                 $wpdb->query($sql);
             }
+
+            // Generate the validation token.
+            require_once( CS_PATH . 'includes/class.authentication.php' );
+        
+            $auth = Authentication::generate_token_validation( array( 
+                'pubID' => $pubID,
+            ) );
+
+            $token = $auth['token'];
             
             // Generate the url to be able to cancel
             $urlCancellation = esc_url( add_query_arg(
@@ -2066,7 +2068,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $custom_mailer = new Custom_Mailer();
             $custom_mailer->send($to, $subject, $body);
             
-            return Array(
+            return array(
                 'completed' => true,
                 'confirmed' => true,
                 'alert' => $msgAlert,
