@@ -1927,7 +1927,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     array( $date, ( (int) $companions + 1 ), $days_week_maximum_vacancies )
                 );
                 $schedules_dates = $wpdb->get_results( $query );
-                if( $schedules_dates ) $schedules_dates = $schedules_dates[0];
 
                 if( ! $schedules_dates ){
                     $query = $wpdb->prepare(
@@ -1936,9 +1935,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         WHERE date = '%s'",
                         array( $date )
                     );
-                    $schedules_dates = $wpdb->get_results( $query );
+                    $schedules_dates_total = $wpdb->get_results( $query );
 
-                    $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates->total;
+                    $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates_total->total;
                     if( $vacancies < 0 ) $vacancies = 0;
 
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
@@ -1953,6 +1952,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         'alert' => $msgSchedulingWithoutVacancies,
                     );
                 }
+
+                if( $schedules_dates ) $schedules_dates = $schedules_dates[0];
                 
                 // Update the total number of spaces used in schedules for the date in question.
                 global $wpdb;
