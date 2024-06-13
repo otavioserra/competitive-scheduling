@@ -918,6 +918,9 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                                         $_MANAGER['javascript-vars']['errorInfo'] = true; $returnMens = true;
                                     }
                                 } else {
+                                    // Require formats class to format data.
+                                    require_once( CS_PATH . 'includes/class.formats.php' );
+
                                     // Confirmation period dates.
                                     $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
                                     $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
