@@ -17,11 +17,11 @@
         <form class="ui form attached fluid segment confirmationPublicForm" method="post" action="<?php echo $schedule_public_url; ?>">
             <div class="ui icon buttons">
                 <div class="ui icon buttons">
-                    <a class="ui button red cancelPublicSchedulingBtn" data-content="<?php echo esc_html__( 'Click to Cancel Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button red cancelPublicSchedulingBtn">
                         <i class="calendar minus outline icon"></i>
                         <?php echo esc_html__( 'Cancel', 'competitive-scheduling' ); ?>
                     </a>
-                    <a class="ui button green confirmPublicSchedulleBtn" data-content="<?php echo esc_html__( 'Click to Confirm Schedule', 'competitive-scheduling' ); ?>" data-position="top left" data-variation="inverted">
+                    <a class="ui button green confirmPublicSchedulleBtn">
                         <i class="calendar check outline icon"></i>
                         <?php echo esc_html__( 'Confirm', 'competitive-scheduling' ); ?>
                     </a>
