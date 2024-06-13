@@ -1930,9 +1930,21 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 if( $schedules_dates ) $schedules_dates = $schedules_dates[0];
 
                 if( ! $schedules_dates ){
+                    $query = $wpdb->prepare(
+                        "SELECT total 
+                        FROM {$wpdb->prefix}schedules_dates 
+                        WHERE date = '%s'",
+                        array( $date )
+                    );
+                    $schedules_dates = $wpdb->get_results( $query );
+
+                    $vacancies = (int)$days_week_maximum_vacancies - (int)$schedules_dates->total;
+                    if( $vacancies < 0 ) $vacancies = 0;
+
                     $msgSchedulingWithoutVacancies = ( ! empty( $msg_options['msg-scheduling-without-vacancies'] ) ? $msg_options['msg-scheduling-without-vacancies'] : '' );
                     
-                    $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#data#', $var );
+                    $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#date#', $date );
+                    $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#vacancies#', $vacancies );
 
                     return array(
                         'completed' => false,
