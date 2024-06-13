@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Competitive Schedulling Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2024-06-12 15:51-0300\n"
+"POT-Creation-Date: 2024-06-13 15:31-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Otávio <otavio@b2make.com>\n"
@@ -144,7 +144,7 @@ msgid "Confirm"
 msgstr "Confirmar"
 
 #: includes/class.interfaces.php:215
-#: settings/class.competitive-scheduling-settings.php:207
+#: settings/class.competitive-scheduling-settings.php:210
 msgid "Alert"
 msgstr "Alerta"
 
@@ -194,13 +194,13 @@ msgstr "Agendamentos Público"
 msgid "schedules-public"
 msgstr "agendamentos-publico"
 
-#: pages/class.admin-page.php:73
-#: shortcodes/class.competitive-scheduling-shortcode.php:174
+#: pages/class.admin-page.php:81
+#: shortcodes/class.competitive-scheduling-shortcode.php:173
 msgid "User is not logged in"
 msgstr "Usuário não está logado"
 
-#: pages/class.admin-page.php:89
-#: shortcodes/class.competitive-scheduling-shortcode.php:190
+#: pages/class.admin-page.php:97
+#: shortcodes/class.competitive-scheduling-shortcode.php:189
 msgid ""
 "The system did not validate the nonce sent. Please try again or seek help "
 "from support."
@@ -208,71 +208,26 @@ msgstr ""
 "O sistema não validou o nonce enviado. Tente novamente ou procure ajuda do "
 "suporte."
 
-#: pages/class.admin-page.php:443
-#: settings/class.competitive-scheduling-settings.php:158
-#: settings/class.competitive-scheduling-settings.php:225
-#: settings/class.competitive-scheduling-settings.php:289
-#: shortcodes/class.competitive-scheduling-shortcode.php:246
-#: shortcodes/class.competitive-scheduling-shortcode.php:727
-#: shortcodes/class.competitive-scheduling-shortcode.php:2328
-#: views/competitive-scheduling-admin-page.php:101
+#: pages/class.admin-page.php:451
+#: settings/class.competitive-scheduling-settings.php:161
+#: settings/class.competitive-scheduling-settings.php:228
+#: settings/class.competitive-scheduling-settings.php:292
+#: shortcodes/class.competitive-scheduling-shortcode.php:245
+#: shortcodes/class.competitive-scheduling-shortcode.php:726
+#: shortcodes/class.competitive-scheduling-shortcode.php:2463
+#: views/competitive-scheduling-admin-page.php:105
 msgid "Companion"
 msgstr "Acompanhante"
 
-#: pages/class.admin-page.php:504
-#: views/competitive-scheduling-admin-page.php:126
+#: pages/class.admin-page.php:512
+#: views/competitive-scheduling-admin-page.php:130
 #: views/competitive-scheduling_shortecode.php:181
 msgid "Confirmed Schedules"
 msgstr "Agendamentos Confirmados"
 
-#: pages/class.competitive-scheduling-public.php:1290
-#: shortcodes/class.competitive-scheduling-shortcode.php:2311
-msgid "<span class=\"ui green label\">Confirmed</span>"
-msgstr "<span class=\"ui green label\">Confirmado</span>"
-
-#: pages/class.competitive-scheduling-public.php:1291
-#: shortcodes/class.competitive-scheduling-shortcode.php:2312
-msgid "<span class=\"ui grey label\">Finished</span>"
-msgstr "<span class=\"ui grey label\">Finalizado</span>"
-
-#: pages/class.competitive-scheduling-public.php:1292
-#: shortcodes/class.competitive-scheduling-shortcode.php:2314
-msgid ""
-"<span class=\"ui brown label\">Not Drawn - Waiting for Residual Vacancies</"
-"span>"
-msgstr ""
-"<span class=\"ui brown label\">Não Sorteado - Aguardando Vagas Residuais</"
-"span>"
-
-#: pages/class.competitive-scheduling-public.php:1293
-#: shortcodes/class.competitive-scheduling-shortcode.php:2315
-msgid "<span class=\"ui grey label\">Waiting For Draw</span>"
-msgstr "<span class=\"ui grey label\">Aguardando Sorteio</span>"
-
-#: pages/class.competitive-scheduling-public.php:1294
-#: shortcodes/class.competitive-scheduling-shortcode.php:2316
-msgid "<span class=\"ui yellow label\">Drawn - Awaiting Confirmation</span>"
-msgstr ""
-"<span class=\"ui yellow label\">Sorteado - Aguardando Confirmação</span>"
-
-#: pages/class.competitive-scheduling-public.php:1295
-#: shortcodes/class.competitive-scheduling-shortcode.php:2317
-msgid "<span class=\"ui brown label\">No Residual Vacancies</span>"
-msgstr "<span class=\"ui brown label\">Sem Vagas Residuais</span>"
-
-#: pages/class.competitive-scheduling-public.php:1296
-#: shortcodes/class.competitive-scheduling-shortcode.php:2318
-msgid "<span class=\"ui teal label\">Available Residual Vacancies</span>"
-msgstr "<span class=\"ui teal label\">Vagas Residuais Disponíveis</span>"
-
-#: pages/class.competitive-scheduling-public.php:1299
-#: shortcodes/class.competitive-scheduling-shortcode.php:2321
-msgid "<span class=\"ui grey label\">Undefined Status</span>"
-msgstr "<span class=\"ui grey label\">Status Indefinido</span>"
-
 #: post-types/class.competitive-scheduling-priority-coupon-cpt.php:23
 #: post-types/class.competitive-scheduling-priority-coupon-cpt.php:27
-#: settings/class.competitive-scheduling-settings.php:341
+#: settings/class.competitive-scheduling-settings.php:344
 #: views/competitive-scheduling_shortecode.php:92
 msgid "Priority Coupon"
 msgstr "Cupom de Prioridade"
@@ -344,102 +299,102 @@ msgstr ""
 "Ao fazer um novo agendamento, preencha o código abaixo no campo <b>Cupom "
 "Prioritário</b>"
 
-#: settings/class.competitive-scheduling-settings.php:151
+#: settings/class.competitive-scheduling-settings.php:154
 msgid "Your schedule was successful!"
 msgstr "Seu agendamento foi realizado com sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:152
-#: settings/class.competitive-scheduling-settings.php:166
-#: settings/class.competitive-scheduling-settings.php:175
-#: settings/class.competitive-scheduling-settings.php:186
+#: settings/class.competitive-scheduling-settings.php:155
+#: settings/class.competitive-scheduling-settings.php:169
+#: settings/class.competitive-scheduling-settings.php:178
+#: settings/class.competitive-scheduling-settings.php:189
 msgid "Protocol nº #code#"
 msgstr "Protocolo nº #code#"
 
-#: settings/class.competitive-scheduling-settings.php:153
+#: settings/class.competitive-scheduling-settings.php:156
 msgid "You have just made an schedule within the #title# booking system:"
 msgstr "Você acabou de fazer um agendamento no sistema de reservas #title#:"
 
-#: settings/class.competitive-scheduling-settings.php:154
-#: settings/class.competitive-scheduling-settings.php:168
-#: settings/class.competitive-scheduling-settings.php:177
-#: settings/class.competitive-scheduling-settings.php:188
-#: settings/class.competitive-scheduling-settings.php:285
-#: settings/class.competitive-scheduling-settings.php:296
+#: settings/class.competitive-scheduling-settings.php:157
+#: settings/class.competitive-scheduling-settings.php:171
+#: settings/class.competitive-scheduling-settings.php:180
+#: settings/class.competitive-scheduling-settings.php:191
+#: settings/class.competitive-scheduling-settings.php:288
+#: settings/class.competitive-scheduling-settings.php:299
 msgid "Day"
 msgstr "Dia"
 
-#: settings/class.competitive-scheduling-settings.php:155
-#: settings/class.competitive-scheduling-settings.php:200
-#: settings/class.competitive-scheduling-settings.php:286
-#: views/competitive-scheduling-admin-page.php:88
-#: views/competitive-scheduling-admin-page.php:147
+#: settings/class.competitive-scheduling-settings.php:158
+#: settings/class.competitive-scheduling-settings.php:203
+#: settings/class.competitive-scheduling-settings.php:289
+#: views/competitive-scheduling-admin-page.php:92
+#: views/competitive-scheduling-admin-page.php:151
 #: views/competitive-scheduling_shortecode.php:206
 msgid "Password"
 msgstr "Senha"
 
-#: settings/class.competitive-scheduling-settings.php:156
-#: settings/class.competitive-scheduling-settings.php:223
-#: settings/class.competitive-scheduling-settings.php:287
-#: shortcodes/class.competitive-scheduling-shortcode.php:224
+#: settings/class.competitive-scheduling-settings.php:159
+#: settings/class.competitive-scheduling-settings.php:226
+#: settings/class.competitive-scheduling-settings.php:290
+#: shortcodes/class.competitive-scheduling-shortcode.php:223
 msgid "Scheduled People"
 msgstr "Pessoas Agendadas"
 
-#: settings/class.competitive-scheduling-settings.php:157
-#: settings/class.competitive-scheduling-settings.php:224
-#: shortcodes/class.competitive-scheduling-shortcode.php:225
+#: settings/class.competitive-scheduling-settings.php:160
+#: settings/class.competitive-scheduling-settings.php:227
+#: shortcodes/class.competitive-scheduling-shortcode.php:224
 msgid "Your name"
 msgstr "Seu nome"
 
-#: settings/class.competitive-scheduling-settings.php:159
-#: settings/class.competitive-scheduling-settings.php:193
+#: settings/class.competitive-scheduling-settings.php:162
+#: settings/class.competitive-scheduling-settings.php:196
 msgid "If you wish to <b>CANCEL</b> your schedule, go to"
 msgstr "Se você deseja <b>CANCELAR</b> o seu agendamento, acesse"
 
-#: settings/class.competitive-scheduling-settings.php:165
+#: settings/class.competitive-scheduling-settings.php:168
 msgid "Your schedule has been successfully cancelled!"
 msgstr "Seu agendamento foi cancelado com sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:167
+#: settings/class.competitive-scheduling-settings.php:170
 msgid "You just deleted a schedule within the #title# scheduling system:"
 msgstr ""
 "Você acabou de excluir um agendamento no sistema de agendamento #title#:"
 
-#: settings/class.competitive-scheduling-settings.php:174
+#: settings/class.competitive-scheduling-settings.php:177
 msgid "Confirm or cancel your schedule!"
 msgstr "Confirme ou cancele seu agendamento!"
 
-#: settings/class.competitive-scheduling-settings.php:176
+#: settings/class.competitive-scheduling-settings.php:179
 msgid "The system qualified your pre-scheduling for scheduling of #title#:"
 msgstr "O sistema qualificou seu pré-agendamento para agendamento de #title#:"
 
-#: settings/class.competitive-scheduling-settings.php:178
+#: settings/class.competitive-scheduling-settings.php:181
 msgid ""
 "To <b>CONFIRM</b> your schedule and receive your service password, go to"
 msgstr ""
 "Para <b>CONFIRMAR</b> seu agendamento e receber sua senha de atendimento, "
 "acesse"
 
-#: settings/class.competitive-scheduling-settings.php:179
+#: settings/class.competitive-scheduling-settings.php:182
 msgid "To <b>CANCEL</b> your schedule, go to"
 msgstr "Para <b>CANCELAR</b> o seu agendamento, acesse"
 
-#: settings/class.competitive-scheduling-settings.php:185
+#: settings/class.competitive-scheduling-settings.php:188
 msgid "Your pre-scheduling was successful!"
 msgstr "Seu pré-agendamento foi realizado com sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:187
+#: settings/class.competitive-scheduling-settings.php:190
 msgid ""
 "You have just made a pre-scheduling within the #title# scheduling system:"
 msgstr ""
 "Você acabou de fazer um pré-agendamento dentro do sistema de agendamento "
 "#title#:"
 
-#: settings/class.competitive-scheduling-settings.php:189
+#: settings/class.competitive-scheduling-settings.php:192
 msgid "IMPORTANT INFORMATION"
 msgstr "INFORMAÇÃO IMPORTANTE"
 
-#: settings/class.competitive-scheduling-settings.php:190
-#: settings/class.competitive-scheduling-settings.php:297
+#: settings/class.competitive-scheduling-settings.php:193
+#: settings/class.competitive-scheduling-settings.php:300
 msgid ""
 "<span class=\"txt-1\"><b>IMPORTANT 1</b>:</span> Pre-schedules ARE NOT "
 "confirmed schedules. They will go through a draw using the <span "
@@ -470,8 +425,8 @@ msgstr ""
 "serão liberadas para serem novamente escolhidas por outras pessoas via "
 "sistema."
 
-#: settings/class.competitive-scheduling-settings.php:191
-#: settings/class.competitive-scheduling-settings.php:298
+#: settings/class.competitive-scheduling-settings.php:194
+#: settings/class.competitive-scheduling-settings.php:301
 msgid ""
 "<br /><span class=\"txt-1\"><b>IMPORTANT 2</b>:</span> If there are more pre-"
 "bookings than there are service spaces, the system will automatically carry "
@@ -487,8 +442,8 @@ msgstr ""
 "Portanto, se você não receber um e-mail de confirmação é porque não foi "
 "selecionado para participar do atendimento."
 
-#: settings/class.competitive-scheduling-settings.php:192
-#: settings/class.competitive-scheduling-settings.php:299
+#: settings/class.competitive-scheduling-settings.php:195
+#: settings/class.competitive-scheduling-settings.php:302
 msgid ""
 "<br /><span class=\"txt-1\"><b>IMPORTANT 3</b>:</span> After day <span "
 "class=\"txt-1\">#date_confirmation_2#</span>, the scheduling system will "
@@ -504,49 +459,49 @@ msgstr ""
 "Nesta fase as vagas não estão garantidas e podem ser escolhidas por qualquer "
 "pessoa que acesse o sistema."
 
-#: settings/class.competitive-scheduling-settings.php:199
-#: views/competitive-scheduling-admin-page.php:87
-#: views/competitive-scheduling-admin-page.php:146
+#: settings/class.competitive-scheduling-settings.php:202
+#: views/competitive-scheduling-admin-page.php:91
+#: views/competitive-scheduling-admin-page.php:150
 msgid "Name"
 msgstr "Nome"
 
-#: settings/class.competitive-scheduling-settings.php:201
+#: settings/class.competitive-scheduling-settings.php:204
 msgid "Viewed"
 msgstr "Visto"
 
-#: settings/class.competitive-scheduling-settings.php:208
+#: settings/class.competitive-scheduling-settings.php:211
 msgid "An error occurred in the last operation #error-msg#!"
 msgstr "Ocorreu um erro na última operação #error-msg#!"
 
-#: settings/class.competitive-scheduling-settings.php:214
+#: settings/class.competitive-scheduling-settings.php:217
 msgid "Cancellation Success"
 msgstr "Sucesso no Cancelamento"
 
-#: settings/class.competitive-scheduling-settings.php:215
+#: settings/class.competitive-scheduling-settings.php:218
 msgid "Schedule <b>CANCELLED</b> successfully!"
 msgstr "Agendamento <b>CANCELADO</b> com Sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:221
+#: settings/class.competitive-scheduling-settings.php:224
 msgid "Confirmation Success"
 msgstr "Sucesso na confirmação"
 
-#: settings/class.competitive-scheduling-settings.php:222
+#: settings/class.competitive-scheduling-settings.php:225
 msgid "Scheduling <b>CONFIRMED</b> Successfully!"
 msgstr "Agendamento <b>CONFIRMADO</b> com Sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:231
+#: settings/class.competitive-scheduling-settings.php:234
 msgid "Date Not Allowed"
 msgstr "Data Não Permitida"
 
-#: settings/class.competitive-scheduling-settings.php:232
+#: settings/class.competitive-scheduling-settings.php:235
 msgid "This date is not allowed, choose another."
 msgstr "Esta data não é permitida, escolha outra."
 
-#: settings/class.competitive-scheduling-settings.php:238
+#: settings/class.competitive-scheduling-settings.php:241
 msgid "Confirmation Period Expired"
 msgstr "Período de Confirmação Expirou"
 
-#: settings/class.competitive-scheduling-settings.php:239
+#: settings/class.competitive-scheduling-settings.php:242
 msgid ""
 "It is no longer possible to confirm your schedule as it is outside the "
 "confirmation period!"
@@ -554,7 +509,7 @@ msgstr ""
 "Não é possível mais confirmar seu agendamento uma vez que o mesmo está fora "
 "do período de confirmação!"
 
-#: settings/class.competitive-scheduling-settings.php:240
+#: settings/class.competitive-scheduling-settings.php:243
 msgid ""
 "The confirmation period comprises the day <b>#date_confirmation_1#</b> until "
 "the end of the month. the day <b>#date_confirmation_2#</b> ."
@@ -562,7 +517,7 @@ msgstr ""
 "O período de confirmação compreende o dia <b>#date_confirmation_1#</b> até o "
 "final do mês. o dia <b>#date_confirmation_2#</b> ."
 
-#: settings/class.competitive-scheduling-settings.php:246
+#: settings/class.competitive-scheduling-settings.php:249
 msgid ""
 "This schedule has already been confirmed in another confirmation attempt and "
 "therefore it is not possible to confirm it again."
@@ -570,11 +525,11 @@ msgstr ""
 "Este agendamento já foi confirmado em outra tentativa de confirmação e "
 "portanto não é possível confirmar o mesmo novamente."
 
-#: settings/class.competitive-scheduling-settings.php:252
+#: settings/class.competitive-scheduling-settings.php:255
 msgid "Schedule Now Exist"
 msgstr "Agendamento Já Existente"
 
-#: settings/class.competitive-scheduling-settings.php:253
+#: settings/class.competitive-scheduling-settings.php:256
 msgid ""
 "This date already has a schedule registered in your name. It is not "
 "permitted to schedule twice on the same date. If you want to modify a "
@@ -589,11 +544,11 @@ msgstr ""
 "novamente um novo agendamento para a mesma data, desde que a data esteja "
 "liberada para novos agendamentos."
 
-#: settings/class.competitive-scheduling-settings.php:259
+#: settings/class.competitive-scheduling-settings.php:262
 msgid "Schedule Not Found"
 msgstr "Agendamento Não Encontrado"
 
-#: settings/class.competitive-scheduling-settings.php:260
+#: settings/class.competitive-scheduling-settings.php:263
 msgid ""
 "We were unable to find your schedule or the verification code provided has "
 "expired."
@@ -601,7 +556,7 @@ msgstr ""
 "Não foi possível encontrar o seu agendamento ou o código de verificação "
 "informado está expirado."
 
-#: settings/class.competitive-scheduling-settings.php:261
+#: settings/class.competitive-scheduling-settings.php:264
 msgid ""
 "It is possible that your schedule has already been completed. has been "
 "confirmed or canceled and the schedule verification code has been removed "
@@ -614,11 +569,11 @@ msgstr ""
 "uso. Sendo assim, acesse no sistema <a class=\"_ajax_not\" href=\"#url-"
 "schedules-previous#\">Agendamentos</a> e faça as alterações por lá."
 
-#: settings/class.competitive-scheduling-settings.php:267
+#: settings/class.competitive-scheduling-settings.php:270
 msgid "No Vacancy Scheduling"
 msgstr "Agendamento Sem Vagas"
 
-#: settings/class.competitive-scheduling-settings.php:268
+#: settings/class.competitive-scheduling-settings.php:271
 msgid ""
 "It is not It is possible to schedule you and/or their companions on the day "
 "<b>#date#</b> as it exceeds the capacity of schedule slots on the day in "
@@ -627,39 +582,39 @@ msgstr ""
 "Não é possível agendar você e/ou seus acompanhantes no dia <b>#data#</b> "
 "pois supera a capacidade de vagas de agendamento no dia em questão!"
 
-#: settings/class.competitive-scheduling-settings.php:269
+#: settings/class.competitive-scheduling-settings.php:272
 msgid "Total number of available places: <b>#vacancies#</b>."
 msgstr "Quantidade total de vagas disponíveis: <b>#vagas#</b>."
 
-#: settings/class.competitive-scheduling-settings.php:270
+#: settings/class.competitive-scheduling-settings.php:273
 msgid "Observations:"
 msgstr "Observações:"
 
-#: settings/class.competitive-scheduling-settings.php:271
+#: settings/class.competitive-scheduling-settings.php:274
 msgid "Choose another day and try again."
 msgstr "Escolha outro dia e tente novamente."
 
-#: settings/class.competitive-scheduling-settings.php:272
+#: settings/class.competitive-scheduling-settings.php:275
 msgid "Or, reduce the number of companions and try again."
 msgstr "Ou então, diminua a quantidade de acompanhantes e tente novamente."
 
-#: settings/class.competitive-scheduling-settings.php:278
+#: settings/class.competitive-scheduling-settings.php:281
 msgid "Scheduling is suspended!"
 msgstr "Agendamento Suspenso!"
 
-#: settings/class.competitive-scheduling-settings.php:284
+#: settings/class.competitive-scheduling-settings.php:287
 msgid "Scheduling Completed Successfully!"
 msgstr "Agendamento Concluído com Sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:288
+#: settings/class.competitive-scheduling-settings.php:291
 msgid "Your Name"
 msgstr "Seu Nome"
 
-#: settings/class.competitive-scheduling-settings.php:295
+#: settings/class.competitive-scheduling-settings.php:298
 msgid "Pre-Schedule Completed Successfully!"
 msgstr "Pré-Agendamento Concluído com Sucesso!"
 
-#: settings/class.competitive-scheduling-settings.php:305
+#: settings/class.competitive-scheduling-settings.php:308
 msgid ""
 "It is not possible to confirm this schedule as the system has not allowed it "
 "to do so."
@@ -667,7 +622,7 @@ msgstr ""
 "Não é possível confirmar este agendamento uma vez que o mesmo não tem estado "
 "permitido pelo sistema para tal."
 
-#: settings/class.competitive-scheduling-settings.php:311
+#: settings/class.competitive-scheduling-settings.php:314
 msgid ""
 "The priority coupon number <b>#coupon#</b> is inactive in the system and "
 "cannot be used."
@@ -675,7 +630,7 @@ msgstr ""
 "O cupom de prioridade número <b>#coupon#</b> está inativo no sistema e não "
 "pode ser usado."
 
-#: settings/class.competitive-scheduling-settings.php:317
+#: settings/class.competitive-scheduling-settings.php:320
 msgid ""
 "Priority coupon number <b>#coupon#</b> HAS ALREADY BEEN USED and cannot be "
 "used again."
@@ -683,11 +638,11 @@ msgstr ""
 "O cupom de prioridade número #coupon# JÁ FOI UTILIZADO e não é possível "
 "utilizá-lo novamente."
 
-#: settings/class.competitive-scheduling-settings.php:323
+#: settings/class.competitive-scheduling-settings.php:326
 msgid "Priority coupon number <b>#coupon#</b> was not found!"
 msgstr "O cupom de prioridade número #coupon# não foi encontrado!"
 
-#: settings/class.competitive-scheduling-settings.php:329
+#: settings/class.competitive-scheduling-settings.php:332
 msgid ""
 "Priority coupon number <b>#coupon#</b> is out of validity period! It is only "
 "possible to use it between the days <b>#valid_from#</b> to <b>#valid_until#</"
@@ -697,7 +652,7 @@ msgstr ""
 "validade! Só é possível utilizar o mesmo entre os dias <b>#valid_from#</b> "
 "até <b>#valid_until#</b>."
 
-#: settings/class.competitive-scheduling-settings.php:335
+#: settings/class.competitive-scheduling-settings.php:338
 msgid ""
 "It was not possible to confirm due to residual vacancies. Either because it "
 "is beyond the deadline for confirmation or because the remaining vacancies "
@@ -706,99 +661,99 @@ msgstr ""
 "Não foi possível confirmar por vagas residuais. Ou porque está fora do prazo "
 "para confirmação ou porque se esgotaram as vagas residuais."
 
-#: settings/class.competitive-scheduling-settings.php:342
+#: settings/class.competitive-scheduling-settings.php:345
 msgid "Valid until"
 msgstr "Válido Até"
 
-#: settings/class.competitive-scheduling-settings.php:393
+#: settings/class.competitive-scheduling-settings.php:396
 #: views/settings-page.php:7
 msgid "Main"
 msgstr "Principal"
 
-#: settings/class.competitive-scheduling-settings.php:402
+#: settings/class.competitive-scheduling-settings.php:405
 #: views/settings-page.php:8
 msgid "Emails"
 msgstr "Emails"
 
-#: settings/class.competitive-scheduling-settings.php:411
+#: settings/class.competitive-scheduling-settings.php:414
 #: views/settings-page.php:9
 msgid "Messages"
 msgstr "Mensagens"
 
-#: settings/class.competitive-scheduling-settings.php:420
+#: settings/class.competitive-scheduling-settings.php:423
 #: views/settings-page.php:10
 msgid "Pages"
 msgstr "Páginas"
 
-#: settings/class.competitive-scheduling-settings.php:429
+#: settings/class.competitive-scheduling-settings.php:432
 #: views/settings-page.php:11
 msgid "Tools"
 msgstr "Ferramentas"
 
-#: settings/class.competitive-scheduling-settings.php:438
+#: settings/class.competitive-scheduling-settings.php:441
 msgid ""
 "Here you can find all the main options to personalise your plugin's instance."
 msgstr ""
 "Aqui você encontra todas as principais opções para personalizar a instância "
 "do seu plugin."
 
-#: settings/class.competitive-scheduling-settings.php:444
+#: settings/class.competitive-scheduling-settings.php:447
 msgid "Activation"
 msgstr "Ativação"
 
-#: settings/class.competitive-scheduling-settings.php:452
+#: settings/class.competitive-scheduling-settings.php:455
 msgid "Title Establishment"
 msgstr "Título do Estabelecimento"
 
-#: settings/class.competitive-scheduling-settings.php:460
+#: settings/class.competitive-scheduling-settings.php:463
 msgid "Unavailable Dates"
 msgstr "Datas Indisponíveis"
 
-#: settings/class.competitive-scheduling-settings.php:468
+#: settings/class.competitive-scheduling-settings.php:471
 msgid "Unavailable Dates Values"
 msgstr "Datas Indisponíveis Valores"
 
-#: settings/class.competitive-scheduling-settings.php:476
+#: settings/class.competitive-scheduling-settings.php:479
 msgid "Calendar Years"
 msgstr "Calendário Anos"
 
-#: settings/class.competitive-scheduling-settings.php:484
+#: settings/class.competitive-scheduling-settings.php:487
 msgid "Calendar Holidays Start"
 msgstr "Calendário de Férias Início"
 
-#: settings/class.competitive-scheduling-settings.php:492
+#: settings/class.competitive-scheduling-settings.php:495
 msgid "Calendar Holidays End"
 msgstr "Calendário de Férias Fim"
 
-#: settings/class.competitive-scheduling-settings.php:500
+#: settings/class.competitive-scheduling-settings.php:503
 msgid "Calendar Limit Month Ahead"
 msgstr "Calendário Limite Mês à Frente"
 
-#: settings/class.competitive-scheduling-settings.php:508
+#: settings/class.competitive-scheduling-settings.php:511
 msgid "Days Week"
 msgstr "Dias da Semana"
 
-#: settings/class.competitive-scheduling-settings.php:516
+#: settings/class.competitive-scheduling-settings.php:519
 msgid "Days Week Maximum Vacancies"
 msgstr "Dias da Semana Máximo Vagas"
 
-#: settings/class.competitive-scheduling-settings.php:524
+#: settings/class.competitive-scheduling-settings.php:527
 msgid "Free Choice Phase"
 msgstr "Fase de Livre Escolha"
 
-#: settings/class.competitive-scheduling-settings.php:532
+#: settings/class.competitive-scheduling-settings.php:535
 msgid "Residual Phase"
 msgstr "Fase Residual"
 
-#: settings/class.competitive-scheduling-settings.php:540
+#: settings/class.competitive-scheduling-settings.php:543
 msgid "Draw Phase"
 msgstr "Fase de Sorteio"
 
-#: settings/class.competitive-scheduling-settings.php:548
+#: settings/class.competitive-scheduling-settings.php:551
 msgid "Max Companions"
 msgstr "Máximo de Acompanhantes"
 
-#: settings/class.competitive-scheduling-settings.php:556
+#: settings/class.competitive-scheduling-settings.php:559
 msgid ""
 "Here you can find all the email options to personalise your plugin's "
 "instance."
@@ -806,39 +761,39 @@ msgstr ""
 "Aqui você encontra todas as opções de email para personalizar a instância do "
 "seu plugin."
 
-#: settings/class.competitive-scheduling-settings.php:562
+#: settings/class.competitive-scheduling-settings.php:565
 msgid "Pre-scheduling Subject"
 msgstr "Pré-Agendamento Assunto"
 
-#: settings/class.competitive-scheduling-settings.php:573
+#: settings/class.competitive-scheduling-settings.php:576
 msgid "Pre-scheduling Message"
 msgstr "Pré-Agendamento Mensagem"
 
-#: settings/class.competitive-scheduling-settings.php:581
+#: settings/class.competitive-scheduling-settings.php:584
 msgid "Schedule Subject"
 msgstr "Agendamento Assunto"
 
-#: settings/class.competitive-scheduling-settings.php:592
+#: settings/class.competitive-scheduling-settings.php:595
 msgid "Schedule Message"
 msgstr "Agendamento Mensagem"
 
-#: settings/class.competitive-scheduling-settings.php:600
+#: settings/class.competitive-scheduling-settings.php:603
 msgid "Unschedule Subject"
 msgstr "Desagendamento Assunto"
 
-#: settings/class.competitive-scheduling-settings.php:611
+#: settings/class.competitive-scheduling-settings.php:614
 msgid "Unschedule Message"
 msgstr "Desagendamento Mensagem"
 
-#: settings/class.competitive-scheduling-settings.php:619
+#: settings/class.competitive-scheduling-settings.php:622
 msgid "Confirmation Subject"
 msgstr "Confirmação Assunto"
 
-#: settings/class.competitive-scheduling-settings.php:630
+#: settings/class.competitive-scheduling-settings.php:633
 msgid "Confirmation Message"
 msgstr "Confirmação Mensagem"
 
-#: settings/class.competitive-scheduling-settings.php:638
+#: settings/class.competitive-scheduling-settings.php:641
 msgid ""
 "Here you can find all the messages options to personalise your plugin's "
 "instance."
@@ -846,87 +801,87 @@ msgstr ""
 "Aqui você encontra todas as opções de mensagens para personalizar a "
 "instância do seu plugin."
 
-#: settings/class.competitive-scheduling-settings.php:650
+#: settings/class.competitive-scheduling-settings.php:653
 msgid "Print Schedules"
 msgstr "Impressão de Agendamentos"
 
-#: settings/class.competitive-scheduling-settings.php:658
+#: settings/class.competitive-scheduling-settings.php:661
 msgid "Print Priority Coupons"
 msgstr "Impressão de Cupons de Prioridade"
 
-#: settings/class.competitive-scheduling-settings.php:666
+#: settings/class.competitive-scheduling-settings.php:669
 msgid "Coupon Priority Description"
 msgstr "Cupons de Prioridade Descrição"
 
-#: settings/class.competitive-scheduling-settings.php:674
+#: settings/class.competitive-scheduling-settings.php:677
 msgid "Scheduling Cancelled"
 msgstr "Agendamento Cancelado"
 
-#: settings/class.competitive-scheduling-settings.php:682
+#: settings/class.competitive-scheduling-settings.php:685
 msgid "Scheduling Confirmed"
 msgstr "Agendamento Confirmado"
 
-#: settings/class.competitive-scheduling-settings.php:690
+#: settings/class.competitive-scheduling-settings.php:693
 msgid "Scheduling Date Not Allowed"
 msgstr "Data Não Permitida para Agendamento"
 
-#: settings/class.competitive-scheduling-settings.php:698
+#: settings/class.competitive-scheduling-settings.php:701
 msgid "Schedule Expired"
 msgstr "Agendamento Expirou"
 
-#: settings/class.competitive-scheduling-settings.php:706
+#: settings/class.competitive-scheduling-settings.php:709
 msgid "Scheduling Already Confirmed"
 msgstr "Agendamento Já Confirmado"
 
-#: settings/class.competitive-scheduling-settings.php:714
+#: settings/class.competitive-scheduling-settings.php:717
 msgid "Scheduling Already Exists"
 msgstr "Agendamento Já Existente"
 
-#: settings/class.competitive-scheduling-settings.php:722
+#: settings/class.competitive-scheduling-settings.php:725
 msgid "Scheduling Not Found"
 msgstr "Agendamento Não Encontrado"
 
-#: settings/class.competitive-scheduling-settings.php:730
+#: settings/class.competitive-scheduling-settings.php:733
 msgid "Scheduling Without Vacancies"
 msgstr "Agendamento Sem Vagas"
 
-#: settings/class.competitive-scheduling-settings.php:738
+#: settings/class.competitive-scheduling-settings.php:741
 msgid "Scheduling Suspended"
 msgstr "Agendamento Suspenso"
 
-#: settings/class.competitive-scheduling-settings.php:746
+#: settings/class.competitive-scheduling-settings.php:749
 msgid "Conclusion Scheduling"
 msgstr "Conclusão do Agendamento"
 
-#: settings/class.competitive-scheduling-settings.php:754
+#: settings/class.competitive-scheduling-settings.php:757
 msgid "Conclusion Pre-Scheduling"
 msgstr "Conclusão do Pré-Agendamento"
 
-#: settings/class.competitive-scheduling-settings.php:762
+#: settings/class.competitive-scheduling-settings.php:765
 msgid "Confirmation Status Not Permitted"
 msgstr "Status de Confirmação Não Permitido"
 
-#: settings/class.competitive-scheduling-settings.php:770
+#: settings/class.competitive-scheduling-settings.php:773
 msgid "Coupon Priority Inactive"
 msgstr "Cupom de Prioridade Inativo"
 
-#: settings/class.competitive-scheduling-settings.php:778
+#: settings/class.competitive-scheduling-settings.php:781
 msgid "Priority Coupon Already Used"
 msgstr "Cupom de Prioridade Já Usado"
 
-#: settings/class.competitive-scheduling-settings.php:786
+#: settings/class.competitive-scheduling-settings.php:789
 msgid "Coupon Priority Not Found"
 msgstr "Cupom de Prioridade Não Encontrado"
 
-#: settings/class.competitive-scheduling-settings.php:794
+#: settings/class.competitive-scheduling-settings.php:797
 msgid "Expired Priority Coupon"
 msgstr "Cupom de Prioridade Expirado"
 
-#: settings/class.competitive-scheduling-settings.php:802
+#: settings/class.competitive-scheduling-settings.php:805
 msgid "Residual Vacancies Unavailable"
 msgstr "Vagas Residuais Não Disponíveis"
 
-#: settings/class.competitive-scheduling-settings.php:810
+#: settings/class.competitive-scheduling-settings.php:813
 msgid ""
 "Here you can find all the pages options to personalise your plugin's "
 "instance."
@@ -934,15 +889,15 @@ msgstr ""
 "Aqui você encontra todas as opções de páginas para personalizar a instância "
 "do seu plugin."
 
-#: settings/class.competitive-scheduling-settings.php:816
+#: settings/class.competitive-scheduling-settings.php:819
 msgid "Schedule Page ID"
 msgstr "Página de Agendamento ID"
 
-#: settings/class.competitive-scheduling-settings.php:824
+#: settings/class.competitive-scheduling-settings.php:827
 msgid "Schedule Public Page ID"
 msgstr "Página de Agendamento Público ID"
 
-#: settings/class.competitive-scheduling-settings.php:832
+#: settings/class.competitive-scheduling-settings.php:835
 msgid ""
 "Here you can find all the tools options to personalise your plugin's "
 "instance."
@@ -950,38 +905,38 @@ msgstr ""
 "Aqui você encontra todas as opções de ferramentas para personalizar a "
 "instância do seu plugin."
 
-#: settings/class.competitive-scheduling-settings.php:838
+#: settings/class.competitive-scheduling-settings.php:841
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: settings/class.competitive-scheduling-settings.php:846
+#: settings/class.competitive-scheduling-settings.php:849
 msgid "Reset To Defaults"
 msgstr "Resetar Para o Padrão"
 
-#: settings/class.competitive-scheduling-settings.php:867
+#: settings/class.competitive-scheduling-settings.php:870
 msgid "Activate/Deactivate the scheduling system."
 msgstr "Ativar/Desativar o sistema de agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:880
+#: settings/class.competitive-scheduling-settings.php:883
 msgid "Title of your establishment. Example: my company, my institution, etc."
 msgstr ""
 "Título do seu estabelecimento. Exemplo: minha empresa, minha instituição, "
 "etc."
 
-#: settings/class.competitive-scheduling-settings.php:898
+#: settings/class.competitive-scheduling-settings.php:901
 msgid "Activate/Deactivate definition of unavailable dates for scheduling."
 msgstr "Ativa/Desativa definição de datas indisponíveis para agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:913
+#: settings/class.competitive-scheduling-settings.php:916
 msgid "Specific dates unavailable to choose when scheduling."
 msgstr ""
 "Datas específicas indisponíveis para escolha no momento do agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:928
+#: settings/class.competitive-scheduling-settings.php:931
 msgid "Maximum number of years that appears on the calendar."
 msgstr "Número máximo de anos que aparece no calendário."
 
-#: settings/class.competitive-scheduling-settings.php:941
+#: settings/class.competitive-scheduling-settings.php:944
 msgid ""
 "Start date of the vacation period with the number of the day followed by the "
 "month in English. For example, the beginning of the period on December 20th "
@@ -991,7 +946,7 @@ msgstr ""
 "inglês. Por exemplo, deve ser preenchido o início do período em 20 de "
 "dezembro: 20 December."
 
-#: settings/class.competitive-scheduling-settings.php:954
+#: settings/class.competitive-scheduling-settings.php:957
 msgid ""
 "End date of the vacation period with the number of the day followed by the "
 "month in English. For example, the end of the period on January 20th must be "
@@ -1001,7 +956,7 @@ msgstr ""
 "inglês. Por exemplo, o final do período em 20 de janeiro deve ser "
 "preenchido: 20 January."
 
-#: settings/class.competitive-scheduling-settings.php:969
+#: settings/class.competitive-scheduling-settings.php:972
 msgid ""
 "Limit the number of months ahead of the current day to show dates available "
 "for scheduling. For example, if you put 2 in this field, it means that only "
@@ -1012,7 +967,7 @@ msgstr ""
 "significa que apenas o mês atual e o mês seguinte aparecerão para "
 "agendamento no calendário."
 
-#: settings/class.competitive-scheduling-settings.php:982
+#: settings/class.competitive-scheduling-settings.php:985
 msgid ""
 "Define the days of the week that have a schedule separated by the comma "
 "character "
@@ -1020,7 +975,7 @@ msgstr ""
 "Defina os dias da semana que possuem agendamento separada pelo caractere "
 "vírgula "
 
-#: settings/class.competitive-scheduling-settings.php:997
+#: settings/class.competitive-scheduling-settings.php:1000
 msgid ""
 "Maximum number of schedule slots for days of the week. If you want to define "
 "different amounts per day of the week, use "
@@ -1028,7 +983,7 @@ msgstr ""
 "Número máximo de slots de agendamento para dias da semana. Se quiser definir "
 "valores diferentes por dia da semana, utilize "
 
-#: settings/class.competitive-scheduling-settings.php:1012
+#: settings/class.competitive-scheduling-settings.php:1015
 msgid ""
 "Quantity in days before the day of a service that the system allows the free "
 "choice of this service to pre-schedule."
@@ -1036,7 +991,7 @@ msgstr ""
 "Quantidade em dias anteriores ao dia de um atendimento que o sistema permite "
 "a livre escolha desse atendimento para pré-agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:1027
+#: settings/class.competitive-scheduling-settings.php:1030
 msgid ""
 "Quantity in days before the day of a service that the system allows the free "
 "choice of this service to schedule residual vacancies."
@@ -1044,7 +999,7 @@ msgstr ""
 "Quantidade em dias anteriores ao dia de um atendimento que o sistema permite "
 "a livre escolha desse atendimento para agendamento de vagas residuais."
 
-#: settings/class.competitive-scheduling-settings.php:1040
+#: settings/class.competitive-scheduling-settings.php:1043
 msgid ""
 "Period in days before the day of a service in which the system blocks the "
 "free choice of service to allow time for schedules to be confirmed."
@@ -1052,11 +1007,11 @@ msgstr ""
 "Período em dias anteriores ao dia do atendimento em que o sistema bloqueia a "
 "livre escolha do atendimento para dar tempo de confirmação dos agendamentos."
 
-#: settings/class.competitive-scheduling-settings.php:1055
+#: settings/class.competitive-scheduling-settings.php:1058
 msgid "Maximum number of companions in one schedule"
 msgstr "Número máximo de acompanhantes em um agendamento"
 
-#: settings/class.competitive-scheduling-settings.php:1068
+#: settings/class.competitive-scheduling-settings.php:1071
 msgid ""
 "Subject of emails that will be sent to users pre-schedule made on your "
 "website."
@@ -1064,28 +1019,28 @@ msgstr ""
 "Assunto dos e-mails que serão enviados para agendamentos de usuários "
 "realizados em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1084
+#: settings/class.competitive-scheduling-settings.php:1087
 msgid ""
 "Email message that will be sent to users' pre-schedule made on your website."
 msgstr ""
 "Mensagem dos e-mails que serão enviados aos usuários pré-agendados em seu "
 "site."
 
-#: settings/class.competitive-scheduling-settings.php:1097
+#: settings/class.competitive-scheduling-settings.php:1100
 msgid ""
 "Subject of emails that will be sent to users' schedules made on your website."
 msgstr ""
 "Assunto dos e-mails que serão enviados para agendamentos de usuários "
 "realizados em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1113
+#: settings/class.competitive-scheduling-settings.php:1116
 msgid ""
 "Message of emails that will be sent to users' schedules made on your website."
 msgstr ""
 "Mensagem de e-mails que serão enviados para agendamentos de usuários feitos "
 "em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1126
+#: settings/class.competitive-scheduling-settings.php:1129
 msgid ""
 "Subject of the emails that will be sent regarding the exclusions of user "
 "schedules made on your website."
@@ -1093,7 +1048,7 @@ msgstr ""
 "Assunto dos e-mails que serão enviados referentes às exclusões de "
 "agendamentos de usuários realizados em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1142
+#: settings/class.competitive-scheduling-settings.php:1145
 msgid ""
 "Message of the emails that will be sent regarding the exclusions of user "
 "schedules made on your website."
@@ -1101,7 +1056,7 @@ msgstr ""
 "Mensagem dos e-mails que serão enviados referentes às exclusões de "
 "agendamentos de usuários feitas em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1155
+#: settings/class.competitive-scheduling-settings.php:1158
 msgid ""
 "Subject of emails that will be sent to confirm user schedules made on your "
 "website."
@@ -1109,7 +1064,7 @@ msgstr ""
 "Assunto dos e-mails que serão enviados para confirmação de agendamentos de "
 "usuários realizados em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1171
+#: settings/class.competitive-scheduling-settings.php:1174
 msgid ""
 "Email message that will be sent to confirm user schedules made on your "
 "website."
@@ -1117,19 +1072,19 @@ msgstr ""
 "Mensagem de e-mail que será enviada para confirmar os agendamentos dos "
 "usuários realizados em seu site."
 
-#: settings/class.competitive-scheduling-settings.php:1178
+#: settings/class.competitive-scheduling-settings.php:1181
 msgid "HTML layout for printing confirmed schedules."
 msgstr "Layout HTML para impressão de agendamentos confirmados."
 
-#: settings/class.competitive-scheduling-settings.php:1185
+#: settings/class.competitive-scheduling-settings.php:1188
 msgid "HTML layout for priority coupon printing."
 msgstr "Layout HTML para impressão de cupons de prioridade."
 
-#: settings/class.competitive-scheduling-settings.php:1201
+#: settings/class.competitive-scheduling-settings.php:1204
 msgid "Brief description that will appear on all priority coupons."
 msgstr "Breve descrição que aparecerá em todos os cupons prioritários."
 
-#: settings/class.competitive-scheduling-settings.php:1217
+#: settings/class.competitive-scheduling-settings.php:1220
 msgid ""
 "Alert message shown to users when canceling a schedule has been completed "
 "successfully."
@@ -1137,7 +1092,7 @@ msgstr ""
 "Mensagem de alerta mostrada aos usuários quando o cancelamento de um "
 "agendamento foi concluído com sucesso."
 
-#: settings/class.competitive-scheduling-settings.php:1233
+#: settings/class.competitive-scheduling-settings.php:1236
 msgid ""
 "Alert message shown to users when confirmation of a booking has been "
 "completed successfully."
@@ -1145,12 +1100,12 @@ msgstr ""
 "Mensagem de alerta mostrada aos usuários quando a confirmação de um "
 "agendamento foi concluído com sucesso."
 
-#: settings/class.competitive-scheduling-settings.php:1249
+#: settings/class.competitive-scheduling-settings.php:1252
 msgid "Alert message shown to users when a date is not available."
 msgstr ""
 "Mensagem de alerta mostrada aos usuários quando uma data não está disponível."
 
-#: settings/class.competitive-scheduling-settings.php:1265
+#: settings/class.competitive-scheduling-settings.php:1268
 msgid ""
 "Alert message shown to users when confirmation of a schedule was not "
 "possible because the confirmation period has passed."
@@ -1158,7 +1113,7 @@ msgstr ""
 "Mensagem de alerta mostrada aos usuários quando a confirmação de um "
 "agendamento não foi possível porque o período de confirmação já passou."
 
-#: settings/class.competitive-scheduling-settings.php:1281
+#: settings/class.competitive-scheduling-settings.php:1284
 msgid ""
 "Message that will be shown to the user when trying to confirm an already "
 "confirmed schedule again."
@@ -1166,7 +1121,7 @@ msgstr ""
 "Mensagem que será mostrada ao usuário ao tentar confirmar novamente um "
 "agendamento já confirmado."
 
-#: settings/class.competitive-scheduling-settings.php:1297
+#: settings/class.competitive-scheduling-settings.php:1300
 msgid ""
 "Alert message shown to users when they try to schedule twice on the same "
 "date."
@@ -1174,32 +1129,32 @@ msgstr ""
 "Mensagem de alerta mostrada aos usuários quando eles tentarem agendar duas "
 "vezes na mesma data."
 
-#: settings/class.competitive-scheduling-settings.php:1313
+#: settings/class.competitive-scheduling-settings.php:1316
 msgid "Alert message shown to users when a schedule was not found."
 msgstr ""
 "Mensagem de alerta mostrada aos usuários quando um agendamento não foi "
 "encontrado."
 
-#: settings/class.competitive-scheduling-settings.php:1329
+#: settings/class.competitive-scheduling-settings.php:1332
 msgid "Alert message shown to users when there are no spaces for an schedule."
 msgstr ""
 "Mensagem de alerta mostrada aos usuários quando não há vagas para "
 "agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:1345
+#: settings/class.competitive-scheduling-settings.php:1348
 msgid "Message shown to users when the system is suspended."
 msgstr "Mensagem mostrada aos usuários quando o sistema está suspenso."
 
-#: settings/class.competitive-scheduling-settings.php:1361
+#: settings/class.competitive-scheduling-settings.php:1364
 msgid "Alert message shown to users when completing a schedule."
 msgstr "Mensagem de alerta mostrada aos usuários ao concluir um agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:1377
+#: settings/class.competitive-scheduling-settings.php:1380
 msgid "Alert message shown to users when completing a pre-schedule."
 msgstr ""
 "Mensagem de alerta mostrada aos usuários ao concluir um pré-agendamento."
 
-#: settings/class.competitive-scheduling-settings.php:1393
+#: settings/class.competitive-scheduling-settings.php:1396
 msgid ""
 "Message that will be shown to the user when trying to confirm an schedule "
 "with a not allowed status."
@@ -1207,23 +1162,23 @@ msgstr ""
 "Mensagem que será mostrada ao usuário ao tentar confirmar um agendamento com "
 "status não permitido."
 
-#: settings/class.competitive-scheduling-settings.php:1409
+#: settings/class.competitive-scheduling-settings.php:1412
 msgid "Priority Coupon Inactivity Alert Message."
 msgstr "Mensagem de Alerta de Inatividade de Cupom de Prioridade."
 
-#: settings/class.competitive-scheduling-settings.php:1425
+#: settings/class.competitive-scheduling-settings.php:1428
 msgid "Priority coupon alert message already used."
 msgstr "Mensagem de alerta de cupom de prioridade já utilizado."
 
-#: settings/class.competitive-scheduling-settings.php:1441
+#: settings/class.competitive-scheduling-settings.php:1444
 msgid "Priority Coupon Not Found Alert Message."
 msgstr "Mensagem de Alerta de Cupom de Prioridade Não Encontrado."
 
-#: settings/class.competitive-scheduling-settings.php:1457
+#: settings/class.competitive-scheduling-settings.php:1460
 msgid "Expired priority coupon alert message."
 msgstr "Mensagem de alerta de cupom de prioridade expirado."
 
-#: settings/class.competitive-scheduling-settings.php:1473
+#: settings/class.competitive-scheduling-settings.php:1476
 msgid ""
 "When it is not possible to confirm residual vacancies due to the deadline or "
 "because there are no vacancies."
@@ -1231,7 +1186,7 @@ msgstr ""
 "Quando não for possível confirmar vagas residuais devido ao prazo ou por não "
 "haver vagas."
 
-#: settings/class.competitive-scheduling-settings.php:1488
+#: settings/class.competitive-scheduling-settings.php:1491
 msgid ""
 "Numeric page identifier within Wordpress with the default scheduling "
 "interface. Important: you can use no limit schedule interfaces by use this "
@@ -1241,7 +1196,7 @@ msgstr ""
 "padrão. Importante: você pode usar interfaces de programação sem limite "
 "usando este shortcode em qualquer página/post/etc [competitive_scheduling]"
 
-#: settings/class.competitive-scheduling-settings.php:1503
+#: settings/class.competitive-scheduling-settings.php:1506
 msgid ""
 "Numeric page identifier within Wordpress with standard scheduling interface "
 "to meet system demands in a public way. Important: no matter the number of "
@@ -1253,7 +1208,7 @@ msgstr ""
 "Importante: não importa a quantidade de shortcodes, as interações públicas, "
 "sem estar logado no sistema, sempre utilizarão esta página"
 
-#: settings/class.competitive-scheduling-settings.php:1509
+#: settings/class.competitive-scheduling-settings.php:1512
 msgid ""
 "Use the shortcode [competitive_scheduling] to display the controler in any "
 "page/post/widget. IMPORTANT: is necessary to be logged-in to see it."
@@ -1262,7 +1217,7 @@ msgstr ""
 "qualquer página/post/widget. IMPORTANTE: é necessário estar logado para "
 "visualizá-lo."
 
-#: settings/class.competitive-scheduling-settings.php:1522
+#: settings/class.competitive-scheduling-settings.php:1525
 msgid ""
 "Select this option and then click <b>Save Settings</b> below so that all "
 "settings are reset to default values. Important: all previous values will be "
@@ -1272,35 +1227,72 @@ msgstr ""
 "todas as configurações sejam redefinidas para os valores padrão. Importante: "
 "todos os valores anteriores serão excluídos."
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:347
+#: shortcodes/class.competitive-scheduling-shortcode.php:346
 msgid "Undefined Status"
 msgstr "Status Indefinido"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:686
+#: shortcodes/class.competitive-scheduling-shortcode.php:685
 msgid "Scheduling Data"
 msgstr "Data de Agendamento"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:712
+#: shortcodes/class.competitive-scheduling-shortcode.php:711
 msgid "It is mandatory to choose a date before submitting."
 msgstr "É obrigatório escolher uma data antes de enviar."
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2313
+#: shortcodes/class.competitive-scheduling-shortcode.php:2446
+msgid "<span class=\"ui green label\">Confirmed</span>"
+msgstr "<span class=\"ui green label\">Confirmado</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2447
+msgid "<span class=\"ui grey label\">Finished</span>"
+msgstr "<span class=\"ui grey label\">Finalizado</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2448
 msgid "<span class=\"ui red label\">Canceled</span>"
 msgstr "<span class=\"ui red label\">Cancelado</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2329
+#: shortcodes/class.competitive-scheduling-shortcode.php:2449
+msgid ""
+"<span class=\"ui brown label\">Not Drawn - Waiting for Residual Vacancies</"
+"span>"
+msgstr ""
+"<span class=\"ui brown label\">Não Sorteado - Aguardando Vagas Residuais</"
+"span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2450
+msgid "<span class=\"ui grey label\">Waiting For Draw</span>"
+msgstr "<span class=\"ui grey label\">Aguardando Sorteio</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2451
+msgid "<span class=\"ui yellow label\">Drawn - Awaiting Confirmation</span>"
+msgstr ""
+"<span class=\"ui yellow label\">Sorteado - Aguardando Confirmação</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2452
+msgid "<span class=\"ui brown label\">No Residual Vacancies</span>"
+msgstr "<span class=\"ui brown label\">Sem Vagas Residuais</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2453
+msgid "<span class=\"ui teal label\">Available Residual Vacancies</span>"
+msgstr "<span class=\"ui teal label\">Vagas Residuais Disponíveis</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2456
+msgid "<span class=\"ui grey label\">Undefined Status</span>"
+msgstr "<span class=\"ui grey label\">Status Indefinido</span>"
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2464
 msgid "Companion's full name"
 msgstr "Nome completo do acompanhante"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2330
+#: shortcodes/class.competitive-scheduling-shortcode.php:2465
 msgid "Are you sure you want to delete this schedule?"
 msgstr "Tem certeza de que deseja excluir este agendamento?"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2331
+#: shortcodes/class.competitive-scheduling-shortcode.php:2466
 msgid "Are you sure you want to confirm this schedule?"
 msgstr "Tem certeza de que deseja confirmar este agendamento?"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2332
+#: shortcodes/class.competitive-scheduling-shortcode.php:2467
 msgid "Date not selected! It is mandatory to select a date to continue!"
 msgstr ""
 "Data não Selecionada! É obrigatório selecionar uma data para continuar!"
@@ -1358,24 +1350,28 @@ msgstr "Imprimir"
 msgid "Create Schedules"
 msgstr "Criar Agendamentos"
 
-#: views/competitive-scheduling-admin-page.php:89
+#: views/competitive-scheduling-admin-page.php:83
+msgid "Draw Schedules"
+msgstr "Sortear Agendamentos"
+
+#: views/competitive-scheduling-admin-page.php:93
 #: views/competitive-scheduling_shortecode.php:76
 msgid "Companions"
 msgstr "Acompanhantes"
 
-#: views/competitive-scheduling-admin-page.php:90
+#: views/competitive-scheduling-admin-page.php:94
 msgid "Email"
 msgstr "Email"
 
-#: views/competitive-scheduling-admin-page.php:110
+#: views/competitive-scheduling-admin-page.php:114
 msgid "Sent"
 msgstr "Enviado"
 
-#: views/competitive-scheduling-admin-page.php:114
+#: views/competitive-scheduling-admin-page.php:118
 msgid "Not Sent"
 msgstr "Não Enviado"
 
-#: views/competitive-scheduling-admin-page.php:149
+#: views/competitive-scheduling-admin-page.php:153
 msgid "Visa"
 msgstr "Visto"
 
@@ -1392,20 +1388,6 @@ msgid ""
 msgstr ""
 "Tem certeza de que deseja confirmar este agendamento? Se sim, clique no "
 "botão <b>CONFIRMAR</b>, caso contrário, clique no botão <b>CANCELAR</b>."
-
-#: views/competitive-scheduling-public.php:20
-#: views/competitive-scheduling_shortecode.php:158
-#: views/competitive-scheduling_shortecode.php:232
-#: views/competitive-scheduling_shortecode.php:345
-#: views/competitive-scheduling_shortecode.php:385
-msgid "Click to Cancel Schedule"
-msgstr "Clique para Cancelar o Agendamento"
-
-#: views/competitive-scheduling-public.php:24
-#: views/competitive-scheduling_shortecode.php:162
-#: views/competitive-scheduling_shortecode.php:349
-msgid "Click to Confirm Schedule"
-msgstr "Clique para Confirmar o Agendamento"
 
 #: views/competitive-scheduling-public.php:38
 msgid ""
@@ -1434,7 +1416,11 @@ msgid ""
 msgstr "Importante: não é possível cancelar o cancelamento deste agendamento!"
 
 #: views/competitive-scheduling-public.php:73
+#: views/competitive-scheduling-public.php:92
+#: views/competitive-scheduling-public.php:105
 #: views/competitive-scheduling_shortecode.php:401
+#: views/competitive-scheduling_shortecode.php:420
+#: views/competitive-scheduling_shortecode.php:433
 msgid "Schedule Change"
 msgstr "Alterar Agendamento"
 
@@ -1477,9 +1463,36 @@ msgid "For more information visit our website"
 msgstr "Para mais informações visite nosso site"
 
 #: views/competitive-scheduling-public.php:87
+#: views/competitive-scheduling-public.php:100
+#: views/competitive-scheduling-public.php:113
 #: views/competitive-scheduling_shortecode.php:415
+#: views/competitive-scheduling_shortecode.php:428
+#: views/competitive-scheduling_shortecode.php:441
 msgid "here"
 msgstr "aqui"
+
+#: views/competitive-scheduling-public.php:97
+#: views/competitive-scheduling_shortecode.php:425
+msgid "Error"
+msgstr "Erro"
+
+#: views/competitive-scheduling-public.php:99
+#: views/competitive-scheduling_shortecode.php:427
+msgid "It is not possible to change your schedule due to the following error:"
+msgstr "Não é possível alterar seu agendamento devido ao seguinte erro:"
+
+#: views/competitive-scheduling-public.php:100
+#: views/competitive-scheduling-public.php:113
+#: views/competitive-scheduling_shortecode.php:415
+#: views/competitive-scheduling_shortecode.php:428
+#: views/competitive-scheduling_shortecode.php:441
+msgid "Access your schedules by clicking"
+msgstr "Acesse seus agendamentos clicando"
+
+#: views/competitive-scheduling-public.php:110
+#: views/competitive-scheduling_shortecode.php:438
+msgid "Success"
+msgstr "Sucesso"
 
 #: views/competitive-scheduling_metabox.php:68
 msgid "Print Coupons"
@@ -1706,6 +1719,16 @@ msgstr "Clique para Visualizar Dados do Agendamento"
 msgid "View"
 msgstr "Visualizar"
 
+#: views/competitive-scheduling_shortecode.php:158
+#: views/competitive-scheduling_shortecode.php:232
+#: views/competitive-scheduling_shortecode.php:385
+msgid "Click to Cancel Schedule"
+msgstr "Clique para Cancelar o Agendamento"
+
+#: views/competitive-scheduling_shortecode.php:162
+msgid "Click to Confirm Schedule"
+msgstr "Clique para Confirmar o Agendamento"
+
 #: views/competitive-scheduling_shortecode.php:175
 #: views/competitive-scheduling_shortecode.php:245
 #: views/competitive-scheduling_shortecode.php:289
@@ -1748,10 +1771,6 @@ msgstr "Agendamento Data:"
 #: views/competitive-scheduling_shortecode.php:409
 msgid "Possible reasons:"
 msgstr "Razões possíveis:"
-
-#: views/competitive-scheduling_shortecode.php:415
-msgid "Access your schedules by clicking"
-msgstr "Acesse seus agendamentos clicando"
 
 #: views/settings-page.php:42
 msgid "Save Settings"
