@@ -1003,8 +1003,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
         }
 
         private function home_public( $page ){
-            if( $params ) foreach( $params as $var => $val ) $$var = $val;
-
             global $_MANAGER;
 
             $page = Templates::change_variable( $page, '[[error-info]]', __( 'This is a system page. No options have been defined. Choose the correct option and try again.', 'competitive-scheduling' ) );
