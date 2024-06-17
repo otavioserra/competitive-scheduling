@@ -1190,7 +1190,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Generate schedule password.
                 $password = Formats::format_put_char_half_number( Formats::format_zero_to_the_left( rand( 1, 99999 ), 6 ) );
 
-                // Confirm schedule or create pre-booking.
+                // Confirm schedule or create pre-schedule.
                 if( isset( $scheduleConfirm ) ){
                     
                     // Check if you already have a confirmed schedule for this date. If so, return error and permission message for only one schedule per date.
@@ -1404,6 +1404,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Format alert message.
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#password#', $password );
+                    $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#code#', $code );
                     
                     $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Templates::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                     
