@@ -161,7 +161,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     return $this->confirmation_public( ob_get_clean() );
                     break;
                 default:
-                    wp_redirect( home_url() );
+                    return $this->home_public( ob_get_clean() );
             }
         }
 
@@ -997,6 +997,20 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             }
+
+            Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+            return $page;
+        }
+
+        private function home_public( $page ){
+            if( $params ) foreach( $params as $var => $val ) $$var = $val;
+
+            global $_MANAGER;
+
+            $page = Templates::change_variable( $page, '[[error-info]]', __( 'This is a system page. No options have been defined. Choose the correct option and try again.', 'competitive-scheduling' ) );
+
+            $_MANAGER['javascript-vars']['errorInfo'] = true;
 
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 

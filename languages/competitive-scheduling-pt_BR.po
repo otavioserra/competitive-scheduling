@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Competitive Schedulling Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2024-06-13 15:31-0300\n"
+"POT-Creation-Date: 2024-06-17 18:56-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Otávio <otavio@b2make.com>\n"
@@ -214,7 +214,7 @@ msgstr ""
 #: settings/class.competitive-scheduling-settings.php:292
 #: shortcodes/class.competitive-scheduling-shortcode.php:245
 #: shortcodes/class.competitive-scheduling-shortcode.php:726
-#: shortcodes/class.competitive-scheduling-shortcode.php:2463
+#: shortcodes/class.competitive-scheduling-shortcode.php:2514
 #: views/competitive-scheduling-admin-page.php:105
 msgid "Companion"
 msgstr "Acompanhante"
@@ -1239,19 +1239,27 @@ msgstr "Data de Agendamento"
 msgid "It is mandatory to choose a date before submitting."
 msgstr "É obrigatório escolher uma data antes de enviar."
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2446
+#: shortcodes/class.competitive-scheduling-shortcode.php:1011
+msgid ""
+"This is a system page. No options have been defined. Choose the correct "
+"option and try again."
+msgstr ""
+"Isso é uma página de sistema. Nenhuma opção foi definida. Escolha a opção "
+"correta e tente novamente."
+
+#: shortcodes/class.competitive-scheduling-shortcode.php:2497
 msgid "<span class=\"ui green label\">Confirmed</span>"
 msgstr "<span class=\"ui green label\">Confirmado</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2447
+#: shortcodes/class.competitive-scheduling-shortcode.php:2498
 msgid "<span class=\"ui grey label\">Finished</span>"
 msgstr "<span class=\"ui grey label\">Finalizado</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2448
+#: shortcodes/class.competitive-scheduling-shortcode.php:2499
 msgid "<span class=\"ui red label\">Canceled</span>"
 msgstr "<span class=\"ui red label\">Cancelado</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2449
+#: shortcodes/class.competitive-scheduling-shortcode.php:2500
 msgid ""
 "<span class=\"ui brown label\">Not Drawn - Waiting for Residual Vacancies</"
 "span>"
@@ -1259,40 +1267,40 @@ msgstr ""
 "<span class=\"ui brown label\">Não Sorteado - Aguardando Vagas Residuais</"
 "span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2450
+#: shortcodes/class.competitive-scheduling-shortcode.php:2501
 msgid "<span class=\"ui grey label\">Waiting For Draw</span>"
 msgstr "<span class=\"ui grey label\">Aguardando Sorteio</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2451
+#: shortcodes/class.competitive-scheduling-shortcode.php:2502
 msgid "<span class=\"ui yellow label\">Drawn - Awaiting Confirmation</span>"
 msgstr ""
 "<span class=\"ui yellow label\">Sorteado - Aguardando Confirmação</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2452
+#: shortcodes/class.competitive-scheduling-shortcode.php:2503
 msgid "<span class=\"ui brown label\">No Residual Vacancies</span>"
 msgstr "<span class=\"ui brown label\">Sem Vagas Residuais</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2453
+#: shortcodes/class.competitive-scheduling-shortcode.php:2504
 msgid "<span class=\"ui teal label\">Available Residual Vacancies</span>"
 msgstr "<span class=\"ui teal label\">Vagas Residuais Disponíveis</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2456
+#: shortcodes/class.competitive-scheduling-shortcode.php:2507
 msgid "<span class=\"ui grey label\">Undefined Status</span>"
 msgstr "<span class=\"ui grey label\">Status Indefinido</span>"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2464
+#: shortcodes/class.competitive-scheduling-shortcode.php:2515
 msgid "Companion's full name"
 msgstr "Nome completo do acompanhante"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2465
+#: shortcodes/class.competitive-scheduling-shortcode.php:2516
 msgid "Are you sure you want to delete this schedule?"
 msgstr "Tem certeza de que deseja excluir este agendamento?"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2466
+#: shortcodes/class.competitive-scheduling-shortcode.php:2517
 msgid "Are you sure you want to confirm this schedule?"
 msgstr "Tem certeza de que deseja confirmar este agendamento?"
 
-#: shortcodes/class.competitive-scheduling-shortcode.php:2467
+#: shortcodes/class.competitive-scheduling-shortcode.php:2518
 msgid "Date not selected! It is mandatory to select a date to continue!"
 msgstr ""
 "Data não Selecionada! É obrigatório selecionar uma data para continuar!"
