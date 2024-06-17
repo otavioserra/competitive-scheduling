@@ -247,6 +247,7 @@ jQuery( document ).ready( function(){
 			var schedule_id = jQuery(this).attr('data-id');
 
 			if( window.confirm( texts['confirm-confirmation'] ) ){
+				loading('open');
 				window.open("?action=confirm&schedule_id="+schedule_id,"_self");
 			}
 		});
