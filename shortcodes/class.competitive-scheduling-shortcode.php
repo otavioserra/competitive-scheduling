@@ -2223,7 +2223,13 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             if( $params ) foreach( $params as $var => $val ) $$var = $val;
             
             // Force date to today for debuging or set today's date
-            if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+            if( CS_FORCE_DATE_TODAY ){ 
+                $today = CS_DATE_TODAY_FORCED_VALUE;
+                $timeNow = strtotime( $today );
+            } else { 
+                $today = date('Y-m-d'); 
+                $timeNow = time();
+            }
             
             // Get the configuration data.
             $options = get_option( 'competitive_scheduling_options' );
@@ -2239,7 +2245,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $calendar_holidays_start = ( isset( $options['calendar-holidays-start'] ) ? trim( $options['calendar-holidays-start'] ) : '15 December' );
             $calendar_holidays_end = ( isset( $options['calendar-holidays-end'] ) ? trim( $options['calendar-holidays-end'] ) : '20 January' );
             
-            $start_year = date('Y');
+            $start_year = date('Y', $timeNow);
             $year_end = (int)$start_year + $years;
 
             global $wpdb;
@@ -2258,8 +2264,8 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 );
             }
             
-            $first_day = strtotime( date( "Y-m-d", time() ) . " + 1 day" );
-            $last_day = strtotime( date( "Y-m-d", time() ) . " + ".$years." year" );
+            $first_day = strtotime( date( "Y-m-d", $timeNow ) . " + 1 day" );
+            $last_day = strtotime( date( "Y-m-d", $timeNow ) . " + ".$years." year" );
             
             if( $calendar_limit_month_ahead ){
                 $limit_calendar = strtotime( date( "Y-m", strtotime( $today . " + ".$calendar_limit_month_ahead." month") ).'-01' );
