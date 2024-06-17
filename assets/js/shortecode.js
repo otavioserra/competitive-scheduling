@@ -259,6 +259,7 @@ jQuery( document ).ready( function(){
 			var schedule_id = jQuery(this).attr('data-id');
 
 			if( window.confirm( texts['cancel-confirmation'] ) ){
+				loading('open');
 				window.open("?action=cancel&schedule_id="+schedule_id,"_self");
 			}
 		});
