@@ -1382,6 +1382,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Format email message.
                     $scheduleSubject = Templates::change_variable( $scheduleSubject, '#code#', $code );
 
+                    $scheduleMessage = Templates::change_variable( $scheduleMessage, '#code#', $code );
                     $scheduleMessage = Templates::change_variable( $scheduleMessage, '#title#', $titleEstablishment );
                     $scheduleMessage = Templates::change_variable( $scheduleMessage, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
                     $scheduleMessage = Templates::change_variable( $scheduleMessage, '#password#', $password );
@@ -1404,7 +1405,6 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // Format alert message.
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
                     $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#password#', $password );
-                    $msgConclusionScheduling = Templates::change_variable( $msgConclusionScheduling, '#code#', $code );
                     
                     $cell_name = 'cell'; $cell[$cell_name] = Templates::tag_value( $msgConclusionScheduling, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $msgConclusionScheduling = Templates::tag_in( $msgConclusionScheduling,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                     
