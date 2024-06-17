@@ -145,23 +145,22 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             $html_body = Interfaces::components_html( true );
 
             // Get page view and return processed page
-            switch( $_REQUEST['action'] ){
-                case'schedule_cancellation':
-                case'schedule_confirmation':
-                    ob_start();
-                    require( CS_PATH . 'views/competitive-scheduling-public.php' );
-                break;
-            }
+            ob_start();
+            require( CS_PATH . 'views/competitive-scheduling-public.php' );
 
-            switch( $_REQUEST['action'] ){
-                case'schedule_cancellation':
-                    return $this->cancellation_public( ob_get_clean() );
-                    break;
-                case'schedule_confirmation':    
-                    return $this->confirmation_public( ob_get_clean() );
-                    break;
-                default:
-                    return $this->home_public( ob_get_clean() );
+            if( isset( $_REQUEST['action'] ) ){
+                switch( $_REQUEST['action'] ){
+                    case'schedule_cancellation':
+                        return $this->cancellation_public( ob_get_clean() );
+                        break;
+                    case'schedule_confirmation':    
+                        return $this->confirmation_public( ob_get_clean() );
+                        break;
+                    default:
+                        return $this->home_public( ob_get_clean() );
+                }
+            } else {
+                return $this->home_public( ob_get_clean() );
             }
         }
 
