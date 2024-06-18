@@ -4,7 +4,7 @@
  * Plugin Name: Competitive Scheduling
  * Plugin URI: https://www.wordpress.org/competitive-scheduling
  * Description: Competitive Scheduling plugin allows you to schedule events competitively against other users. This is good to places that have more people interested in the same time slots than available slots. In cases that have less slots than people interested, this plugin will help you schedule events fairly based on random draws.
- * Version: 1.0.8
+ * Version: 1.1.0
  * Requires at least: 5.6
  * Author: Otávio Campos de Abreu Serra
  * Author URI: https://www.ageone.com.br/
@@ -49,6 +49,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             require_once( CS_PATH . 'post-types/class.competitive-scheduling-priority-coupon-cpt.php' );
             $Competitive_Scheduling_Priority_Coupon_Post_Type = new Competitive_Scheduling_Priority_Coupon_Post_Type();
             
+            require_once( CS_PATH . 'shortcodes/class.calendar-shortcode.php' );
+            $Calendar_Shortcode = new Calendar_Shortcode();
+            
             require_once( CS_PATH . 'shortcodes/class.competitive-scheduling-shortcode.php' );
             $Competitive_Scheduling_Shortcode = new Competitive_Scheduling_Shortcode();
             
@@ -63,7 +66,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_PATH', plugin_dir_path( __FILE__ ) );
             define( 'CS_URL', plugin_dir_url( __FILE__ ) );
             define( 'CS_URL_FOMANTIC_UI', plugin_dir_url( __FILE__ ) . 'vendor/fomantic-UI@2.9.0/dist/');
-            define( 'CS_VERSION', '1.0.8' );
+            define( 'CS_VERSION', '1.1.0' );
             define( 'CS_EMAIL_ACTIVE', true );
             define( 'CS_DEBUG', false );
             define( 'CS_FORCE_DATE_TODAY', false );

@@ -74,6 +74,71 @@ jQuery( document ).ready( function(){
 		jQuery( '.successInfo' ).show();
 	}
 	
+	function calendarShortcode(){
+		// Calendar settings.
+        var calendar = manager.calendar;
+        var root = manager.root;
+        
+        // Dates available for scheduling.
+        var availableDates = [];
+        
+        for( var date in calendar.available_dates ){
+            var dateObj = new Date( date.replace( /-/g, '\/' ) ); // Bug in the javascript Date() object. Just change the '-' to '/' and the date works correctly. Otherwise it will be one day longer than the correct day.
+            
+            availableDates.push(dateObj);
+        }
+        
+        // ptBR calendar.
+        var calendarPtBR = {
+            days: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            today: 'Hoje',
+            now: 'Agora',
+            am: 'AM',
+            pm: 'PM'
+        };
+        
+        // Variables of the 'calendar' component.
+        var calendarDatasOpt = {
+            text: calendarPtBR,
+            type: 'date',
+            inline: true,
+            initialDate: new Date(),
+            minDate: new Date( calendar.start_year+'/01/01' ),
+            maxDate: new Date( calendar.year_end+'/12/31' ),
+            eventClass: 'inverted blue',
+            enabledDates: availableDates,
+            eventDates: availableDates,
+            formatter: {
+                date: function ( date ) {
+                    if ( ! date ) return '';
+                    
+                    var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
+                    var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
+                    var year = date.getFullYear();
+                    
+                    return day + '/' + month + '/' + year;
+                }
+            },
+            onChange: function( date, dateFormated ){
+                jQuery( '.scheduleDate' ).val( dateFormated );
+                jQuery( '.dateSelected' ).find( '.dateSelectedValue' ).html( dateFormated );
+                
+                var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
+                var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
+                var year = date.getFullYear();
+                
+                var date = year + '-' + month + '-' + day;
+                
+                schedules_update( { date } );
+            }
+        }
+        
+        // Start calendar.
+        jQuery( '.ui.calendar' ).calendar( calendarDatasOpt );
+	}
+	
 	function start(){
 		// Handle scheduling changes.
 		
@@ -82,6 +147,7 @@ jQuery( document ).ready( function(){
 		if( 'expiredOrNotFound' in cs_manager ){ expiredOrNotFound(); }
 		if( 'errorInfo' in cs_manager ){ errorInfo(); }
 		if( 'successInfo' in cs_manager ){ successInfo(); }
+		if( 'calendarShortcode' in cs_manager ){ calendarShortcode(); }
 	}
 	
 	start();
