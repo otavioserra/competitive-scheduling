@@ -649,7 +649,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 				);
 			}
 
-			$first_day = strtotime( date( 'Y-m-d', time() ) . ' + 1 day' );
+			$first_day = strtotime( date( 'Y-m-d', time() ) . ' - 90 day' );
 			$last_day  = strtotime( date( 'Y-m-d', time() ) . ' + ' . $years . ' year' );
 
 			$day = $first_day;
