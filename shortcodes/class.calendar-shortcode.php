@@ -86,7 +86,7 @@ if( ! class_exists( 'Calendar_Shortcode' ) ){
                 );
             }
             
-            $first_day = strtotime( date( "Y-m-d", $timeNow ) . " + 1 day" );
+            $first_day = strtotime( date( "Y-m-d", $timeNow ) . " + 0 day" );
             $last_day = strtotime( date( "Y-m-d", $timeNow ) . " + ".$years." year" );
             
             if( $calendar_limit_month_ahead ){
