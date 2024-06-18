@@ -76,8 +76,7 @@ jQuery( document ).ready( function(){
 	
 	function calendarShortcode(){
 		// Calendar settings.
-        var calendar = manager.calendar;
-        var root = manager.root;
+        var calendar = cs_manager.calendar;
         
         // Dates available for scheduling.
         var availableDates = [];
