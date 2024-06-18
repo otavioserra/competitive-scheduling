@@ -68,7 +68,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_URL_FOMANTIC_UI', plugin_dir_url( __FILE__ ) . 'vendor/fomantic-UI@2.9.0/dist/');
             define( 'CS_VERSION', '1.1.0' );
             define( 'CS_EMAIL_ACTIVE', true );
-            define( 'CS_DEBUG', true );
+            define( 'CS_DEBUG', false );
             define( 'CS_FORCE_DATE_TODAY', false );
             define( 'CS_DATE_TODAY_FORCED_VALUE', '2024-07-04' );
             define( 'CS_NOUNCE_SCHEDULES', 'cs-nouce-schedules' );
