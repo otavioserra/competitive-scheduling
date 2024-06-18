@@ -4,3 +4,10 @@
 .buttonsMargin{
 	margin-bottom: 1px;
 }
+.ui.calendar tr td {
+	background-color: #FFF;
+	border:none;
+}
+.ui.calendar tr th {
+	border:none;
+}

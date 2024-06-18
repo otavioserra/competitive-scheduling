@@ -119,18 +119,6 @@ jQuery( document ).ready( function(){
                     
                     return day + '/' + month + '/' + year;
                 }
-            },
-            onChange: function( date, dateFormated ){
-                jQuery( '.scheduleDate' ).val( dateFormated );
-                jQuery( '.dateSelected' ).find( '.dateSelectedValue' ).html( dateFormated );
-                
-                var day = ( date.getDate() < 10 ? '0' : '' ) + date.getDate();
-                var month = ( ( date.getMonth() + 1 ) < 10 ? '0' : '' ) + ( date.getMonth() + 1 );
-                var year = date.getFullYear();
-                
-                var date = year + '-' + month + '-' + day;
-                
-                schedules_update( { date } );
             }
         }
         
