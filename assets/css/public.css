@@ -4,6 +4,10 @@
 .buttonsMargin{
 	margin-bottom: 1px;
 }
+.calendarShortcode {
+	width: 200px;
+	margin: 10px auto;
+}
 .ui.calendar tr td {
 	background-color: #FFF;
 	border:none;
