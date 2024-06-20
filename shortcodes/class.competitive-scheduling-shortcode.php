@@ -160,7 +160,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         return $this->home_public( ob_get_clean() );
                 }
             } else {
-                return $this->home_public( ob_get_clean() );
+                if( isset( $_REQUEST['acao'] ) ){
+                    return $this->transicion_public( ob_get_clean() );
+                } else {
+                    return $this->home_public( ob_get_clean() );
+                }
             }
         }
 
@@ -996,6 +1000,19 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 // Activation of expiredOrNotFound.
                 $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
             }
+
+            Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
+
+            return $page;
+        }
+
+        private function transicion_public( $page ){
+            global $_MANAGER;
+
+            // Alert the user of change success.
+            $page = Templates::change_variable( $page, '[[success-info]]', 'Seu agendamento é do sistema antigo que foi desativado! Caso esteja querendo confirmar o mesmo, não será necessário. Você pode ir diretamente na instituição no dia do atendimento você e seus consulentes, avisar que foi sorteada no sistema antigo e por isso está sem senha! O pessoal na portaria está sabendo deste problema e irá liberá-los.' );
+
+            $_MANAGER['javascript-vars']['successInfo'] = true;
 
             Interfaces::finish( CS_JS_MANAGER_VAR, 'competitive-scheduling-public' );
 
