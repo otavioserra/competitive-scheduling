@@ -524,6 +524,7 @@ if( ! class_exists( 'Cron' ) ){
                         
                         if( $emails_sent >= CS_MAX_EMAILS_PER_CYCLE ){
                             $cron = get_option('competitive_scheduling_cron');
+                            if( empty( $cron ) ) $cron = array();
 
                             $maxReRuns = CS_MAX_RERUN_CYCLES;
                             $reRuns = 0;
@@ -550,6 +551,8 @@ if( ! class_exists( 'Cron' ) ){
 
             // Reset control parameters
             $cron = get_option('competitive_scheduling_cron');
+            if( empty( $cron ) ) $cron = array();
+            
             $cron['reRuns'] = 0;
             update_option( 'competitive_scheduling_cron', $cron );
 
