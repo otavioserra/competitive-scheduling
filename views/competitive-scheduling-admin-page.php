@@ -73,12 +73,12 @@
                     <?php echo esc_html__( 'Print', 'competitive-scheduling' ); ?>
                 </a>
                 &nbsp;
-                <?php if ( CS_DEBUG ): ?>
-                <a class="ui red large label" href="<?php echo admin_url( 'admin.php?page=competitive_scheduling_admin&create-schedules=true' ); ?>" target="create-schedules">
+                <?php if ( CS_DEBUG || ! empty( $_REQUEST['manual-tweak'] ) ): ?>
+                <a class="ui red large label" href="<?php echo admin_url( 'admin.php?page=competitive_scheduling_admin&create-schedules=true' . ( ! empty( $_REQUEST['manual-tweak'] ) ? '&manual-tweak=true' : '' ) ); ?>" target="create-schedules">
                     <i class="code icon"></i>
                     <?php echo esc_html__( 'Create Schedules', 'competitive-scheduling' ); ?>
                 </a>
-                &nbsp;<a class="ui pink large label" href="<?php echo admin_url( 'admin.php?page=competitive_scheduling_admin&draw-schedules=true' ); ?>" target="draw-schedules">
+                &nbsp;<a class="ui pink large label" href="<?php echo admin_url( 'admin.php?page=competitive_scheduling_admin&draw-schedules=true' . ( ! empty( $_REQUEST['manual-tweak'] ) ? '&manual-tweak=true' : '' ) ); ?>" target="draw-schedules">
                     <i class="code icon"></i>
                     <?php echo esc_html__( 'Draw Schedules', 'competitive-scheduling' ); ?>
                 </a>

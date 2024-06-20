@@ -34,9 +34,9 @@ if ( ! class_exists( 'Competitive_Scheduling_Admin_Page' ) ) {
 			}
 
 			if( ! empty( $_GET['draw-schedules'] ) ){
-				if( CS_DEBUG ){
+				if( CS_DEBUG || ! empty( $_REQUEST['manual-tweak'] ) ){
 					require_once CS_PATH . 'includes/class.cron.php';
-					Cron::draw();
+					Cron::run();
 					exit;
 				}
 			}
