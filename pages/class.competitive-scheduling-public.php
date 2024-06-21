@@ -24,11 +24,12 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
             if( $page_id != 0 && $page_id != '0' ) { 
                 $page_url = get_permalink( $page_id );
                 wp_redirect( $page_url . '?'. $query_string, 302 );
+                exit;
             } else {
                 wp_redirect( home_url(), 302 );
+                exit;
             }
 
-            exit;
         }
     }
 }
