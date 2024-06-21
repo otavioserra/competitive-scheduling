@@ -21,8 +21,6 @@ if( ! class_exists( 'Cron' ) ){
 
         public static function activate(){
             if( ! wp_next_scheduled( 'competitive_scheduling_cron_hook' ) ){
-                
-
                 // Get the current timestamp
                 $current_timestamp = time();
 
