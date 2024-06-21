@@ -2,16 +2,6 @@
 
 if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
     class Competitive_Scheduling_Public {
-        public $statusSchedulingIDs = Array(
-            'status-confirmed',
-            'status-finished',
-            'status-unqualified',
-            'status-new',
-            'status-qualified',
-            'status-no-residual-vacancy',
-            'status-residual-vacancies',
-        );
-
         public function __construct(){
             add_action( 'admin_post_schedule_cancellation', array( $this, 'redirect_to_public_page' ) );
             add_action( 'admin_post_schedule_confirmation', array( $this, 'redirect_to_public_page' ) );
@@ -19,7 +9,7 @@ if( ! class_exists( 'Competitive_Scheduling_Public' ) ){
 
         public function redirect_to_public_page(){
             // Get all variables sent in the query string.
-            $query_string = http_build_query( $_GET );
+            if( ! empty( $_GET ) ) $query_string = http_build_query( $_GET ); else $query_string = '';
 
             // Get the ID of the public schedule page.
             $pages_options = get_option('competitive_scheduling_pages_options');
