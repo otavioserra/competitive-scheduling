@@ -11,6 +11,8 @@ if( ! class_exists( 'Cron' ) ){
         public function __construct(){
             add_action( 'competitive_scheduling_cron_hook', array( __CLASS__, 'run' ) );
             add_action( 'competitive_scheduling_cron_hook_after', array( __CLASS__, 'run_after' ) );
+
+            spawn_cron();
         }
 
         /**
