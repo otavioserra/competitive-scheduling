@@ -58,6 +58,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             require_once( CS_PATH . 'settings/class.competitive-scheduling-settings.php' );
             $this->objects['Competitive_Scheduling_Settings'] = new Competitive_Scheduling_Settings();
             
+            require_once( CS_PATH . 'includes/class.cron.php' );
+            $Cron = new Cron();
+            
             add_action( 'admin_menu', array( $this, 'add_menu' ) );
         }
 
@@ -83,7 +86,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         public static function activate(){
             require_once( CS_PATH . 'includes/class.database.php' );
             require_once( CS_PATH . 'includes/class.authentication.php' );
-            require_once( CS_PATH . 'includes/class.cron.php' );
             require_once( CS_PATH . 'includes/class.pages.php' );
             
             update_option( 'rewrite_rules', '' );
@@ -96,8 +98,6 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
         }
 
         public static function desactivate(){
-            require_once( CS_PATH . 'includes/class.cron.php' );
-
             flush_rewrite_rules();
             unregister_post_type( 'competitive-scheduling' );
             Cron::desactivate();

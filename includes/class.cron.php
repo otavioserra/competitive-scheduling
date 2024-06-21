@@ -3,6 +3,17 @@
 if( ! class_exists( 'Cron' ) ){
     class Cron {
         /**
+         * __construct cron class.
+         *
+         * @return void
+         */
+
+        public function __construct(){
+            add_action( 'competitive_scheduling_cron_hook', array( __CLASS__, 'run' ) );
+            add_action( 'competitive_scheduling_cron_hook_after', array( __CLASS__, 'run_after' ) );
+        }
+
+        /**
          * Activate scheduled task.
          *
          * @return void
@@ -10,8 +21,7 @@ if( ! class_exists( 'Cron' ) ){
 
         public static function activate(){
             if( ! wp_next_scheduled( 'competitive_scheduling_cron_hook' ) ){
-                add_action( 'competitive_scheduling_cron_hook', array( __CLASS__, 'run' ) );
-                add_action( 'competitive_scheduling_cron_hook_after', array( __CLASS__, 'run_after' ) );
+                
 
                 // Get the current timestamp
                 $current_timestamp = time();
