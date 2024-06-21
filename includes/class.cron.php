@@ -107,6 +107,8 @@ if( ! class_exists( 'Cron' ) ){
          */
 
         public static function draw(){
+            error_log( CS_ID . ': ' . 'draw' );
+
             // Set the day today, either automatically or by forcing for testing and control variables initial values.
             if( CS_FORCE_DATE_TODAY ){ 
                 $today = CS_DATE_TODAY_FORCED_VALUE; 
