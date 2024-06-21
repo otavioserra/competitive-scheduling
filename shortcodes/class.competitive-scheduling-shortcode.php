@@ -1389,6 +1389,22 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     $titleEstablishment = ( ! empty( $options['title-establishment'] ) ? $options['title-establishment'] : '' );
                     
                     $code = date('dmY').Formats::format_zero_to_the_left( $id_schedules, 6 );
+
+                    // Get the ID of the public schedule page.
+                    $pages_options = get_option('competitive_scheduling_pages_options');
+
+                    if( ! empty( $pages_options['schedule-public-page-id'] ) ){
+                        $page_id = $pages_options['schedule-public-page-id'];
+                    } else {
+                        $page_id = 0;
+                    }
+
+                    // Format URL to public schedule page or to home page if the page does not exist.
+                    if( $page_id != 0 && $page_id != '0' ) { 
+                        $page_url = get_permalink( $page_id );
+                    } else {
+                        $page_url = home_url();
+                    }
                     
                     // Generate the url to be able to cancel
                     $urlCancellation = esc_url( add_query_arg(
@@ -1397,7 +1413,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'pubID' => $pubID,
                             'token' => $token,
                         ),
-                        admin_url('admin-post.php')
+                        $page_url
                     ) );
 
                     // Require user class to get user's data.
@@ -1559,6 +1575,22 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     
                     $code = date( 'dmY' ).Formats::format_zero_to_the_left( $id_schedules, 6 );
 
+                    // Get the ID of the public schedule page.
+                    $pages_options = get_option('competitive_scheduling_pages_options');
+
+                    if( ! empty( $pages_options['schedule-public-page-id'] ) ){
+                        $page_id = $pages_options['schedule-public-page-id'];
+                    } else {
+                        $page_id = 0;
+                    }
+
+                    // Format URL to public schedule page or to home page if the page does not exist.
+                    if( $page_id != 0 && $page_id != '0' ) { 
+                        $page_url = get_permalink( $page_id );
+                    } else {
+                        $page_url = home_url();
+                    }
+                    
                     // Generate the url to be able to cancel
                     $urlCancellation = esc_url( add_query_arg(
                         array(
@@ -1566,7 +1598,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                             'pubID' => $pubID,
                             'token' => $token,
                         ),
-                        admin_url('admin-post.php')
+                        $page_url
                     ) );
 
                     // Format email message.
@@ -2040,6 +2072,22 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
 
             $token = $auth['token'];
             
+            // Get the ID of the public schedule page.
+            $pages_options = get_option('competitive_scheduling_pages_options');
+
+            if( ! empty( $pages_options['schedule-public-page-id'] ) ){
+                $page_id = $pages_options['schedule-public-page-id'];
+            } else {
+                $page_id = 0;
+            }
+
+            // Format URL to public schedule page or to home page if the page does not exist.
+            if( $page_id != 0 && $page_id != '0' ) { 
+                $page_url = get_permalink( $page_id );
+            } else {
+                $page_url = home_url();
+            }
+            
             // Generate the url to be able to cancel
             $urlCancellation = esc_url( add_query_arg(
                 array(
@@ -2047,7 +2095,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     'pubID' => $pubID,
                     'token' => $token,
                 ),
-                admin_url('admin-post.php')
+                $page_url
             ) );
 
             // Require user class to get user's data.

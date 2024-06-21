@@ -439,6 +439,22 @@ if( ! class_exists( 'Cron' ) ){
                     // Require user class to get user's data.
                     require_once( CS_PATH . 'includes/class.user.php' );
 
+                    // Get the ID of the public schedule page.
+                    $pages_options = get_option('competitive_scheduling_pages_options');
+
+                    if( ! empty( $pages_options['schedule-public-page-id'] ) ){
+                        $page_id = $pages_options['schedule-public-page-id'];
+                    } else {
+                        $page_id = 0;
+                    }
+
+                    // Format URL to public schedule page or to home page if the page does not exist.
+                    if( $page_id != 0 && $page_id != '0' ) { 
+                        $page_url = get_permalink( $page_id );
+                    } else {
+                        $page_url = home_url();
+                    }
+
                     // Scan all schedules.
                     $emails_sent = 0;
                     foreach( $schedules as $schedule ){
@@ -460,7 +476,7 @@ if( ! class_exists( 'Cron' ) ){
                                 'pubID' => $pubID,
                                 'token' => $token,
                             ),
-                            admin_url('admin-post.php')
+                            $page_url
                         ) );
                         $urlConfirmation = esc_url( add_query_arg(
                             array(
@@ -468,7 +484,7 @@ if( ! class_exists( 'Cron' ) ){
                                 'pubID' => $pubID,
                                 'token' => $token,
                             ),
-                            admin_url('admin-post.php')
+                            $page_url
                         ) );
                         
                         // Get the user's name and email
