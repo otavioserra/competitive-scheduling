@@ -1,10 +1,10 @@
 {
-    "apiVersion": 2,
-    "name": "competitive-scheduling/client",
-    "title": "Competitive Scheduling",
-    "description": "Competitive Scheduling Client",
-    "category": "widgets",
-    "icon": "calendar-alt",
-    "textdomain": "competitive-scheduling",
-    "editorScript": "file:./build/index.js"
+	"apiVersion": 2,
+	"name": "competitive-scheduling/client",
+	"title": "Competitive Scheduling",
+	"description": "Competitive Scheduling Client",
+	"category": "widgets",
+	"icon": "calendar-alt",
+	"textdomain": "competitive-scheduling",
+	"editorScript": "file:./build/index.js"
 }
