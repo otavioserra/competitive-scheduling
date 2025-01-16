@@ -61,6 +61,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             require_once( CS_PATH . 'includes/class.cron.php' );
             $Cron = new Cron();
             
+            add_action( 'init', array( $this, 'register_blocks' ) );
             add_action( 'admin_menu', array( $this, 'add_menu' ) );
         }
 
@@ -118,6 +119,10 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
                 false,
                 dirname( plugin_basename( __FILE__ ) ) . '/languages/'
             );
+        }
+
+        public function register_blocks(){
+            register_block_type_from_metadata( __DIR__ );
         }
 
         public function add_menu(){
