@@ -7,7 +7,7 @@ registerBlockType('competitive-scheduling/client', {
         return <p {...blockProps}>Edit JSX</p>;
     },
     save: function () {
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps.save();
         return <p {...blockProps}>Save JSX</p>;
     },
 });
