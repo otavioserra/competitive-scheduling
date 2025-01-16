@@ -1,0 +1,19 @@
+{
+  "name": "competitive-scheduling",
+  "version": "1.0.0",
+  "description": "Competitive Scheduling plugin allows you to schedule events competitively against other users. This is good to places that have more people interested in the same time slots than available slots. In cases that have less slots than people interested, this plugin will help you schedule events fairly based on random draws.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^30.9.0"
+  },
+  "dependencies": {
+    "@wordpress/blocks": "^14.5.0"
+  }
+}

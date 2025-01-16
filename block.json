@@ -6,5 +6,5 @@
     "category": "widgets",
     "icon": "calendar-alt",
     "textdomain": "competitive-scheduling",
-    "editorScript": "file:./blocks/client.js"
+    "editorScript": "file:./build/index.js"
 }
