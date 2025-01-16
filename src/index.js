@@ -4,10 +4,10 @@ import { useBlockProps } from "@wordpress/block-editor";
 registerBlockType('competitive-scheduling/client', {
     edit: function () {
         const blockProps = useBlockProps();
-        return <p {...blockProps}>Edit 2</p>;
+        return <p {...blockProps}>Edit JSX</p>;
     },
     save: function () {
         const blockProps = useBlockProps();
-        return <p {...blockProps}>Save</p>;
+        return <p {...blockProps}>Save JSX</p>;
     },
 });
