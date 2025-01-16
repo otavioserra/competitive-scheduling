@@ -1,0 +1,1 @@
+{"version":3,"file":"./style-index.css","mappings":";;;AAAA;EACI;EACA;AACJ,C","sources":["webpack://competitive-scheduling/./src/style.scss"],"sourcesContent":[".wp-block-competitive-scheduling-client {\r\n    background-color: #882d2d;\r\n    font-size: large;\r\n}"],"names":[],"sourceRoot":""}

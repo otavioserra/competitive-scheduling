@@ -1,6 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from "@wordpress/block-editor";
-import '.style.scss';
+import './style.scss';
 
 registerBlockType('competitive-scheduling/client', {
     edit: function () {
