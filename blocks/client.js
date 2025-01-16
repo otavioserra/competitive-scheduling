@@ -1,6 +1,6 @@
 var registerBlockType = wp.blocks.registerBlockType;
 
-registerBlockType("blocks-course/firstblock", {
+registerBlockType("competitive-scheduling/client", {
     edit: function () {
         return "Edit";
     },
