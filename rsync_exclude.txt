@@ -1,9 +1,0 @@
-.husky/
-.git/
-node_modules/
-src/
-.eslintrc
-.gitignore
-block.json
-package-lock.json
-package.json
