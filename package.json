@@ -17,6 +17,10 @@
 	"stylelint": {
 		"extends": "@wordpress/stylelint-config/scss"
 	},
+	"lint-staged": {
+		"*.js": "wp-scripts lint-js ./src",
+		"*.scss": "wp-scripts lint-style ./src"
+	},
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
