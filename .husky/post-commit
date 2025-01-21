@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Define a pasta de destino onde você deseja copiar os arquivos
+# Define a pasta de destino onde voce deseja copiar os arquivos
 DESTINATION_DIR="/c/Users/otavi/OneDrive/Documentos/Web/wordpress/wp-content/plugins/competitive-scheduling"
 
-# Verifica se o diretório existe
+# Verifica se o diretorio existe
 if [ ! -d "$DESTINATION_DIR" ]; then
-  # Cria o diretório
+  # Cria o diretorio
   echo "Creating the directory: " . "$DESTINATION_DIR";
   mkdir -p "$DESTINATION_DIR"
 fi
@@ -26,7 +26,7 @@ fi
 echo "End copy";
 exit 0;
 
-# Usar arquivo de configuração (rsync_exclude.txt)
+# Usar arquivo de configuracao (rsync_exclude.txt)
 if [ -f "rsync_exclude.txt" ]; then
   exclude_args=""
   while IFS= read -r item; do
