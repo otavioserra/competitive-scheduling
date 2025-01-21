@@ -1,1 +1,1 @@
-{"version":3,"file":"index.css","mappings":";;;AAAA;EACI;AACJ,C","sources":["webpack://competitive-scheduling/./src/editor.scss"],"sourcesContent":[".wp-block-competitive-scheduling-client {\r\n    border: 2px solid rgb(1, 1, 1);\r\n}"],"names":[],"sourceRoot":""}
+{"version":3,"file":"index.css","mappings":";;;AAAA;EACI;AACJ,C","sources":["webpack://competitive-scheduling/./src/editor.scss"],"sourcesContent":[".wp-block-competitive-scheduling-client {\r\n    border: 2px solid rgb( 1, 1, 1 );\r\n}"],"names":[],"sourceRoot":""}
