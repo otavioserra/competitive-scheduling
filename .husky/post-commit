@@ -20,7 +20,8 @@ if [ -f "rsync_exclude.txt" ]; then
   for item in $exclude_list; do
     exclude_args="$exclude_args --exclude '$item'"
   done
-  rsync -av $exclude_args . "$DESTINATION_DIR"
+  # rsync -av $exclude_args . "$DESTINATION_DIR"
+  echo "exist!";
 else
   exclude_list=(
     "node_modules/"
@@ -29,7 +30,8 @@ else
   for item in "${exclude_list[@]}"; do
     exclude_args="$exclude_args --exclude '$item'"
   done
-  rsync -av $exclude_args . "$DESTINATION_DIR"
+  # rsync -av $exclude_args . "$DESTINATION_DIR"
+  echo "not exist!";
 fi
 
 echo "End copy";
