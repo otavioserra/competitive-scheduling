@@ -6,7 +6,11 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "wp-scripts build",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start",
+    "format": "wp-scripts format ./src",
+    "lint:css": "wp-scripts lint-style ./src",
+		"lint:js": "wp-scripts lint-js ./src",
+		"packages-update": "wp-scripts packages-update"
 	},
 	"author": "",
 	"license": "ISC",
@@ -15,6 +19,7 @@
 	},
 	"dependencies": {
 		"@wordpress/block-editor": "^14.11.0",
-		"@wordpress/blocks": "^14.5.0"
+		"@wordpress/blocks": "^14.5.0",
+		"@wordpress/i18n": "^5.16.0"
 	}
 }
