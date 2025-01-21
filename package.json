@@ -7,14 +7,14 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
-		"format": "wp-scripts format ./src",
+		"format": "wp-scripts format ./src && stylelint \"./src/*.scss\" --fix",
 		"lint:css": "wp-scripts lint-style ./src",
 		"lint:js": "wp-scripts lint-js ./src",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"stylelint": {
-		"extends": "@wordpress/stylelint-config/scss-stylistic"
+		"extends": "@wordpress/stylelint-config/scss"
 	},
 	"author": "",
 	"license": "ISC",
@@ -23,7 +23,8 @@
 		"@wordpress/prettier-config": "^4.16.0",
 		"@wordpress/scripts": "^30.9.0",
 		"@wordpress/stylelint-config": "^23.8.0",
-		"eslint-config-prettier": "^10.0.1"
+		"eslint-config-prettier": "^10.0.1",
+		"stylelint": "^16.13.2"
 	},
 	"dependencies": {
 		"@wordpress/block-editor": "^14.11.0",
