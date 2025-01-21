@@ -1,8 +1,8 @@
 import { registerBlockType } from '@wordpress/blocks';
-import Edit from "./edit";
-import Save from "./save";
+import Edit from './edit';
+import Save from './save';
 
-registerBlockType('competitive-scheduling/client', {
-    edit: Edit,
-    save: Save,
-});
+registerBlockType( 'competitive-scheduling/client', {
+	edit: Edit,
+	save: Save,
+} );
