@@ -13,26 +13,26 @@ fi
 unset GIT_INDEX_FILE
 echo "Start copy files to: " . "$DESTINATION_DIR";
 
-if [ -f "rsync_exclude.txt" ]; then
+if [ -f ".husky/post-commit.ignorefiles" ]; then
   exclude_args=""
   while IFS= read -r item; do
     item=$(echo "$item" | tr -d '\r')  # Remove os caracteres CR (\r)
     echo "Item lido: '${item}'"
     exclude_args="${exclude_args} --exclude '${item}'"
     echo "exclude_args lido: ${exclude_args}"
-  done < "rsync_exclude.txt"
+  done < ".husky/post-commit.ignorefiles"
   echo "rsync -av ${exclude_args} ${DESTINATION_DIR}";
 fi
 
 echo "End copy";
 exit 0;
 
-# Usar arquivo de configuracao (rsync_exclude.txt)
-if [ -f "rsync_exclude.txt" ]; then
+# Usar arquivo de configuracao (.husky/post-commit.ignorefiles)
+if [ -f ".husky/post-commit.ignorefiles" ]; then
   exclude_args=""
   while IFS= read -r item; do
     exclude_args="$exclude_args --exclude '$item'"
-  done < "rsync_exclude.txt"
+  done < ".husky/post-commit.ignorefiles"
   # rsync -av $exclude_args . "$DESTINATION_DIR"
   echo "$exclude_args $DESTINATION_DIR";
 else
