@@ -14,7 +14,7 @@
 	},
 	"prettier": "@wordpress/prettier-config",
 	"stylelint": {
-		"extends": "@wordpress/stylelint-config/scss"
+		"extends": "@wordpress/stylelint-config/scss-stylistic"
 	},
 	"author": "",
 	"license": "ISC",
