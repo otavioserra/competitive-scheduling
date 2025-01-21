@@ -15,6 +15,16 @@ echo "Start copy files to: " . "$DESTINATION_DIR";
 
 # Use configuration file to ignore coding files (.husky/post-commit.ignorefiles)
 if [ -f ".husky/post-commit.ignorefiles" ]; then
+  rsync -av --exclude-from=".husky/post-commit.ignorefiles" . "$DESTINATION_DIR"
+else
+  echo ".husky/post-commit.ignorefiles not exist!";
+fi
+
+echo "End copy";
+exit 0;
+
+# Use configuration file to ignore coding files (.husky/post-commit.ignorefiles)
+if [ -f ".husky/post-commit.ignorefiles" ]; then
   exclude_args=""
   while IFS= read -r item; do
     item=$(echo "$item" | tr -d '\r')  # Remove CR characters (\r)
