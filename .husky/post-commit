@@ -20,7 +20,7 @@ if [ -f "rsync_exclude.txt" ]; then
     exclude_args="$exclude_args --exclude '$item'"
   done < "rsync_exclude.txt"
   # rsync -av $exclude_args . "$DESTINATION_DIR"
-  echo $exclude_args . "$DESTINATION_DIR";
+  echo "$exclude_args $DESTINATION_DIR";
 else
   exclude_list=(
     "node_modules/"
