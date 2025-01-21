@@ -18,6 +18,7 @@ if [ -f "rsync_exclude.txt" ]; then
   while IFS= read -r item; do
     echo "Item lido: $item"
     exclude_args="$exclude_args --exclude '$item'"
+    echo "exclude_args lido: $exclude_args"
   done < "rsync_exclude.txt"
   echo "$exclude_args $DESTINATION_DIR";
 fi
