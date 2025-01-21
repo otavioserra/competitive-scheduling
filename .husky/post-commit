@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Define a pasta de destino onde voce deseja copiar os arquivos
+# Define the destination folder where you want to copy the files
 DESTINATION_DIR="/c/Users/otavi/OneDrive/Documentos/Web/wordpress/wp-content/plugins/competitive-scheduling"
 
-# Verifica se o diretorio existe
+# Check if the directory exists
 if [ ! -d "$DESTINATION_DIR" ]; then
-  # Cria o diretorio
+  # Create the directory
   echo "Creating the directory: " . "$DESTINATION_DIR";
   mkdir -p "$DESTINATION_DIR"
 fi
@@ -13,38 +13,17 @@ fi
 unset GIT_INDEX_FILE
 echo "Start copy files to: " . "$DESTINATION_DIR";
 
+# Use configuration file to ignore coding files (.husky/post-commit.ignorefiles)
 if [ -f ".husky/post-commit.ignorefiles" ]; then
   exclude_args=""
   while IFS= read -r item; do
-    item=$(echo "$item" | tr -d '\r')  # Remove os caracteres CR (\r)
-    echo "Item lido: '${item}'"
+    item=$(echo "$item" | tr -d '\r')  # Remove CR characters (\r)
     exclude_args="${exclude_args} --exclude '${item}'"
-    echo "exclude_args lido: ${exclude_args}"
   done < ".husky/post-commit.ignorefiles"
   echo "rsync -av ${exclude_args} ${DESTINATION_DIR}";
-fi
-
-echo "End copy";
-exit 0;
-
-# Usar arquivo de configuracao (.husky/post-commit.ignorefiles)
-if [ -f ".husky/post-commit.ignorefiles" ]; then
-  exclude_args=""
-  while IFS= read -r item; do
-    exclude_args="$exclude_args --exclude '$item'"
-  done < ".husky/post-commit.ignorefiles"
-  # rsync -av $exclude_args . "$DESTINATION_DIR"
-  echo "$exclude_args $DESTINATION_DIR";
+  rsync -av $exclude_args . "$DESTINATION_DIR"
 else
-  exclude_list=(
-    "node_modules/"
-  )
-  exclude_args=""
-  for item in "${exclude_list[@]}"; do
-    exclude_args="$exclude_args --exclude '$item'"
-  done
-  # rsync -av $exclude_args . "$DESTINATION_DIR"
-  echo "not exist!";
+  echo ".husky/post-commit.ignorefiles not exist!";
 fi
 
 echo "End copy";
