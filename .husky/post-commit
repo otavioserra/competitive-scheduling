@@ -16,11 +16,11 @@ echo "Start copy files to: " . "$DESTINATION_DIR";
 if [ -f "rsync_exclude.txt" ]; then
   exclude_args=""
   while IFS= read -r item; do
-    echo "Item lido: $item"
-    exclude_args+=" --exclude '$item'"
-    echo "exclude_args lido: '$exclude_args'"
+    echo "Item lido: '${item}'"
+    exclude_args="${exclude_args} --exclude '${item}'"
+    echo "exclude_args lido: ${exclude_args}"
   done < "rsync_exclude.txt"
-  echo "$exclude_args $DESTINATION_DIR";
+  echo "${exclude_args} ${DESTINATION_DIR}";
 fi
 
 echo "End copy";
