@@ -15,11 +15,10 @@ echo "Start copy files to: " . "$DESTINATION_DIR";
 
 # Usar arquivo de configuração (rsync_exclude.txt)
 if [ -f "rsync_exclude.txt" ]; then
-  exclude_list=$(cat rsync_exclude.txt)
   exclude_args=""
-  for item in $exclude_list; do
+  while IFS= read -r item; do
     exclude_args="$exclude_args --exclude '$item'"
-  done
+  done < "rsync_exclude.txt"
   # rsync -av $exclude_args . "$DESTINATION_DIR"
   echo $exclude_args . "$DESTINATION_DIR";
 else
