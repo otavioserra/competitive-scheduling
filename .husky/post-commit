@@ -16,6 +16,7 @@ echo "Start copy files to: " . "$DESTINATION_DIR";
 if [ -f "rsync_exclude.txt" ]; then
   exclude_args=""
   while IFS= read -r item; do
+    item=$(echo "$item" | tr -d '\r')  # Remove os caracteres CR (\r)
     echo "Item lido: '${item}'"
     exclude_args="${exclude_args} --exclude '${item}'"
     echo "exclude_args lido: ${exclude_args}"
