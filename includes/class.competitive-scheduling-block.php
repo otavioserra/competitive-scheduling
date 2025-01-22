@@ -106,15 +106,28 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
 
         public function register_block() {
             // Register Gutenberg block (using register_block_type)
-            // ...
+            register_block_type( __DIR__ . '/block', array(
+                'editor_script' => 'competitive-scheduling-block-editor-script',
+                'editor_style'  => 'competitive-scheduling-block-editor-style',
+                'style'         => 'competitive-scheduling-block-style',
+                'render_callback' => array( $this, 'render_block' ), 
+                'attributes' => array(
+                    // Set block attributes here
+                ),
+            ) );
         }
 
-        private function schedule( $params = false ){
-            if( $params ) foreach( $params as $var => $val ) $$var = $val;
-            
+        private function schedule( $params = array() ) {
+            // Extract variables from $params
+            if ( $params ) {
+                foreach ( $params as $var => $val ) {
+                    $$var = $val;
+                }
+            }
+        
             // Get user ID
             $user_id = get_current_user_id();
-
+        
             // Check if the mandatory fields were sent: user_id and scheduleDate.
             if( isset( $user_id ) && isset( $scheduleDate ) ){
                 // Get the configuration data.
@@ -126,7 +139,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                 
                 // If the schedule is inactive, return an inactivity message.
                 if( !$activation ){
-                    return Array(
+                    return array(
                         'status' => 'INACTIVE_SCHEDULING',
                         'error-msg' => $msgScheduleSuspended,
                     );
@@ -143,7 +156,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                 if( ! $this->allowed_date( $scheduleDate)){
                     $msgSchedulingDateNotAllowed = ( ! empty( $msg_options['msg-scheduling-date-not-allowed'] ) ? $msg_options['msg-scheduling-date-not-allowed'] : '');
                     
-                    return Array(
+                    return array(
                         'status' => 'SCHEDULE_DATE_NOT_ALLOWED',
                         'error-msg' => $msgSchedulingDateNotAllowed,
                     );
@@ -221,7 +234,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                                 
                                 $msgCouponPriorityInactive = Templates::change_variable( $msgCouponPriorityInactive, '#coupon#', $coupon );
 
-                                return Array(
+                                return array(
                                     'status' => 'COUPON_PRIORITY_INACTIVE',
                                     'error-msg' => $msgCouponPriorityInactive,
                                 );
@@ -246,7 +259,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                                 $msgExpiredPriorityCoupon = Templates::change_variable( $msgExpiredPriorityCoupon, '#valid_from#', $cs_valid_from );
                                 $msgExpiredPriorityCoupon = Templates::change_variable( $msgExpiredPriorityCoupon, '#valid_until#', $cs_valid_until );
 
-                                return Array(
+                                return array(
                                     'status' => 'COUPON_PRIORITY_EXPIRED',
                                     'error-msg' => $msgExpiredPriorityCoupon,
                                 );
@@ -258,7 +271,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                                 
                                 $msgPriorityCouponAlreadyUsed = Templates::change_variable( $msgPriorityCouponAlreadyUsed, '#coupon#', $coupon );
                                 
-                                return Array(
+                                return array(
                                     'status' => 'COUPON_PRIORITY_ALREADY_USED',
                                     'error-msg' => $msgPriorityCouponAlreadyUsed,
                                 );
@@ -280,7 +293,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                     
                     $msgCouponPriorityNotFound = Templates::change_variable( $msgCouponPriorityNotFound, '#coupon#', $coupon );
                     
-                    return Array(
+                    return array(
                         'status' => 'COUPON_PRIORITY_NOT_FOUND',
                         'error-msg' => $msgCouponPriorityNotFound,
                     );
@@ -306,7 +319,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
 
                             $msgSchedulingAlreadyExists = Templates::change_variable( $msgSchedulingAlreadyExists, '#url-schedules-previous#', '.?window=previous-schedules' );
                             
-                            return Array(
+                            return array(
                                 'status' => 'MULTIPLE_SCHEDULING_NOT_ALLOWED',
                                 'error-msg' => $msgSchedulingAlreadyExists,
                             );
@@ -316,8 +329,8 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                     }
                     
                     // Take the maximum number of places.
-                    $days_week = ( ! empty( $options['days-week'] ) ? explode( ',', $options['days-week'] ) : Array() );
-                    $daysWeekMaximumVacanciesArr = ( ! empty( $options['days-week-maximum-vacancies'] ) ? explode( ',', $options['days-week-maximum-vacancies'] ) : Array() );
+                    $days_week = ( ! empty( $options['days-week'] ) ? explode( ',', $options['days-week'] ) : array() );
+                    $daysWeekMaximumVacanciesArr = ( ! empty( $options['days-week-maximum-vacancies'] ) ? explode( ',', $options['days-week-maximum-vacancies'] ) : array() );
                     
                     $count_days = 0;
                     if( $days_week )
@@ -365,7 +378,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                         $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#date#', Formats::data_format_to( 'date-to-text', $scheduleDate ) );
                         $msgSchedulingWithoutVacancies = Templates::change_variable( $msgSchedulingWithoutVacancies, '#vacancies#', $vacancies );
                         
-                        return Array(
+                        return array(
                             'status' => 'SCHEDULE_WITHOUT_VACANCIES',
                             'error-msg' => $msgSchedulingWithoutVacancies,
                         );
@@ -563,7 +576,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
 
                             $msgSchedulingAlreadyExists = Templates::change_variable( $msgSchedulingAlreadyExists, '#url-schedules-previous#', '.?window=previous-schedules' );
                             
-                            return Array(
+                            return array(
                                 'status' => 'MULTIPLE_SCHEDULING_NOT_ALLOWED',
                                 'error-msg' => $msgSchedulingAlreadyExists,
                             );
@@ -635,7 +648,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                     
                     // Format dates.
                     $free_choice_phase = ( ! empty( $options['free-choice-phase'] ) ? (int)$options['free-choice-phase'] : 7 );
-                    $draw_phase = ( ! empty( $options['draw-phase'] ) ? explode( ',', $options['draw-phase'] ) : Array(7,5) );
+                    $draw_phase = ( ! empty( $options['draw-phase'] ) ? explode( ',', $options['draw-phase'] ) : array(7,5) );
                     
                     $draw_date = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $scheduleDate.' - '.$free_choice_phase.' day' ) ) );
                     $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $scheduleDate.' - '.$draw_phase[0].' day' ) ) );
@@ -719,280 +732,308 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                 }
                 
                 // Handle return data.
-                $returnData = Array(
+                $returnData = array(
                     'alert' => $msgAlert,
                 );
                 
                 // Return data.
-                return Array(
+                return array(
                     'status' => 'OK',
                     'data' => $returnData,
                 );
             } else {
-                return Array(
+                return array(
                     'status' => 'MANDATORY_FIELDS_NOT_INFORMED',
                 );
             }
         }
 
-        private function confirmation( $page ){
+        private function confirmation( $params = array() ) {
             global $_MANAGER;
-
-            // Require formats class to manipulate data.
+        
+            // Extract variables from $params
+            if ( $params ) {
+                foreach ( $params as $var => $val ) {
+                    $$var = $val;
+                }
+            }
+        
+            // Require classes
             require_once( CS_PATH . 'includes/class.formats.php' );
-
-            // Require templates class to manipulate page.
             require_once( CS_PATH . 'includes/class.templates.php' );
-
-            // Require interfaces class to manipulate page.
             require_once( CS_PATH . 'includes/class.interfaces.php' );
-
+        
             // Get current user id.
             $user_id = get_current_user_id();
-            
-            // Get the configuration data.
+        
+            // Get configuration data
             $options = get_option( 'competitive_scheduling_options' );
             $msg_options = get_option( 'competitive_scheduling_msg_options' );
-            
-            // Validate the sent schedule_id.
-            $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
-            
-            global $wpdb;
-            $query = $wpdb->prepare(
-                "SELECT date, status 
-                FROM {$wpdb->prefix}schedules 
-                WHERE id_schedules = '%s' 
-                AND user_id = '%s'",
-                array( $id_schedules, $user_id )
-            );
-            $schedules = $wpdb->get_results( $query );
-            if( $schedules ) $schedules = $schedules[0];
+        
+            // Validate the sent schedule_id (now received from $params)
+            if ( isset( $schedule_id ) ) { 
+                $id_schedules = sanitize_text_field( $schedule_id );
+        
+                global $wpdb;
+                $query = $wpdb->prepare(
+                    "SELECT date, status 
+                    FROM {$wpdb->prefix}schedules 
+                    WHERE id_schedules = '%s' 
+                    AND user_id = '%s'",
+                    array( $id_schedules, $user_id )
+                );
+                $schedules = $wpdb->get_results( $query );
+                if ( $schedules ) {
+                    $schedules = $schedules[0];
+                }
 
-            if( ! $schedules ){
-                // Activation of expiredOrNotFound.
-                $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+                if( ! $schedules ){
+                    // Activation of expiredOrNotFound.
+                    $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
 
-                // Activation of confirmation.
-                $_MANAGER['javascript-vars']['confirm'] = true;
+                    // Activation of confirmation.
+                    $_MANAGER['javascript-vars']['confirm'] = true;
+                } else {
+                    // Force date to today for debuging or set today's date
+                    if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+
+                    // Scheduling data.
+                    $date = $schedules->date;
+                    $status = $schedules->status;
+                    
+                    // Get the configuration data.
+                    $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : array(7,5) );
+                    $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
+
+                    // Discovering the current phase of the scheduling process.
+                    $phase = 'undetermined';
+                    if(
+                        strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
+                        strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
+                    ){
+                        $phase = 'confirmation';
+                    } else if(
+                        strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
+                        strtotime( $today ) <= strtotime( $date.' - 1 day' )
+                    ){
+                        $phase = 'residual';
+                    }
+            
+                    // Check whether the current status of the schedule allows confirmation.
+                    if(
+                        $status == 'confirmed' ||
+                        $status == 'qualified' ||
+                        $status == 'email-sent' ||
+                        $status == 'email-not-sent'
+                    ){
+                        // Check if you are in the confirmation phase or residual.
+                        if( $phase == 'confirmation' || $phase == 'residual' ){
+                            
+                        } else {
+                            // Confirmation period dates.
+                            $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
+                            $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
+                        
+                            // Return the expired schedule message.
+                            $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
+                            
+                            $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
+                            $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
+                            
+                            Interfaces::alert( array(
+                                'redirect' => true,
+                                'msg' => $msgScheduleExpired
+                            ));
+
+                            // Redirects the page to previous schedules.
+                            wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                        }
+                    } else {
+                        if( $phase == 'residual' ){
+                            
+                        } else {
+                            Interfaces::alert( array(
+                                'redirect' => true,
+                                'msg' => 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION'
+                            ));
+
+                            // Redirects the page to previous schedules.
+                            wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                        }
+                    }
+                    
+                    // Pick up the change choice.
+                    $choice = ( $_REQUEST['action'] == 'confirm' ? 'confirm' : 'cancel' );
+
+                    // Treat each choice: 'confirm' or 'cancel'.
+                    switch( $choice ){
+                        case 'confirm':
+                            // If it has not been confirmed previously, confirm the schedule.
+                            $return = $this->schedule_confirm( array(
+                                'id_schedules' => $id_schedules,
+                                'user_id' => $user_id,
+                                'date' => $date,
+                            ) );
+                        break;
+                        default:
+                            // Make the cancellation.
+                            $return = $this->schedule_cancel( array(
+                                'id_schedules' => $id_schedules,
+                                'user_id' => $user_id,
+                                'date' => $date,
+                            ) );
+                    }
+                    
+                    if( ! $return['completed'] ){
+                        switch( $return['status'] ){
+                            case 'SCHEDULE_WITHOUT_VACANCIES':
+                                $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
+                        break;
+                        default:
+                            $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
+                            
+                            $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
+                        }
+                        
+                        // Alert the user if a problem occurs with the problem description message.
+                        Interfaces::alert( array(
+                            'redirect' => true,
+                            'msg' => $msgAlert
+                        ));
+                    } else {
+                        // Alert the user of change success.
+                        Interfaces::alert( array(
+                            'redirect' => true,
+                            'msg' => $return['alert']
+                        ));
+                    }
+                    
+                    // Redirects the page to previous schedules.
+                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                }
+
+                // Remove the active cell and changes.
+                $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                
+                // Change the scheduling date and id.
+                $page = Templates::change_variable( $page, '[[confirmation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
+                $page = Templates::change_variable( $page, '[[confirmation-scheduling-id]]', $id_schedules );
+
+                // Finalize interface.
+                Interfaces::components_include( array(
+                    'component' => array(
+                        'modal-loading',
+                        'modal-alert',
+                    )
+                ) );
+                
+                Interfaces::finish( CS_JS_MANAGER_VAR );
+
+                return $page;
             } else {
-                // Force date to today for debuging or set today's date
-                if( CS_FORCE_DATE_TODAY ){ $today = CS_DATE_TODAY_FORCED_VALUE; } else { $today = date('Y-m-d'); }
+                // Handle the case where $schedule_id is not set in $params
+                return array(
+                    'completed' => false,
+                    'status' => 'MISSING_SCHEDULE_ID',
+                    'error-msg' => __( 'Schedule ID is missing.', 'competitive-scheduling' ), 
+                );
+            }
+        }
 
-                // Scheduling data.
-                $date = $schedules->date;
-                $status = $schedules->status;
-                
-                // Get the configuration data.
-                $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
-                $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
-
-                // Discovering the current phase of the scheduling process.
-                $phase = 'undetermined';
-                if(
-                    strtotime( $date ) >= strtotime( $today.' + '.($draw_phase[1]+1).' day' ) &&
-                    strtotime( $date ) < strtotime( $today.' + '.($draw_phase[0]+1).' day' )
-                ){
-                    $phase = 'confirmation';
-                } else if(
-                    strtotime( $today ) >= strtotime( $date.' - '.$residual_phase.' day' ) &&
-                    strtotime( $today ) <= strtotime( $date.' - 1 day' )
-                ){
-                    $phase = 'residual';
+        private function cancellation( $params = array() ) {
+            global $_MANAGER;
+        
+            // Extract variables from $params
+            if ( $params ) {
+                foreach ( $params as $var => $val ) {
+                    $$var = $val;
                 }
-           
-                // Check whether the current status of the schedule allows confirmation.
-                if(
-                    $status == 'confirmed' ||
-                    $status == 'qualified' ||
-                    $status == 'email-sent' ||
-                    $status == 'email-not-sent'
-                ){
-                    // Check if you are in the confirmation phase or residual.
-                    if( $phase == 'confirmation' || $phase == 'residual' ){
-                        
-                    } else {
-                        // Confirmation period dates.
-                        $date_confirmation_1 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[0]).' day' ) ) );
-                        $date_confirmation_2 = Formats::data_format_to( 'date-to-text', date( 'Y-m-d', strtotime( $date.' - '.($draw_phase[1]).' day' ) - 1 ) );
-                    
-                        // Return the expired schedule message.
-                        $msgScheduleExpired = ( ! empty( $msg_options['msg-schedule-expired'] ) ? $msg_options['msg-schedule-expired'] : '' );
-                        
-                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_1#', $date_confirmation_1 );
-                        $msgScheduleExpired = Templates::change_variable( $msgScheduleExpired, '#date_confirmation_2#', $date_confirmation_2 );
-                        
-                        Interfaces::alert( array(
-                            'redirect' => true,
-                            'msg' => $msgScheduleExpired
-                        ));
+            }
+        
+            // Require classes
+            require_once( CS_PATH . 'includes/class.formats.php' );
+            require_once( CS_PATH . 'includes/class.templates.php' );
+            require_once( CS_PATH . 'includes/class.interfaces.php' );
+        
+            // Get current user id.
+            $user_id = get_current_user_id();
+        
+            // Get configuration data.
+            $options = get_option( 'competitive_scheduling_options' );
+            $msg_options = get_option( 'competitive_scheduling_msg_options' );
+        
+            // Validate the sent schedule_id (now received from $params)
+            if ( isset( $schedule_id ) ) {
+                $id_schedules = sanitize_text_field( $schedule_id );
+        
+                global $wpdb;
+                $query = $wpdb->prepare(
+                    "SELECT date 
+                    FROM {$wpdb->prefix}schedules 
+                    WHERE id_schedules = '%s' 
+                    AND user_id = '%s'",
+                    array( $id_schedules, $user_id )
+                );
+                $schedules = $wpdb->get_results( $query );
+                if ( $schedules ) {
+                    $schedules = $schedules[0];
+                }
 
-                        // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
-                    }
+                if( ! $schedules ){
+                    // Activation of expiredOrNotFound.
+                    $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
+
+                    // Cancellation activation.
+                    $_MANAGER['javascript-vars']['cancel'] = true;
                 } else {
-                    if( $phase == 'residual' ){
-                        
-                    } else {
-                        Interfaces::alert( array(
-                            'redirect' => true,
-                            'msg' => 'SCHEDULING_STATUS_NOT_ALLOWED_CONFIRMATION'
-                        ));
-
-                        // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
-                    }
-                }
-                
-                // Pick up the change choice.
-                $choice = ( $_REQUEST['action'] == 'confirm' ? 'confirm' : 'cancel' );
-
-                // Treat each choice: 'confirm' or 'cancel'.
-                switch( $choice ){
-                    case 'confirm':
-                        // If it has not been confirmed previously, confirm the schedule.
-                        $return = $this->schedule_confirm( array(
-                            'id_schedules' => $id_schedules,
-                            'user_id' => $user_id,
-                            'date' => $date,
-                        ) );
-                    break;
-                    default:
-                        // Make the cancellation.
-                        $return = $this->schedule_cancel( array(
-                            'id_schedules' => $id_schedules,
-                            'user_id' => $user_id,
-                            'date' => $date,
-                        ) );
-                }
-                
-                if( ! $return['completed'] ){
-                    switch( $return['status'] ){
-                        case 'SCHEDULE_WITHOUT_VACANCIES':
-                            $msgAlert = ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] );
-                    break;
-                    default:
-                        $msgAlert = ( ! empty( $msg_options['msg-alert'] ) ? $msg_options['msg-alert'] : '' );
-                        
-                        $msgAlert = Templates::change_variable( $msgAlert, '#error-msg#', ( ! empty( $return['error-msg'] ) ? $return['error-msg'] : $return['status'] ) );
-                    }
+                    // Scheduling data.
+                    $date = $schedules->date;
                     
-                    // Alert the user if a problem occurs with the problem description message.
-                    Interfaces::alert( array(
-                        'redirect' => true,
-                        'msg' => $msgAlert
-                    ));
-                } else {
+                    // Make the cancellation.
+                    $return = $this->schedule_cancel( array(
+                        'id_schedules' => $id_schedules,
+                        'user_id' => $user_id,
+                        'date' => $date,
+                    ) );
+                
                     // Alert the user of change success.
                     Interfaces::alert( array(
                         'redirect' => true,
                         'msg' => $return['alert']
                     ));
+                
+                    // Redirects the page to previous schedules.
+                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                 }
+
+                // Remove the active cell and changes.
+                $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
+                $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
                 
-                // Redirects the page to previous schedules.
-                wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
-            }
+                // Change the scheduling date and id.
+                $page = Templates::change_variable( $page, '[[cancellation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
+                $page = Templates::change_variable( $page, '[[cancellation-scheduling-id]]', $id_schedules );
 
-            // Remove the active cell and changes.
-            $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            
-            // Change the scheduling date and id.
-            $page = Templates::change_variable( $page, '[[confirmation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
-            $page = Templates::change_variable( $page, '[[confirmation-scheduling-id]]', $id_schedules );
-
-            // Finalize interface.
-            Interfaces::components_include( array(
-                'component' => Array(
-                    'modal-loading',
-                    'modal-alert',
-                )
-            ) );
-            
-            Interfaces::finish( CS_JS_MANAGER_VAR );
-
-            return $page;
-        }
-
-        private function cancellation( $page ){
-            global $_MANAGER;
-            
-            // Require formats class to manipulate data.
-            require_once( CS_PATH . 'includes/class.formats.php' );
-
-            // Require templates class to manipulate page.
-            require_once( CS_PATH . 'includes/class.templates.php' );
-
-            // Require interfaces class to manipulate page.
-            require_once( CS_PATH . 'includes/class.interfaces.php' );
-
-            // Get current user id.
-            $user_id = get_current_user_id();
-            
-            // Get the configuration data.
-            $options = get_option( 'competitive_scheduling_options' );
-            $msg_options = get_option( 'competitive_scheduling_msg_options' );
-
-            // Validate the sent schedule_id.
-            $id_schedules = ( isset( $_REQUEST['schedule_id'] ) ? sanitize_text_field( $_REQUEST['schedule_id'] ) : '' );
-
-            global $wpdb;
-            $query = $wpdb->prepare(
-                "SELECT date 
-                FROM {$wpdb->prefix}schedules 
-                WHERE id_schedules = '%s' 
-                AND user_id = '%s'",
-                array( $id_schedules, $user_id )
-            );
-            $schedules = $wpdb->get_results( $query );
-            if( $schedules ) $schedules = $schedules[0];
-
-            if( ! $schedules ){
-                // Activation of expiredOrNotFound.
-                $_MANAGER['javascript-vars']['expiredOrNotFound'] = true;
-
-                // Cancellation activation.
-                $_MANAGER['javascript-vars']['cancel'] = true;
-            } else {
-                // Scheduling data.
-                $date = $schedules->date;
-                
-                // Make the cancellation.
-                $return = $this->schedule_cancel( array(
-                    'id_schedules' => $id_schedules,
-                    'user_id' => $user_id,
-                    'date' => $date,
+                // Finalize interface.
+                Interfaces::components_include( array(
+                    'component' => array(
+                        'modal-loading',
+                        'modal-alert',
+                    )
                 ) );
-            
-                // Alert the user of change success.
-                Interfaces::alert( array(
-                    'redirect' => true,
-                    'msg' => $return['alert']
-                ));
-            
-                // Redirects the page to previous schedules.
-                wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                
+                Interfaces::finish( CS_JS_MANAGER_VAR );
+
+                return $page;
+            } else {
+                // Handle the case where $schedule_id is not set in $params
+                return array(
+                    'completed' => false,
+                    'status' => 'MISSING_SCHEDULE_ID',
+                    'error-msg' => __( 'Schedule ID is missing.', 'competitive-scheduling' ), 
+                );
             }
-
-            // Remove the active cell and changes.
-            $cell_name = 'active'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            $cell_name = 'changes'; $cell[$cell_name] = Templates::tag_value( $page, '<!-- '.$cell_name.' < -->','<!-- '.$cell_name.' > -->' ); $page = Templates::tag_in( $page,'<!-- '.$cell_name.' < -->', '<!-- '.$cell_name.' > -->', '<!-- '.$cell_name.' -->' );
-            
-            // Change the scheduling date and id.
-            $page = Templates::change_variable( $page, '[[cancellation-date]]', ( $schedules ? Formats::data_format_to( 'date-to-text', $schedules->date ) : '' ) );
-            $page = Templates::change_variable( $page, '[[cancellation-scheduling-id]]', $id_schedules );
-
-            // Finalize interface.
-            Interfaces::components_include( array(
-                'component' => Array(
-                    'modal-loading',
-                    'modal-alert',
-                )
-            ) );
-            
-            Interfaces::finish( CS_JS_MANAGER_VAR );
-
-            return $page;
         }
 
         private function calendar( $params = false ){
@@ -1012,13 +1053,13 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
             // Get the configuration data.
             $options = get_option( 'competitive_scheduling_options' );
             
-            $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : Array() );
+            $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : array() );
             $maxCompanions = ( ! empty( $options['max-companions'] ) ? $options['max-companions'] : 0 );
             $years = ( isset( $options['calendar-years'] ) ? (int)$options['calendar-years'] : 2 );
-            $days_week_maximum_vacancies = ( isset( $options['days-week-maximum-vacancies'] ) ? explode(',',$options['days-week-maximum-vacancies'] ) : Array() );
-            if( isset( $options['unavailable-dates'] )) $unavailable_dates = ( isset( $options['unavailable-dates-values'] ) ? explode('|',$options['unavailable-dates-values'] ) : Array() );
+            $days_week_maximum_vacancies = ( isset( $options['days-week-maximum-vacancies'] ) ? explode(',',$options['days-week-maximum-vacancies'] ) : array() );
+            if( isset( $options['unavailable-dates'] )) $unavailable_dates = ( isset( $options['unavailable-dates-values'] ) ? explode('|',$options['unavailable-dates-values'] ) : array() );
             $calendar_limit_month_ahead = ( isset( $options['calendar-limit-month-ahead'] ) ? (int)$options['calendar-limit-month-ahead'] : false );
-            $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5) );
+            $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : array(7,5) );
             $residual_phase = ( isset( $options['residual-phase'] ) ? (int)$options['residual-phase'] : 5 );
             $calendar_holidays_start = ( isset( $options['calendar-holidays-start'] ) ? trim( $options['calendar-holidays-start'] ) : '15 December' );
             $calendar_holidays_end = ( isset( $options['calendar-holidays-end'] ) ? trim( $options['calendar-holidays-end'] ) : '20 January' );
@@ -1036,7 +1077,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
             $schedules_dates = $wpdb->get_results( $query );
 
             for( $i=-1; $i<$years+1; $i++ ){
-                $period_holidays[] = Array(
+                $period_holidays[] = array(
                     'start' => strtotime( $calendar_holidays_start." ".( $start_year+$i ) ),
                     'end' => strtotime( $calendar_holidays_end." ".( $start_year+$i+1 ) ),
                 );
@@ -1136,7 +1177,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                 $day += 86400;
             } while ( $day < $last_day );
             
-            $JScalendar['available_dates'] = ( ! empty( $dates ) ? $dates : Array() );
+            $JScalendar['available_dates'] = ( ! empty( $dates ) ? $dates : array() );
             $JScalendar['start_year'] = $start_year;
             $JScalendar['year_end'] = $year_end;
             $JScalendar['max_companions'] = $maxCompanions;
@@ -1155,11 +1196,11 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
             // Get the configuration data.
             $options = get_option( 'competitive_scheduling_options' );
             
-            $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : Array());
+            $days_week = ( isset( $options['days-week'] ) ? explode(',',$options['days-week'] ) : array());
             $years = ( isset( $options['calendar-years'] ) ? (int)$options['calendar-years'] : 2);
-            if( isset( $options['unavailable-dates'] )) $unavailable_dates = ( isset( $options['unavailable-dates-values'] ) ? explode('|',$options['unavailable-dates-values'] ) : Array());
+            if( isset( $options['unavailable-dates'] )) $unavailable_dates = ( isset( $options['unavailable-dates-values'] ) ? explode('|',$options['unavailable-dates-values'] ) : array());
             $calendar_limit_month_ahead = ( isset( $options['calendar-limit-month-ahead'] ) ? (int)$options['calendar-limit-month-ahead'] : false);
-            $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : Array(7,5));
+            $draw_phase = ( isset( $options['draw-phase'] ) ? explode(',',$options['draw-phase'] ) : array(7,5));
             $calendar_holidays_start = ( isset( $options['calendar-holidays-start'] ) ? trim( $options['calendar-holidays-start'] ) : '15 December');
             $calendar_holidays_end = ( isset( $options['calendar-holidays-end'] ) ? trim( $options['calendar-holidays-end'] ) : '20 January');
             
@@ -1176,7 +1217,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
             }
             
             for( $i=-1; $i<$years+1; $i++ ){
-                $period_holidays[] = Array(
+                $period_holidays[] = array(
                     'start' => strtotime( $calendar_holidays_start." ".( $start_year+$i ) ),
                     'end' => strtotime( $calendar_holidays_end." ".( $start_year+$i+1 ) ),
                 );
@@ -1257,7 +1298,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
         }
 
         private function status_text( $status = '' ){
-            $statusSchedulingTexts = Array(
+            $statusSchedulingTexts = array(
                 'status-confirmed' => __( '<span class="ui green label">Confirmed</span>', 'competitive-scheduling' ),
                 'status-finished' => __( '<span class="ui grey label">Finished</span>', 'competitive-scheduling' ),
                 'status-canceled' => __( '<span class="ui red label">Canceled</span>', 'competitive-scheduling' ),
@@ -1274,7 +1315,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
         private function js_texts(){
             global $_MANAGER;
 
-            $jsTexts = Array(
+            $jsTexts = array(
                 'companion-label' => __( 'Companion', 'competitive-scheduling' ),
                 'companion-placeholder' => __( 'Companion\'s full name', 'competitive-scheduling' ),
                 'cancel-confirmation' => __( 'Are you sure you want to delete this schedule?', 'competitive-scheduling' ),
