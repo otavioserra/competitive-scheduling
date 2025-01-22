@@ -40,6 +40,9 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             
             $this->load_textdomain();
 
+            require_once( CS_PATH . 'includes/class.competitive-scheduling-block.php' );
+            $Competitive_Scheduling_Block = new Competitive_Scheduling_Block();
+
             require_once( CS_PATH . 'pages/class.admin-page.php' );
             $this->objects['Competitive_Scheduling_Admin_Page'] = new Competitive_Scheduling_Admin_Page();
 
