@@ -1,4 +1,5 @@
 import { useBlockProps } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 import './style.scss';
 import './editor.scss';
 import InactiveSchedule from './components/InactiveSchedule';
@@ -12,39 +13,44 @@ const Edit = () => {
 
 	return (
 		<div {...blockProps}>
-			<div className="ui container buttonsMargin">
-				<div className="ui hidden divider"></div>
-				<div className="ui hidden divider"></div>
-
+			<div className="container mx-auto p-4">
+				{' '}
+				{/* Tailwind classes for container and padding */}
 				<InactiveSchedule />
 				<ActiveScheduling />
-
-				<div className="active-scheduling buttonsMargin">
-					<a className="ui positive button scheduleBtn" href="foo">
-						<i className="calendar plus icon"></i>
-						Schedule Service
+				<div className="active-scheduling mt-4">
+					{' '}
+					{/* Tailwind class for margin top */}
+					<a
+						className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+						href="foo"
+					>
+						{' '}
+						{/* Tailwind classes for button styling and margin right */}
+						<i className="calendar plus icon"></i>{' '}
+						{/* Fomantic UI icon (to be replaced later) */}
+						{__('Schedule Service', 'competitive-scheduling')}
 					</a>
-					<a className="ui blue button schedulesBtn" href="foo">
-						<i className="calendar alternate icon"></i>
-						Previous Schedules
+					<a
+						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+						href="foo"
+					>
+						{' '}
+						{/* Tailwind classes for button styling */}
+						<i className="calendar alternate icon"></i>{' '}
+						{/* Fomantic UI icon (to be replaced later) */}
+						{__('Previous Schedules', 'competitive-scheduling')}
 					</a>
-					<div className="ui hidden divider"></div>
-
-					<div className="schedule hidden scheduleWindow">
-						{/* Content of the Schedule section */}
+					<div className="schedule hidden scheduleWindow mt-4">
+						{' '}
+						{/* Tailwind class for margin top */}
 						<ScheduleForm />
 					</div>
-
 					<div className="schedules hidden scheduleWindow">
-						{/* Content of the Previous Schedules section */}
 						<PreviousSchedules />
 					</div>
-
 					{/* ... other sections */}
 				</div>
-
-				<div className="ui hidden divider"></div>
-				<div className="ui hidden divider"></div>
 			</div>
 		</div>
 	);
