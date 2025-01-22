@@ -4,19 +4,109 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
     class Competitive_Scheduling_Block {
 
         public function __construct() {
-            // Register REST API Routes
+            // Register REST API routes
             add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 
-            // Register the Gutenberg block
+            // Register Gutenberg block
             add_action( 'init', array( $this, 'register_block' ) );
         }
 
         public function register_rest_routes() {
-            
+            register_rest_route( 'competitive-scheduling/v1', '/schedule', array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => array( $this, 'rest_create_schedule' ),
+                'permission_callback' => array( $this, 'check_user_logged_in' ), 
+            ) );
+
+            register_rest_route( 'competitive-scheduling/v1', '/confirm', array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => array( $this, 'rest_confirm_schedule' ),
+                'permission_callback' => array( $this, 'check_user_logged_in' ), 
+            ) );
+
+            register_rest_route( 'competitive-scheduling/v1', '/cancel', array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => array( $this, 'rest_cancel_schedule' ),
+                'permission_callback' => array( $this, 'check_user_logged_in' ), 
+            ) );
+        }
+
+        public function check_user_logged_in() {
+            if ( ! is_user_logged_in() ) {
+                return new WP_Error( 'rest_forbidden', esc_html__( 'You need to be logged in to access this resource.', 'competitive-scheduling' ), array( 'status' => 401 ) );
+            }
+            return true;
+        }
+
+        public function rest_create_schedule( WP_REST_Request $request ) {
+            // Get data from request
+            $data = $request->get_params();
+
+            // Sanitize data
+            $scheduleDate = sanitize_text_field( $data['date'] );
+            $companions = isset( $data['companions'] ) ? sanitize_text_field( $data['companions'] ) : 0;
+            $coupon = isset( $data['coupon'] ) ? sanitize_text_field( $data['coupon'] ) : NULL;
+            $companionsNames = isset( $data['companionsNames'] ) ? array_map( 'sanitize_text_field', $data['companionsNames'] ) : array();
+
+            // Call schedule method
+            $return = $this->schedule( array(
+                'scheduleDate' => $scheduleDate,
+                'companions' => $companions,
+                'companionsNames' => $companionsNames,
+                'coupon' => $coupon,
+            ) );
+
+            // Return response
+            if ( $return['status'] != 'OK' ) {
+                return new WP_Error( 'create_schedule_error', $return['error-msg'], array( 'status' => 400 ) );
+            } else {
+                return rest_ensure_response( $return['data'] );
+            }
+        }
+
+        public function rest_confirm_schedule( WP_REST_Request $request ) {
+            // Get data from request
+            $data = $request->get_params();
+
+            // Sanitize data
+            $schedule_id = sanitize_text_field( $data['schedule_id'] );
+
+            // Call confirmation method
+            $return = $this->confirmation( array(
+                'schedule_id' => $schedule_id,
+            ) );
+
+            // Return response
+            if ( $return['completed'] ) {
+                return rest_ensure_response( $return );
+            } else {
+                return new WP_Error( 'confirm_schedule_error', $return['error-msg'], array( 'status' => 400 ) );
+            }
+        }
+
+        public function rest_cancel_schedule( WP_REST_Request $request ) {
+            // Get data from request
+            $data = $request->get_params();
+
+            // Sanitize data
+            $schedule_id = sanitize_text_field( $data['schedule_id'] );
+
+            // Call cancellation method
+            $return = $this->cancellation( array(
+                'schedule_id' => $schedule_id,
+            ) );
+
+            // Return response
+            if ( $return['completed'] ) {
+                return rest_ensure_response( $return );
+            } else {
+                return new WP_Error( 'cancel_schedule_error', $return['error-msg'], array( 'status' => 400 ) );
+            }
         }
 
         public function register_block() {
-            
+            // Register Gutenberg block (using register_block_type)
+            // ...
         }
 
         private function schedule( $params = false ){
