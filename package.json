@@ -22,7 +22,7 @@
 			"wp-scripts lint-js ./src",
 			"wp-scripts format ./src"
 		],
-		"*.scss": "npx stylelint \"./src/*.scss\" --fix"
+		"*.scss": "npx stylelint --fix \"./src/*.scss\""
 	},
 	"author": "",
 	"license": "ISC",
