@@ -4,6 +4,7 @@ node_modules/
 src/
 .eslintrc
 .gitignore
+.stylelintrc.js
 block.json
 package-lock.json
 package.json
