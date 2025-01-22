@@ -5,6 +5,8 @@ src/
 .eslintrc
 .gitignore
 .stylelintrc
+tailwind.config.js
+postcss.config.js
 block.json
 package-lock.json
 package.json

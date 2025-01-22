@@ -115,6 +115,13 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                     // Set block attributes here
                 ),
             ) );
+
+            wp_enqueue_style(
+                'competitive-scheduling-tailwind',
+                plugins_url( 'src/tailwind.css', __FILE__ ), // Adapt the path to your CSS file
+                array(), 
+                '1.0.0' 
+            );
         }
 
         private function schedule( $params = array() ) {
