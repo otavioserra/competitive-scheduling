@@ -118,9 +118,9 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
 
             wp_enqueue_style(
                 'competitive-scheduling-tailwind',
-                plugins_url( 'src/tailwind.css', __FILE__ ), // Adapt the path to your CSS file
+                plugins_url( 'src/tailwind.css', CS_PATH . 'competitive-scheduling.php' ), // Adapt the path to your CSS file
                 array(), 
-                '1.0.0' 
+                CS_VERSION 
             );
         }
 
