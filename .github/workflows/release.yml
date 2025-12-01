@@ -1,0 +1,57 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create ZIP
+      run: |
+        zip -r competitive-scheduling.zip . \
+          -x "*.git*" \
+          "node_modules/*" \
+          ".husky/*" \
+          ".vscode/*" \
+          "*.log" \
+          ".eslint*" \
+          ".stylelint*" \
+          ".prettier*" \
+          "postcss.config.js" \
+          "tailwind.config.js" \
+          "package-lock.json" \
+          "package.json" \
+          ".gitignore" \
+          "README.md" \
+          "README-pt-BR.md" \
+          "CHANGELOG.md" \
+          "releases/*" \
+          ".github/*"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./competitive-scheduling.zip
+        asset_name: competitive-scheduling.zip
+        asset_content_type: application/zip

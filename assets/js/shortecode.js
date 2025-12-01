@@ -1,6 +1,7 @@
+/* eslint-disable */
 jQuery(document).ready(function () {
-	var apiVersion = 'v1';
-	var manager = cs_manager;
+	const apiVersion = 'v1';
+	const manager = cs_manager;
 
 	function confirm() {
 		// Show the confirmation screen.
@@ -12,7 +13,7 @@ jQuery(document).ready(function () {
 		});
 
 		// Form confirm.
-		var formSelector = '.confirmationForm';
+		const formSelector = '.confirmationForm';
 
 		jQuery(formSelector).form({});
 
@@ -45,7 +46,7 @@ jQuery(document).ready(function () {
 		jQuery('.button').popup({ addTouchEvents: false });
 
 		// Form confirm.
-		var formSelector = '.cancelForm';
+		const formSelector = '.cancelForm';
 
 		jQuery(formSelector).form({});
 
@@ -68,26 +69,26 @@ jQuery(document).ready(function () {
 
 	function schedulingActive() {
 		// Calendar settings.
-		var calendar = manager.calendar;
+		const calendar = manager.calendar;
 
 		// Texts settings.
-		var texts = manager.texts;
+		const texts = manager.texts;
 
 		// Dates available for scheduling.
-		var availableDates = [];
+		const availableDates = [];
 
-		for (var date in calendar.available_dates) {
-			var dateObj = new Date(date.replace(/-/g, '/')); // Bug in the javascript Date() object. Just change the '-' to '/' and the date works correctly. Otherwise it will be one day longer than the correct day.
+		for (const date in calendar.available_dates) {
+			const dateObj = new Date(date.replace(/-/g, '/')); // Bug in the javascript Date() object. Just change the '-' to '/' and the date works correctly. Otherwise it will be one day longer than the correct day.
 
 			availableDates.push(dateObj);
 		}
 
 		// Form Schedules.
-		var formId = 'formSchedules';
-		var formSelector = '#formSchedules';
+		const formId = 'formSchedules';
+		const formSelector = '#formSchedules';
 
 		jQuery(formSelector).form({
-			onSuccess: function (event, fields) {
+			onSuccess(event, fields) {
 				if (!dataSelected) {
 					jQuery(formSelector).form('add errors', [
 						texts['date-not-selected'],
@@ -115,7 +116,7 @@ jQuery(document).ready(function () {
 		jQuery('.coupon').mask('AAAA-AAAA', { clearIfNotMatch: true });
 
 		// ptBR Calendar.
-		var calendarPtBR = {
+		const calendarPtBR = {
 			days: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
 			months: [
 				'Janeiro',
@@ -153,7 +154,7 @@ jQuery(document).ready(function () {
 
 		// Variables of the 'calendar' component multiple-dates.
 		var dataSelected = false;
-		var calendarDatesOpt = {
+		const calendarDatesOpt = {
 			text: calendarPtBR,
 			type: 'date',
 			inline: true,
@@ -164,20 +165,20 @@ jQuery(document).ready(function () {
 			enabledDates: availableDates,
 			eventDates: availableDates,
 			formatter: {
-				date: function (date, settings) {
+				date(date, settings) {
 					if (!date) return '';
 
-					var day =
+					const day =
 						(date.getDate() < 10 ? '0' : '') + date.getDate();
-					var month =
+					const month =
 						(date.getMonth() + 1 < 10 ? '0' : '') +
 						(date.getMonth() + 1);
-					var year = date.getFullYear();
+					const year = date.getFullYear();
 
 					return day + '/' + month + '/' + year;
 				},
 			},
-			onChange: function (date, dateFormated, mode) {
+			onChange(date, dateFormated, mode) {
 				jQuery(this)
 					.parent()
 					.find('.scheduleDate')
@@ -209,19 +210,19 @@ jQuery(document).ready(function () {
 
 		// Companions dropdown.
 		jQuery('.ui.dropdown').dropdown({
-			onChange: function (value) {
-				var parentObj = jQuery(this).parents('.field');
-				var companionsCont = parentObj.find('.companionsCont');
-				var companionsTemplateCont = parentObj.find(
+			onChange(value) {
+				const parentObj = jQuery(this).parents('.field');
+				const companionsCont = parentObj.find('.companionsCont');
+				const companionsTemplateCont = parentObj.find(
 					'.companionsTemplateCont'
 				);
-				var numComp = companionsCont.find('.field').length;
+				const numComp = companionsCont.find('.field').length;
 
 				value = parseInt(value);
 
 				if (value > numComp) {
-					for (var i = numComp; i < value; i++) {
-						var field = companionsTemplateCont
+					for (let i = numComp; i < value; i++) {
+						const field = companionsTemplateCont
 							.find('.field')
 							.clone();
 						var num = i + 1;
@@ -324,7 +325,7 @@ jQuery(document).ready(function () {
 				if (e.which != 1 && e.which != 0 && e.which != undefined)
 					return false;
 
-				var schedule_id = jQuery(this).attr('data-id');
+				const schedule_id = jQuery(this).attr('data-id');
 
 				if (window.confirm(texts['confirm-confirmation'])) {
 					loading('open');
@@ -344,7 +345,7 @@ jQuery(document).ready(function () {
 				if (e.which != 1 && e.which != 0 && e.which != undefined)
 					return false;
 
-				var schedule_id = jQuery(this).attr('data-id');
+				const schedule_id = jQuery(this).attr('data-id');
 
 				if (window.confirm(texts['cancel-confirmation'])) {
 					loading('open');
@@ -364,9 +365,9 @@ jQuery(document).ready(function () {
 				if (e.which != 1 && e.which != 0 && e.which != undefined)
 					return false;
 
-				var nonce = jQuery('input[name="companions-nonce"]').val();
+				const nonce = jQuery('input[name="companions-nonce"]').val();
 
-				var data = {
+				const data = {
 					schedule_id: jQuery(this).attr('data-id'),
 					nonce,
 				};
@@ -380,7 +381,7 @@ jQuery(document).ready(function () {
 							'/companions/',
 						method: 'GET',
 						xhrFields: { withCredentials: true },
-						beforeSend: function (xhr) {
+						beforeSend(xhr) {
 							xhr.setRequestHeader(
 								'X-WP-Nonce',
 								wpApiSettings.nonce
@@ -424,17 +425,17 @@ jQuery(document).ready(function () {
 		);
 
 		// Rules for reading more schedule entries.
-		var loadObjs = {};
-		var button_id = '.loadMorePre,.loadMoreSchedules,.loadOldest';
+		const loadObjs = {};
+		const button_id = '.loadMorePre,.loadMoreSchedules,.loadOldest';
 
 		jQuery(button_id).on('mouseup tap', function (e) {
 			if (e.which != 1 && e.which != 0 && e.which != undefined)
 				return false;
 
-			var obj = this;
+			const obj = this;
 
 			// Check the type of schedule.
-			var type = '';
+			let type = '';
 			if (jQuery(obj).hasClass('loadMorePre')) {
 				type = 'loadMorePre';
 			}
@@ -456,12 +457,12 @@ jQuery(document).ready(function () {
 			}
 
 			// Load data from server.
-			var option = 'schedules-host';
-			var ajaxOption = 'more-results';
+			const option = 'schedules-host';
+			const ajaxOption = 'more-results';
 
 			loadObjs[type].actualPage++;
 
-			var actualPage = loadObjs[type].actualPage;
+			const actualPage = loadObjs[type].actualPage;
 
 			$.ajax({
 				type: 'POST',
@@ -475,10 +476,10 @@ jQuery(document).ready(function () {
 					actualPage,
 				},
 				dataType: 'json',
-				beforeSend: function () {
+				beforeSend() {
 					loading('open');
 				},
-				success: function (data) {
+				success(data) {
 					switch (data.status) {
 						case 'OK':
 							// Include records in tables corresponding to scheduling types.
@@ -521,7 +522,7 @@ jQuery(document).ready(function () {
 
 					loading('close');
 				},
-				error: function (txt) {
+				error(txt) {
 					switch (txt.status) {
 						case 401:
 							window.open(
@@ -574,7 +575,7 @@ jQuery(document).ready(function () {
 				dimmerSettings: {
 					dimmerName: 'pageLoading', //className, NOT id (!)
 				},
-				onHide: function () {
+				onHide() {
 					loading('close');
 				},
 			})
