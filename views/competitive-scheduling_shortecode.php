@@ -70,7 +70,7 @@
                                 <span class="dateSelectedValue"></span>
                             </div>
                         </div>
-                        <div class="ui calendar"></div>
+                        <div class="ui calendar" data-locale="<?php echo get_locale(); ?>"></div>
                     </div>
                     <div class="field">
                         <label><?php echo esc_html__( 'Companions', 'competitive-scheduling' ); ?></label>
