@@ -22,9 +22,7 @@ jQuery(document).ready(function () {
 			if (e.which != 1 && e.which != 0 && e.which != undefined)
 				return false;
 
-			jQuery(formSelector)
-				.find('input[name="choice"]')
-				.val('confirm');
+			jQuery(formSelector).find('input[name="choice"]').val('confirm');
 			jQuery(formSelector).form('submit');
 		});
 
@@ -155,7 +153,6 @@ jQuery(document).ready(function () {
 		// Variables of the 'calendar' component multiple-dates.
 		var dataSelected = false;
 		const calendarDatesOpt = {
-			text: calendarPtBR,
 			type: 'date',
 			inline: true,
 			initialDate: new Date(),
@@ -179,10 +176,7 @@ jQuery(document).ready(function () {
 				},
 			},
 			onChange(date, dateFormated, mode) {
-				jQuery(this)
-					.parent()
-					.find('.scheduleDate')
-					.val(dateFormated);
+				jQuery(this).parent().find('.scheduleDate').val(dateFormated);
 				jQuery(this).parent().find('.dateSelected').show();
 				jQuery(this)
 					.parent()
@@ -231,9 +225,7 @@ jQuery(document).ready(function () {
 						field
 							.find('label')
 							.html(texts['companion-label'] + ' ' + num);
-						field
-							.find('input')
-							.prop('name', 'companion-' + num);
+						field.find('input').prop('name', 'companion-' + num);
 						field
 							.find('input')
 							.prop(
@@ -274,9 +266,9 @@ jQuery(document).ready(function () {
 								'add rule',
 								'companion' + num,
 								{
-									rules: manager.form[formId]
-										.validationRules['companion' + num]
-										.rules,
+									rules: manager.form[formId].validationRules[
+										'companion' + num
+									].rules,
 								}
 							);
 						}
@@ -414,8 +406,8 @@ jQuery(document).ready(function () {
 						if ('responseJSON' in response) {
 							console.log(
 								response.status +
-								': ' +
-								response.responseJSON.message
+									': ' +
+									response.responseJSON.message
 							);
 						} else {
 							console.log(response);
@@ -449,9 +441,7 @@ jQuery(document).ready(function () {
 			// Load objects.
 			if (!(type in loadObjs)) {
 				loadObjs[type] = {
-					maxPages: parseInt(
-						jQuery(obj).attr('data-num-pages')
-					),
+					maxPages: parseInt(jQuery(obj).attr('data-num-pages')),
 					actualPage: 0,
 				};
 			}
@@ -495,9 +485,9 @@ jQuery(document).ready(function () {
 									);
 									break;
 								case 'loadOldest':
-									jQuery(
-										'.tabelaAgendamentosAntigos'
-									).append(data.records);
+									jQuery('.tabelaAgendamentosAntigos').append(
+										data.records
+									);
 									break;
 							}
 
@@ -527,16 +517,14 @@ jQuery(document).ready(function () {
 						case 401:
 							window.open(
 								manager.root +
-								(txt.responseJSON.redirect
-									? txt.responseJSON.redirect
-									: 'signin/'),
+									(txt.responseJSON.redirect
+										? txt.responseJSON.redirect
+										: 'signin/'),
 								'_self'
 							);
 							break;
 						default:
-							console.log(
-								'ERROR AJAX - ' + option + ' - Data:'
-							);
+							console.log('ERROR AJAX - ' + option + ' - Data:');
 							console.log(txt);
 							loading('close');
 					}
