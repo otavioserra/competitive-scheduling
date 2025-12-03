@@ -4,7 +4,7 @@
  * Plugin Name: Competitive Scheduling
  * Plugin URI: https://www.wordpress.org/competitive-scheduling
  * Description: Competitive Scheduling plugin allows you to schedule events competitively against other users. This is good to places that have more people interested in the same time slots than available slots. In cases that have less slots than people interested, this plugin will help you schedule events fairly based on random draws.
- * Version: 1.2.6
+ * Version: 1.2.7
  * Requires at least: 5.6
  * Author: Otávio Campos de Abreu Serra
  * Author URI: https://www.ageone.com.br/
@@ -73,7 +73,7 @@ if( ! class_exists( 'Competitive_Scheduling' ) ){
             define( 'CS_PATH', plugin_dir_path( __FILE__ ) );
             define( 'CS_URL', plugin_dir_url( __FILE__ ) );
             define( 'CS_URL_FOMANTIC_UI', plugin_dir_url( __FILE__ ) . 'vendor/fomantic-UI@2.9.0/dist/');
-            define( 'CS_VERSION', '1.2.6' );
+            define( 'CS_VERSION', '1.2.7' );
             define( 'CS_EMAIL_ACTIVE', true );
             define( 'CS_DEBUG', false );
             define( 'CS_FORCE_DATE_TODAY', false );
