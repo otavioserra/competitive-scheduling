@@ -853,7 +853,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                             ));
 
                             // Redirects the page to previous schedules.
-                            wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                            $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                         }
                     } else {
                         if( $phase == 'residual' ){
@@ -865,7 +865,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                             ));
 
                             // Redirects the page to previous schedules.
-                            wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                            $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                         }
                     }
                     
@@ -916,7 +916,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                     }
                     
                     // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                    $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                 }
 
                 // Remove the active cell and changes.
@@ -1011,7 +1011,7 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
                     ));
                 
                     // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                    $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                 }
 
                 // Remove the active cell and changes.
@@ -1347,7 +1347,15 @@ if ( ! class_exists( 'Competitive_Scheduling_Block' ) ) {
             
             // If nonce is invalid, redirect to home
             if( isset( $noNonce ) ){
-                wp_redirect( home_url( '/' ) ); exit;
+                $this->redirect( home_url( '/' ) ); exit;
+            }
+        }
+
+        private function redirect( $url ){
+            if (headers_sent($file, $line)) {
+                echo '<script>window.location.href = "' . esc_url( $url ) . '";</script>';
+            } else {
+                wp_redirect( $url );
             }
         }
     }

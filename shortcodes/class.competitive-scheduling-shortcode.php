@@ -36,12 +36,12 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     // The plugin is active
                     
                     // Redirects to the Ultimate Member login page
-                    wp_redirect( home_url( '/login' ) ); exit;
+                    $this->redirect( home_url( '/login' ) ); exit;
                 } else {
                     // The plugin is not active
                 
                     // Redirects to the default WordPress login page
-                    wp_redirect( wp_login_url() ); exit;
+                    $this->redirect( wp_login_url() ); exit;
                 }
 
                 exit;
@@ -373,11 +373,11 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                     ));
 
                     // Redirects the page to previous schedules.
-                    wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                    $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                 }
 
                 // Reread the page.
-                wp_redirect( get_permalink() ); exit;
+                $this->redirect( get_permalink() ); exit;
             }
             
             // Get user ID
@@ -1749,7 +1749,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ));
 
                         // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                        $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                     }
                 } else {
                     if( $phase == 'residual' ){
@@ -1761,7 +1761,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                         ));
 
                         // Redirects the page to previous schedules.
-                        wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                        $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
                     }
                 }
                 
@@ -1812,7 +1812,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 }
                 
                 // Redirects the page to previous schedules.
-                wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
             }
 
             // Remove the active cell and changes.
@@ -1893,7 +1893,7 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
                 ));
             
                 // Redirects the page to previous schedules.
-                wp_redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
+                $this->redirect( get_permalink() . '?window=previous-schedules', 301 ); exit;
             }
 
             // Remove the active cell and changes.
@@ -2597,7 +2597,15 @@ if( ! class_exists( 'Competitive_Scheduling_Shortcode' ) ){
             
             // If nonce is invalid, redirect to home
             if( isset( $noNonce ) ){
-                wp_redirect( home_url( '/' ) ); exit;
+                $this->redirect( home_url( '/' ) ); exit;
+            }
+        }
+
+        private function redirect( $url ){
+            if (headers_sent($file, $line)) {
+                echo '<script>window.location.href = "' . esc_url( $url ) . '";</script>';
+            } else {
+                wp_redirect( $url );
             }
         }
 
